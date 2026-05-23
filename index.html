@@ -610,7 +610,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 <body>
 
 <header class="header">
-  <div class="logo">tuition<span>calc</span></div>
+  <div class="logo">tuition<span>calculator</span></div>
   <div style="display:flex;align-items:center;gap:10px;">
     <select id="currencySelect" onchange="setCurrency(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 12px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
       <option value="CAD" selected>🇨🇦 CAD</option>
@@ -2035,12 +2035,46 @@ async function sendChatMsg(text){
 }
 
 /* ── EMAIL ── */
-function submitEmail(e){
+async function submitEmail(e){
   const email=v('emailIn').value.trim();
   if(!email||!email.includes('@')){ v('emailIn').style.borderColor='var(--danger)'; return; }
   v('emailIn').style.borderColor='';
-  v('emailOk').style.display='block';
-  e.target.disabled=true; e.target.textContent='✓ Sent';
+  e.target.disabled=true;
+  e.target.textContent='Sending...';
+
+  // Build a plain-text summary of results to include in the email
+  let summary='Your results from CalculateTuition.com\n\n';
+  if(calcState){
+    const {A,B,mode}=calcState;
+    summary+=`School: ${A.name} — ${A.prog}\n`;
+    summary+=`Total ${A.years}-year cost: ${fmt(A.totalCost)}\n`;
+    summary+=`Debt at graduation: ${fmt(A.debt)}\n`;
+    summary+=`Monthly loan payment: ${fmt(A.loan.monthly)}/mo\n`;
+    summary+=`Years to pay off: ${fmtY(A.yrs)}\n`;
+    summary+=`Disposable income after grad: ${fmt(A.disposable)}/mo\n`;
+    summary+=`Total interest paid: ${fmt(A.loan.interest)}\n`;
+    if(B&&mode==='compare'){
+      summary+=`\nOption B: ${B.name} — ${B.prog}\n`;
+      summary+=`Total ${B.years}-year cost: ${fmt(B.totalCost)}\n`;
+      summary+=`Debt at graduation: ${fmt(B.debt)}\n`;
+      summary+=`Monthly loan payment: ${fmt(B.loan.monthly)}/mo\n`;
+    }
+  }
+  summary+='\n---\nView the calculator: https://calculatetuition.com\nThis is an estimate for planning purposes only. Not financial advice.';
+
+  try{
+    const res=await fetch('/api/subscribe',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email, summary})
+    });
+    v('emailOk').style.display='block';
+    e.target.textContent='✓ Sent';
+  }catch(err){
+    e.target.disabled=false;
+    e.target.textContent='Try again';
+    v('emailIn').style.borderColor='var(--danger)';
+  }
 }
 
 /* ── CHAT BUBBLE TOGGLE ── */
