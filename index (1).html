@@ -588,7 +588,41 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
 <header class="header">
   <div class="logo">tuition<span>calc</span></div>
-  <div class="hbadge">Canada & US · Free 🍁</div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <select id="currencySelect" onchange="setCurrency(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 12px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
+      <option value="CAD" selected>🇨🇦 CAD</option>
+      <option value="USD">🇺🇸 USD</option>
+      <option value="GBP">🇬🇧 GBP</option>
+      <option value="EUR">🇪🇺 EUR</option>
+      <option value="AUD">🇦🇺 AUD</option>
+      <option value="NZD">🇳🇿 NZD</option>
+      <option value="INR">🇮🇳 INR</option>
+      <option value="JPY">🇯🇵 JPY</option>
+      <option value="CNY">🇨🇳 CNY</option>
+      <option value="BRL">🇧🇷 BRL</option>
+      <option value="MXN">🇲🇽 MXN</option>
+      <option value="KRW">🇰🇷 KRW</option>
+      <option value="SGD">🇸🇬 SGD</option>
+      <option value="HKD">🇭🇰 HKD</option>
+      <option value="SEK">🇸🇪 SEK</option>
+      <option value="NOK">🇳🇴 NOK</option>
+      <option value="DKK">🇩🇰 DKK</option>
+      <option value="CHF">🇨🇭 CHF</option>
+      <option value="ZAR">🇿🇦 ZAR</option>
+      <option value="AED">🇦🇪 AED</option>
+      <option value="SAR">🇸🇦 SAR</option>
+      <option value="NGN">🇳🇬 NGN</option>
+      <option value="GHS">🇬🇭 GHS</option>
+      <option value="KES">🇰🇪 KES</option>
+      <option value="PKR">🇵🇰 PKR</option>
+      <option value="BDT">🇧🇩 BDT</option>
+      <option value="PHP">🇵🇭 PHP</option>
+      <option value="MYR">🇲🇾 MYR</option>
+      <option value="THB">🇹🇭 THB</option>
+      <option value="IDR">🇮🇩 IDR</option>
+    </select>
+    <div class="hbadge">Free · Worldwide 🌍</div>
+  </div>
 </header>
 
 <div class="app">
@@ -1151,11 +1185,43 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 </div>
 
 <script>
-const API="https://api.anthropic.com/v1/messages";
+const API="/api/chat";
 let mode='single', calcState=null;
+let currency='CAD';
+
+// Exchange rates relative to CAD (approximate)
+const RATES={
+  CAD:1, USD:0.74, GBP:0.58, EUR:0.68, AUD:1.13, NZD:1.22,
+  INR:61.5, JPY:109, CNY:5.35, BRL:3.7, MXN:12.8, KRW:1000,
+  SGD:0.99, HKD:5.75, SEK:7.7, NOK:7.8, DKK:5.1, CHF:0.66,
+  ZAR:13.5, AED:2.71, SAR:2.77, NGN:1150, GHS:11.2, KES:96,
+  PKR:205, BDT:81, PHP:41.5, MYR:3.45, THB:26.5, IDR:11500
+};
+
+const SYMBOLS={
+  CAD:'$', USD:'US$', GBP:'£', EUR:'€', AUD:'A$', NZD:'NZ$',
+  INR:'₹', JPY:'¥', CNY:'¥', BRL:'R$', MXN:'MX$', KRW:'₩',
+  SGD:'S$', HKD:'HK$', SEK:'kr', NOK:'kr', DKK:'kr', CHF:'CHF ',
+  ZAR:'R', AED:'AED ', SAR:'SAR ', NGN:'₦', GHS:'GH₵', KES:'KSh',
+  PKR:'₨', BDT:'৳', PHP:'₱', MYR:'RM', THB:'฿', IDR:'Rp'
+};
+
+/* ── CURRENCY ── */
+function setCurrency(val){
+  currency=val;
+  if(calcState && v('results').classList.contains('show')){
+    renderResults(calcState.A, calcState.B, true);
+  }
+}
 
 /* ── UTILS ── */
-const fmt=n=>'$'+Math.round(n).toLocaleString('en-CA');
+const fmt=n=>{
+  const rate=RATES[currency]||1;
+  const symbol=SYMBOLS[currency]||'$';
+  const amount=Math.round(n*rate);
+  // For large currencies like IDR, KRW, don't show decimals
+  return symbol+amount.toLocaleString('en');
+};
 const fmtY=n=>(Math.round(n*10)/10)+' yrs';
 const fmtMo=n=>fmt(n)+'/mo';
 const v=id=>document.getElementById(id);
@@ -1591,7 +1657,7 @@ function calculate(){
   renderResults(A,B);
 }
 
-function renderResults(A,B){
+function renderResults(A,B,silent=false){
   const compare=mode==='compare'&&B;
 
   // ── Banner
@@ -1665,9 +1731,9 @@ function renderResults(A,B){
     let h=compare?`<div style="font-size:10px;font-weight:600;color:${col};margin-bottom:8px;font-family:var(--mono);">${o.name}</div>`:'';
     h+=monthlyRow('Net take-home pay',o.netMo,'var(--text)');
     h+=monthlyRow('Loan payment',o.loan.monthly,'var(--warn)');
-    h+=monthlyRow('Rent (post-grad)',calcState?calcState.rentPost:1800,'var(--muted)');
-    h+=monthlyRow('Living expenses',v('livingPost')?g('livingPost'):1200,'var(--muted)');
-    h+=monthlyRow('Savings goal',v('savingsGoal')?g('savingsGoal'):500,'var(--muted)');
+    h+=monthlyRow('Rent (post-grad)',calcState.rentPost,'var(--muted)');
+    h+=monthlyRow('Living expenses',calcState.livingPost,'var(--muted)');
+    h+=monthlyRow('Savings goal',calcState.savingsGoal,'var(--muted)');
     const disp=o.disposable;
     h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0 0;font-size:13px;font-weight:600;"><span>Left over</span><span style="font-family:var(--mono);color:${disp>=0?'var(--green)':'var(--danger)'};">${fmtMo(disp)}</span></div>`;
     return h;
@@ -1717,13 +1783,14 @@ function renderResults(A,B){
   ins.forEach(i=>{const el=document.createElement('div');el.className=i.t==='risk'?'risk-note':i.t==='warn'?'warn-note':'insight';el.textContent=i.m;ib.appendChild(el);});
 
   v('results').classList.add('show');
-  setTimeout(()=>v('results').scrollIntoView({behavior:'smooth',block:'start'}),100);
-
-  updateChips();
-  const msg=compare
-    ?`I've run your comparison. ${A.name} leaves you with ${fmt(A.debt)} in debt vs ${fmt(B.debt)} for ${B.name}. Want me to explain what that means for your life after graduation?`
-    :`Got your numbers. ${A.name} comes to ${fmt(A.totalCost)} over ${A.years} years with ${fmt(A.debt)} in debt at graduation. Your monthly loan payment would be ${fmtMo(A.loan.monthly)}. What would you like to understand better?`;
-  addAiMsg(msg);
+  if(!silent){
+    setTimeout(()=>v('results').scrollIntoView({behavior:'smooth',block:'start'}),100);
+    updateChips();
+    const msg=compare
+      ?`I've run your comparison. ${A.name} leaves you with ${fmt(A.debt)} in debt vs ${fmt(B.debt)} for ${B.name}. Want me to explain what that means for your life after graduation?`
+      :`Got your numbers. ${A.name} comes to ${fmt(A.totalCost)} over ${A.years} years with ${fmt(A.debt)} in debt at graduation. Your monthly loan payment would be ${fmtMo(A.loan.monthly)}. What would you like to understand better?`;
+    addAiMsg(msg);
+  }
 }
 
 /* ── CHAT ── */
