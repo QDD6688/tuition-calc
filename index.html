@@ -674,6 +674,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       <div class="ai-row">
         <input type="text" id="luSchool" placeholder="e.g. University of Toronto"/>
         <input type="text" id="luProgram" placeholder="e.g. Computer Science"/>
+        <select id="luStudentType" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;min-width:130px;">
+          <option value="domestic">🏠 Domestic</option>
+          <option value="international">✈️ International</option>
+        </select>
         <select id="luTarget" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;min-width:100px;-webkit-appearance:none;appearance:none;cursor:pointer;">
           <option value="A">→ Option A</option>
           <option value="B">→ Option B</option>
@@ -701,6 +705,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
           </div>
           <div class="field"><label>Expected starting salary ($)</label><input type="number" id="salaryA" value="65000" min="0"/></div>
           <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflA" value="3" min="0" max="20" step="0.5"/></div>
+          <div class="toggle-row" style="margin-top:0.5rem;">
+            <label class="toggle">
+              <input type="checkbox" id="intlA" onchange="toggleIntl('A')"/>
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+            <span class="toggle-label">International student</span>
+          </div>
+          <div id="intlFieldA" style="display:none;">
+            <div class="field"><label>International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeA" value="15000" min="0"/></div>
+          </div>
         </div>
         <!-- OPTION B (hidden in single mode) -->
         <div id="colB">
@@ -713,6 +728,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
           </div>
           <div class="field"><label>Expected starting salary ($)</label><input type="number" id="salaryB" value="60000" min="0"/></div>
           <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflB" value="3" min="0" max="20" step="0.5"/></div>
+          <div class="toggle-row" style="margin-top:0.5rem;">
+            <label class="toggle">
+              <input type="checkbox" id="intlB" onchange="toggleIntl('B')"/>
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+            <span class="toggle-label">International student</span>
+          </div>
+          <div id="intlFieldB" style="display:none;">
+            <div class="field"><label>International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeB" value="15000" min="0"/></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1465,12 +1491,15 @@ async function doLookup(){
   const currentYear = new Date().getFullYear();
   const prog = program || 'general undergraduate';
 
-  const prompt=`Look up for ${school}, ${prog}: 1) domestic annual tuition CAD ${currentYear}, 2) monthly student rent in that city, 3) monthly food estimate, 4) monthly transport estimate, 5) median starting salary CAD for this program. Convert USD to CAD at 1.36 if needed. Be brief.
+  const studentType = v('luStudentType').value;
+  const isIntl = studentType === 'international';
 
-Output on final line EXACTLY:
-DATA:name=${school}|tuition=TUITION|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY
-
-Integers only, no $ or commas.`;
+  let prompt;
+  if(isIntl){
+    prompt = 'Look up for '+school+', '+prog+' (INTERNATIONAL student): 1) international annual tuition CAD '+currentYear+', 2) international student fee premium per year (extra cost above domestic tuition), 3) monthly student rent in that city, 4) monthly food estimate, 5) monthly transport estimate, 6) median starting salary CAD for this program. Convert USD to CAD at 1.36 if needed. Be brief.\n\nOutput on final line EXACTLY:\nDATA:name='+school+'|tuition=TUITION|intlfee=INTLFEE|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\n\nIntegers only, no $ or commas.';
+  } else {
+    prompt = 'Look up for '+school+', '+prog+' (domestic student): 1) domestic annual tuition CAD '+currentYear+', 2) monthly student rent in that city, 3) monthly food estimate, 4) monthly transport estimate, 5) median starting salary CAD for this program. Convert USD to CAD at 1.36 if needed. Be brief.\n\nOutput on final line EXACTLY:\nDATA:name='+school+'|tuition=TUITION|intlfee=0|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\n\nIntegers only, no $ or commas.';
+  }
 
   try{
     const res=await fetch(API,{
@@ -1501,7 +1530,7 @@ Integers only, no $ or commas.`;
       return;
     }
 
-    const dm=text.match(/DATA:name=([^|]+)\|tuition=(\d+)\|housing=(\d+)\|food=(\d+)\|transport=(\d+)\|salary=(\d+)/);
+    const dm=text.match(/DATA:name=([^|]+)\|tuition=(\d+)\|intlfee=(\d+)\|housing=(\d+)\|food=(\d+)\|transport=(\d+)\|salary=(\d+)/);
     // Show the explanation (strip the DATA line)
     const display=text.replace(/DATA:.*$/m,'').trim();
     resText.innerHTML=display.replace(/\n/g,'<br>');
@@ -1511,13 +1540,20 @@ Integers only, no $ or commas.`;
       v('name'+tgt).value=dm[1].trim();
       if(program) v('prog'+tgt).value=program;
       v('tuition'+tgt).value=parseInt(dm[2]);
+      // Set international fee if present
+      const intlFee=parseInt(dm[3]);
+      if(intlFee>0){
+        v('intl'+tgt).checked=true;
+        v('intlField'+tgt).style.display='block';
+        v('intlFee'+tgt).value=intlFee;
+      }
       v('housing'+tgt).value='custom';
       v('housingCustomField'+tgt).style.display='block';
-      v('housingCustom'+tgt).value=parseInt(dm[3]);
-      v('food'+tgt).value=parseInt(dm[4]);
-      v('transport'+tgt).value=parseInt(dm[5]);
-      v('salary'+tgt).value=parseInt(dm[6]);
-      resText.innerHTML+='<br><br><span style="color:var(--accent-text);font-size:11px;font-weight:500;">✓ Filled into Option '+tgt+'. Numbers pulled from live sources — still verify tuition with your school\'s registrar.</span>';
+      v('housingCustom'+tgt).value=parseInt(dm[4]);
+      v('food'+tgt).value=parseInt(dm[5]);
+      v('transport'+tgt).value=parseInt(dm[6]);
+      v('salary'+tgt).value=parseInt(dm[7]);
+      resText.innerHTML+='<br><br><span style="color:var(--accent-text);font-size:11px;font-weight:500;">✓ Filled into Option '+tgt+(intlFee>0?' — includes international student fees.':'. Numbers from live sources.')+'</span>';
     } else {
       resText.innerHTML+='<br><br><span style="color:var(--warn);font-size:11px;">⚠ Couldn\'t auto-fill — please enter numbers manually based on the info above.</span>';
     }
@@ -1528,8 +1564,11 @@ Integers only, no $ or commas.`;
 }
 
 /* ── CUSTOM RATE / TERM TOGGLES ── */
+function toggleIntl(x){
+  v('intlField'+x).style.display=v('intl'+x).checked?'block':'none';
+}
+
 function toggleCustomRentPost(){
-  const isCustom=v('rentPostPreset').value==='custom';
   v('rentPostCustomWrap').style.display=isCustom?'block':'none';
 }
 function toggleCustomRate(){
@@ -1607,6 +1646,9 @@ function calculate(){
     const name=v('name'+x).value||'Option '+x;
     const prog=v('prog'+x).value||'';
     const tuitionYr=g('tuition'+x);
+    const isIntl=v('intl'+x)&&v('intl'+x).checked;
+    const intlFee=isIntl?(g('intlFee'+x)||0):0;
+    const effectiveTuitionYr=tuitionYr+intlFee;
     const years=parseInt(v('years'+x).value)||4;
     const salary=g('salary'+x);
     const infl=g('infl'+x)||0;
@@ -1617,13 +1659,13 @@ function calculate(){
     const books=g('books'+x);
     const health=g('health'+x);
 
-    const tuitionTotal=calcTuitionWithInflation(tuitionYr,years,infl);
+    const tuitionTotal=calcTuitionWithInflation(effectiveTuitionYr,years,infl);
     const livingPerYr=(housing+food+transport+extra)*12+books+health;
     const totalCost=tuitionTotal+(livingPerYr*years);
     const incomePerYr=familyInc+personalInc+(osapGrant)+(scholAmt>0&&scholYrs>0?Math.min(years,scholYrs)*scholAmt/years:0);
     const osapLoanTotal=osapLoanYr*years;
     const rawDebt=Math.max(0,totalCost-(incomePerYr*years));
-    const debt=rawDebt+osapLoanTotal; // OSAP loans add to debt
+    const debt=rawDebt+osapLoanTotal;
 
     const loan=calcLoan(debt,rate,term);
     const yrs=payoffYrs(debt,rate,loan.monthly);
@@ -1633,7 +1675,7 @@ function calculate(){
     const pctOfIncome=netMo>0?loan.monthly/netMo*100:0;
     const rentBurden=(rentPost+loan.monthly)/netMo*100;
 
-    return {name,prog,tuitionYr,tuitionTotal,years,salary,infl,housing,food,transport,extra,books,health,livingPerYr,totalCost,debt,osapLoanTotal,loan,yrs,netMo,disposable,extraNeeded,pctOfIncome,rentBurden};
+    return {name,prog,tuitionYr,effectiveTuitionYr,intlFee,isIntl,tuitionTotal,years,salary,infl,housing,food,transport,extra,books,health,livingPerYr,totalCost,debt,osapLoanTotal,loan,yrs,netMo,disposable,extraNeeded,pctOfIncome,rentBurden};
   }
 
   const A=buildOption('A');
@@ -1686,15 +1728,16 @@ function renderResults(A,B,silent=false){
   }
 
   v('metricsGrid').innerHTML=[
+    A.isIntl||( compare&&B.isIntl)?mCard('International fee/yr',A.isIntl?fmt(A.intlFee):'—',compare?(B.isIntl?fmt(B.intlFee):'—'):null):null,
     mCard('Tuition total (with inflation)',fmt(A.tuitionTotal),compare?fmt(B.tuitionTotal):null),
-    mCard('Total cost (4 yrs)',fmt(A.totalCost),compare?fmt(B.totalCost):null),
+    mCard('Total cost ('+A.years+' yrs)',fmt(A.totalCost),compare?fmt(B.totalCost):null),
     mCard('Debt at graduation',fmt(A.debt),compare?fmt(B.debt):null,A.debt>A.salary,compare&&B.debt>B.salary),
     mCard('Monthly loan payment',fmtMo(A.loan.monthly),compare?fmtMo(B.loan.monthly):null,A.pctOfIncome>20,compare&&B.pctOfIncome>20),
     mCard('Years to pay off',fmtY(A.yrs),compare?fmtY(B.yrs):null,A.yrs>10,compare&&B.yrs>10),
     mCard('Net monthly income after grad',fmtMo(A.netMo),compare?fmtMo(B.netMo):null),
     mCard('Disposable income/mo',fmtMo(A.disposable),compare?fmtMo(B.disposable):null,A.disposable<0,compare&&B.disposable<0),
     mCard('Total interest paid',fmt(A.loan.interest),compare?fmt(B.loan.interest):null),
-  ].join('');
+  ].filter(Boolean).join('');
 
   // ── Timeline
   function tlFor(o,cls){
@@ -1825,8 +1868,33 @@ function sendChat(){ const cin=v('cin'),t=cin.value.trim(); if(!t) return; cin.v
 async function sendChatMsg(text){
   addUserMsg(text); addThinking();
   v('csend').disabled=true;
-  const ctx=calcState?`A:${calcState.A.name},debt:${Math.round(calcState.A.debt)},pay:${Math.round(calcState.A.loan.monthly)}/mo,yrs:${Math.round(calcState.A.yrs*10)/10},disp:${Math.round(calcState.A.disposable)}/mo${calcState.B?` B:${calcState.B.name},debt:${Math.round(calcState.B.debt)},pay:${Math.round(calcState.B.loan.monthly)}/mo`:''}`:''
-  const sys=`Friendly Canadian student financial advisor. Be concise, under 80 words. CAD only. No investment advice.${ctx?' Data:'+ctx:''}`;
+
+  // Convert a CAD value to selected currency for display in AI context
+  const fmtAI=n=>{
+    const rate=RATES[currency]||1;
+    const symbol=SYMBOLS[currency]||'$';
+    return symbol+Math.round(n*rate).toLocaleString('en');
+  };
+
+  const currencyName={
+    CAD:'Canadian dollars (CAD)',USD:'US dollars (USD)',GBP:'British pounds (GBP)',
+    EUR:'euros (EUR)',AUD:'Australian dollars (AUD)',NZD:'New Zealand dollars (NZD)',
+    INR:'Indian rupees (INR)',JPY:'Japanese yen (JPY)',CNY:'Chinese yuan (CNY)',
+    BRL:'Brazilian reals (BRL)',MXN:'Mexican pesos (MXN)',KRW:'South Korean won (KRW)',
+    SGD:'Singapore dollars (SGD)',HKD:'Hong Kong dollars (HKD)',SEK:'Swedish krona (SEK)',
+    NOK:'Norwegian krone (NOK)',DKK:'Danish krone (DKK)',CHF:'Swiss francs (CHF)',
+    ZAR:'South African rand (ZAR)',AED:'UAE dirhams (AED)',SAR:'Saudi riyals (SAR)',
+    NGN:'Nigerian naira (NGN)',GHS:'Ghanaian cedi (GHS)',KES:'Kenyan shillings (KES)',
+    PKR:'Pakistani rupees (PKR)',BDT:'Bangladeshi taka (BDT)',PHP:'Philippine pesos (PHP)',
+    MYR:'Malaysian ringgit (MYR)',THB:'Thai baht (THB)',IDR:'Indonesian rupiah (IDR)'
+  }[currency]||currency;
+
+  const ctx=calcState
+    ?`A:${calcState.A.name},debt:${fmtAI(calcState.A.debt)},pay:${fmtAI(calcState.A.loan.monthly)}/mo,yrs:${Math.round(calcState.A.yrs*10)/10},disp:${fmtAI(calcState.A.disposable)}/mo${calcState.B?` B:${calcState.B.name},debt:${fmtAI(calcState.B.debt)},pay:${fmtAI(calcState.B.loan.monthly)}/mo`:''}`
+    :'';
+
+  const sys=`Friendly student financial advisor. Be concise, under 80 words. Always use ${currencyName} for all money amounts. No investment advice.${ctx?' Data:'+ctx:''}`;
+
   try{
     const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5',max_tokens:200,system:sys,messages:[{role:'user',content:text}]})});
     const data=await res.json();
