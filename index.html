@@ -564,6 +564,67 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .faq-a a{color:var(--accent);text-decoration:none;}
 .faq-a a:hover{text-decoration:underline;}
 
+/* ── COOKIE BANNER ── */
+.cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:998;
+  background:var(--text);color:#fff;
+  padding:1rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+  font-size:13px;line-height:1.5;
+  transform:translateY(100%);
+  transition:transform .4s ease;
+}
+.cookie-banner.show{transform:translateY(0);}
+.cookie-banner a{color:var(--accent);text-decoration:none;}
+.cookie-banner-btns{display:flex;gap:8px;flex-shrink:0;}
+.cookie-accept{
+  height:36px;padding:0 18px;
+  background:var(--accent);color:#fff;border:none;border-radius:var(--r);
+  font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;
+  transition:background .15s;white-space:nowrap;
+}
+.cookie-accept:hover{background:var(--accent-hover);}
+.cookie-decline{
+  height:36px;padding:0 14px;
+  background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);
+  border-radius:var(--r);font-family:var(--sans);font-size:13px;cursor:pointer;
+  transition:background .15s;white-space:nowrap;
+}
+.cookie-decline:hover{background:rgba(255,255,255,0.2);}
+
+/* ── TERMS MODAL ── */
+.legal-modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.5);z-index:999;
+  align-items:center;justify-content:center;padding:1.5rem;
+}
+.legal-modal-inner{
+  background:var(--surface);border-radius:var(--rl);
+  padding:2rem;max-width:560px;width:100%;
+  max-height:85vh;overflow-y:auto;position:relative;
+}
+.legal-modal-close{
+  position:absolute;top:1rem;right:1rem;
+  background:none;border:none;cursor:pointer;
+  font-size:20px;color:var(--muted);
+}
+.legal-modal h2{
+  font-family:var(--serif);font-size:20px;
+  margin-bottom:0.5rem;color:var(--text);
+}
+.legal-modal .legal-date{
+  font-size:11px;color:var(--muted);margin-bottom:1.25rem;
+}
+.legal-modal p{
+  font-size:13px;color:var(--text2);
+  line-height:1.8;margin-bottom:0.875rem;
+}
+.legal-modal h3{
+  font-size:13px;font-weight:700;color:var(--text);
+  margin:1.25rem 0 0.5rem;
+}
+
 /* ── FOOTER ── */
 .site-footer{
   background:var(--surface);border-top:1px solid var(--border);
@@ -2164,52 +2225,164 @@ function shareResults(){
 
 function showPrivacy(){
   const m=v('privacyModal');
-  if(m) m.style.display='flex';
+  if(m){ m.style.display='flex'; }
 }
 
-// init — wait for full DOM before touching any elements
+function showTerms(){
+  const m=v('tosModal');
+  if(m){ m.style.display='flex'; }
+}
+
+/* ── COOKIE CONSENT ── */
+function acceptCookies(){
+  localStorage.setItem('ct_cookies','accepted');
+  v('cookieBanner').classList.remove('show');
+  // Load Google Analytics after consent
+  loadGA();
+}
+function declineCookies(){
+  localStorage.setItem('ct_cookies','declined');
+  v('cookieBanner').classList.remove('show');
+}
+function loadGA(){
+  // Replace GA_MEASUREMENT_ID with your actual Google Analytics ID
+  // e.g. 'G-XXXXXXXXXX'
+  const GA_ID='GA_MEASUREMENT_ID';
+  if(GA_ID==='GA_MEASUREMENT_ID') return; // not configured yet
+  const s=document.createElement('script');
+  s.async=true;
+  s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config',GA_ID);
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   setMode('single');
   const yearEl=document.getElementById('footerYear');
   if(yearEl) yearEl.textContent=new Date().getFullYear();
-  const privacyModal=document.getElementById('privacyModal');
-  if(privacyModal){
-    privacyModal.addEventListener('click',function(e){
-      if(e.target===this) this.style.display='none';
-    });
+
+  // Close modals when clicking backdrop
+  ['privacyModal','tosModal'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('click',function(e){ if(e.target===this) this.style.display='none'; });
+  });
+
+  // Cookie consent banner
+  const cookieChoice=localStorage.getItem('ct_cookies');
+  if(!cookieChoice){
+    setTimeout(()=>{
+      const banner=v('cookieBanner');
+      if(banner) banner.classList.add('show');
+    }, 1500);
+  } else if(cookieChoice==='accepted'){
+    loadGA();
   }
 });
 </script>
 
+<!-- GOOGLE ANALYTICS — replace GA_MEASUREMENT_ID with your actual ID from analytics.google.com -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script> -->
+
 <!-- SHARE TOAST -->
 <div class="share-toast" id="shareToast">Copied to clipboard!</div>
+
+<!-- COOKIE CONSENT BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <div>🍪 We use Google Analytics to understand how students use this site. No personal data is sold. <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a></div>
+  <div class="cookie-banner-btns">
+    <button class="cookie-decline" onclick="declineCookies()">Decline</button>
+    <button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-logo">calculate<span>tuition</span></div>
   <div style="text-align:center;line-height:1.8;">
-    Free tool for students worldwide &nbsp;·&nbsp; Not financial advice<br/>
+    Free tool for students worldwide &nbsp;·&nbsp; Not financial advice &nbsp;·&nbsp; For users 13+<br/>
     <a href="#" onclick="showPrivacy();return false;" style="color:var(--accent);text-decoration:none;">Privacy Policy</a>
+    &nbsp;·&nbsp;
+    <a href="#" onclick="showTerms();return false;" style="color:var(--accent);text-decoration:none;">Terms of Service</a>
     &nbsp;·&nbsp;
     <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);text-decoration:none;">Contact</a>
   </div>
   <div>© <span id="footerYear"></span> CalculateTuition</div>
 </footer>
 
-<!-- PRIVACY MODAL -->
-<div id="privacyModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;align-items:center;justify-content:center;padding:1.5rem;">
-  <div style="background:var(--surface);border-radius:var(--rl);padding:2rem;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;position:relative;">
-    <button onclick="v('privacyModal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);">✕</button>
-    <h2 style="font-family:var(--serif);font-size:20px;margin-bottom:1rem;color:var(--text);">Privacy Policy</h2>
+<!-- PRIVACY POLICY MODAL -->
+<div id="privacyModal" class="legal-modal" style="display:none;">
+  <div class="legal-modal-inner">
+    <button class="legal-modal-close" onclick="v('privacyModal').style.display='none'">✕</button>
+    <h2>Privacy Policy</h2>
+    <div class="legal-date">Last updated: May 2025</div>
     <div style="font-size:13px;color:var(--text2);line-height:1.8;">
-      <p style="margin-bottom:0.875rem;"><strong>What we collect:</strong> If you enter your email address, we store it to send you your results summary. We do not collect any other personal information.</p>
-      <p style="margin-bottom:0.875rem;"><strong>What we don't do:</strong> We do not sell your email address. We do not share it with third parties except the email service provider used to send your results. We do not run ads. We do not track you across other websites. We do not use cookies or tracking pixels.</p>
-      <p style="margin-bottom:0.875rem;"><strong>Calculator data:</strong> All numbers you enter stay in your browser. Nothing is sent to our servers except your email if you choose to submit it.</p>
-      <p style="margin-bottom:0.875rem;"><strong>AI chat:</strong> Questions you ask in the chat are sent to Anthropic's API to generate responses. These are subject to Anthropic's privacy policy at anthropic.com/privacy.</p>
-      <p style="margin-bottom:0.875rem;"><strong>Affiliate partnerships:</strong> This site contains affiliate links. We may earn a commission if you sign up for a recommended product. We only recommend products we believe are genuinely useful to students. All affiliate relationships are disclosed at the point of recommendation.</p>
-      <p style="margin-bottom:0.875rem;"><strong>Age requirement:</strong> This tool is intended for users aged 13 and older. We do not knowingly collect information from children under 13.</p>
-      <p style="margin-bottom:0.875rem;"><strong>Unsubscribe:</strong> Every email we send includes an unsubscribe link. You can also email hello@calculatetuition.com to be removed at any time.</p>
+      <p><strong>What we collect:</strong> If you enter your email address, we store it to send you your results summary. We do not collect names, payment info, or login credentials.</p>
+      <p><strong>What we don't do:</strong> We do not sell your email. We do not share it with third parties except the email service used to deliver your results. We do not run display ads. We do not track you across other websites.</p>
+      <p><strong>Analytics:</strong> We use Google Analytics to understand how students use this site (pages visited, time on site, general location). This data is aggregated and anonymous. You can decline analytics via the cookie banner.</p>
+      <p><strong>Calculator data:</strong> All numbers you enter stay in your browser. Nothing is sent to our servers except your email if you choose to submit it.</p>
+      <p><strong>AI chat:</strong> Questions you ask in the chat are sent to Anthropic's API to generate responses, subject to Anthropic's privacy policy at anthropic.com/privacy.</p>
+      <p><strong>Affiliate partnerships:</strong> This site contains affiliate links. We may earn a commission if you sign up for a recommended product. All affiliate relationships are disclosed at the point of recommendation. We only recommend products we believe are genuinely useful to students.</p>
+      <p><strong>Age requirement:</strong> This tool is intended for users aged 13 and older. We do not knowingly collect information from children under 13. If you believe a child under 13 has submitted their email, contact us and we will delete it immediately.</p>
+      <p><strong>Data retention:</strong> Email addresses are retained until you unsubscribe. Every email we send includes an unsubscribe link.</p>
+      <p><strong>Your rights:</strong> You can request deletion of your data at any time by emailing hello@calculatetuition.com. Canadian users have rights under PIPEDA. EU users have rights under GDPR.</p>
       <p><strong>Contact:</strong> <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);">hello@calculatetuition.com</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS OF SERVICE MODAL -->
+<div id="tosModal" class="legal-modal" style="display:none;">
+  <div class="legal-modal-inner">
+    <button class="legal-modal-close" onclick="v('tosModal').style.display='none'">✕</button>
+    <h2>Terms of Service</h2>
+    <div class="legal-date">Last updated: May 2025</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.8;">
+
+      <h3>1. Acceptance of Terms</h3>
+      <p>By using CalculateTuition.com ("the Site"), you agree to these Terms of Service. If you do not agree, please do not use the Site. These terms apply to all visitors and users.</p>
+
+      <h3>2. Description of Service</h3>
+      <p>CalculateTuition provides a free educational calculator to help students estimate university costs, student debt, and post-graduation finances. The Site also provides an AI-powered chat advisor for general financial questions related to education costs.</p>
+
+      <h3>3. Not Financial Advice</h3>
+      <p>All information provided by this Site — including calculator outputs, AI chat responses, and any affiliated content — is for <strong>informational and educational purposes only</strong>. Nothing on this Site constitutes professional financial, legal, or investment advice. You should not make major financial decisions based solely on this Site's outputs. Always consult a qualified financial advisor and verify figures with your school's official financial aid office.</p>
+
+      <h3>4. Accuracy of Information</h3>
+      <p>We make reasonable efforts to provide accurate estimates. However, tuition rates, interest rates, tax rates, salary figures, and other data change frequently and may not reflect current conditions. We do not guarantee the accuracy, completeness, or timeliness of any information on this Site. Actual costs may differ significantly from estimates provided.</p>
+
+      <h3>5. Affiliate Links</h3>
+      <p>This Site contains affiliate links to third-party products and services. We may receive compensation when you click on links or sign up for services. This compensation does not influence our recommendations. We only recommend products we believe are genuinely useful. All affiliate relationships are disclosed at the point of recommendation.</p>
+
+      <h3>6. AI-Generated Content</h3>
+      <p>The AI chat feature uses Anthropic's Claude AI to generate responses. AI responses may contain errors, outdated information, or inaccuracies. Do not rely on AI responses for official financial decisions. The AI is provided as a general educational tool only.</p>
+
+      <h3>7. User Conduct</h3>
+      <p>You agree not to use this Site to: (a) violate any applicable laws; (b) attempt to gain unauthorized access to our systems; (c) submit false or misleading information; (d) interfere with the normal operation of the Site.</p>
+
+      <h3>8. Intellectual Property</h3>
+      <p>All content on this Site including design, code, text, and branding is owned by CalculateTuition unless otherwise noted. You may not copy, reproduce, or redistribute this content without written permission.</p>
+
+      <h3>9. Limitation of Liability</h3>
+      <p>To the maximum extent permitted by law, CalculateTuition shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of this Site, including but not limited to financial losses resulting from reliance on calculator estimates or AI responses.</p>
+
+      <h3>10. Third-Party Links</h3>
+      <p>This Site links to third-party websites and services. We are not responsible for the content, privacy practices, or accuracy of any third-party sites. Visiting third-party links is at your own risk.</p>
+
+      <h3>11. Age Requirement</h3>
+      <p>This Site is intended for users aged 13 and older. By using this Site you confirm you are at least 13 years old.</p>
+
+      <h3>12. Changes to Terms</h3>
+      <p>We may update these Terms at any time. Continued use of the Site after changes constitutes acceptance of the new Terms. The "Last updated" date above reflects when terms were last revised.</p>
+
+      <h3>13. Governing Law</h3>
+      <p>These Terms are governed by the laws of Ontario, Canada, without regard to conflict of law principles.</p>
+
+      <h3>14. Contact</h3>
+      <p>For questions about these Terms, contact us at <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);">hello@calculatetuition.com</a></p>
     </div>
   </div>
 </div>
