@@ -1680,39 +1680,42 @@ function toggleCustomTerm(){
 
 /* ── MAIN CALCULATE ── */
 function calculate(){
-  // ── INPUT VALIDATION
-  const tuitionA=parseFloat(v('tuitionA').value);
-  const salaryA=parseFloat(v('salaryA').value);
-  if(!tuitionA||tuitionA<=0){
-    v('tuitionA').style.borderColor='var(--danger)';
-    v('tuitionA').focus();
-    v('tuitionA').scrollIntoView({behavior:'smooth',block:'center'});
-    setTimeout(()=>v('tuitionA').style.borderColor='',2500);
-    return;
-  }
-  if(!salaryA||salaryA<=0){
-    v('salaryA').style.borderColor='var(--danger)';
-    v('salaryA').focus();
-    v('salaryA').scrollIntoView({behavior:'smooth',block:'center'});
-    setTimeout(()=>v('salaryA').style.borderColor='',2500);
-    return;
-  }
-  if(mode==='compare'){
-    const tuitionB=parseFloat(v('tuitionB').value);
-    const salaryB=parseFloat(v('salaryB').value);
-    if(!tuitionB||tuitionB<=0){
-      v('tuitionB').style.borderColor='var(--danger)';
-      v('tuitionB').focus();
-      v('tuitionB').scrollIntoView({behavior:'smooth',block:'center'});
-      setTimeout(()=>v('tuitionB').style.borderColor='',2500);
+  // ── INPUT VALIDATION — only block if section 1 is not skipped
+  const sec1Skipped=v('sec1Body')&&v('sec1Body').classList.contains('skipped');
+  if(!sec1Skipped){
+    const tuitionA=parseFloat(v('tuitionA').value);
+    const salaryA=parseFloat(v('salaryA').value);
+    if(!tuitionA||tuitionA<=0){
+      v('tuitionA').style.borderColor='var(--danger)';
+      v('tuitionA').scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(()=>v('tuitionA').style.borderColor='',3000);
+      alert('Please enter a tuition amount for your school.');
       return;
     }
-    if(!salaryB||salaryB<=0){
-      v('salaryB').style.borderColor='var(--danger)';
-      v('salaryB').focus();
-      v('salaryB').scrollIntoView({behavior:'smooth',block:'center'});
-      setTimeout(()=>v('salaryB').style.borderColor='',2500);
+    if(!salaryA||salaryA<=0){
+      v('salaryA').style.borderColor='var(--danger)';
+      v('salaryA').scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(()=>v('salaryA').style.borderColor='',3000);
+      alert('Please enter an expected starting salary.');
       return;
+    }
+    if(mode==='compare'){
+      const tuitionB=parseFloat(v('tuitionB').value);
+      const salaryB=parseFloat(v('salaryB').value);
+      if(!tuitionB||tuitionB<=0){
+        v('tuitionB').style.borderColor='var(--danger)';
+        v('tuitionB').scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(()=>v('tuitionB').style.borderColor='',3000);
+        alert('Please enter a tuition amount for Option B.');
+        return;
+      }
+      if(!salaryB||salaryB<=0){
+        v('salaryB').style.borderColor='var(--danger)';
+        v('salaryB').scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(()=>v('salaryB').style.borderColor='',3000);
+        alert('Please enter an expected starting salary for Option B.');
+        return;
+      }
     }
   }
   // ── END VALIDATION
