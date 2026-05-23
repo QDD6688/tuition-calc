@@ -957,19 +957,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">This helps us show whether your take-home pay will actually cover rent, loans, and still leave something left over.</p>
       <div class="g2">
         <div class="field">
-          <label>Rent after grad/mo ($)</label>
+          <label id="lblRentPost">Rent after grad/mo ($)</label>
           <select id="rentPostPreset" onchange="toggleCustomRentPost()">
-            <option value="0">Living at home ($0)</option>
-            <option value="900">With roommates ($900)</option>
-            <option value="1400">1-bedroom outside downtown ($1,400)</option>
-            <option value="1800" selected>1-bedroom city ($1,800)</option>
-            <option value="2200">1-bedroom downtown ($2,200)</option>
-            <option value="2800">1-bedroom Toronto/Vancouver ($2,800)</option>
+            <option value="0" id="rentOpt0">Living at home ($0)</option>
+            <option value="900" id="rentOpt900">With roommates ($900)</option>
+            <option value="1400" id="rentOpt1400">1-bedroom outside downtown ($1,400)</option>
+            <option value="1800" selected id="rentOpt1800">1-bedroom city ($1,800)</option>
+            <option value="2200" id="rentOpt2200">1-bedroom downtown ($2,200)</option>
+            <option value="2800" id="rentOpt2800">1-bedroom Toronto/Vancouver ($2,800)</option>
             <option value="custom">Custom amount...</option>
           </select>
           <div id="rentPostCustomWrap" style="display:none;margin-top:6px;">
             <input type="number" id="rentPostCustom" placeholder="e.g. 1650" min="0" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
-            <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter your expected monthly rent ($)</span>
+            <span id="lblRentPostCustom" style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter your expected monthly rent ($)</span>
           </div>
         </div>
         <div class="field"><label id="lblLiving">Living expenses/mo ($)</label><input type="number" id="livingPost" value="1200" min="0"/></div>
@@ -1266,6 +1266,29 @@ function setCurrency(val){
     const el=document.getElementById(id);
     if(el) el.childNodes[0].textContent=text;
   });
+
+  // Update rent dropdown options
+  const rentOptions = [
+    {id:'rentOpt0', val:0, label:'Living at home'},
+    {id:'rentOpt900', val:900, label:'With roommates'},
+    {id:'rentOpt1400', val:1400, label:'1-bedroom outside downtown'},
+    {id:'rentOpt1800', val:1800, label:'1-bedroom city'},
+    {id:'rentOpt2200', val:2200, label:'1-bedroom downtown'},
+    {id:'rentOpt2800', val:2800, label:'1-bedroom Toronto/Vancouver'},
+  ];
+  rentOptions.forEach(o=>{
+    const el=document.getElementById(o.id);
+    if(!el) return;
+    const converted=Math.round(o.val*rate);
+    const symStr=converted===0?sym+'0':sym+converted.toLocaleString('en');
+    el.textContent=o.label+' ('+symStr+'/mo)';
+  });
+
+  // Update rent label
+  const lblRent=document.getElementById('lblRentPost');
+  if(lblRent) lblRent.textContent='Rent after grad/mo ('+sym+')';
+  const lblRentCustom=document.getElementById('lblRentPostCustom');
+  if(lblRentCustom) lblRentCustom.textContent='Enter your expected monthly rent ('+sym+')';
 
   // Re-render results if showing
   if(calcState && v('results').classList.contains('show')){
