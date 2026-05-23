@@ -1465,26 +1465,12 @@ async function doLookup(){
   const currentYear = new Date().getFullYear();
   const prog = program || 'general undergraduate';
 
-  const prompt=`You are a university research assistant. The user wants accurate, current data for: School="${school}", Program="${prog}".
+  const prompt=`Look up for ${school}, ${prog}: 1) domestic annual tuition CAD ${currentYear}, 2) monthly student rent in that city, 3) monthly food estimate, 4) monthly transport estimate, 5) median starting salary CAD for this program. Convert USD to CAD at 1.36 if needed. Be brief.
 
-Use your web_search tool to look up:
-1. The school's official tuition page or registrar for ${currentYear}-${currentYear+1} domestic tuition for "${prog}" — search: "${school} ${prog} tuition ${currentYear}"
-2. The city's average student rental cost — search: "average student rent ${school} city ${currentYear}"
-3. Median starting salary for "${prog}" graduates from "${school}" — search: "${school} ${prog} graduate salary employment report ${currentYear}"
-
-After searching, provide:
-- Exact or best-estimate domestic annual tuition in CAD (convert from USD at 1.36 if US school). State the source year.
-- Monthly student housing cost in that city (shared apartment estimate)
-- Monthly food and transport estimates for that city
-- MEDIAN starting salary at graduation (not mean, not top earners) — state clearly if it's school-reported or industry median. Convert to CAD if needed.
-- One sentence on job market outlook.
-
-Be honest if a figure is an estimate. State the source for tuition and salary.
-
-Then on a NEW LINE output EXACTLY (no extra text on that line):
+Output on final line EXACTLY:
 DATA:name=${school}|tuition=TUITION|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY
 
-All values are plain integers in CAD. No $ signs. No commas.`;
+Integers only, no $ or commas.`;
 
   try{
     const res=await fetch(API,{
@@ -1492,7 +1478,7 @@ All values are plain integers in CAD. No $ signs. No commas.`;
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-5',
-        max_tokens:1000,
+        max_tokens:400,
         tools:[{"type":"web_search_20250305","name":"web_search"}],
         messages:[{role:'user',content:prompt}]
       })
@@ -1839,22 +1825,10 @@ function sendChat(){ const cin=v('cin'),t=cin.value.trim(); if(!t) return; cin.v
 async function sendChatMsg(text){
   addUserMsg(text); addThinking();
   v('csend').disabled=true;
-  let ctx='';
-  if(calcState){
-    const {A,B,mode,rentPost,livingPost,savingsGoal,province,osapOn}=calcState;
-    ctx=`User's calculator data:
-Mode: ${mode==='compare'?'Comparing two schools':'Single school'}
-Province: ${province}
-Post-grad rent: ${fmt(rentPost)}/mo, living: ${fmt(livingPost)}/mo, savings goal: ${fmt(savingsGoal)}/mo
-Student aid program: ${osapOn?(AID_DATA[v('aidProgram').value]?.name||'Yes'):'None'}
-Option A (${A.name} - ${A.prog}): total cost ${fmt(A.totalCost)}, debt ${fmt(A.debt)}, monthly payment ${fmt(A.loan.monthly)}, years to pay off ${fmtY(A.yrs)}, disposable/mo ${fmt(A.disposable)}, starting salary ${fmt(A.salary)}${B?`
-Option B (${B.name} - ${B.prog}): total cost ${fmt(B.totalCost)}, debt ${fmt(B.debt)}, monthly payment ${fmt(B.loan.monthly)}, years to pay off ${fmtY(B.yrs)}, disposable/mo ${fmt(B.disposable)}, starting salary ${fmt(B.salary)}`:''}`;
-  }
-  const sys=`You are a direct, friendly Canadian student financial advisor in a tuition calculator.
-${ctx?'User context:\n'+ctx:''}
-Rules: Be concise (under 120 words unless complex). Use CAD. Reference user's actual numbers when available. No investment advice. Canadian context (OSAP, provinces, Canadian schools). Like a smart older student who's been through it — honest, not preachy.`;
+  const ctx=calcState?`A:${calcState.A.name},debt:${Math.round(calcState.A.debt)},pay:${Math.round(calcState.A.loan.monthly)}/mo,yrs:${Math.round(calcState.A.yrs*10)/10},disp:${Math.round(calcState.A.disposable)}/mo${calcState.B?` B:${calcState.B.name},debt:${Math.round(calcState.B.debt)},pay:${Math.round(calcState.B.loan.monthly)}/mo`:''}`:''
+  const sys=`Friendly Canadian student financial advisor. Be concise, under 80 words. CAD only. No investment advice.${ctx?' Data:'+ctx:''}`;
   try{
-    const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:350,system:sys,messages:[{role:'user',content:text}]})});
+    const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5',max_tokens:200,system:sys,messages:[{role:'user',content:text}]})});
     const data=await res.json();
     removeThinking();
     addAiMsg(data.content[0].text);
