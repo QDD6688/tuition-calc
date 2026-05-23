@@ -699,11 +699,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
           <div class="col-tag a" id="tagA">Option A</div>
           <div class="field"><label>School name</label><input type="text" id="nameA" value="UofT"/></div>
           <div class="field"><label>Program / major</label><input type="text" id="progA" value="Commerce"/></div>
-          <div class="field"><label>Tuition per year ($)</label><input type="number" id="tuitionA" value="16000" min="0"/></div>
+          <div class="field"><label id="lblTuitionA">Tuition per year ($)</label><input type="number" id="tuitionA" value="16000" min="0"/></div>
           <div class="field"><label>Years of study</label>
             <select id="yearsA"><option value="3">3 years</option><option value="4" selected>4 years</option><option value="5">5 years</option><option value="6">6 years</option></select>
           </div>
-          <div class="field"><label>Expected starting salary ($)</label><input type="number" id="salaryA" value="65000" min="0"/></div>
+          <div class="field"><label id="lblSalaryA">Expected starting salary ($)</label><input type="number" id="salaryA" value="65000" min="0"/></div>
           <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflA" value="3" min="0" max="20" step="0.5"/></div>
           <div class="toggle-row" style="margin-top:0.5rem;">
             <label class="toggle">
@@ -714,7 +714,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <span class="toggle-label">International student</span>
           </div>
           <div id="intlFieldA" style="display:none;">
-            <div class="field"><label>International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeA" value="15000" min="0"/></div>
+            <div class="field"><label id="lblIntlFeeA">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeA" value="15000" min="0"/></div>
           </div>
         </div>
         <!-- OPTION B (hidden in single mode) -->
@@ -722,11 +722,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
           <div class="col-tag b">Option B</div>
           <div class="field"><label>School name</label><input type="text" id="nameB" value="York"/></div>
           <div class="field"><label>Program / major</label><input type="text" id="progB" value="Commerce"/></div>
-          <div class="field"><label>Tuition per year ($)</label><input type="number" id="tuitionB" value="10000" min="0"/></div>
+          <div class="field"><label id="lblTuitionB">Tuition per year ($)</label><input type="number" id="tuitionB" value="10000" min="0"/></div>
           <div class="field"><label>Years of study</label>
             <select id="yearsB"><option value="3">3 years</option><option value="4" selected>4 years</option><option value="5">5 years</option><option value="6">6 years</option></select>
           </div>
-          <div class="field"><label>Expected starting salary ($)</label><input type="number" id="salaryB" value="60000" min="0"/></div>
+          <div class="field"><label id="lblSalaryB">Expected starting salary ($)</label><input type="number" id="salaryB" value="60000" min="0"/></div>
           <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflB" value="3" min="0" max="20" step="0.5"/></div>
           <div class="toggle-row" style="margin-top:0.5rem;">
             <label class="toggle">
@@ -737,7 +737,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <span class="toggle-label">International student</span>
           </div>
           <div id="intlFieldB" style="display:none;">
-            <div class="field"><label>International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeB" value="15000" min="0"/></div>
+            <div class="field"><label id="lblIntlFeeB">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeB" value="15000" min="0"/></div>
           </div>
         </div>
       </div>
@@ -769,14 +769,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       </div>
       <div class="sub-head">Monthly expenses</div>
       <div class="g3">
-        <div class="field"><label>Food/mo ($)</label><input type="number" id="foodA" value="400" min="0"/></div>
-        <div class="field"><label>Transport/mo ($)</label><input type="number" id="transportA" value="150" min="0"/></div>
-        <div class="field"><label>Extra spending/mo ($)</label><input type="number" id="extraA" value="200" min="0"/></div>
+        <div class="field"><label id="lblFoodA">Food/mo ($)</label><input type="number" id="foodA" value="400" min="0"/></div>
+        <div class="field"><label id="lblTransportA">Transport/mo ($)</label><input type="number" id="transportA" value="150" min="0"/></div>
+        <div class="field"><label id="lblExtraA">Extra spending/mo ($)</label><input type="number" id="extraA" value="200" min="0"/></div>
       </div>
       <div class="sub-head">Annual expenses</div>
       <div class="g2">
-        <div class="field"><label>Books & supplies/yr ($)</label><input type="number" id="booksA" value="600" min="0"/></div>
-        <div class="field"><label>Health/dental/yr ($)</label><input type="number" id="healthA" value="300" min="0"/></div>
+        <div class="field"><label id="lblBooksA">Books & supplies/yr ($)</label><input type="number" id="booksA" value="600" min="0"/></div>
+        <div class="field"><label id="lblHealthA">Health/dental/yr ($)</label><input type="number" id="healthA" value="300" min="0"/></div>
       </div>
     </div>
 
@@ -799,14 +799,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       </div>
       <div class="sub-head">Monthly expenses</div>
       <div class="g3">
-        <div class="field"><label>Food/mo ($)</label><input type="number" id="foodB" value="350" min="0"/></div>
-        <div class="field"><label>Transport/mo ($)</label><input type="number" id="transportB" value="120" min="0"/></div>
-        <div class="field"><label>Extra spending/mo ($)</label><input type="number" id="extraB" value="200" min="0"/></div>
+        <div class="field"><label id="lblFoodB">Food/mo ($)</label><input type="number" id="foodB" value="350" min="0"/></div>
+        <div class="field"><label id="lblTransportB">Transport/mo ($)</label><input type="number" id="transportB" value="120" min="0"/></div>
+        <div class="field"><label id="lblExtraB">Extra spending/mo ($)</label><input type="number" id="extraB" value="200" min="0"/></div>
       </div>
       <div class="sub-head">Annual expenses</div>
       <div class="g2">
-        <div class="field"><label>Books & supplies/yr ($)</label><input type="number" id="booksB" value="600" min="0"/></div>
-        <div class="field"><label>Health/dental/yr ($)</label><input type="number" id="healthB" value="300" min="0"/></div>
+        <div class="field"><label id="lblBooksB">Books & supplies/yr ($)</label><input type="number" id="booksB" value="600" min="0"/></div>
+        <div class="field"><label id="lblHealthB">Health/dental/yr ($)</label><input type="number" id="healthB" value="300" min="0"/></div>
       </div>
     </div>
     </div><!-- end sec2Body -->
@@ -819,8 +819,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
     <div class="card">
       <div class="sub-head">While studying (applies to both options)</div>
       <div class="g2">
-        <div class="field"><label>Family support/yr ($)</label><input type="number" id="family" value="6000" min="0"/></div>
-        <div class="field"><label>Personal income/yr ($)</label><input type="number" id="personal" value="12000" min="0"/></div>
+        <div class="field"><label id="lblFamily">Family support/yr ($)</label><input type="number" id="family" value="6000" min="0"/></div>
+        <div class="field"><label id="lblPersonal">Personal income/yr ($)</label><input type="number" id="personal" value="12000" min="0"/></div>
       </div>
       <div class="divider"></div>
 
@@ -901,7 +901,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       </div>
       <div id="scholFields" style="display:none;">
         <div class="g2">
-          <div class="field"><label>Scholarship amount/yr ($)</label><input type="number" id="scholAmount" value="2000" min="0"/></div>
+          <div class="field"><label id="lblSchol">Scholarship amount/yr ($)</label><input type="number" id="scholAmount" value="2000" min="0"/></div>
           <div class="field"><label>Number of years covered</label><input type="number" id="scholYears" value="4" min="1" max="6"/></div>
         </div>
       </div>
@@ -972,7 +972,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter your expected monthly rent ($)</span>
           </div>
         </div>
-        <div class="field"><label>Living expenses/mo ($)</label><input type="number" id="livingPost" value="1200" min="0"/></div>
+        <div class="field"><label id="lblLiving">Living expenses/mo ($)</label><input type="number" id="livingPost" value="1200" min="0"/></div>
       </div>
       <div class="g2" style="margin-top:0.5rem;">
         <div class="field">
@@ -1058,7 +1058,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             </optgroup>
           </select>
         </div>
-        <div class="field"><label>Savings goal/mo ($)</label><input type="number" id="savingsGoal" value="500" min="0"/></div>
+        <div class="field"><label id="lblSavings">Savings goal/mo ($)</label><input type="number" id="savingsGoal" value="500" min="0"/></div>
       </div>
     </div>
     </div><!-- end sec4Body -->
@@ -1235,6 +1235,39 @@ const SYMBOLS={
 /* ── CURRENCY ── */
 function setCurrency(val){
   currency=val;
+  const sym=SYMBOLS[val]||'$';
+  const rate=RATES[val]||1;
+
+  // Update all field labels with the currency symbol
+  const labelMap={
+    lblTuitionA:'Tuition per year ('+sym+')',
+    lblTuitionB:'Tuition per year ('+sym+')',
+    lblSalaryA:'Expected starting salary ('+sym+')',
+    lblSalaryB:'Expected starting salary ('+sym+')',
+    lblIntlFeeA:'International fee premium/yr ('+sym+') ',
+    lblIntlFeeB:'International fee premium/yr ('+sym+') ',
+    lblFoodA:'Food/mo ('+sym+')',
+    lblFoodB:'Food/mo ('+sym+')',
+    lblTransportA:'Transport/mo ('+sym+')',
+    lblTransportB:'Transport/mo ('+sym+')',
+    lblExtraA:'Extra spending/mo ('+sym+')',
+    lblExtraB:'Extra spending/mo ('+sym+')',
+    lblBooksA:'Books & supplies/yr ('+sym+')',
+    lblBooksB:'Books & supplies/yr ('+sym+')',
+    lblHealthA:'Health/dental/yr ('+sym+')',
+    lblHealthB:'Health/dental/yr ('+sym+')',
+    lblFamily:'Family support/yr ('+sym+')',
+    lblPersonal:'Personal income/yr ('+sym+')',
+    lblSchol:'Scholarship amount/yr ('+sym+')',
+    lblLiving:'Living expenses/mo ('+sym+')',
+    lblSavings:'Savings goal/mo ('+sym+')',
+  };
+  Object.entries(labelMap).forEach(([id,text])=>{
+    const el=document.getElementById(id);
+    if(el) el.childNodes[0].textContent=text;
+  });
+
+  // Re-render results if showing
   if(calcState && v('results').classList.contains('show')){
     renderResults(calcState.A, calcState.B, true);
   }
@@ -1533,7 +1566,20 @@ async function doLookup(){
     const dm=text.match(/DATA:name=([^|]+)\|tuition=(\d+)\|intlfee=(\d+)\|housing=(\d+)\|food=(\d+)\|transport=(\d+)\|salary=(\d+)/);
     // Show the explanation (strip the DATA line)
     const display=text.replace(/DATA:.*$/m,'').trim();
-    resText.innerHTML=display.replace(/\n/g,'<br>');
+
+    // Convert any CAD dollar amounts in the AI text to selected currency
+    const rate=RATES[currency]||1;
+    const sym=SYMBOLS[currency]||'$';
+    let displayConverted=display;
+    if(currency!=='CAD'){
+      // Replace patterns like $123,456 CAD or $123,456 or CAD $123,456
+      displayConverted=display.replace(/(?:CAD\s*)?\$\s*([\d,]+(?:\.\d+)?)\s*(?:CAD)?/g,(match,numStr)=>{
+        const num=parseFloat(numStr.replace(/,/g,''));
+        if(isNaN(num)) return match;
+        return sym+Math.round(num*rate).toLocaleString('en');
+      });
+    }
+    resText.innerHTML=displayConverted.replace(/\n/g,'<br>');
 
     const tgt=mode==='single'?'A':(v('luTarget').value);
     if(dm){
@@ -1558,7 +1604,7 @@ async function doLookup(){
       resText.innerHTML+='<br><br><span style="color:var(--warn);font-size:11px;">⚠ Couldn\'t auto-fill — please enter numbers manually based on the info above.</span>';
     }
   }catch(e){
-    resText.innerHTML='<span style="color:var(--danger);">Connection error. Please enter numbers manually.</span>';
+    resText.innerHTML='<span style="color:var(--danger);">Error: '+e.message+'. Please enter numbers manually.</span>';
   }
   btn.disabled=false; btn.textContent='Look it up →';
 }
