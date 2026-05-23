@@ -1638,6 +1638,7 @@ function toggleIntl(x){
 }
 
 function toggleCustomRentPost(){
+  const isCustom=v('rentPostPreset').value==='custom';
   v('rentPostCustomWrap').style.display=isCustom?'block':'none';
 }
 function toggleCustomRate(){
