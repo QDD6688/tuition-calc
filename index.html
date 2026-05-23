@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TuitionCalc — Free Canadian University Cost Calculator</title>
+<meta name="description" content="Calculate your real university cost, student debt, and monthly loan payments after graduation. Free tool for Canadian and US students. Includes OSAP, StudentAid BC, and all provincial programs."/>
+<meta name="keywords" content="tuition calculator, student loan calculator, OSAP calculator, university cost Canada, student debt calculator, university comparison"/>
+<meta name="author" content="TuitionCalc"/>
+<meta name="robots" content="index, follow"/>
+<!-- Open Graph / Social sharing -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="TuitionCalc — See What University Will Really Cost You"/>
+<meta property="og:description" content="Free calculator for Canadian and US students. Enter your school, get your real 4-year cost, debt at graduation, and monthly loan payments. Takes 2 minutes."/>
+<meta property="og:url" content="https://tuitioncalc.ca"/>
+<meta property="og:image" content="https://tuitioncalc.ca/og-image.png"/>
+<meta property="og:site_name" content="TuitionCalc"/>
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="TuitionCalc — Free University Cost Calculator"/>
+<meta name="twitter:description" content="See your real tuition cost, debt at graduation, and monthly loan payments. Free for Canadian and US students."/>
+<meta name="twitter:image" content="https://tuitioncalc.ca/og-image.png"/>
+<!-- Canonical -->
+<link rel="canonical" href="https://tuitioncalc.ca"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,600;1,400&display=swap&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  /* Warm neutral palette — light mode, gender-neutral */
+  --bg:#F7F5F2;
+  --bg2:#EFECE8;
+  --bg3:#E8E4DF;
+  --surface:#FFFFFF;
+  --border:#E0DCD6;
+  --border2:#D0CBC4;
+  --text:#2C2825;
+  --text2:#4A4440;
+  --muted:#8C8480;
+  --muted2:#B0ABA6;
+
+  /* Warm coral accent — approachable, gender-neutral */
+  --accent:#E8633A;
+  --accent-hover:#D4552E;
+  --accent-bg:#FDF2EE;
+  --accent-border:#F5C4B4;
+  --accent-text:#C44A22;
+
+  /* Teal for Option A */
+  --blue:#2A7D8C;
+  --blue-bg:#EBF5F7;
+  --blue-border:#A8D4DB;
+  --blue-text:#1E5F6B;
+
+  /* Sage green for Option B */
+  --green:#3A7D5C;
+  --green-bg:#EBF5EF;
+  --green-border:#A8D4BC;
+  --green-text:#2A5F44;
+
+  /* Status colours */
+  --danger:#C0392B;
+  --danger-bg:#FDF0EE;
+  --danger-border:#F0B4AE;
+  --warn:#B87A1A;
+  --warn-bg:#FDF6E8;
+  --warn-border:#F0D494;
+  --success:#3A7D5C;
+  --success-bg:#EBF5EF;
+  --success-border:#A8D4BC;
+
+  --sans:'DM Sans',system-ui,sans-serif;
+  --serif:'Lora',Georgia,serif;
+  --r:10px;--rl:14px;
+}
+
+html{font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;}
+
+/* ── HEADER ── */
+.header{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+  background:rgba(247,245,242,0.95);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--text);letter-spacing:-0.01em;}
+.logo span{color:var(--accent);}
+.hbadge{
+  font-size:11px;color:var(--accent-text);font-weight:500;
+  background:var(--accent-bg);border:1px solid var(--accent-border);
+  padding:4px 12px;border-radius:99px;display:flex;align-items:center;gap:6px;
+}
+.hbadge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 2.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+/* ── LAYOUT ── */
+.app{display:block;min-height:calc(100vh - 56px);}
+.lp{padding:2rem 2rem 3rem;overflow-y:visible;max-width:860px;margin:0 auto;}
+
+/* ── CHAT BUBBLE ── */
+.chat-bubble-btn{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#E8633A 0%,#D4452A 100%);
+  color:#fff;border:none;
+  box-shadow:0 4px 16px rgba(232,99,58,0.45),0 1px 4px rgba(0,0,0,0.15);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+  padding:0;
+}
+.chat-bubble-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 6px 24px rgba(232,99,58,0.55),0 2px 6px rgba(0,0,0,0.15);
+}
+.chat-bubble-btn:active{transform:scale(0.96);}
+.chat-bubble-btn .bubble-open{display:flex;align-items:center;justify-content:center;}
+.chat-bubble-btn .bubble-close{display:none;align-items:center;justify-content:center;}
+.chat-bubble-btn.open .bubble-open{display:none;}
+.chat-bubble-btn.open .bubble-close{display:flex;}
+
+/* Unread badge */
+.chat-unread{
+  position:absolute;top:0px;right:0px;
+  width:18px;height:18px;border-radius:50%;
+  background:#fff;color:var(--accent);
+  font-size:10px;font-weight:700;
+  display:none;align-items:center;justify-content:center;
+  border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(0,0,0,0.2);
+}
+.chat-unread.show{display:flex;}
+
+/* Chat window */
+.rp{
+  position:fixed;bottom:96px;right:28px;z-index:199;
+  width:360px;height:520px;
+  display:flex;flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.15);
+  overflow:hidden;
+  /* hidden state */
+  opacity:0;pointer-events:none;
+  transform:translateY(16px) scale(0.96);
+  transform-origin:bottom right;
+  transition:opacity .25s ease,transform .25s ease;
+}
+.rp.open{
+  opacity:1;pointer-events:all;
+  transform:translateY(0) scale(1);
+}
+
+/* ── MODE TOGGLE ── */
+.mode-toggle{display:flex;gap:4px;margin-bottom:1.75rem;background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:4px;}
+.mode-btn{flex:1;height:36px;border:none;border-radius:99px;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--muted);}
+.mode-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,0.1);font-weight:600;}
+
+/* ── HERO ── */
+.hero{margin-bottom:1.75rem;}
+.eyebrow{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;letter-spacing:0.01em;}
+.hero h1{font-family:var(--serif);font-size:clamp(22px,3vw,32px);font-weight:600;line-height:1.2;color:var(--text);margin-bottom:8px;}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero p{font-size:14px;color:var(--muted);line-height:1.65;}
+
+/* ── SECTION ── */
+.sec{margin-bottom:1.5rem;}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.sec-num{
+  font-size:11px;font-weight:700;color:var(--surface);
+  background:var(--text2);
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.sec-head h2{font-size:13px;font-weight:600;color:var(--text2);flex:1;}
+.skip-btn{
+  font-size:11px;font-weight:500;color:var(--muted);
+  background:none;border:1px solid var(--border2);
+  border-radius:99px;padding:3px 12px;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;
+  transition:color .15s,border-color .15s,background .15s;
+}
+.skip-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-bg);}
+.skip-btn.skipped{color:var(--accent-text);border-color:var(--accent-border);background:var(--accent-bg);}
+.sec-body{transition:opacity .2s;}
+.sec-body.skipped{opacity:0.35;pointer-events:none;user-select:none;}
+
+/* ── AI LOOKUP ── */
+.ai-box{
+  background:var(--accent-bg);border:1px solid var(--accent-border);
+  border-radius:var(--rl);padding:1.25rem;margin-bottom:0.75rem;
+}
+.ai-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.ai-row input{
+  flex:1;min-width:120px;height:40px;
+  background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);
+  padding:0 14px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;
+  transition:border-color 0.15s,box-shadow 0.15s;
+}
+.ai-row input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg);}
+.ai-row input::placeholder{color:var(--muted2);}
+.ai-btn{
+  height:40px;padding:0 18px;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:var(--r);
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  cursor:pointer;white-space:nowrap;transition:background 0.15s;flex-shrink:0;
+}
+.ai-btn:hover{background:var(--accent-hover);}
+.ai-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.ai-res{
+  background:var(--surface);border:1px solid var(--accent-border);
+  border-radius:var(--r);padding:1rem;font-size:13px;color:var(--text2);
+  line-height:1.7;display:none;margin-top:4px;
+}
+.ai-res.show{display:block;}
+.ai-tag{color:var(--accent);font-size:11px;font-weight:600;margin-bottom:6px;}
+.dots{display:flex;gap:5px;align-items:center;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite;}
+.dot:nth-child(2){animation-delay:.2s;}
+.dot:nth-child(3){animation-delay:.4s;}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-6px);}}
+
+/* ── CARD ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:1.25rem;margin-bottom:0.75rem;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.col-tag{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;
+  margin-bottom:0.875rem;padding-bottom:8px;border-bottom:2px solid;display:inline-block;width:100%;
+}
+.col-tag.a{color:var(--blue-text);border-color:var(--blue-border);}
+.col-tag.b{color:var(--green-text);border-color:var(--green-border);}
+
+.field{margin-bottom:0.75rem;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;}
+.field input,.field select{
+  width:100%;height:40px;
+  background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);
+  padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);
+  outline:none;transition:border-color 0.15s,box-shadow 0.15s;
+  -webkit-appearance:none;appearance:none;
+}
+.field input:focus,.field select:focus{
+  border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg);
+}
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238C8480' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;
+  cursor:pointer;
+}
+.field select option{background:var(--surface);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.divider{border:none;border-top:1px solid var(--border);margin:1rem 0;}
+
+/* ── TOGGLES ── */
+.toggle-row{display:flex;align-items:center;gap:12px;margin-bottom:0.75rem;padding:10px 12px;background:var(--bg);border-radius:var(--r);border:1px solid var(--border);}
+.toggle-label{font-size:13px;color:var(--text2);font-weight:500;line-height:1.4;}
+.toggle{position:relative;width:38px;height:22px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;position:absolute;}
+.toggle-track{position:absolute;inset:0;background:var(--border2);border-radius:99px;cursor:pointer;transition:background 0.2s;}
+.toggle input:checked+.toggle-track{background:var(--accent);}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:transform 0.2s;}
+.toggle input:checked~.toggle-thumb{transform:translateX(16px);}
+
+/* ── SUBSECTION ── */
+.sub-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin:1rem 0 0.6rem;}
+
+/* ── CALC BUTTON ── */
+.calc-btn{
+  width:100%;height:50px;margin-top:1rem;
+  background:var(--accent);color:#fff;border:none;border-radius:var(--r);
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  cursor:pointer;transition:background 0.15s,transform 0.1s;
+  letter-spacing:0.01em;
+}
+.calc-btn:hover{background:var(--accent-hover);}
+.calc-btn:active{transform:scale(0.99);}
+
+/* ── EDIT INPUTS BUTTON ── */
+.edit-inputs-btn{
+  font-size:12px;font-weight:500;color:var(--muted);
+  background:none;border:1px solid var(--border2);
+  border-radius:99px;padding:5px 14px;cursor:pointer;
+  font-family:var(--sans);transition:color .15s,border-color .15s,background .15s;
+}
+.edit-inputs-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-bg);}
+
+/* ── RESULTS ── */
+.results{display:none;}
+.results.show{display:block;}
+.rhead{
+  font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+  color:var(--muted);margin:1.75rem 0 1rem;
+  display:flex;align-items:center;gap:10px;
+}
+.rhead::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── BANNER ── */
+.banner{
+  border-radius:var(--rl);padding:1.25rem 1.5rem;margin-bottom:0.75rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.banner.green{background:var(--green-bg);border:1px solid var(--green-border);}
+.banner.blue{background:var(--blue-bg);border:1px solid var(--blue-border);}
+.banner-num{font-family:var(--serif);font-size:24px;font-weight:600;}
+.banner.green .banner-num{color:var(--green-text);}
+.banner.blue .banner-num{color:var(--blue-text);}
+.banner-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em;}
+.banner-sub{font-size:13px;color:var(--text2);line-height:1.6;max-width:280px;}
+
+/* ── BARS ── */
+.bar-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:1.25rem;margin-bottom:0.75rem;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.bar-row:last-child{margin-bottom:0;}
+.bar-school{font-size:12px;font-weight:600;color:var(--text2);width:60px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bar-track{flex:1;height:10px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;transition:width .7s cubic-bezier(.4,0,.2,1);}
+.bar-fill.a{background:var(--blue);}
+.bar-fill.b{background:var(--green);}
+.bar-fill.single{background:var(--accent);}
+.bar-val{font-size:12px;font-weight:500;color:var(--muted);width:76px;text-align:right;flex-shrink:0;}
+
+/* ── METRICS ── */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0.75rem;}
+.metric{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:0.875rem 1rem;
+  box-shadow:0 1px 3px rgba(0,0,0,0.03);
+}
+.metric-lbl{font-size:11px;font-weight:500;color:var(--muted);margin-bottom:6px;line-height:1.4;}
+.mvals{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;}
+.mv{font-size:15px;font-weight:600;}
+.mv.a{color:var(--blue-text);}
+.mv.b{color:var(--green-text);}
+.mv.s{color:var(--accent-text);}
+.mv.danger{color:var(--danger)!important;}
+.mv-sep{color:var(--border2);font-size:12px;}
+
+/* ── TIMELINE ── */
+.timeline{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:1.25rem;margin-bottom:0.75rem;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.tl-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:1rem;}
+.tl-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.tl-row:last-child{margin-bottom:0;}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.tl-dot.study{background:var(--blue);}
+.tl-dot.repay{background:var(--warn);}
+.tl-dot.free{background:var(--green);}
+.tl-line{font-size:13px;font-weight:500;color:var(--text);line-height:1.5;}
+.tl-sub{font-size:12px;color:var(--muted);margin-top:1px;}
+
+/* ── FLAGS ── */
+.flags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0.75rem;}
+.flag{font-size:11px;font-weight:500;padding:4px 12px;border-radius:99px;border:1px solid;}
+.flag.ok{color:var(--success);background:var(--success-bg);border-color:var(--success-border);}
+.flag.bad{color:var(--danger);background:var(--danger-bg);border-color:var(--danger-border);}
+.flag.warn{color:var(--warn);background:var(--warn-bg);border-color:var(--warn-border);}
+
+.insight{border-left:3px solid var(--accent);background:var(--accent-bg);padding:0.875rem 1rem;border-radius:0 var(--r) var(--r) 0;margin-bottom:0.6rem;font-size:13px;color:var(--text2);line-height:1.65;}
+.risk-note{border-left:3px solid var(--danger);background:var(--danger-bg);padding:0.875rem 1rem;border-radius:0 var(--r) var(--r) 0;margin-bottom:0.6rem;font-size:13px;color:var(--danger);line-height:1.65;}
+.warn-note{border-left:3px solid var(--warn);background:var(--warn-bg);padding:0.875rem 1rem;border-radius:0 var(--r) var(--r) 0;margin-bottom:0.6rem;font-size:13px;color:var(--warn);line-height:1.65;}
+
+/* ── EMAIL ── */
+.email-card{
+  background:var(--text);border-radius:var(--rl);
+  padding:1.5rem;margin-top:1.5rem;
+}
+.email-card h3{font-family:var(--serif);font-size:17px;font-weight:600;color:#fff;margin-bottom:6px;}
+.email-card p{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:1rem;}
+.email-row{display:flex;gap:8px;}
+.email-row input{
+  flex:1;height:42px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+  border-radius:var(--r);padding:0 14px;font-size:13px;font-family:var(--sans);
+  color:#fff;outline:none;transition:border-color 0.15s;
+}
+.email-row input:focus{border-color:rgba(255,255,255,0.5);}
+.email-row input::placeholder{color:rgba(255,255,255,0.35);}
+.email-row button{
+  height:42px;padding:0 18px;background:var(--accent);color:#fff;
+  border:none;border-radius:var(--r);font-family:var(--sans);font-size:13px;font-weight:600;
+  cursor:pointer;white-space:nowrap;transition:background 0.15s;
+}
+.email-row button:hover{background:var(--accent-hover);}
+.email-ok{font-size:12px;color:#7fdc9e;margin-top:8px;display:none;}
+
+/* ── CHAT PANEL ── */
+.chat-hd{
+  padding:1rem 1.25rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;flex-shrink:0;
+  background:var(--surface);
+}
+.chat-icon{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--accent-bg);border:1px solid var(--accent-border);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+}
+.chat-title{font-size:14px;font-weight:600;color:var(--text);}
+.chat-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.chat-msgs{
+  flex:1;overflow-y:auto;padding:1rem;
+  display:flex;flex-direction:column;gap:10px;
+  background:var(--bg);
+}
+.chat-msgs::-webkit-scrollbar{width:4px;}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+.msg{max-width:90%;line-height:1.65;font-size:13px;border-radius:var(--rl);padding:0.75rem 1rem;animation:fu .2s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+.msg.ai{
+  background:var(--surface);border:1px solid var(--border);color:var(--text);
+  align-self:flex-start;border-bottom-left-radius:4px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.05);
+}
+.msg.user{
+  background:var(--accent);color:#fff;
+  align-self:flex-end;border-bottom-right-radius:4px;font-weight:500;
+}
+.msg-think{
+  background:var(--surface);border:1px solid var(--border);
+  align-self:flex-start;padding:0.75rem 1rem;border-radius:var(--rl);
+  border-bottom-left-radius:4px;display:flex;gap:5px;align-items:center;
+  box-shadow:0 1px 3px rgba(0,0,0,0.05);
+}
+.chips{padding:0 1rem 0.75rem;display:flex;flex-wrap:wrap;gap:6px;background:var(--bg);}
+.chip{
+  font-size:11px;font-weight:500;padding:5px 12px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:99px;color:var(--text2);cursor:pointer;
+  transition:border-color .15s,color .15s,background .15s;
+}
+.chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
+.chat-in{padding:1rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--surface);}
+.chat-in-row{display:flex;gap:8px;}
+.cin{
+  flex:1;height:42px;background:var(--bg);border:1px solid var(--border2);
+  border-radius:var(--r);padding:0 14px;font-size:13px;font-family:var(--sans);
+  color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.cin:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg);}
+.cin::placeholder{color:var(--muted2);}
+.csend{
+  width:42px;height:42px;flex-shrink:0;
+  background:var(--accent);color:#fff;border:none;border-radius:var(--r);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:18px;transition:background .15s;
+}
+.csend:hover{background:var(--accent-hover);}
+.csend:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* ── HOW IT WORKS ── */
+.how-it-works{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  margin-bottom:2rem;
+}
+.hiw-step{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:1.25rem;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.hiw-num{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--accent-bg);border:1px solid var(--accent-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:var(--accent);
+  margin-bottom:10px;
+}
+.hiw-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.hiw-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ── DISCLAIMER ── */
+.disclaimer{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:0.875rem 1rem;
+  font-size:11px;color:var(--muted);line-height:1.6;
+  margin-bottom:1.5rem;display:flex;gap:8px;align-items:flex-start;
+}
+.disclaimer-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+
+/* ── SHARE / PRINT ── */
+.share-row{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;}
+.share-btn{
+  height:40px;padding:0 16px;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--r);font-family:var(--sans);font-size:13px;
+  font-weight:500;color:var(--text2);cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  transition:border-color .15s,background .15s;
+}
+.share-btn:hover{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);}
+.share-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.share-btn.primary:hover{background:var(--accent-hover);}
+.share-toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--text);color:#fff;padding:10px 20px;border-radius:99px;
+  font-size:13px;font-weight:500;
+  opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;
+}
+.share-toast.show{opacity:1;}
+
+/* ── FAQ ── */
+.faq-section{
+  border-top:1px solid var(--border);
+  padding-top:2rem;margin-top:1rem;
+}
+.faq-title{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--text);margin-bottom:1.25rem;}
+.faq-item{border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden;background:var(--surface);}
+.faq-q{
+  width:100%;padding:1rem 1.25rem;
+  background:none;border:none;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--sans);font-size:14px;font-weight:500;
+  color:var(--text);cursor:pointer;text-align:left;gap:1rem;
+  transition:background .15s;
+}
+.faq-q:hover{background:var(--bg);}
+.faq-q.open{background:var(--accent-bg);color:var(--accent-text);}
+.faq-chevron{font-size:12px;flex-shrink:0;transition:transform .2s;color:var(--muted);}
+.faq-q.open .faq-chevron{transform:rotate(180deg);color:var(--accent);}
+.faq-a{
+  display:none;padding:0 1.25rem 1rem;
+  font-size:13px;color:var(--text2);line-height:1.7;
+  border-top:1px solid var(--border);
+}
+.faq-a.open{display:block;}
+.faq-a a{color:var(--accent);text-decoration:none;}
+.faq-a a:hover{text-decoration:underline;}
+
+/* ── FOOTER ── */
+.site-footer{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:1.5rem 2rem;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  font-size:12px;color:var(--muted);
+}
+.footer-logo{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);}
+.footer-logo span{color:var(--accent);}
+
+/* ── MISC ── */
+.hidden{display:none!important;}
+
+/* ── PRINT STYLES ── */
+@media print{
+  .header,.rp,.chat-bubble-btn,.mode-toggle,.ai-box,.calc-btn,.share-row,.email-card,.faq-section,.site-footer,.sec-head .sec-num{display:none!important;}
+  .app{display:block;}
+  .lp{max-height:none;overflow:visible;padding:0;border:none;}
+  .results{display:block!important;}
+  .card,.metric,.bar-card,.timeline,.banner{box-shadow:none;border:1px solid #ddd;}
+  body{background:#fff;font-size:12px;}
+}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .lp{padding:1.25rem 1.25rem 5rem;}
+  .header{padding:0 1.25rem;}
+  .hbadge{font-size:10px;padding:3px 8px;}
+  .hero h1{font-size:22px;}
+  .how-it-works{grid-template-columns:1fr;}
+  .two-col,.g2,.g3{grid-template-columns:1fr;}
+  .ai-row{flex-direction:column;}
+  .ai-btn{width:100%;}
+  .share-row{flex-direction:column;}
+  .share-btn{width:100%;justify-content:center;}
+  .site-footer{flex-direction:column;text-align:center;padding:1.25rem;}
+
+  /* Chat bubble smaller on mobile */
+  .chat-bubble-btn{bottom:20px;right:20px;width:50px;height:50px;font-size:20px;}
+  .rp{width:calc(100vw - 32px);right:16px;bottom:82px;height:460px;border-radius:16px;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">tuition<span>calc</span></div>
+  <div class="hbadge">Canada & US · Free 🍁</div>
+</header>
+
+<div class="app">
+<!-- ═══ LEFT PANEL ═══ -->
+<div class="lp">
+  <div class="hero">
+    <div class="eyebrow">Free student financial calculator</div>
+    <h1>Figure out what university<br>will <em>actually</em> cost you.</h1>
+    <p>No jargon, no fluff. Enter your school and we'll show you your total cost, how much debt you'll graduate with, and what your finances will look like after. Takes about 2 minutes.</p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-it-works">
+    <div class="hiw-step">
+      <div class="hiw-num">1</div>
+      <div class="hiw-title">Enter your school</div>
+      <div class="hiw-desc">Type a school and program — we'll look up estimated tuition and costs for you.</div>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">2</div>
+      <div class="hiw-title">Fill in your situation</div>
+      <div class="hiw-desc">Add your living costs, income, and any OSAP or scholarships you expect.</div>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">3</div>
+      <div class="hiw-title">See your full picture</div>
+      <div class="hiw-desc">Get your debt at graduation, monthly loan payments, and disposable income — then ask the advisor anything.</div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <div class="disclaimer-icon">ℹ️</div>
+    <div>All figures are <strong>estimates for planning purposes only</strong>. Tuition, OSAP amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school's financial aid office or visit <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" style="color:var(--accent);">ontario.ca/osap</a>.</div>
+  </div>
+
+  <!-- MODE TOGGLE -->
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btnSingle" onclick="setMode('single')">Single school</button>
+    <button class="mode-btn" id="btnCompare" onclick="setMode('compare')">Compare two schools</button>
+  </div>
+
+  <!-- AI LOOKUP -->
+  <div class="sec" id="secLookup">
+    <div class="sec-head"><div class="sec-num">✦</div><h2>Don't know your tuition? We'll look it up</h2><button class="skip-btn" onclick="skipSection('secLookup')">Skip</button></div>
+    <div class="sec-body" id="secLookupBody">
+    <div class="ai-box">
+      <p style="font-size:13px;color:var(--accent-text);margin-bottom:12px;line-height:1.6;">Type your school and program — we'll search the web for current tuition, city living costs, and median graduate salaries so you don't have to hunt for numbers. Takes about 10 seconds.</p>
+      <div class="ai-row">
+        <input type="text" id="luSchool" placeholder="e.g. University of Toronto"/>
+        <input type="text" id="luProgram" placeholder="e.g. Computer Science"/>
+        <select id="luTarget" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;min-width:100px;-webkit-appearance:none;appearance:none;cursor:pointer;">
+          <option value="A">→ Option A</option>
+          <option value="B">→ Option B</option>
+        </select>
+        <button class="ai-btn" id="luBtn" onclick="doLookup()">Look it up →</button>
+      </div>
+      <div class="ai-res" id="luRes"><div class="ai-tag">AI result</div><div id="luText"></div></div>
+    </div>
+  </div><!-- end secLookupBody + secLookup -->
+
+  <!-- SCHOOLS -->
+  <div class="sec" id="sec1">
+    <div class="sec-head"><div class="sec-num">1</div><h2>Which school are you looking at?</h2><button class="skip-btn" onclick="skipSection('sec1')">Skip</button></div>
+    <div class="sec-body" id="sec1Body">
+    <div class="card">
+      <div class="two-col" id="schoolGrid">
+        <!-- OPTION A -->
+        <div>
+          <div class="col-tag a" id="tagA">Option A</div>
+          <div class="field"><label>School name</label><input type="text" id="nameA" value="UofT"/></div>
+          <div class="field"><label>Program / major</label><input type="text" id="progA" value="Commerce"/></div>
+          <div class="field"><label>Tuition per year ($)</label><input type="number" id="tuitionA" value="16000" min="0"/></div>
+          <div class="field"><label>Years of study</label>
+            <select id="yearsA"><option value="3">3 years</option><option value="4" selected>4 years</option><option value="5">5 years</option><option value="6">6 years</option></select>
+          </div>
+          <div class="field"><label>Expected starting salary ($)</label><input type="number" id="salaryA" value="65000" min="0"/></div>
+          <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflA" value="3" min="0" max="20" step="0.5"/></div>
+        </div>
+        <!-- OPTION B (hidden in single mode) -->
+        <div id="colB">
+          <div class="col-tag b">Option B</div>
+          <div class="field"><label>School name</label><input type="text" id="nameB" value="York"/></div>
+          <div class="field"><label>Program / major</label><input type="text" id="progB" value="Commerce"/></div>
+          <div class="field"><label>Tuition per year ($)</label><input type="number" id="tuitionB" value="10000" min="0"/></div>
+          <div class="field"><label>Years of study</label>
+            <select id="yearsB"><option value="3">3 years</option><option value="4" selected>4 years</option><option value="5">5 years</option><option value="6">6 years</option></select>
+          </div>
+          <div class="field"><label>Expected starting salary ($)</label><input type="number" id="salaryB" value="60000" min="0"/></div>
+          <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflB" value="3" min="0" max="20" step="0.5"/></div>
+        </div>
+      </div>
+    </div>
+    </div><!-- end sec1Body -->
+  </div>
+
+  <!-- LIVING COSTS -->
+  <div class="sec" id="sec2">
+    <div class="sec-head"><div class="sec-num">2</div><h2>What will your day-to-day cost?</h2><button class="skip-btn" onclick="skipSection('sec2')">Skip</button></div>
+    <div class="sec-body" id="sec2Body">
+
+    <!-- Option A living -->
+    <div class="card">
+      <div class="col-tag a" id="livingTagA" style="margin-bottom:0.875rem;">Option A — living costs</div>
+      <div class="sub-head">Housing</div>
+      <div class="g2">
+        <div class="field"><label>Housing situation</label>
+          <select id="housingA" onchange="toggleCustomHousing('A')">
+            <option value="0">Living at home ($0/mo)</option>
+            <option value="1200">On-campus residence ($1,200/mo)</option>
+            <option value="1500" selected>Renting solo ($1,500/mo)</option>
+            <option value="900">Renting with roommates ($900/mo)</option>
+            <option value="2000">Downtown renting ($2,000/mo)</option>
+            <option value="custom">Custom...</option>
+          </select>
+        </div>
+        <div class="field" id="housingCustomFieldA" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomA" value="1500" min="0"/></div>
+      </div>
+      <div class="sub-head">Monthly expenses</div>
+      <div class="g3">
+        <div class="field"><label>Food/mo ($)</label><input type="number" id="foodA" value="400" min="0"/></div>
+        <div class="field"><label>Transport/mo ($)</label><input type="number" id="transportA" value="150" min="0"/></div>
+        <div class="field"><label>Extra spending/mo ($)</label><input type="number" id="extraA" value="200" min="0"/></div>
+      </div>
+      <div class="sub-head">Annual expenses</div>
+      <div class="g2">
+        <div class="field"><label>Books & supplies/yr ($)</label><input type="number" id="booksA" value="600" min="0"/></div>
+        <div class="field"><label>Health/dental/yr ($)</label><input type="number" id="healthA" value="300" min="0"/></div>
+      </div>
+    </div>
+
+    <!-- Option B living (hidden in single mode) -->
+    <div class="card" id="livingB">
+      <div class="col-tag b" style="margin-bottom:0.875rem;">Option B — living costs</div>
+      <div class="sub-head">Housing</div>
+      <div class="g2">
+        <div class="field"><label>Housing situation</label>
+          <select id="housingB" onchange="toggleCustomHousing('B')">
+            <option value="0">Living at home ($0/mo)</option>
+            <option value="1200">On-campus residence ($1,200/mo)</option>
+            <option value="900" selected>Renting with roommates ($900/mo)</option>
+            <option value="1500">Renting solo ($1,500/mo)</option>
+            <option value="2000">Downtown renting ($2,000/mo)</option>
+            <option value="custom">Custom...</option>
+          </select>
+        </div>
+        <div class="field" id="housingCustomFieldB" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomB" value="900" min="0"/></div>
+      </div>
+      <div class="sub-head">Monthly expenses</div>
+      <div class="g3">
+        <div class="field"><label>Food/mo ($)</label><input type="number" id="foodB" value="350" min="0"/></div>
+        <div class="field"><label>Transport/mo ($)</label><input type="number" id="transportB" value="120" min="0"/></div>
+        <div class="field"><label>Extra spending/mo ($)</label><input type="number" id="extraB" value="200" min="0"/></div>
+      </div>
+      <div class="sub-head">Annual expenses</div>
+      <div class="g2">
+        <div class="field"><label>Books & supplies/yr ($)</label><input type="number" id="booksB" value="600" min="0"/></div>
+        <div class="field"><label>Health/dental/yr ($)</label><input type="number" id="healthB" value="300" min="0"/></div>
+      </div>
+    </div>
+    </div><!-- end sec2Body -->
+  </div>
+
+  <!-- INCOME & FUNDING -->
+  <div class="sec" id="sec3">
+    <div class="sec-head"><div class="sec-num">3</div><h2>Any money coming in while you study?</h2><button class="skip-btn" onclick="skipSection('sec3')">Skip</button></div>
+    <div class="sec-body" id="sec3Body">
+    <div class="card">
+      <div class="sub-head">While studying (applies to both options)</div>
+      <div class="g2">
+        <div class="field"><label>Family support/yr ($)</label><input type="number" id="family" value="6000" min="0"/></div>
+        <div class="field"><label>Personal income/yr ($)</label><input type="number" id="personal" value="12000" min="0"/></div>
+      </div>
+      <div class="divider"></div>
+
+      <!-- STUDENT AID PROGRAM PICKER -->
+      <div class="sub-head">Student aid & loans</div>
+      <div class="field">
+        <label>Which student aid program are you applying to?</label>
+        <select id="aidProgram" onchange="onAidProgramChange()">
+          <option value="none" selected>None / Not applying</option>
+          <optgroup label="🇨🇦 Canadian — Provincial">
+            <option value="osap">OSAP — Ontario</option>
+            <option value="studentaidbc">StudentAid BC — British Columbia</option>
+            <option value="alberta">Alberta Student Aid</option>
+            <option value="afe_quebec">Aide financière aux études — Quebec</option>
+            <option value="mb">Manitoba Student Aid</option>
+            <option value="sk">Saskatchewan Student Aid</option>
+            <option value="ns">Nova Scotia Student Assistance</option>
+            <option value="nb">New Brunswick Student Financial Assistance</option>
+            <option value="pei">PEI Student Financial Assistance</option>
+            <option value="nl">Newfoundland & Labrador Student Aid</option>
+            <option value="nt">NWT Student Financial Assistance</option>
+            <option value="yk">Yukon Student Financial Assistance</option>
+            <option value="nu">Nunavut Student Financial Assistance</option>
+          </optgroup>
+          <optgroup label="🇨🇦 Canadian — Federal">
+            <option value="nslsc">NSLSC — Canada Student Loan (federal)</option>
+            <option value="csg">Canada Student Grant (grant only)</option>
+          </optgroup>
+          <optgroup label="🇨🇦 Canadian — Bank / Private">
+            <option value="rbc">RBC Student Line of Credit</option>
+            <option value="td">TD Student Line of Credit</option>
+            <option value="scotiabank">Scotiabank Student Banking</option>
+            <option value="bmo">BMO Student Line of Credit</option>
+            <option value="cibc">CIBC Education Line of Credit</option>
+            <option value="nbc">National Bank Student Line of Credit</option>
+          </optgroup>
+          <optgroup label="🇺🇸 US — Federal">
+            <option value="fafsa_sub">FAFSA — Direct Subsidized Loan</option>
+            <option value="fafsa_unsub">FAFSA — Direct Unsubsidized Loan</option>
+            <option value="fafsa_plus">FAFSA — PLUS Loan</option>
+          </optgroup>
+          <optgroup label="🇺🇸 US — Private Lenders">
+            <option value="salliemae">Sallie Mae</option>
+            <option value="collegave">College Ave</option>
+            <option value="earnest">Earnest</option>
+            <option value="sofi">SoFi</option>
+            <option value="discover">Discover Student Loans</option>
+          </optgroup>
+          <option value="custom_loan">Other / Enter my own numbers</option>
+        </select>
+      </div>
+
+      <!-- Info banner — shown when a program is selected -->
+      <div id="aidInfoBanner" style="display:none;margin-top:8px;padding:10px 14px;border-radius:var(--r);font-size:12px;line-height:1.7;background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue-text);"></div>
+
+      <!-- Grant + loan amount fields -->
+      <div id="aidFields" style="display:none;margin-top:10px;">
+        <div class="g2" style="margin-bottom:0.5rem;">
+          <div class="field">
+            <label>Grant / bursary per year ($) <span style="color:var(--success);font-size:10px;font-weight:600;">free money</span></label>
+            <input type="number" id="osapGrant" value="0" min="0" placeholder="0"/>
+          </div>
+          <div class="field">
+            <label>Loan per year ($) <span style="color:var(--warn);font-size:10px;font-weight:600;">repaid after grad</span></label>
+            <input type="number" id="osapLoan" value="0" min="0" placeholder="0"/>
+          </div>
+        </div>
+        <div id="aidLink" style="font-size:11px;color:var(--muted);"></div>
+      </div>
+
+      <div class="toggle-row" style="margin-top:0.75rem;">
+        <label class="toggle">
+          <input type="checkbox" id="scholToggle" onchange="toggleSchol()"/>
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+        <span class="toggle-label">I also have scholarships / bursaries</span>
+      </div>
+      <div id="scholFields" style="display:none;">
+        <div class="g2">
+          <div class="field"><label>Scholarship amount/yr ($)</label><input type="number" id="scholAmount" value="2000" min="0"/></div>
+          <div class="field"><label>Number of years covered</label><input type="number" id="scholYears" value="4" min="1" max="6"/></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="sub-head">Loan repayment preferences</div>
+      <div class="g2">
+        <div class="field">
+          <label>Interest rate (%)</label>
+          <select id="loanRatePreset" onchange="toggleCustomRate()">
+            <option value="0.0625" selected>6.25% — OSAP / NSLSC (prime +1%)</option>
+            <option value="0.055">5.5% — StudentAid BC / Alberta</option>
+            <option value="0.0525">5.25% — Quebec (AFE)</option>
+            <option value="0.065">6.5% — Canadian bank (prime +1.5%)</option>
+            <option value="0.07">7.0% — Canadian bank (prime +2%)</option>
+            <option value="0.0688">6.88% — US Federal Subsidized/Unsubsidized</option>
+            <option value="0.0953">9.53% — US Federal PLUS Loan</option>
+            <option value="0.08">8.0% — US private lender (low)</option>
+            <option value="0.11">11.0% — US private lender (high)</option>
+            <option value="custom">Custom rate...</option>
+          </select>
+          <div id="loanRateCustomWrap" style="display:none;margin-top:6px;">
+            <input type="number" id="loanRateCustom" placeholder="e.g. 6.5" min="0" max="30" step="0.01" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
+            <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter annual rate as a percentage (e.g. 6.5 for 6.5%)</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Repayment term</label>
+          <select id="loanTermPreset" onchange="toggleCustomTerm()">
+            <option value="10" selected>10 years — OSAP / NSLSC standard</option>
+            <option value="7">7 years — accelerated</option>
+            <option value="15">15 years — extended</option>
+            <option value="20">20 years — RAP / income-driven</option>
+            <option value="10">10 years — US federal standard</option>
+            <option value="25">25 years — US extended repayment</option>
+            <option value="custom">Custom term...</option>
+          </select>
+          <div id="loanTermCustomWrap" style="display:none;margin-top:6px;">
+            <input type="number" id="loanTermCustom" placeholder="e.g. 12" min="1" max="30" step="1" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
+            <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter number of years (1–30)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div><!-- end sec3Body -->
+  </div>
+
+  <!-- POST-GRAD LIFESTYLE -->
+  <div class="sec" id="sec4">
+    <div class="sec-head"><div class="sec-num">4</div><h2>What does life look like after you graduate?</h2><button class="skip-btn" onclick="skipSection('sec4')">Skip</button></div>
+    <div class="sec-body" id="sec4Body">
+    <div class="card">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">This helps us show whether your take-home pay will actually cover rent, loans, and still leave something left over.</p>
+      <div class="g2">
+        <div class="field">
+          <label>Rent after grad/mo ($)</label>
+          <select id="rentPostPreset" onchange="toggleCustomRentPost()">
+            <option value="0">Living at home ($0)</option>
+            <option value="900">With roommates ($900)</option>
+            <option value="1400">1-bedroom outside downtown ($1,400)</option>
+            <option value="1800" selected>1-bedroom city ($1,800)</option>
+            <option value="2200">1-bedroom downtown ($2,200)</option>
+            <option value="2800">1-bedroom Toronto/Vancouver ($2,800)</option>
+            <option value="custom">Custom amount...</option>
+          </select>
+          <div id="rentPostCustomWrap" style="display:none;margin-top:6px;">
+            <input type="number" id="rentPostCustom" placeholder="e.g. 1650" min="0" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
+            <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter your expected monthly rent ($)</span>
+          </div>
+        </div>
+        <div class="field"><label>Living expenses/mo ($)</label><input type="number" id="livingPost" value="1200" min="0"/></div>
+      </div>
+      <div class="g2" style="margin-top:0.5rem;">
+        <div class="field">
+          <label>Province / State (for tax estimate)</label>
+          <select id="province">
+            <optgroup label="🇨🇦 Canada — Provinces">
+              <option value="ON" selected>Ontario</option>
+              <option value="BC">British Columbia</option>
+              <option value="AB">Alberta</option>
+              <option value="QC">Quebec</option>
+              <option value="MB">Manitoba</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland & Labrador</option>
+              <option value="PE">Prince Edward Island</option>
+            </optgroup>
+            <optgroup label="🇨🇦 Canada — Territories">
+              <option value="NT">Northwest Territories</option>
+              <option value="YT">Yukon</option>
+              <option value="NU">Nunavut</option>
+            </optgroup>
+            <optgroup label="🇺🇸 USA — Northeast">
+              <option value="US_NY">New York</option>
+              <option value="US_MA">Massachusetts</option>
+              <option value="US_PA">Pennsylvania</option>
+              <option value="US_NJ">New Jersey</option>
+              <option value="US_CT">Connecticut</option>
+              <option value="US_ME">Maine</option>
+              <option value="US_NH">New Hampshire</option>
+              <option value="US_VT">Vermont</option>
+              <option value="US_RI">Rhode Island</option>
+              <option value="US_MD">Maryland</option>
+              <option value="US_DE">Delaware</option>
+            </optgroup>
+            <optgroup label="🇺🇸 USA — Southeast">
+              <option value="US_FL">Florida</option>
+              <option value="US_GA">Georgia</option>
+              <option value="US_NC">North Carolina</option>
+              <option value="US_VA">Virginia</option>
+              <option value="US_SC">South Carolina</option>
+              <option value="US_TN">Tennessee</option>
+              <option value="US_AL">Alabama</option>
+              <option value="US_MS">Mississippi</option>
+              <option value="US_KY">Kentucky</option>
+              <option value="US_WV">West Virginia</option>
+              <option value="US_DC">Washington D.C.</option>
+            </optgroup>
+            <optgroup label="🇺🇸 USA — Midwest">
+              <option value="US_IL">Illinois</option>
+              <option value="US_OH">Ohio</option>
+              <option value="US_MI">Michigan</option>
+              <option value="US_IN">Indiana</option>
+              <option value="US_WI">Wisconsin</option>
+              <option value="US_MN">Minnesota</option>
+              <option value="US_MO">Missouri</option>
+              <option value="US_IA">Iowa</option>
+              <option value="US_KS">Kansas</option>
+              <option value="US_NE">Nebraska</option>
+              <option value="US_SD">South Dakota</option>
+              <option value="US_ND">North Dakota</option>
+            </optgroup>
+            <optgroup label="🇺🇸 USA — Southwest">
+              <option value="US_TX">Texas</option>
+              <option value="US_AZ">Arizona</option>
+              <option value="US_NM">New Mexico</option>
+              <option value="US_OK">Oklahoma</option>
+              <option value="US_AR">Arkansas</option>
+              <option value="US_LA">Louisiana</option>
+            </optgroup>
+            <optgroup label="🇺🇸 USA — West">
+              <option value="US_CA">California</option>
+              <option value="US_WA">Washington</option>
+              <option value="US_OR">Oregon</option>
+              <option value="US_CO">Colorado</option>
+              <option value="US_NV">Nevada</option>
+              <option value="US_UT">Utah</option>
+              <option value="US_ID">Idaho</option>
+              <option value="US_MT">Montana</option>
+              <option value="US_WY">Wyoming</option>
+              <option value="US_AK">Alaska</option>
+              <option value="US_HI">Hawaii</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="field"><label>Savings goal/mo ($)</label><input type="number" id="savingsGoal" value="500" min="0"/></div>
+      </div>
+    </div>
+    </div><!-- end sec4Body -->
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">Show me my numbers →</button>
+
+  <!-- ═══ RESULTS ═══ -->
+  <div class="results" id="results">
+    <div class="rhead">Here's your full picture</div>
+
+    <!-- Recalculate -->
+    <div style="display:flex;justify-content:flex-end;margin-bottom:0.75rem;">
+      <button class="edit-inputs-btn" onclick="v('results').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});">↑ Edit inputs</button>
+    </div>
+
+    <!-- Summary banner(s) -->
+    <div id="bannerArea"></div>
+
+    <!-- Cost bars -->
+    <div class="bar-card" id="barCard">
+      <div class="sub-head" style="margin-top:0;">Cost breakdown</div>
+      <div id="barsInner"></div>
+    </div>
+
+    <!-- Metrics grid -->
+    <div class="mgrid" id="metricsGrid"></div>
+
+    <!-- Post-grad timeline -->
+    <div class="timeline" id="tlCard">
+      <div class="tl-title">Your financial timeline</div>
+      <div id="tlBody"></div>
+    </div>
+
+    <!-- Monthly breakdown after grad -->
+    <div class="bar-card" id="monthlyCard">
+      <div class="sub-head" style="margin-top:0;">Monthly budget after graduation</div>
+      <div id="monthlyBody"></div>
+    </div>
+
+    <!-- Flags + insights -->
+    <div class="flags" id="flagsRow"></div>
+    <div id="insightsBox"></div>
+
+    <!-- Email -->
+    <div class="email-card">
+      <h3>Want to save your results?</h3>
+      <p>Enter your email and we'll send you a clean summary — plus helpful tips on OSAP, managing student debt, and what to expect in your first year out of school. No spam, ever.</p>
+      <div class="email-row">
+        <input type="email" id="emailIn" placeholder="your@email.com"/>
+        <button onclick="submitEmail(event)">Send results</button>
+      </div>
+      <div class="email-ok" id="emailOk">✓ Check your inbox shortly.</div>
+    </div>
+
+    <!-- SHARE / PRINT -->
+    <div class="share-row">
+      <button class="share-btn" onclick="printResults()">🖨️ Print / Save as PDF</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy results link</button>
+      <button class="share-btn" onclick="shareResults()">📤 Share</button>
+    </div>
+  </div>
+
+  <!-- ═══ FAQ ═══ -->
+  <div class="faq-section">
+    <div class="faq-title">Common questions</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How accurate are these numbers? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a">This calculator uses estimated tuition figures, approximate tax rates, and standard OSAP loan terms. Real numbers will vary based on your specific program, year of study, family income, and province. Use this as a planning guide — always verify final tuition with your school's registrar and OSAP amounts at <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank">ontario.ca/osap</a>. The goal is to give you a realistic ballpark, not an exact invoice.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is OSAP and do I qualify? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a">OSAP (Ontario Student Assistance Program) is a mix of grants and loans provided by the Ontario government to help students pay for post-secondary education. Grants don't need to be repaid — loans do. Eligibility is based on your household income, tuition cost, and living situation. Most students from families earning under $175,000/year qualify for something. Apply at <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank">ontario.ca/osap</a> — you can apply even before you're accepted to school.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What interest rate should I use? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a">For most students using OSAP, the current rate is <strong>prime + 1%</strong>, which works out to approximately 6.25% as of 2025. If you have a private student line of credit (through a bank like RBC, TD, or Scotiabank), rates typically range from prime (5.2%) to prime + 2% depending on the bank and your credit history. When in doubt, use 6.25% as a safe estimate.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How long do I have to pay off my student loans? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a">OSAP loans have a standard repayment period of <strong>10 years</strong> after you finish school. You don't start paying until 6 months after you graduate or leave full-time studies. If 10 years feels too tight, you can apply for a longer repayment period through the Repayment Assistance Plan (RAP), which can reduce or pause payments if your income is low.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What's the difference between a grant and a loan? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a">A <strong>grant</strong> is free money — you never have to pay it back. A <strong>loan</strong> is borrowed money that you repay with interest after graduation. OSAP typically gives you a combination of both. The grant portion depends on your family income (lower income = more grant). This calculator treats grants as income (they reduce your debt) and OSAP loans as debt you'll repay after graduation.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I use this for schools outside Ontario? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a">Yes — the tuition lookup and cost calculations work for any Canadian school. The student loan section is based on OSAP (Ontario), but the repayment math is similar across provinces. If you're in BC, Alberta, or another province, the interest rates and programs may differ slightly, but the overall debt and repayment estimates will still give you a useful picture.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .lp -->
+</div><!-- end .app -->
+
+<!-- ═══ FLOATING CHAT BUBBLE ═══ -->
+<button class="chat-bubble-btn" id="chatBubbleBtn" onclick="toggleChat()" title="Ask the advisor">
+  <span class="bubble-open">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="8" cy="10" r="1" fill="white"/>
+      <circle cx="12" cy="10" r="1" fill="white"/>
+      <circle cx="16" cy="10" r="1" fill="white"/>
+    </svg>
+  </span>
+  <span class="bubble-close">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="chat-unread" id="chatUnread">1</span>
+</button>
+
+<!-- ═══ CHAT WINDOW (floating) ═══ -->
+<div class="rp" id="chatWindow">
+  <div class="chat-hd">
+    <div class="chat-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div style="flex:1;">
+      <div class="chat-title">Ask the advisor</div>
+      <div class="chat-sub">Plain-English answers about your finances</div>
+    </div>
+    <button onclick="toggleChat()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:4px;line-height:1;">✕</button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="msg ai">Hi there! Once you run your numbers, I can help you make sense of them — whether that's understanding your debt, figuring out if a school is worth the cost, or just answering questions about student loans in Canada. What's on your mind?</div>
+  </div>
+  <div class="chips" id="chips">
+    <span class="chip" onclick="sendChip(this)">What is OSAP and do I qualify?</span>
+    <span class="chip" onclick="sendChip(this)">Is $60k debt too much for a grad?</span>
+    <span class="chip" onclick="sendChip(this)">How do I lower my monthly costs?</span>
+    <span class="chip" onclick="sendChip(this)">What salary do I need to afford rent + loans?</span>
+  </div>
+  <div class="chat-in">
+    <div class="chat-in-row">
+      <input class="cin" id="cin" placeholder="e.g. Is $60k in debt too much?" onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button class="csend" id="csend" onclick="sendChat()">↑</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API="https://api.anthropic.com/v1/messages";
+let mode='single', calcState=null;
+
+/* ── UTILS ── */
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-CA');
+const fmtY=n=>(Math.round(n*10)/10)+' yrs';
+const fmtMo=n=>fmt(n)+'/mo';
+const v=id=>document.getElementById(id);
+const g=id=>parseFloat(v(id).value)||0;
+
+function taxRate(salary,province){
+  // Combined marginal rates (federal + provincial/state) — approximate effective rates
+  // Canadian provinces/territories
+  const caRates={
+    ON:{lo:0.33,mid:0.43,hi:0.47},
+    BC:{lo:0.335,mid:0.435,hi:0.493},
+    AB:{lo:0.30,mid:0.38,hi:0.42},
+    QC:{lo:0.37,mid:0.495,hi:0.533},
+    MB:{lo:0.345,mid:0.455,hi:0.503},
+    SK:{lo:0.325,mid:0.425,hi:0.475},
+    NS:{lo:0.355,mid:0.465,hi:0.54},
+    NB:{lo:0.342,mid:0.452,hi:0.498},
+    NL:{lo:0.348,mid:0.458,hi:0.514},
+    PE:{lo:0.345,mid:0.455,hi:0.505},
+    NT:{lo:0.295,mid:0.395,hi:0.435},
+    YT:{lo:0.295,mid:0.385,hi:0.428},
+    NU:{lo:0.29,mid:0.385,hi:0.428},
+  };
+  // US states — combined federal + state effective rates
+  const usRates={
+    US_CA:{lo:0.28,mid:0.37,hi:0.45},
+    US_NY:{lo:0.27,mid:0.36,hi:0.44},
+    US_NJ:{lo:0.27,mid:0.36,hi:0.43},
+    US_MA:{lo:0.27,mid:0.35,hi:0.42},
+    US_CT:{lo:0.27,mid:0.34,hi:0.41},
+    US_IL:{lo:0.25,mid:0.32,hi:0.38},
+    US_OR:{lo:0.26,mid:0.35,hi:0.42},
+    US_MN:{lo:0.26,mid:0.34,hi:0.41},
+    US_WI:{lo:0.25,mid:0.33,hi:0.39},
+    US_HI:{lo:0.26,mid:0.35,hi:0.43},
+    US_DC:{lo:0.27,mid:0.36,hi:0.44},
+    US_MD:{lo:0.26,mid:0.34,hi:0.40},
+    US_VT:{lo:0.26,mid:0.34,hi:0.41},
+    US_ME:{lo:0.25,mid:0.33,hi:0.40},
+    US_RI:{lo:0.25,mid:0.33,hi:0.39},
+    US_NC:{lo:0.24,mid:0.31,hi:0.37},
+    US_GA:{lo:0.24,mid:0.31,hi:0.37},
+    US_VA:{lo:0.24,mid:0.31,hi:0.37},
+    US_SC:{lo:0.24,mid:0.31,hi:0.37},
+    US_KY:{lo:0.24,mid:0.31,hi:0.37},
+    US_PA:{lo:0.24,mid:0.31,hi:0.36},
+    US_OH:{lo:0.24,mid:0.31,hi:0.37},
+    US_MI:{lo:0.24,mid:0.30,hi:0.36},
+    US_IN:{lo:0.23,mid:0.30,hi:0.35},
+    US_MO:{lo:0.24,mid:0.31,hi:0.37},
+    US_LA:{lo:0.23,mid:0.30,hi:0.35},
+    US_AR:{lo:0.24,mid:0.31,hi:0.37},
+    US_OK:{lo:0.23,mid:0.30,hi:0.35},
+    US_CO:{lo:0.24,mid:0.30,hi:0.36},
+    US_AZ:{lo:0.23,mid:0.30,hi:0.36},
+    US_NM:{lo:0.24,mid:0.31,hi:0.37},
+    US_UT:{lo:0.24,mid:0.30,hi:0.36},
+    US_ID:{lo:0.24,mid:0.31,hi:0.37},
+    US_KS:{lo:0.24,mid:0.31,hi:0.37},
+    US_IA:{lo:0.24,mid:0.31,hi:0.37},
+    US_NE:{lo:0.24,mid:0.31,hi:0.37},
+    US_MT:{lo:0.24,mid:0.31,hi:0.37},
+    US_WV:{lo:0.24,mid:0.31,hi:0.37},
+    US_AL:{lo:0.23,mid:0.29,hi:0.35},
+    US_MS:{lo:0.23,mid:0.29,hi:0.35},
+    US_DE:{lo:0.24,mid:0.31,hi:0.37},
+    US_NH:{lo:0.22,mid:0.28,hi:0.33}, // no income tax on wages
+    US_TN:{lo:0.22,mid:0.28,hi:0.33}, // no income tax
+    // No state income tax states
+    US_TX:{lo:0.22,mid:0.28,hi:0.32},
+    US_FL:{lo:0.22,mid:0.28,hi:0.32},
+    US_WA:{lo:0.22,mid:0.28,hi:0.32},
+    US_NV:{lo:0.22,mid:0.28,hi:0.32},
+    US_SD:{lo:0.22,mid:0.28,hi:0.32},
+    US_ND:{lo:0.22,mid:0.29,hi:0.34},
+    US_WY:{lo:0.22,mid:0.28,hi:0.32},
+    US_AK:{lo:0.22,mid:0.28,hi:0.32},
+  };
+  const all={...caRates,...usRates};
+  const r=all[province]||{lo:0.33,mid:0.43,hi:0.47};
+  // Convert USD salary to CAD for US states before comparison if needed
+  const isUS=province.startsWith('US_');
+  const compareSalary=isUS?salary*1.36:salary;
+  if(compareSalary<55000) return r.lo;
+  if(compareSalary<100000) return r.mid;
+  return r.hi;
+}
+
+function netMonthly(salary,province){
+  const rate=taxRate(salary,province);
+  return (salary*(1-rate))/12;
+}
+
+function calcLoan(principal,rate,years){
+  if(principal<=0) return {monthly:0,total:0,interest:0};
+  const r=rate/12,n=years*12;
+  const m=principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  return {monthly:m,total:m*n,interest:m*n-principal};
+}
+
+function payoffYrs(principal,rate,monthly){
+  if(principal<=0||monthly<=0) return 0;
+  const r=rate/12;
+  if(monthly<=principal*r) return 40;
+  return -Math.log(1-(principal*r)/monthly)/Math.log(1+r)/12;
+}
+
+function calcTuitionWithInflation(annual,years,inflPct){
+  const r=inflPct/100;
+  let total=0;
+  for(let i=0;i<years;i++) total+=annual*Math.pow(1+r,i);
+  return total;
+}
+
+/* ── MODE ── */
+function setMode(m){
+  mode=m;
+  v('btnSingle').classList.toggle('active',m==='single');
+  v('btnCompare').classList.toggle('active',m==='compare');
+  v('colB').classList.toggle('hidden',m==='single');
+  v('livingB').classList.toggle('hidden',m==='single');
+  v('livingTagA').textContent=m==='compare'?'Option A — living costs':'Living costs';
+  v('tagA').textContent=m==='compare'?'Option A':'Your school';
+  v('luTarget').style.display=m==='single'?'none':'block';
+  // single-col layout when single mode
+  v('schoolGrid').style.gridTemplateColumns=m==='single'?'1fr':'1fr 1fr';
+}
+
+/* ── HOUSING CUSTOM ── */
+function toggleCustomHousing(x){
+  const sel=v('housing'+x), cf=v('housingCustomField'+x);
+  cf.style.display=sel.value==='custom'?'block':'none';
+}
+
+function getHousing(x){
+  const sel=v('housing'+x);
+  return sel.value==='custom'?(parseFloat(v('housingCustom'+x).value)||0):parseFloat(sel.value);
+}
+
+/* ── SKIP SECTIONS ── */
+function skipSection(secId){
+  const btn=document.querySelector('#'+secId+' .skip-btn');
+  const body=document.getElementById(secId+'Body');
+  if(!body) return;
+  const isSkipped=body.classList.contains('skipped');
+  if(isSkipped){
+    body.classList.remove('skipped');
+    btn.textContent='Skip';
+    btn.classList.remove('skipped');
+  } else {
+    body.classList.add('skipped');
+    btn.textContent='↩ Restore';
+    btn.classList.add('skipped');
+  }
+}
+
+
+const AID_DATA = {
+  none:        { name:'None', rate:null, term:null, info:null, link:null },
+  osap:        { name:'OSAP', rate:'0.0625', term:'10', info:'OSAP combines provincial + federal loans and grants. Grants are based on family income and don\'t need repayment. Loans are interest-free while studying; repayment starts 6 months after graduation at prime +1%.', link:'<a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank">Estimate on ontario.ca/osap →</a>' },
+  studentaidbc:{ name:'StudentAid BC', rate:'0.055', term:'10', info:'StudentAid BC provides combined federal + provincial loans and grants. The provincial portion is interest-free. Federal portion is prime +1%. BC also offers the BC Access Grant for students with financial need.', link:'<a href="https://studentaidbc.ca" target="_blank">studentaidbc.ca →</a>' },
+  alberta:     { name:'Alberta Student Aid', rate:'0.055', term:'10', info:'Alberta Student Aid offers combined federal + provincial loans. The provincial loan is interest-free. Grants available based on income. Apply through Alberta Student Aid.', link:'<a href="https://studentaid.alberta.ca" target="_blank">studentaid.alberta.ca →</a>' },
+  afe_quebec:  { name:'Aide financière aux études (Quebec)', rate:'0.0525', term:'10', info:'Quebec\'s AFE program provides loans and bursaries. Bursaries don\'t need repayment. Quebec has lower tuition but also a separate loan program. Interest is prime rate.', link:'<a href="https://www.Quebec.ca/education/aide-financiere-aux-etudes" target="_blank">Quebec.ca/afe →</a>' },
+  mb:          { name:'Manitoba Student Aid', rate:'0.0625', term:'10', info:'Manitoba Student Aid provides combined federal + provincial assistance. Apply through Manitoba Student Aid.', link:'<a href="https://www.edu.gov.mb.ca/studentaid" target="_blank">edu.gov.mb.ca →</a>' },
+  sk:          { name:'Saskatchewan Student Aid', rate:'0.0625', term:'10', info:'Saskatchewan Student Aid Fund provides loans for eligible students. Combined with federal Canada Student Loans.', link:'<a href="https://www.saskatchewan.ca/residents/education-and-learning/student-loans" target="_blank">Saskatchewan Student Aid →</a>' },
+  ns:          { name:'Nova Scotia Student Assistance', rate:'0.0625', term:'10', info:'Nova Scotia Student Assistance provides grants and loans. The NS Bursary doesn\'t need repayment. Combined federal + provincial application.', link:'<a href="https://novascotia.ca/student-assistance" target="_blank">novascotia.ca →</a>' },
+  nb:          { name:'New Brunswick Student Financial Assistance', rate:'0.0625', term:'10', info:'New Brunswick provides combined federal + provincial loans and grants. Apply through StudentAidNB.', link:'<a href="https://www2.gnb.ca/content/gnb/en/departments/post-secondary_education_training_and_labour/Youth/content/FinancialSupport/StudentFinancialServices.html" target="_blank">StudentAid NB →</a>' },
+  pei:         { name:'PEI Student Financial Assistance', rate:'0.0625', term:'10', info:'PEI provides student loans, bursaries, and grants in combination with federal Canada Student Loans.', link:'<a href="https://www.princeedwardisland.ca/en/topic/student-financial-assistance" target="_blank">PEI Student Aid →</a>' },
+  nl:          { name:'Newfoundland & Labrador Student Aid', rate:'0.0625', term:'10', info:'NL has eliminated interest on provincial student loans. Combined with federal Canada Student Loans.', link:'<a href="https://www.gov.nl.ca/studentaid" target="_blank">gov.nl.ca/studentaid →</a>' },
+  nt:          { name:'NWT Student Financial Assistance', rate:'0.0625', term:'10', info:'NWT offers student financial assistance for eligible residents. Combined with federal programs.', link:'<a href="https://www.ece.gov.nt.ca/en/services/student-financial-assistance" target="_blank">NWT Student Aid →</a>' },
+  yk:          { name:'Yukon Student Financial Assistance', rate:'0.0625', term:'10', info:'Yukon provides grants and loans for post-secondary students. Combined with federal Canada Student Loans.', link:'<a href="https://yukon.ca/en/find-grant-or-bursary/student-financial-assistance" target="_blank">Yukon Student Aid →</a>' },
+  nu:          { name:'Nunavut Student Financial Assistance', rate:'0.0625', term:'10', info:'Nunavut provides grants and loans for post-secondary students. Combined with federal programs.', link:'<a href="https://www.gov.nu.ca/education/information/student-financial-assistance" target="_blank">Nunavut Student Aid →</a>' },
+  nslsc:       { name:'NSLSC (Canada Student Loan)', rate:'0.0625', term:'10', info:'The National Student Loans Service Centre administers Canada Student Loans. Repayment begins 6 months after graduation. Interest-free while in school full-time. Rate is prime +1%.', link:'<a href="https://www.canada.ca/en/employment-social-development/services/student-financial-aid/student-loan/national-student-loans-service-centre.html" target="_blank">NSLSC →</a>' },
+  csg:         { name:'Canada Student Grant', rate:null, term:null, info:'Canada Student Grants are free money — no repayment required. They\'re given automatically when you apply for a Canada Student Loan. Enter the grant amount you expect; leave loan at $0 if you\'re not taking a loan.', link:'<a href="https://www.canada.ca/en/services/benefits/education/student-aid/grants-loans.html" target="_blank">Canada Student Grants →</a>' },
+  rbc:         { name:'RBC Student Line of Credit', rate:'0.065', term:'10', info:'RBC Student Line of Credit offers prime + 1% for most programs. Professional programs (medicine, law, dentistry) may get prime or better. Interest-only payments while in school; full repayment starts after graduation.', link:'<a href="https://www.rbc.com/student" target="_blank">RBC Student Banking →</a>' },
+  td:          { name:'TD Student Line of Credit', rate:'0.065', term:'10', info:'TD offers student lines of credit at competitive rates. Professional students may qualify for prime rate. Check TD\'s current posted rates as they vary with the Bank of Canada prime.', link:'<a href="https://www.td.com/ca/en/personal-banking/products/borrowing/student-line-of-credit" target="_blank">TD Student LoC →</a>' },
+  scotiabank:  { name:'Scotiabank Student Banking', rate:'0.065', term:'10', info:'Scotiabank\'s ScotiaLine for Students offers credit at prime +1% for most students, prime for professional programs. Includes interest-only during school.', link:'<a href="https://www.scotiabank.com/ca/en/personal/credit-cards/scotialine-students.html" target="_blank">Scotiabank →</a>' },
+  bmo:         { name:'BMO Student Line of Credit', rate:'0.065', term:'10', info:'BMO offers student lines of credit at variable rates around prime +1%. Professional students (medicine, law) often qualify for better rates.', link:'<a href="https://www.bmo.com/en-ca/main/personal/loans/student-line-of-credit" target="_blank">BMO Student LoC →</a>' },
+  cibc:        { name:'CIBC Education Line of Credit', rate:'0.065', term:'10', info:'CIBC\'s Education Line of Credit is available at prime +1% for most programs. Professional student lines of credit may be at prime or lower.', link:'<a href="https://www.cibc.com/en/personal-banking/loans-and-lines-of-credit/education-line-of-credit.html" target="_blank">CIBC Education LoC →</a>' },
+  nbc:         { name:'National Bank Student Line of Credit', rate:'0.065', term:'10', info:'National Bank offers student lines of credit for undergraduate and professional programs at competitive rates.', link:'<a href="https://www.nbc.ca/en/personal/loans/student-line-of-credit.html" target="_blank">National Bank →</a>' },
+  fafsa_sub:   { name:'FAFSA Subsidized', rate:'0.0688', term:'10', info:'US Direct Subsidized Loans have a fixed rate of 6.88% (2024–25) for undergrad. The government pays the interest while you\'re in school at least half-time. Maximum $23,000 total.', link:'<a href="https://studentaid.gov" target="_blank">studentaid.gov →</a>' },
+  fafsa_unsub: { name:'FAFSA Unsubsidized', rate:'0.0688', term:'10', info:'US Direct Unsubsidized Loans have a fixed rate of 6.88% (2024–25) for undergrad, 8.08% for grad. Interest accrues while in school. Available regardless of financial need.', link:'<a href="https://studentaid.gov" target="_blank">studentaid.gov →</a>' },
+  fafsa_plus:  { name:'FAFSA PLUS Loan', rate:'0.0953', term:'10', info:'PLUS Loans have a fixed rate of 9.08% (2024–25). Available to graduate students and parents of undergrads. Higher limits but higher rates than direct loans.', link:'<a href="https://studentaid.gov" target="_blank">studentaid.gov →</a>' },
+  salliemae:   { name:'Sallie Mae', rate:'0.08', term:'10', info:'Sallie Mae Smart Option loans have variable rates from ~5.5% and fixed rates from ~4.5% for well-qualified borrowers. Rates vary significantly by credit score.', link:'<a href="https://www.salliemae.com" target="_blank">salliemae.com →</a>' },
+  collegave:   { name:'College Ave', rate:'0.08', term:'10', info:'College Ave offers variable rates from ~5% and fixed from ~4.4% for strong applicants. Known for flexible repayment and multi-year approval.', link:'<a href="https://www.collegave.com" target="_blank">collegave.com →</a>' },
+  earnest:     { name:'Earnest', rate:'0.08', term:'10', info:'Earnest offers competitive fixed and variable rates for private student loans. Known for flexible payment options and no fees.', link:'<a href="https://www.earnest.com" target="_blank">earnest.com →</a>' },
+  sofi:        { name:'SoFi', rate:'0.08', term:'10', info:'SoFi offers no-fee private student loans with variable and fixed rate options. Also offers member benefits like career coaching and financial planning.', link:'<a href="https://www.sofi.com/student-loans" target="_blank">sofi.com →</a>' },
+  discover:    { name:'Discover Student Loans', rate:'0.09', term:'10', info:'Discover offers fixed and variable rate private student loans. Offers a 1% cash reward for good grades.', link:'<a href="https://www.discover.com/student-loans" target="_blank">discover.com →</a>' },
+  custom_loan: { name:'Custom', rate:null, term:null, info:'Enter your own interest rate and repayment term below.', link:null },
+};
+
+function onAidProgramChange(){
+  const key=v('aidProgram').value;
+  const d=AID_DATA[key];
+  const banner=v('aidInfoBanner');
+  const fields=v('aidFields');
+  const linkEl=v('aidLink');
+
+  if(!d||key==='none'){
+    banner.style.display='none';
+    fields.style.display='none';
+    return;
+  }
+
+  // Show info banner
+  banner.style.display='block';
+  banner.innerHTML='<strong>'+d.name+'</strong> — '+d.info;
+
+  // Show grant/loan fields
+  fields.style.display='block';
+  linkEl.innerHTML=d.link?'Estimate your amount: '+d.link:'';
+
+  // Auto-set interest rate if known
+  if(d.rate){
+    v('loanRatePreset').value=d.rate;
+    v('loanRateCustomWrap').style.display='none';
+  }
+  // Auto-set term if known
+  if(d.term){
+    v('loanTermPreset').value=d.term;
+    v('loanTermCustomWrap').style.display='none';
+  }
+
+  // Grants-only programs: zero out loan field
+  if(key==='csg'){
+    v('osapLoan').value=0;
+  }
+}
+
+function toggleSchol(){ v('scholFields').style.display=v('scholToggle').checked?'block':'none'; }
+
+/* ── AI LOOKUP ── */
+async function doLookup(){
+  const school=v('luSchool').value.trim(), program=v('luProgram').value.trim();
+  if(!school){alert('Enter a school name.');return;}
+  const btn=v('luBtn'), resBox=v('luRes'), resText=v('luText');
+  btn.disabled=true; btn.textContent='Searching...';
+  resBox.classList.add('show');
+  resText.innerHTML='<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><span style="font-size:11px;color:var(--muted);margin-left:8px;">Looking up real tuition & salary data...</span>';
+
+  const currentYear = new Date().getFullYear();
+  const prog = program || 'general undergraduate';
+
+  const prompt=`You are a university research assistant. The user wants accurate, current data for: School="${school}", Program="${prog}".
+
+Use your web_search tool to look up:
+1. The school's official tuition page or registrar for ${currentYear}-${currentYear+1} domestic tuition for "${prog}" — search: "${school} ${prog} tuition ${currentYear}"
+2. The city's average student rental cost — search: "average student rent ${school} city ${currentYear}"
+3. Median starting salary for "${prog}" graduates from "${school}" — search: "${school} ${prog} graduate salary employment report ${currentYear}"
+
+After searching, provide:
+- Exact or best-estimate domestic annual tuition in CAD (convert from USD at 1.36 if US school). State the source year.
+- Monthly student housing cost in that city (shared apartment estimate)
+- Monthly food and transport estimates for that city
+- MEDIAN starting salary at graduation (not mean, not top earners) — state clearly if it's school-reported or industry median. Convert to CAD if needed.
+- One sentence on job market outlook.
+
+Be honest if a figure is an estimate. State the source for tuition and salary.
+
+Then on a NEW LINE output EXACTLY (no extra text on that line):
+DATA:name=${school}|tuition=TUITION|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY
+
+All values are plain integers in CAD. No $ signs. No commas.`;
+
+  try{
+    const res=await fetch(API,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        tools:[{"type":"web_search_20250305","name":"web_search"}],
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data=await res.json();
+
+    // Extract the final text response — may be across multiple content blocks
+    let text='';
+    if(data.content){
+      // collect all text blocks (skip tool_use / tool_result blocks)
+      text=data.content
+        .filter(b=>b.type==='text')
+        .map(b=>b.text)
+        .join('\n');
+    }
+
+    if(!text && data.error){
+      resText.innerHTML='<span style="color:var(--danger);">API error: '+data.error.message+'</span>';
+      btn.disabled=false; btn.textContent='Look it up →';
+      return;
+    }
+
+    const dm=text.match(/DATA:name=([^|]+)\|tuition=(\d+)\|housing=(\d+)\|food=(\d+)\|transport=(\d+)\|salary=(\d+)/);
+    // Show the explanation (strip the DATA line)
+    const display=text.replace(/DATA:.*$/m,'').trim();
+    resText.innerHTML=display.replace(/\n/g,'<br>');
+
+    const tgt=mode==='single'?'A':(v('luTarget').value);
+    if(dm){
+      v('name'+tgt).value=dm[1].trim();
+      if(program) v('prog'+tgt).value=program;
+      v('tuition'+tgt).value=parseInt(dm[2]);
+      v('housing'+tgt).value='custom';
+      v('housingCustomField'+tgt).style.display='block';
+      v('housingCustom'+tgt).value=parseInt(dm[3]);
+      v('food'+tgt).value=parseInt(dm[4]);
+      v('transport'+tgt).value=parseInt(dm[5]);
+      v('salary'+tgt).value=parseInt(dm[6]);
+      resText.innerHTML+='<br><br><span style="color:var(--accent-text);font-size:11px;font-weight:500;">✓ Filled into Option '+tgt+'. Numbers pulled from live sources — still verify tuition with your school\'s registrar.</span>';
+    } else {
+      resText.innerHTML+='<br><br><span style="color:var(--warn);font-size:11px;">⚠ Couldn\'t auto-fill — please enter numbers manually based on the info above.</span>';
+    }
+  }catch(e){
+    resText.innerHTML='<span style="color:var(--danger);">Connection error. Please enter numbers manually.</span>';
+  }
+  btn.disabled=false; btn.textContent='Look it up →';
+}
+
+/* ── CUSTOM RATE / TERM TOGGLES ── */
+function toggleCustomRentPost(){
+  const isCustom=v('rentPostPreset').value==='custom';
+  v('rentPostCustomWrap').style.display=isCustom?'block':'none';
+}
+function toggleCustomRate(){
+  const isCustom=v('loanRatePreset').value==='custom';
+  const wrap=v('loanRateCustomWrap');
+  wrap.style.display=isCustom?'block':'none';
+}
+function toggleCustomTerm(){
+  const isCustom=v('loanTermPreset').value==='custom';
+  const wrap=v('loanTermCustomWrap');
+  wrap.style.display=isCustom?'block':'none';
+}
+
+/* ── MAIN CALCULATE ── */
+function calculate(){
+  // ── INPUT VALIDATION
+  const tuitionA=parseFloat(v('tuitionA').value);
+  const salaryA=parseFloat(v('salaryA').value);
+  if(!tuitionA||tuitionA<=0){
+    v('tuitionA').style.borderColor='var(--danger)';
+    v('tuitionA').focus();
+    v('tuitionA').scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>v('tuitionA').style.borderColor='',2500);
+    return;
+  }
+  if(!salaryA||salaryA<=0){
+    v('salaryA').style.borderColor='var(--danger)';
+    v('salaryA').focus();
+    v('salaryA').scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>v('salaryA').style.borderColor='',2500);
+    return;
+  }
+  if(mode==='compare'){
+    const tuitionB=parseFloat(v('tuitionB').value);
+    const salaryB=parseFloat(v('salaryB').value);
+    if(!tuitionB||tuitionB<=0){
+      v('tuitionB').style.borderColor='var(--danger)';
+      v('tuitionB').focus();
+      v('tuitionB').scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(()=>v('tuitionB').style.borderColor='',2500);
+      return;
+    }
+    if(!salaryB||salaryB<=0){
+      v('salaryB').style.borderColor='var(--danger)';
+      v('salaryB').focus();
+      v('salaryB').scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(()=>v('salaryB').style.borderColor='',2500);
+      return;
+    }
+  }
+  // ── END VALIDATION
+  const ratePreset=v('loanRatePreset').value;
+  const rate=ratePreset==='custom'
+    ? (parseFloat(v('loanRateCustom').value)||6.25)/100
+    : parseFloat(ratePreset)||0.0625;
+  const termPreset=v('loanTermPreset').value;
+  const term=termPreset==='custom'
+    ? (parseInt(v('loanTermCustom').value)||10)
+    : parseInt(termPreset)||10;
+  const province=v('province').value;
+  const rentPostPreset=v('rentPostPreset').value;
+  const rentPost=rentPostPreset==='custom'
+    ?(parseFloat(v('rentPostCustom').value)||0)
+    :parseFloat(rentPostPreset)||0;
+  const livingPost=g('livingPost'), savingsGoal=g('savingsGoal');
+  const familyInc=g('family'), personalInc=g('personal');
+  const osapOn=v('aidProgram').value!=='none';
+  const osapGrant=osapOn?g('osapGrant'):0;
+  const osapLoanYr=osapOn?g('osapLoan'):0;
+  const scholOn=v('scholToggle').checked;
+  const scholAmt=scholOn?g('scholAmount'):0;
+  const scholYrs=scholOn?Math.min(g('scholYears'),6):0;
+
+  function buildOption(x){
+    const name=v('name'+x).value||'Option '+x;
+    const prog=v('prog'+x).value||'';
+    const tuitionYr=g('tuition'+x);
+    const years=parseInt(v('years'+x).value)||4;
+    const salary=g('salary'+x);
+    const infl=g('infl'+x)||0;
+    const housing=getHousing(x);
+    const food=g('food'+x);
+    const transport=g('transport'+x);
+    const extra=g('extra'+x);
+    const books=g('books'+x);
+    const health=g('health'+x);
+
+    const tuitionTotal=calcTuitionWithInflation(tuitionYr,years,infl);
+    const livingPerYr=(housing+food+transport+extra)*12+books+health;
+    const totalCost=tuitionTotal+(livingPerYr*years);
+    const incomePerYr=familyInc+personalInc+(osapGrant)+(scholAmt>0&&scholYrs>0?Math.min(years,scholYrs)*scholAmt/years:0);
+    const osapLoanTotal=osapLoanYr*years;
+    const rawDebt=Math.max(0,totalCost-(incomePerYr*years));
+    const debt=rawDebt+osapLoanTotal; // OSAP loans add to debt
+
+    const loan=calcLoan(debt,rate,term);
+    const yrs=payoffYrs(debt,rate,loan.monthly);
+    const netMo=netMonthly(salary,province);
+    const disposable=netMo-loan.monthly-rentPost-livingPost-savingsGoal;
+    const extraNeeded=disposable<0?Math.abs(disposable):0;
+    const pctOfIncome=netMo>0?loan.monthly/netMo*100:0;
+    const rentBurden=(rentPost+loan.monthly)/netMo*100;
+
+    return {name,prog,tuitionYr,tuitionTotal,years,salary,infl,housing,food,transport,extra,books,health,livingPerYr,totalCost,debt,osapLoanTotal,loan,yrs,netMo,disposable,extraNeeded,pctOfIncome,rentBurden};
+  }
+
+  const A=buildOption('A');
+  const B=mode==='compare'?buildOption('B'):null;
+  calcState={A,B,mode,rate,term,rentPost,livingPost,savingsGoal,province,osapOn,osapGrant,osapLoanYr};
+
+  renderResults(A,B);
+}
+
+function renderResults(A,B){
+  const compare=mode==='compare'&&B;
+
+  // ── Banner
+  let bannerHTML='';
+  if(compare){
+    const diff=A.totalCost-B.totalCost;
+    const cheaper=diff>0?B.name:A.name;
+    const amt=Math.abs(diff);
+    bannerHTML=`<div class="banner green"><div><div class="banner-lbl">${cheaper} costs less</div><div class="banner-num">${fmt(amt)} less over ${A.years} yrs</div></div><div class="banner-sub">${diff>0?A.name:B.name} costs ${fmt(amt)} more in total — that's extra debt you'll carry for years after graduation.</div></div>`;
+  } else {
+    bannerHTML=`<div class="banner blue"><div><div class="banner-lbl">Your 4-year total cost</div><div class="banner-num">${fmt(A.totalCost)}</div></div><div class="banner-sub">${A.name} — ${A.prog}. Debt at graduation: <strong>${fmt(A.debt)}</strong>. Monthly loan payment: <strong>${fmtMo(A.loan.monthly)}</strong>.</div></div>`;
+  }
+  v('bannerArea').innerHTML=bannerHTML;
+
+  // ── Bars
+  let barsHTML='';
+  if(compare){
+    const mx=Math.max(A.totalCost,B.totalCost);
+    barsHTML=`
+      <div class="bar-row"><div class="bar-school">${A.name.substring(0,8)}</div><div class="bar-track"><div class="bar-fill a" style="width:${A.totalCost/mx*100}%"></div></div><div class="bar-val">${fmt(A.totalCost)}</div></div>
+      <div class="bar-row"><div class="bar-school">${B.name.substring(0,8)}</div><div class="bar-track"><div class="bar-fill b" style="width:${B.totalCost/mx*100}%"></div></div><div class="bar-val">${fmt(B.totalCost)}</div></div>`;
+  } else {
+    const cats=[
+      {l:'Tuition',v:A.tuitionTotal,c:A.totalCost},
+      {l:'Housing',v:(A.housing*12*A.years),c:A.totalCost},
+      {l:'Food',v:(A.food*12*A.years),c:A.totalCost},
+      {l:'Other living',v:((A.transport+A.extra)*12*A.years+A.books+A.health)*A.years/A.years,c:A.totalCost}
+    ];
+    barsHTML=cats.map(c=>`<div class="bar-row"><div class="bar-school">${c.l}</div><div class="bar-track"><div class="bar-fill single" style="width:${Math.min(c.v/c.c*100,100)}%"></div></div><div class="bar-val">${fmt(c.v)}</div></div>`).join('');
+  }
+  v('barsInner').innerHTML=barsHTML;
+
+  // ── Metrics
+  function mCard(label,va,vb,dangerA,dangerB){
+    if(compare){
+      return `<div class="metric"><div class="metric-lbl">${label}</div><div class="mvals"><span class="mv a${dangerA?' danger':''}">${va}</span><span class="mv-sep">/</span><span class="mv b${dangerB?' danger':''}">${vb}</span></div></div>`;
+    } else {
+      return `<div class="metric"><div class="metric-lbl">${label}</div><div class="mvals"><span class="mv s${dangerA?' danger':''}">${va}</span></div></div>`;
+    }
+  }
+
+  v('metricsGrid').innerHTML=[
+    mCard('Tuition total (with inflation)',fmt(A.tuitionTotal),compare?fmt(B.tuitionTotal):null),
+    mCard('Total cost (4 yrs)',fmt(A.totalCost),compare?fmt(B.totalCost):null),
+    mCard('Debt at graduation',fmt(A.debt),compare?fmt(B.debt):null,A.debt>A.salary,compare&&B.debt>B.salary),
+    mCard('Monthly loan payment',fmtMo(A.loan.monthly),compare?fmtMo(B.loan.monthly):null,A.pctOfIncome>20,compare&&B.pctOfIncome>20),
+    mCard('Years to pay off',fmtY(A.yrs),compare?fmtY(B.yrs):null,A.yrs>10,compare&&B.yrs>10),
+    mCard('Net monthly income after grad',fmtMo(A.netMo),compare?fmtMo(B.netMo):null),
+    mCard('Disposable income/mo',fmtMo(A.disposable),compare?fmtMo(B.disposable):null,A.disposable<0,compare&&B.disposable<0),
+    mCard('Total interest paid',fmt(A.loan.interest),compare?fmt(B.loan.interest):null),
+  ].join('');
+
+  // ── Timeline
+  function tlFor(o,cls){
+    const gradYear=new Date().getFullYear()+o.years;
+    const freeYear=gradYear+Math.ceil(o.yrs);
+    return `
+      <div style="font-size:10px;font-weight:600;color:var(--${cls==='a'?'blue':'green'});margin-bottom:6px;font-family:var(--mono);">${o.name}</div>
+      <div class="tl-row"><div class="tl-dot study"></div><div><div class="tl-line">Now → ${gradYear}: Studying (${o.years} yrs)</div><div class="tl-sub">${fmt(o.totalCost)} total cost · ${fmt(o.debt)} in debt at graduation</div></div></div>
+      <div class="tl-row"><div class="tl-dot repay"></div><div><div class="tl-line">${gradYear} → ${freeYear}: Repaying loans</div><div class="tl-sub">${fmtMo(o.loan.monthly)} × ${o.yrs<1?'< 1 yr':fmtY(o.yrs)} · ${fmt(o.loan.interest)} in interest</div></div></div>
+      <div class="tl-row"><div class="tl-dot free"></div><div><div class="tl-line">${freeYear}+: Debt-free</div><div class="tl-sub">${fmt(o.disposable)} disposable income/mo after expenses</div></div></div>`;
+  }
+  v('tlBody').innerHTML=compare?tlFor(A,'a')+`<div class="divider"></div>`+tlFor(B,'b'):tlFor(A,'s');
+
+  // ── Monthly budget after grad
+  function monthlyRow(label,amt,color){
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--muted);">${label}</span><span style="font-family:var(--mono);color:${color||'var(--text)'};">${fmtMo(amt)}</span></div>`;
+  }
+  function buildMonthly(o,cls){
+    const col=cls==='a'?'var(--blue)':cls==='b'?'var(--green)':'var(--accent)';
+    let h=compare?`<div style="font-size:10px;font-weight:600;color:${col};margin-bottom:8px;font-family:var(--mono);">${o.name}</div>`:'';
+    h+=monthlyRow('Net take-home pay',o.netMo,'var(--text)');
+    h+=monthlyRow('Loan payment',o.loan.monthly,'var(--warn)');
+    h+=monthlyRow('Rent (post-grad)',calcState?calcState.rentPost:1800,'var(--muted)');
+    h+=monthlyRow('Living expenses',v('livingPost')?g('livingPost'):1200,'var(--muted)');
+    h+=monthlyRow('Savings goal',v('savingsGoal')?g('savingsGoal'):500,'var(--muted)');
+    const disp=o.disposable;
+    h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0 0;font-size:13px;font-weight:600;"><span>Left over</span><span style="font-family:var(--mono);color:${disp>=0?'var(--green)':'var(--danger)'};">${fmtMo(disp)}</span></div>`;
+    return h;
+  }
+  v('monthlyBody').innerHTML=compare?buildMonthly(A,'a')+`<div class="divider"></div>`+buildMonthly(B,'b'):buildMonthly(A,'s');
+
+  // ── Flags
+  const flags=[];
+  function addFlags(o,label){
+    if(o.pctOfIncome>20) flags.push({t:`⚠ ${label}: loan >${Math.round(o.pctOfIncome)}% of income — high risk`,c:'bad'});
+    else if(o.debt>0) flags.push({t:`✓ ${label}: loan within safe range (${Math.round(o.pctOfIncome)}%)`,c:'ok'});
+    if(o.debt>o.salary) flags.push({t:`⚠ ${label}: debt > 1st year salary — risky degree`,c:'warn'});
+    else if(o.debt>0) flags.push({t:`✓ ${label}: debt < 1st year salary`,c:'ok'});
+    if(o.rentBurden>35) flags.push({t:`⚠ ${label}: rent + loans = ${Math.round(o.rentBurden)}% of income — rent-burdened`,c:'bad'});
+    else flags.push({t:`✓ ${label}: rent burden within range (${Math.round(o.rentBurden)}%)`,c:'ok'});
+    if(o.disposable<0) flags.push({t:`⚠ ${label}: cash flow negative after graduation`,c:'bad'});
+  }
+  addFlags(A,compare?A.name:'You');
+  if(compare) addFlags(B,B.name);
+  const fr=v('flagsRow');
+  fr.innerHTML='';
+  flags.forEach(f=>{const el=document.createElement('span');el.className='flag '+f.c;el.textContent=f.t;fr.appendChild(el);});
+
+  // ── Insights
+  const ins=[];
+  if(compare){
+    const diff=Math.abs(A.totalCost-B.totalCost);
+    const cheaper=A.totalCost<B.totalCost?A:B;
+    const pricier=A.totalCost<B.totalCost?B:A;
+    if(diff>5000) ins.push({t:'insight',m:`${cheaper.name} saves you ${fmt(diff)} over ${cheaper.years} years — that's ${fmt(diff/cheaper.years)} less debt per year entering the workforce.`});
+    if(Math.abs(A.yrs-B.yrs)>1) ins.push({t:'insight',m:`${cheaper.name} gets you debt-free ${Math.round(Math.abs(A.yrs-B.yrs)*10)/10} years sooner — freeing up ${fmtMo(pricier.loan.monthly)} every month.`});
+    if(A.loan.interest-B.loan.interest>3000||B.loan.interest-A.loan.interest>3000){
+      const lo=A.loan.interest<B.loan.interest?A:B;
+      ins.push({t:'insight',m:`${lo.name} saves you ${fmt(Math.abs(A.loan.interest-B.loan.interest))} in interest alone over the repayment period.`});
+    }
+  } else {
+    if(A.extraNeeded>0) ins.push({t:'risk',m:`You'd need ${fmtMo(A.extraNeeded)} more each month to meet your savings goal, rent, and loan payments after graduation.`});
+    if(A.yrs>8) ins.push({t:'risk',m:`At standard payments, this debt follows you into your ${22+Math.round(A.yrs)}s — ${fmtY(A.yrs)} of loan payments.`});
+    if(A.loan.interest>8000) ins.push({t:'warn',m:`You'll pay ${fmt(A.loan.interest)} in interest on top of your ${fmt(A.debt)} principal — consider accelerated repayment.`});
+    if(A.infl>2) ins.push({t:'insight',m:`With ${A.infl}% annual tuition increases, your total tuition becomes ${fmt(A.tuitionTotal)} vs ${fmt(g('tuitionA')*A.years)} at today's rate.`});
+  }
+  if(v('aidProgram').value!=='none'&&osapGrant>0){
+    ins.push({t:'insight',m:`Your OSAP grant (${fmt(v('osapGrant')?g('osapGrant'):0)}/yr) reduces your debt directly — make sure to apply every year.`});
+  }
+  const ib=v('insightsBox');
+  ib.innerHTML='';
+  ins.forEach(i=>{const el=document.createElement('div');el.className=i.t==='risk'?'risk-note':i.t==='warn'?'warn-note':'insight';el.textContent=i.m;ib.appendChild(el);});
+
+  v('results').classList.add('show');
+  setTimeout(()=>v('results').scrollIntoView({behavior:'smooth',block:'start'}),100);
+
+  updateChips();
+  const msg=compare
+    ?`I've run your comparison. ${A.name} leaves you with ${fmt(A.debt)} in debt vs ${fmt(B.debt)} for ${B.name}. Want me to explain what that means for your life after graduation?`
+    :`Got your numbers. ${A.name} comes to ${fmt(A.totalCost)} over ${A.years} years with ${fmt(A.debt)} in debt at graduation. Your monthly loan payment would be ${fmtMo(A.loan.monthly)}. What would you like to understand better?`;
+  addAiMsg(msg);
+}
+
+/* ── CHAT ── */
+function updateChips(){
+  if(!calcState) return;
+  const {A,B,mode}=calcState;
+  const c=mode==='compare'?[
+    `Which school is the better financial choice?`,
+    `Break down my debt in simple terms`,
+    `How can I reduce my costs at ${A.name}?`,
+    `What does OSAP cover for my situation?`
+  ]:[
+    `Is ${fmt(A.debt)} in debt normal for this degree?`,
+    `How do I pay off my loans faster?`,
+    `Can I afford to live on my own after graduation?`,
+    `What OSAP grants might I get?`
+  ];
+  v('chips').innerHTML=c.map(x=>`<span class="chip" onclick="sendChip(this)">${x}</span>`).join('');
+}
+
+function addAiMsg(text){
+  const box=v('chatMsgs');
+  const el=document.createElement('div');
+  el.className='msg ai'; el.textContent=text;
+  box.appendChild(el); box.scrollTop=box.scrollHeight;
+  // show unread badge if chat is closed
+  if(!chatOpen) v('chatUnread').classList.add('show');
+}
+function addUserMsg(text){
+  const box=v('chatMsgs');
+  const el=document.createElement('div');
+  el.className='msg user'; el.textContent=text;
+  box.appendChild(el); box.scrollTop=box.scrollHeight;
+}
+function addThinking(){
+  const box=v('chatMsgs');
+  const el=document.createElement('div');
+  el.className='msg-think'; el.id='thinking';
+  el.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+  box.appendChild(el); box.scrollTop=box.scrollHeight;
+}
+function removeThinking(){ const e=v('thinking'); if(e) e.remove(); }
+function sendChip(el){ const t=el.textContent; el.remove(); sendChatMsg(t); }
+function sendChat(){ const cin=v('cin'),t=cin.value.trim(); if(!t) return; cin.value=''; sendChatMsg(t); }
+
+async function sendChatMsg(text){
+  addUserMsg(text); addThinking();
+  v('csend').disabled=true;
+  let ctx='';
+  if(calcState){
+    const {A,B,mode,rentPost,livingPost,savingsGoal,province,osapOn}=calcState;
+    ctx=`User's calculator data:
+Mode: ${mode==='compare'?'Comparing two schools':'Single school'}
+Province: ${province}
+Post-grad rent: ${fmt(rentPost)}/mo, living: ${fmt(livingPost)}/mo, savings goal: ${fmt(savingsGoal)}/mo
+Student aid program: ${osapOn?(AID_DATA[v('aidProgram').value]?.name||'Yes'):'None'}
+Option A (${A.name} - ${A.prog}): total cost ${fmt(A.totalCost)}, debt ${fmt(A.debt)}, monthly payment ${fmt(A.loan.monthly)}, years to pay off ${fmtY(A.yrs)}, disposable/mo ${fmt(A.disposable)}, starting salary ${fmt(A.salary)}${B?`
+Option B (${B.name} - ${B.prog}): total cost ${fmt(B.totalCost)}, debt ${fmt(B.debt)}, monthly payment ${fmt(B.loan.monthly)}, years to pay off ${fmtY(B.yrs)}, disposable/mo ${fmt(B.disposable)}, starting salary ${fmt(B.salary)}`:''}`;
+  }
+  const sys=`You are a direct, friendly Canadian student financial advisor in a tuition calculator.
+${ctx?'User context:\n'+ctx:''}
+Rules: Be concise (under 120 words unless complex). Use CAD. Reference user's actual numbers when available. No investment advice. Canadian context (OSAP, provinces, Canadian schools). Like a smart older student who's been through it — honest, not preachy.`;
+  try{
+    const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:350,system:sys,messages:[{role:'user',content:text}]})});
+    const data=await res.json();
+    removeThinking();
+    addAiMsg(data.content[0].text);
+  }catch(e){ removeThinking(); addAiMsg('Connection issue — try again in a moment.'); }
+  v('csend').disabled=false;
+}
+
+/* ── EMAIL ── */
+function submitEmail(e){
+  const email=v('emailIn').value.trim();
+  if(!email||!email.includes('@')){ v('emailIn').style.borderColor='var(--danger)'; return; }
+  v('emailIn').style.borderColor='';
+  v('emailOk').style.display='block';
+  e.target.disabled=true; e.target.textContent='✓ Sent';
+}
+
+/* ── CHAT BUBBLE TOGGLE ── */
+let chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  v('chatWindow').classList.toggle('open',chatOpen);
+  v('chatBubbleBtn').classList.toggle('open',chatOpen);
+  if(chatOpen){
+    v('chatUnread').classList.remove('show');
+    setTimeout(()=>v('cin').focus(),250);
+    const box=v('chatMsgs');
+    box.scrollTop=box.scrollHeight;
+  }
+}
+
+/* ── FAQ ── */
+function toggleFaq(btn){
+  const answer=btn.nextElementSibling;
+  const isOpen=answer.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+  // open this one if it was closed
+  if(!isOpen){ answer.classList.add('open'); btn.classList.add('open'); }
+}
+
+/* ── SHARE / PRINT ── */
+function printResults(){
+  window.print();
+}
+
+function showToast(msg){
+  const t=v('shareToast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function buildShareParams(){
+  if(!calcState) return '';
+  const {A,B,mode}=calcState;
+  const p=new URLSearchParams();
+  p.set('school',A.name);
+  p.set('prog',A.prog);
+  p.set('debt',Math.round(A.debt));
+  p.set('pay',Math.round(A.loan.monthly));
+  p.set('yrs',Math.round(A.yrs*10)/10);
+  if(B&&mode==='compare'){
+    p.set('school2',B.name);
+    p.set('debt2',Math.round(B.debt));
+  }
+  return '?'+p.toString();
+}
+
+function copyLink(){
+  if(!calcState){ showToast('Run the calculator first!'); return; }
+  const url=window.location.href.split('?')[0]+buildShareParams();
+  navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard!')).catch(()=>{
+    // fallback
+    const el=document.createElement('textarea');
+    el.value=url; document.body.appendChild(el);
+    el.select(); document.execCommand('copy');
+    document.body.removeChild(el);
+    showToast('Link copied!');
+  });
+}
+
+function shareResults(){
+  if(!calcState){ showToast('Run the calculator first!'); return; }
+  const {A,B,mode}=calcState;
+  const text=mode==='compare'
+    ? `I compared ${A.name} vs ${B.name} on TuitionCalc — ${A.name} leaves me with ${fmt(A.debt)} debt vs ${fmt(B.debt)} for ${B.name}. Check out this free calculator for Canadian students!`
+    : `I calculated my cost for ${A.name} on TuitionCalc — ${fmt(A.debt)} in debt at graduation, ${fmt(A.loan.monthly)}/mo to pay it off. Free tool for Canadian students!`;
+  const url=window.location.href.split('?')[0];
+  if(navigator.share){
+    navigator.share({title:'TuitionCalc — My Results',text,url}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(text+'\n'+url).then(()=>showToast('Results copied — paste anywhere to share!')).catch(()=>showToast('Copy the URL to share!'));
+  }
+}
+
+function showPrivacy(){
+  const m=v('privacyModal');
+  if(m) m.style.display='flex';
+}
+
+// init — wait for full DOM before touching any elements
+document.addEventListener('DOMContentLoaded', function(){
+  setMode('single');
+  const yearEl=document.getElementById('footerYear');
+  if(yearEl) yearEl.textContent=new Date().getFullYear();
+  const privacyModal=document.getElementById('privacyModal');
+  if(privacyModal){
+    privacyModal.addEventListener('click',function(e){
+      if(e.target===this) this.style.display='none';
+    });
+  }
+});
+</script>
+
+<!-- SHARE TOAST -->
+<div class="share-toast" id="shareToast">Copied to clipboard!</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-logo">tuition<span>calc</span></div>
+  <div style="text-align:center;line-height:1.8;">
+    Free tool for Canadian &amp; US students &nbsp;·&nbsp; Not financial advice<br/>
+    <a href="#" onclick="showPrivacy();return false;" style="color:var(--accent);text-decoration:none;">Privacy Policy</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:hello@tuitioncalc.ca" style="color:var(--accent);text-decoration:none;">Contact</a>
+  </div>
+  <div>© <span id="footerYear"></span> TuitionCalc</div>
+</footer>
+
+<!-- PRIVACY MODAL -->
+<div id="privacyModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="background:var(--surface);border-radius:var(--rl);padding:2rem;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;position:relative;">
+    <button onclick="v('privacyModal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);">✕</button>
+    <h2 style="font-family:var(--serif);font-size:20px;margin-bottom:1rem;color:var(--text);">Privacy Policy</h2>
+    <div style="font-size:13px;color:var(--text2);line-height:1.8;">
+      <p style="margin-bottom:0.875rem;"><strong>What we collect:</strong> If you enter your email address, we store it to send you your results summary. We do not collect any other personal information.</p>
+      <p style="margin-bottom:0.875rem;"><strong>What we don't do:</strong> We do not sell your email address. We do not share it with third parties except the email service provider used to send your results (e.g. Mailchimp or Buttondown). We do not run ads. We do not track you across other websites.</p>
+      <p style="margin-bottom:0.875rem;"><strong>Cookies:</strong> This site does not use cookies or tracking pixels.</p>
+      <p style="margin-bottom:0.875rem;"><strong>Calculator data:</strong> All numbers you enter into the calculator stay in your browser. Nothing is sent to our servers except your email if you choose to submit it.</p>
+      <p style="margin-bottom:0.875rem;"><strong>AI chat:</strong> Questions you ask in the chat are sent to Anthropic's API to generate responses. These messages are subject to Anthropic's privacy policy at anthropic.com/privacy.</p>
+      <p style="margin-bottom:0.875rem;"><strong>Unsubscribe:</strong> Every email we send includes an unsubscribe link. You can also email hello@tuitioncalc.ca to be removed at any time.</p>
+      <p><strong>Contact:</strong> <a href="mailto:hello@tuitioncalc.ca" style="color:var(--accent);">hello@tuitioncalc.ca</a></p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
