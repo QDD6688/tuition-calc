@@ -1899,7 +1899,12 @@ function renderResults(A,B,silent=false){
     }
   } else {
     if(A.extraNeeded>0) ins.push({t:'risk',m:`You'd need ${fmtMo(A.extraNeeded)} more each month to meet your savings goal, rent, and loan payments after graduation.`});
-    if(A.yrs>8) ins.push({t:'risk',m:`At standard payments, this debt follows you into your ${22+Math.round(A.yrs)}s — ${fmtY(A.yrs)} of loan payments.`});
+    if(A.yrs>8){
+      const gradAge=22+A.years;
+      const debtFreeAge=Math.round(gradAge+A.yrs);
+      const decade=debtFreeAge<30?'late 20s':debtFreeAge<35?'early 30s':debtFreeAge<40?'mid 30s':debtFreeAge<45?'early 40s':'mid 40s';
+      ins.push({t:'risk',m:`At standard payments, you won't be debt-free until your ${decade} — ${fmtY(A.yrs)} of loan payments after graduation.`});
+    }
     if(A.loan.interest>8000) ins.push({t:'warn',m:`You'll pay ${fmt(A.loan.interest)} in interest on top of your ${fmt(A.debt)} principal — consider accelerated repayment.`});
     if(A.infl>2) ins.push({t:'insight',m:`With ${A.infl}% annual tuition increases, your total tuition becomes ${fmt(A.tuitionTotal)} vs ${fmt(g('tuitionA')*A.years)} at today's rate.`});
   }
