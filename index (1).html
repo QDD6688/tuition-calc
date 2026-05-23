@@ -1963,7 +1963,7 @@ async function sendChatMsg(text){
     ?`A:${calcState.A.name},debt:${fmtAI(calcState.A.debt)},pay:${fmtAI(calcState.A.loan.monthly)}/mo,yrs:${Math.round(calcState.A.yrs*10)/10},disp:${fmtAI(calcState.A.disposable)}/mo${calcState.B?` B:${calcState.B.name},debt:${fmtAI(calcState.B.debt)},pay:${fmtAI(calcState.B.loan.monthly)}/mo`:''}`
     :'';
 
-  const sys=`Friendly student financial advisor. Be concise, under 80 words. Always use ${currencyName} for all money amounts. No investment advice.${ctx?' Data:'+ctx:''}`;
+  const sys=`Friendly student financial advisor. ALWAYS respond in English only, regardless of what language the user writes in. Be concise, under 80 words. Always use ${currencyName} for all money amounts. No investment advice.${ctx?' Data:'+ctx:''}`;
 
   try{
     const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5',max_tokens:200,system:sys,messages:[{role:'user',content:text}]})});
