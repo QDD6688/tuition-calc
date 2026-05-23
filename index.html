@@ -1491,7 +1491,7 @@ All values are plain integers in CAD. No $ signs. No commas.`;
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-sonnet-4-5',
         max_tokens:1000,
         tools:[{"type":"web_search_20250305","name":"web_search"}],
         messages:[{role:'user',content:prompt}]
@@ -1854,7 +1854,7 @@ Option B (${B.name} - ${B.prog}): total cost ${fmt(B.totalCost)}, debt ${fmt(B.d
 ${ctx?'User context:\n'+ctx:''}
 Rules: Be concise (under 120 words unless complex). Use CAD. Reference user's actual numbers when available. No investment advice. Canadian context (OSAP, provinces, Canadian schools). Like a smart older student who's been through it — honest, not preachy.`;
   try{
-    const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:350,system:sys,messages:[{role:'user',content:text}]})});
+    const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:350,system:sys,messages:[{role:'user',content:text}]})});
     const data=await res.json();
     removeThinking();
     addAiMsg(data.content[0].text);
