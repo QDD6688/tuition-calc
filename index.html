@@ -1903,8 +1903,8 @@ function renderResults(A,B,silent=false){
     if(A.loan.interest>8000) ins.push({t:'warn',m:`You'll pay ${fmt(A.loan.interest)} in interest on top of your ${fmt(A.debt)} principal — consider accelerated repayment.`});
     if(A.infl>2) ins.push({t:'insight',m:`With ${A.infl}% annual tuition increases, your total tuition becomes ${fmt(A.tuitionTotal)} vs ${fmt(g('tuitionA')*A.years)} at today's rate.`});
   }
-  if(v('aidProgram').value!=='none'&&osapGrant>0){
-    ins.push({t:'insight',m:`Your OSAP grant (${fmt(v('osapGrant')?g('osapGrant'):0)}/yr) reduces your debt directly — make sure to apply every year.`});
+  if(v('aidProgram').value!=='none'&&calcState&&calcState.osapGrant>0){
+    ins.push({t:'insight',m:`Your aid grant (${fmt(calcState.osapGrant)}/yr) reduces your debt directly — make sure to apply every year.`});
   }
   const ib=v('insightsBox');
   ib.innerHTML='';
@@ -1915,7 +1915,8 @@ function renderResults(A,B,silent=false){
   if(ab){
     let affHTML='';
     const hasDebt=A.debt>0||(B&&B.debt>0);
-    const isCanadian=!province.startsWith('US_');
+    const currentProvince=calcState?calcState.province:v('province').value;
+    const isCanadian=!currentProvince.startsWith('US_');
     if(hasDebt&&isCanadian){
       affHTML=`<div class="affiliate-card">
         <div class="aff-text">
