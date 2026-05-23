@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>TuitionCalc — Free Canadian University Cost Calculator</title>
-<meta name="description" content="Calculate your real university cost, student debt, and monthly loan payments after graduation. Free tool for Canadian and US students. Includes OSAP, StudentAid BC, and all provincial programs."/>
-<meta name="keywords" content="tuition calculator, student loan calculator, OSAP calculator, university cost Canada, student debt calculator, university comparison"/>
-<meta name="author" content="TuitionCalc"/>
+<title>Calculate Tuition — Free University Cost Calculator for Students</title>
+<meta name="description" content="Calculate your real university cost, student debt, and monthly loan payments. Free worldwide tool for students. Includes OSAP, StudentAid BC, FAFSA, and all provincial programs."/>
+<meta name="keywords" content="tuition calculator, student loan calculator, OSAP calculator, university cost calculator, student debt calculator, international student tuition, university comparison, calculatetuition"/>
+<meta name="author" content="CalculateTuition"/>
 <meta name="robots" content="index, follow"/>
 <!-- Open Graph / Social sharing -->
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="TuitionCalc — See What University Will Really Cost You"/>
-<meta property="og:description" content="Free calculator for Canadian and US students. Enter your school, get your real 4-year cost, debt at graduation, and monthly loan payments. Takes 2 minutes."/>
-<meta property="og:url" content="https://tuitioncalc.ca"/>
-<meta property="og:image" content="https://tuitioncalc.ca/og-image.png"/>
-<meta property="og:site_name" content="TuitionCalc"/>
+<meta property="og:title" content="Calculate Tuition — See What University Will Really Cost You"/>
+<meta property="og:description" content="Free worldwide calculator for students. Enter your school, get your real 4-year cost, debt at graduation, and monthly loan payments. Takes 2 minutes."/>
+<meta property="og:url" content="https://calculatetuition.com"/>
+<meta property="og:image" content="https://calculatetuition.com/og-image.png"/>
+<meta property="og:site_name" content="CalculateTuition"/>
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="TuitionCalc — Free University Cost Calculator"/>
-<meta name="twitter:description" content="See your real tuition cost, debt at graduation, and monthly loan payments. Free for Canadian and US students."/>
-<meta name="twitter:image" content="https://tuitioncalc.ca/og-image.png"/>
+<meta name="twitter:title" content="Calculate Tuition — Free University Cost Calculator"/>
+<meta name="twitter:description" content="See your real tuition cost, debt at graduation, and monthly loan payments. Free for students worldwide."/>
+<meta name="twitter:image" content="https://calculatetuition.com/og-image.png"/>
 <!-- Canonical -->
-<link rel="canonical" href="https://tuitioncalc.ca"/>
+<link rel="canonical" href="https://calculatetuition.com"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,600;1,400&display=swap&display=swap" rel="stylesheet"/>
@@ -285,6 +285,29 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 }
 .calc-btn:hover{background:var(--accent-hover);}
 .calc-btn:active{transform:scale(0.99);}
+
+/* ── AFFILIATE CARD ── */
+.affiliate-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:1.25rem 1.5rem;
+  margin-bottom:0.75rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+}
+.affiliate-card .aff-text{flex:1;}
+.affiliate-card .aff-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:4px;}
+.affiliate-card .aff-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.affiliate-card .aff-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.affiliate-card .aff-disclosure{font-size:10px;color:var(--muted2);margin-top:6px;}
+.affiliate-card .aff-btn{
+  height:40px;padding:0 20px;
+  background:var(--accent);color:#fff;border:none;border-radius:var(--r);
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  cursor:pointer;white-space:nowrap;text-decoration:none;
+  display:flex;align-items:center;transition:background .15s;
+  flex-shrink:0;
+}
+.affiliate-card .aff-btn:hover{background:var(--accent-hover);}
 
 /* ── EDIT INPUTS BUTTON ── */
 .edit-inputs-btn{
@@ -656,7 +679,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
   <!-- DISCLAIMER -->
   <div class="disclaimer">
     <div class="disclaimer-icon">ℹ️</div>
-    <div>All figures are <strong>estimates for planning purposes only</strong>. Tuition, OSAP amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school's financial aid office or visit <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" style="color:var(--accent);">ontario.ca/osap</a>.</div>
+    <div>All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school's financial aid office. This tool is intended for users aged 13 and older. Not financial advice. <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" style="color:var(--accent);">Ontario OSAP →</a> &nbsp;|&nbsp; <a href="https://studentaid.gov" target="_blank" style="color:var(--accent);">US Federal Aid →</a></div>
   </div>
 
   <!-- MODE TOGGLE -->
@@ -1102,6 +1125,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
     <!-- Flags + insights -->
     <div class="flags" id="flagsRow"></div>
     <div id="insightsBox"></div>
+
+    <!-- Affiliate CTA -->
+    <div id="affiliateBox"></div>
 
     <!-- Email -->
     <div class="email-card">
@@ -1881,6 +1907,36 @@ function renderResults(A,B,silent=false){
   ib.innerHTML='';
   ins.forEach(i=>{const el=document.createElement('div');el.className=i.t==='risk'?'risk-note':i.t==='warn'?'warn-note':'insight';el.textContent=i.m;ib.appendChild(el);});
 
+  // ── Affiliate CTA (context-aware)
+  const ab=v('affiliateBox');
+  if(ab){
+    let affHTML='';
+    const hasDebt=A.debt>0||(B&&B.debt>0);
+    const isCanadian=!province.startsWith('US_');
+    if(hasDebt&&isCanadian){
+      affHTML=`<div class="affiliate-card">
+        <div class="aff-text">
+          <div class="aff-label">Student banking</div>
+          <div class="aff-title">No-fee student bank account — Scotiabank</div>
+          <div class="aff-desc">Student chequing with no monthly fees, unlimited transactions, and a free credit card. Takes 5 minutes to open online.</div>
+          <div class="aff-disclosure">Paid partnership — we only recommend products we'd actually use.</div>
+        </div>
+        <a class="aff-btn" href="https://www.scotiabank.com/ca/en/personal/bank-accounts/chequing-accounts/student-banking-advantage-plan.html" target="_blank" rel="noopener">Open free account →</a>
+      </div>`;
+    } else if(hasDebt&&!isCanadian){
+      affHTML=`<div class="affiliate-card">
+        <div class="aff-text">
+          <div class="aff-label">Student loans</div>
+          <div class="aff-title">Compare private student loan rates — Credible</div>
+          <div class="aff-desc">Check rates from multiple lenders in 2 minutes without affecting your credit score. Free to compare.</div>
+          <div class="aff-disclosure">Paid partnership — we only recommend products we'd actually use.</div>
+        </div>
+        <a class="aff-btn" href="https://www.credible.com/student-loans" target="_blank" rel="noopener">Compare rates →</a>
+      </div>`;
+    }
+    ab.innerHTML=affHTML;
+  }
+
   v('results').classList.add('show');
   if(!silent){
     setTimeout(()=>v('results').scrollIntoView({behavior:'smooth',block:'start'}),100);
@@ -2053,11 +2109,11 @@ function shareResults(){
   if(!calcState){ showToast('Run the calculator first!'); return; }
   const {A,B,mode}=calcState;
   const text=mode==='compare'
-    ? `I compared ${A.name} vs ${B.name} on TuitionCalc — ${A.name} leaves me with ${fmt(A.debt)} debt vs ${fmt(B.debt)} for ${B.name}. Check out this free calculator for Canadian students!`
-    : `I calculated my cost for ${A.name} on TuitionCalc — ${fmt(A.debt)} in debt at graduation, ${fmt(A.loan.monthly)}/mo to pay it off. Free tool for Canadian students!`;
+    ? `I compared ${A.name} vs ${B.name} on CalculateTuition — ${A.name} leaves me with ${fmt(A.debt)} debt vs ${fmt(B.debt)} for ${B.name}. Check out this free calculator for students worldwide!`
+    : `I calculated my cost for ${A.name} on CalculateTuition — ${fmt(A.debt)} in debt at graduation, ${fmt(A.loan.monthly)}/mo to pay it off. Free tool for students worldwide!`;
   const url=window.location.href.split('?')[0];
   if(navigator.share){
-    navigator.share({title:'TuitionCalc — My Results',text,url}).catch(()=>{});
+    navigator.share({title:'CalculateTuition — My Results',text,url}).catch(()=>{});
   } else {
     navigator.clipboard.writeText(text+'\n'+url).then(()=>showToast('Results copied — paste anywhere to share!')).catch(()=>showToast('Copy the URL to share!'));
   }
@@ -2087,14 +2143,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <div class="footer-logo">tuition<span>calc</span></div>
+  <div class="footer-logo">calculate<span>tuition</span></div>
   <div style="text-align:center;line-height:1.8;">
-    Free tool for Canadian &amp; US students &nbsp;·&nbsp; Not financial advice<br/>
+    Free tool for students worldwide &nbsp;·&nbsp; Not financial advice<br/>
     <a href="#" onclick="showPrivacy();return false;" style="color:var(--accent);text-decoration:none;">Privacy Policy</a>
     &nbsp;·&nbsp;
-    <a href="mailto:hello@tuitioncalc.ca" style="color:var(--accent);text-decoration:none;">Contact</a>
+    <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);text-decoration:none;">Contact</a>
   </div>
-  <div>© <span id="footerYear"></span> TuitionCalc</div>
+  <div>© <span id="footerYear"></span> CalculateTuition</div>
 </footer>
 
 <!-- PRIVACY MODAL -->
@@ -2104,12 +2160,13 @@ document.addEventListener('DOMContentLoaded', function(){
     <h2 style="font-family:var(--serif);font-size:20px;margin-bottom:1rem;color:var(--text);">Privacy Policy</h2>
     <div style="font-size:13px;color:var(--text2);line-height:1.8;">
       <p style="margin-bottom:0.875rem;"><strong>What we collect:</strong> If you enter your email address, we store it to send you your results summary. We do not collect any other personal information.</p>
-      <p style="margin-bottom:0.875rem;"><strong>What we don't do:</strong> We do not sell your email address. We do not share it with third parties except the email service provider used to send your results (e.g. Mailchimp or Buttondown). We do not run ads. We do not track you across other websites.</p>
-      <p style="margin-bottom:0.875rem;"><strong>Cookies:</strong> This site does not use cookies or tracking pixels.</p>
-      <p style="margin-bottom:0.875rem;"><strong>Calculator data:</strong> All numbers you enter into the calculator stay in your browser. Nothing is sent to our servers except your email if you choose to submit it.</p>
-      <p style="margin-bottom:0.875rem;"><strong>AI chat:</strong> Questions you ask in the chat are sent to Anthropic's API to generate responses. These messages are subject to Anthropic's privacy policy at anthropic.com/privacy.</p>
-      <p style="margin-bottom:0.875rem;"><strong>Unsubscribe:</strong> Every email we send includes an unsubscribe link. You can also email hello@tuitioncalc.ca to be removed at any time.</p>
-      <p><strong>Contact:</strong> <a href="mailto:hello@tuitioncalc.ca" style="color:var(--accent);">hello@tuitioncalc.ca</a></p>
+      <p style="margin-bottom:0.875rem;"><strong>What we don't do:</strong> We do not sell your email address. We do not share it with third parties except the email service provider used to send your results. We do not run ads. We do not track you across other websites. We do not use cookies or tracking pixels.</p>
+      <p style="margin-bottom:0.875rem;"><strong>Calculator data:</strong> All numbers you enter stay in your browser. Nothing is sent to our servers except your email if you choose to submit it.</p>
+      <p style="margin-bottom:0.875rem;"><strong>AI chat:</strong> Questions you ask in the chat are sent to Anthropic's API to generate responses. These are subject to Anthropic's privacy policy at anthropic.com/privacy.</p>
+      <p style="margin-bottom:0.875rem;"><strong>Affiliate partnerships:</strong> This site contains affiliate links. We may earn a commission if you sign up for a recommended product. We only recommend products we believe are genuinely useful to students. All affiliate relationships are disclosed at the point of recommendation.</p>
+      <p style="margin-bottom:0.875rem;"><strong>Age requirement:</strong> This tool is intended for users aged 13 and older. We do not knowingly collect information from children under 13.</p>
+      <p style="margin-bottom:0.875rem;"><strong>Unsubscribe:</strong> Every email we send includes an unsubscribe link. You can also email hello@calculatetuition.com to be removed at any time.</p>
+      <p><strong>Contact:</strong> <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);">hello@calculatetuition.com</a></p>
     </div>
   </div>
 </div>
