@@ -1631,72 +1631,46 @@ async function doLookup(){
   resBox.classList.add('show');
   resText.innerHTML='<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><span style="font-size:11px;color:var(--muted);margin-left:8px;">Looking up real tuition & salary data...</span>';
 
-  const currentYear = new Date().getFullYear();
-  const prog = program || 'general undergraduate';
-
-  const studentType = v('luStudentType').value;
-  const isIntl = studentType === 'international';
-
-  let prompt;
-  if(isIntl){
-    prompt = 'Look up for '+school+', '+prog+' (INTERNATIONAL student): 1) international annual tuition CAD '+currentYear+', 2) international student fee premium per year (extra cost above domestic tuition), 3) monthly student rent in that city, 4) monthly food estimate, 5) monthly transport estimate, 6) median starting salary CAD for this program. Convert USD to CAD at 1.36 if needed. Be brief.\n\nOutput on final line EXACTLY:\nDATA:name='+school+'|tuition=TUITION|intlfee=INTLFEE|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\n\nIntegers only, no $ or commas.';
-  } else {
-    prompt = 'Look up for '+school+', '+prog+' (domestic student): 1) domestic annual tuition CAD '+currentYear+', 2) monthly student rent in that city, 3) monthly food estimate, 4) monthly transport estimate, 5) median starting salary CAD for this program. Convert USD to CAD at 1.36 if needed. Be brief.\n\nOutput on final line EXACTLY:\nDATA:name='+school+'|tuition=TUITION|intlfee=0|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\n\nIntegers only, no $ or commas.';
-  }
+  const studentType=v('luStudentType').value;
 
   try{
-    const res=await fetch(API,{
+    const res=await fetch('/api/lookup',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-5',
-        max_tokens:400,
-        tools:[{"type":"web_search_20250305","name":"web_search"}],
-        messages:[{role:'user',content:prompt}]
-      })
+      body:JSON.stringify({school, program, studentType})
     });
     const data=await res.json();
 
-    // Extract the final text response — may be across multiple content blocks
-    let text='';
-    if(data.content){
-      // collect all text blocks (skip tool_use / tool_result blocks)
-      text=data.content
-        .filter(b=>b.type==='text')
-        .map(b=>b.text)
-        .join('\n');
-    }
-
-    if(!text && data.error){
-      resText.innerHTML='<span style="color:var(--danger);">API error: '+data.error.message+'</span>';
+    if(data.error){
+      resText.innerHTML='<span style="color:var(--danger);">Error: '+data.error+'. Please enter numbers manually.</span>';
       btn.disabled=false; btn.textContent='Look it up →';
       return;
     }
 
-    const dm=text.match(/DATA:name=([^|]+)\|tuition=(\d+)\|intlfee=(\d+)\|housing=(\d+)\|food=(\d+)\|transport=(\d+)\|salary=(\d+)/);
-    // Show the explanation (strip the DATA line)
-    const display=text.replace(/DATA:.*$/m,'').trim();
+    const text=data.text||'';
+    const wasCached=data.cached?'<span style="color:var(--muted);font-size:10px;"> (cached result)</span>':'';
 
-    // Convert any CAD dollar amounts in the AI text to selected currency
+    const dm=text.match(/DATA:name=([^|]+)\|tuition=(\d+)\|intlfee=(\d+)\|housing=(\d+)\|food=(\d+)\|transport=(\d+)\|salary=(\d+)/);
+
+    // Strip DATA line and convert currency in display text
+    const display=text.replace(/DATA:.*$/m,'').trim();
     const rate=RATES[currency]||1;
     const sym=SYMBOLS[currency]||'$';
     let displayConverted=display;
     if(currency!=='CAD'){
-      // Replace patterns like $123,456 CAD or $123,456 or CAD $123,456
       displayConverted=display.replace(/(?:CAD\s*)?\$\s*([\d,]+(?:\.\d+)?)\s*(?:CAD)?/g,(match,numStr)=>{
         const num=parseFloat(numStr.replace(/,/g,''));
         if(isNaN(num)) return match;
         return sym+Math.round(num*rate).toLocaleString('en');
       });
     }
-    resText.innerHTML=displayConverted.replace(/\n/g,'<br>');
+    resText.innerHTML=displayConverted.replace(/\n/g,'<br>')+wasCached;
 
     const tgt=mode==='single'?'A':(v('luTarget').value);
     if(dm){
       v('name'+tgt).value=dm[1].trim();
       if(program) v('prog'+tgt).value=program;
       v('tuition'+tgt).value=parseInt(dm[2]);
-      // Set international fee if present
       const intlFee=parseInt(dm[3]);
       if(intlFee>0){
         v('intl'+tgt).checked=true;
@@ -1709,7 +1683,7 @@ async function doLookup(){
       v('food'+tgt).value=parseInt(dm[5]);
       v('transport'+tgt).value=parseInt(dm[6]);
       v('salary'+tgt).value=parseInt(dm[7]);
-      resText.innerHTML+='<br><br><span style="color:var(--accent-text);font-size:11px;font-weight:500;">✓ Filled into Option '+tgt+(intlFee>0?' — includes international student fees.':'. Numbers from live sources.')+'</span>';
+      resText.innerHTML+='<br><br><span style="color:var(--accent-text);font-size:11px;font-weight:500;">✓ Filled into Option '+tgt+(intlFee>0?' — includes international student fees.':'. Verify with your school\'s registrar.')+'</span>'+wasCached;
     } else {
       resText.innerHTML+='<br><br><span style="color:var(--warn);font-size:11px;">⚠ Couldn\'t auto-fill — please enter numbers manually based on the info above.</span>';
     }
