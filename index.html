@@ -1214,9 +1214,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         <button id="emailBtn" onclick="submitEmail(event)">Send results</button>
       </div>
       <div class="email-ok" id="emailOk">✓ Check your inbox shortly.</div>
-      <div id="emailErr" style="display:none;margin-top:8px;display:none;">
-        <span style="font-size:12px;color:#F87171;">Something went wrong. </span>
-        <button onclick="retryEmail()" style="font-size:12px;color:var(--accent);background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;font-family:var(--sans);">Try again →</button>
+      <div id="emailErr" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(248,113,113,0.1);border-radius:var(--r);border:1px solid rgba(248,113,113,0.3);display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:12px;color:#F87171;display:flex;align-items:center;gap:6px;">
+            <span>⚠</span> Something went wrong sending your email.
+          </span>
+          <button id="retryBtn" onclick="retryEmail()" style="height:32px;padding:0 14px;background:#fff;color:var(--text);border:1px solid var(--border2);border-radius:var(--r);font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s;white-space:nowrap;">
+            <span id="retryIcon">↺</span> Resend
+          </button>
+        </div>
       </div>
     </div>
 
@@ -2238,13 +2244,31 @@ async function submitEmail(e){
   }
 }
 
-function retryEmail(){
-  // Reset the form and let user try again
-  const btn=v('emailBtn');
+async function retryEmail(){
+  const retryBtn=v('retryBtn');
+  const retryIcon=v('retryIcon');
+  if(retryBtn){ retryBtn.disabled=true; }
+  if(retryIcon){ retryIcon.style.display='inline-block'; retryIcon.style.animation='spin 1s linear infinite'; }
+
+  // Add spin animation if not already added
+  if(!document.getElementById('spinStyle')){
+    const style=document.createElement('style');
+    style.id='spinStyle';
+    style.textContent='@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}'
+    document.head.appendChild(style);
+  }
+
   v('emailErr').style.display='none';
   v('emailIn').style.borderColor='';
-  if(btn){ btn.disabled=false; btn.textContent='Send results'; }
-  v('emailIn').focus();
+
+  // Actually re-submit using the same logic as submitEmail
+  const emailBtn=v('emailBtn');
+  if(emailBtn){
+    emailBtn.disabled=false;
+    emailBtn.textContent='Send results';
+    // Trigger a fake click on the send button to re-run the full submit
+    submitEmail({target:emailBtn});
+  }
 }
 
 /* ── CHAT BUBBLE TOGGLE ── */
