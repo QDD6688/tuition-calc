@@ -21,6 +21,14 @@
 <meta name="twitter:description" content="See your real tuition cost, debt at graduation, and monthly loan payments. Free for students worldwide."/>
 <meta name="twitter:image" content="https://calculatetuition.com/og-image.png"/>
 <!-- Canonical -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZJSXT8L9E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1ZJSXT8L9E');
+</script>
 <link rel="canonical" href="https://calculatetuition.com"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -2333,26 +2341,10 @@ function showTerms(){
 function acceptCookies(){
   localStorage.setItem('ct_cookies','accepted');
   v('cookieBanner').classList.remove('show');
-  // Load Google Analytics after consent
-  loadGA();
 }
 function declineCookies(){
   localStorage.setItem('ct_cookies','declined');
   v('cookieBanner').classList.remove('show');
-}
-function loadGA(){
-  // Replace GA_MEASUREMENT_ID with your actual Google Analytics ID
-  // e.g. 'G-XXXXXXXXXX'
-  const GA_ID='GA_MEASUREMENT_ID';
-  if(GA_ID==='GA_MEASUREMENT_ID') return; // not configured yet
-  const s=document.createElement('script');
-  s.async=true;
-  s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
-  document.head.appendChild(s);
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config',GA_ID);
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -2379,10 +2371,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-<!-- GOOGLE ANALYTICS — replace GA_MEASUREMENT_ID with your actual ID from analytics.google.com -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script> -->
-
 <!-- SHARE TOAST -->
 <div class="share-toast" id="shareToast">Copied to clipboard!</div>
 
@@ -2390,8 +2378,8 @@ document.addEventListener('DOMContentLoaded', function(){
 <div class="cookie-banner" id="cookieBanner">
   <div>🍪 We use Google Analytics to understand how students use this site. No personal data is sold. <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a></div>
   <div class="cookie-banner-btns">
-    <button class="cookie-decline" onclick="declineCookies()">Decline</button>
-    <button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+    <button class="cookie-decline" onclick="declineCookies()">Got it</button>
+    <button class="cookie-accept" onclick="acceptCookies()">OK</button>
   </div>
 </div>
 
