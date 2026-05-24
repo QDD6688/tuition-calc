@@ -2108,34 +2108,130 @@ async function submitEmail(e){
   e.target.disabled=true;
   e.target.textContent='Sending...';
 
-  // Build a plain-text summary of results to include in the email
-  let summary='Your results from CalculateTuition.com\n\n';
+  // Currency info for the email
+  const currName={
+    CAD:'Canadian Dollar (CAD)',USD:'US Dollar (USD)',GBP:'British Pound (GBP)',
+    EUR:'Euro (EUR)',AUD:'Australian Dollar (AUD)',NZD:'New Zealand Dollar (NZD)',
+    INR:'Indian Rupee (INR)',JPY:'Japanese Yen (JPY)',CNY:'Chinese Yuan (CNY)',
+    BRL:'Brazilian Real (BRL)',MXN:'Mexican Peso (MXN)',KRW:'South Korean Won (KRW)',
+    SGD:'Singapore Dollar (SGD)',HKD:'Hong Kong Dollar (HKD)',SEK:'Swedish Krona (SEK)',
+    NOK:'Norwegian Krone (NOK)',DKK:'Danish Krone (DKK)',CHF:'Swiss Franc (CHF)',
+    ZAR:'South African Rand (ZAR)',AED:'UAE Dirham (AED)',SAR:'Saudi Riyal (SAR)',
+    NGN:'Nigerian Naira (NGN)',GHS:'Ghanaian Cedi (GHS)',KES:'Kenyan Shilling (KES)',
+    PKR:'Pakistani Rupee (PKR)',BDT:'Bangladeshi Taka (BDT)',PHP:'Philippine Peso (PHP)',
+    MYR:'Malaysian Ringgit (MYR)',THB:'Thai Baht (THB)',IDR:'Indonesian Rupiah (IDR)'
+  }[currency]||currency;
+
+  // Build HTML email that exactly matches what the user sees on screen
+  let htmlBody='';
+  let textBody='Your results from calculatetuition.com\n';
+  textBody+='All amounts shown in '+currName+'\n\n';
+
   if(calcState){
     const {A,B,mode}=calcState;
-    summary+=`School: ${A.name} — ${A.prog}\n`;
-    summary+=`Total ${A.years}-year cost: ${fmt(A.totalCost)}\n`;
-    summary+=`Debt at graduation: ${fmt(A.debt)}\n`;
-    summary+=`Monthly loan payment: ${fmt(A.loan.monthly)}/mo\n`;
-    summary+=`Years to pay off: ${fmtY(A.yrs)}\n`;
-    summary+=`Disposable income after grad: ${fmt(A.disposable)}/mo\n`;
-    summary+=`Total interest paid: ${fmt(A.loan.interest)}\n`;
+
+    const buildOptionHTML=(o,label)=>{
+      const rows=[
+        ['School',o.name+' — '+o.prog],
+        ['Program type',o.isIntl?'International student':'Domestic student'],
+        ['Years of study',o.years+' years'],
+        ['Annual tuition',fmt(o.effectiveTuitionYr||o.tuitionYr)],
+        ['Total '+o.years+'-year cost',fmt(o.totalCost)],
+        ['Tuition total (with inflation)',fmt(o.tuitionTotal)],
+        ['Living costs total',fmt(o.livingPerYr*o.years)],
+        ['Debt at graduation',fmt(o.debt)],
+        ['Monthly loan payment',fmtMo(o.loan.monthly)],
+        ['Years to pay off',fmtY(o.yrs)],
+        ['Total interest paid',fmt(o.loan.interest)],
+        ['Expected starting salary',fmt(o.salary)+'/yr'],
+        ['Net monthly income after tax',fmtMo(o.netMo)],
+        ['Rent (post-grad)',fmtMo(calcState.rentPost)],
+        ['Living expenses (post-grad)',fmtMo(calcState.livingPost)],
+        ['Savings goal',fmtMo(calcState.savingsGoal)],
+        ['Disposable income/mo',fmtMo(o.disposable)],
+      ];
+
+      let html=`<h2 style="font-size:16px;color:#2C2825;margin:20px 0 12px;">${label}</h2>`;
+      html+='<table style="width:100%;border-collapse:collapse;">';
+      rows.forEach(([k,val])=>{
+        const color=k==='Disposable income/mo'?(o.disposable<0?'#C0392B':'#3A7D5C'):'#2C2825';
+        html+=`<tr style="border-bottom:1px solid #E0DCD6;">
+          <td style="padding:8px 4px;font-size:13px;color:#8C8480;width:55%;">${k}</td>
+          <td style="padding:8px 4px;font-size:13px;font-weight:600;color:${color};text-align:right;">${val}</td>
+        </tr>`;
+      });
+      html+='</table>';
+
+      // Risk flags
+      const flags=[];
+      if(o.pctOfIncome>20) flags.push({t:'⚠ Loan payment is '+Math.round(o.pctOfIncome)+'% of income — high risk',bad:true});
+      else flags.push({t:'✓ Loan payment within safe range ('+Math.round(o.pctOfIncome)+'%)',bad:false});
+      if(o.debt>o.salary) flags.push({t:'⚠ Debt exceeds first year salary — risky',bad:true});
+      else flags.push({t:'✓ Debt is less than first year salary',bad:false});
+      if(o.disposable<0) flags.push({t:'⚠ Cash flow negative after graduation',bad:true});
+      if(o.rentBurden>35) flags.push({t:'⚠ Rent + loans = '+Math.round(o.rentBurden)+'% of income — rent-burdened',bad:true});
+
+      html+='<div style="margin-top:12px;">';
+      flags.forEach(f=>{
+        html+=`<div style="font-size:12px;padding:4px 8px;margin-bottom:4px;border-radius:4px;background:${f.bad?'#FDF0EE':'#EBF5EF'};color:${f.bad?'#C0392B':'#3A7D5C'};">${f.t}</div>`;
+      });
+      html+='</div>';
+
+      // Text version
+      textBody+=`${label}\n${'─'.repeat(40)}\n`;
+      rows.forEach(([k,val])=>{ textBody+=`${k}: ${val}\n`; });
+      textBody+='\n';
+
+      return html;
+    };
+
+    htmlBody+=buildOptionHTML(A, mode==='compare'?'Option A: '+A.name:'Your results: '+A.name);
     if(B&&mode==='compare'){
-      summary+=`\nOption B: ${B.name} — ${B.prog}\n`;
-      summary+=`Total ${B.years}-year cost: ${fmt(B.totalCost)}\n`;
-      summary+=`Debt at graduation: ${fmt(B.debt)}\n`;
-      summary+=`Monthly loan payment: ${fmt(B.loan.monthly)}/mo\n`;
+      htmlBody+='<hr style="border:none;border-top:1px solid #E0DCD6;margin:24px 0;"/>';
+      htmlBody+=buildOptionHTML(B,'Option B: '+B.name);
+
+      // Comparison summary
+      const diff=Math.abs(A.totalCost-B.totalCost);
+      const cheaper=A.totalCost<B.totalCost?A.name:B.name;
+      htmlBody+=`<div style="background:#EBF5F7;border-radius:10px;padding:16px;margin-top:20px;">
+        <strong style="color:#1E5F6B;">Comparison summary:</strong>
+        <p style="color:#1E5F6B;font-size:13px;margin:8px 0 0;">${cheaper} costs ${fmt(diff)} less over ${A.years} years.</p>
+      </div>`;
+      textBody+=`COMPARISON: ${cheaper} costs ${fmt(diff)} less over ${A.years} years.\n\n`;
     }
+  } else {
+    htmlBody='<p style="color:#8C8480;">No results were calculated. Visit calculatetuition.com and run the calculator first.</p>';
+    textBody+='No results calculated.\n';
   }
-  summary+='\n---\nView the calculator: https://calculatetuition.com\nThis is an estimate for planning purposes only. Not financial advice.';
+
+  const fullHTML=`
+    <div style="font-family:sans-serif;max-width:620px;margin:0 auto;padding:32px 24px;color:#2C2825;background:#ffffff;">
+      <div style="margin-bottom:20px;">
+        <span style="font-size:20px;font-weight:700;color:#2C2825;">tuition</span><span style="font-size:20px;font-weight:700;color:#E8633A;">calculator</span>
+      </div>
+      <h1 style="font-size:22px;font-weight:700;margin-bottom:4px;">Your university cost breakdown</h1>
+      <p style="color:#8C8480;font-size:13px;margin-bottom:4px;">All amounts in <strong>${currName}</strong></p>
+      <p style="color:#8C8480;font-size:12px;margin-bottom:24px;">From <a href="https://calculatetuition.com" style="color:#E8633A;">calculatetuition.com</a></p>
+      ${htmlBody}
+      <div style="background:#FDF2EE;border-radius:10px;padding:16px;margin-top:24px;">
+        <p style="font-size:12px;color:#C44A22;margin:0;line-height:1.6;">💡 These are estimates for planning purposes only. Always verify tuition with your school's registrar and check your province's student aid program for official figures. Not financial advice.</p>
+      </div>
+      <hr style="border:none;border-top:1px solid #E0DCD6;margin:20px 0;"/>
+      <p style="font-size:11px;color:#B0ABA6;">You requested this breakdown on calculatetuition.com. You will not receive further emails unless you sign up for updates.</p>
+    </div>`;
 
   try{
     const res=await fetch('/api/subscribe',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email, summary})
+      body:JSON.stringify({email, summary:textBody, htmlBody:fullHTML})
     });
-    v('emailOk').style.display='block';
-    e.target.textContent='✓ Sent';
+    if(res.ok){
+      v('emailOk').style.display='block';
+      e.target.textContent='✓ Sent';
+    } else {
+      throw new Error('Send failed');
+    }
   }catch(err){
     e.target.disabled=false;
     e.target.textContent='Try again';
