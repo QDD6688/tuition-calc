@@ -30,57 +30,59 @@
   gtag('config', 'G-1ZJSXT8L9E');
 </script>
 <link rel="canonical" href="https://calculatetuition.com"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,600;1,400&display=swap&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  /* Warm neutral palette — light mode, gender-neutral */
-  --bg:#F7F5F2;
-  --bg2:#EFECE8;
-  --bg3:#E8E4DF;
+  /* Refined warm palette */
+  --bg:#F4F1ED;
+  --bg2:#EDE9E4;
+  --bg3:#E5E0D9;
   --surface:#FFFFFF;
-  --border:#E0DCD6;
-  --border2:#D0CBC4;
-  --text:#2C2825;
-  --text2:#4A4440;
-  --muted:#8C8480;
-  --muted2:#B0ABA6;
+  --border:#DDD8D2;
+  --border2:#CCC6BE;
+  --text:#1E1C1A;
+  --text2:#3D3A36;
+  --muted:#8A857E;
+  --muted2:#AEA9A2;
 
-  /* Warm coral accent — approachable, gender-neutral */
-  --accent:#E8633A;
-  --accent-hover:#D4552E;
-  --accent-bg:#FDF2EE;
-  --accent-border:#F5C4B4;
-  --accent-text:#C44A22;
+  /* Coral accent — warmer, more confident */
+  --accent:#D95F2B;
+  --accent-hover:#C4521F;
+  --accent-bg:#FDF0EA;
+  --accent-border:#F2C4A8;
+  --accent-text:#B84A1A;
 
-  /* Teal for Option A */
-  --blue:#2A7D8C;
-  --blue-bg:#EBF5F7;
-  --blue-border:#A8D4DB;
-  --blue-text:#1E5F6B;
+  /* Slate blue for Option A */
+  --blue:#2563A8;
+  --blue-bg:#EEF4FB;
+  --blue-border:#AAC8EE;
+  --blue-text:#1A4F8A;
 
-  /* Sage green for Option B */
-  --green:#3A7D5C;
-  --green-bg:#EBF5EF;
-  --green-border:#A8D4BC;
-  --green-text:#2A5F44;
+  /* Forest green for Option B */
+  --green:#287A52;
+  --green-bg:#EDF6F1;
+  --green-border:#A0D4B8;
+  --green-text:#1A5C3A;
 
-  /* Status colours */
-  --danger:#C0392B;
-  --danger-bg:#FDF0EE;
-  --danger-border:#F0B4AE;
-  --warn:#B87A1A;
+  /* Status */
+  --danger:#B83232;
+  --danger-bg:#FDF0EF;
+  --danger-border:#EDADA8;
+  --warn:#9C6B10;
   --warn-bg:#FDF6E8;
-  --warn-border:#F0D494;
-  --success:#3A7D5C;
-  --success-bg:#EBF5EF;
-  --success-border:#A8D4BC;
+  --warn-border:#EDCF88;
+  --success:#287A52;
+  --success-bg:#EDF6F1;
+  --success-border:#A0D4B8;
 
   --sans:'DM Sans',system-ui,sans-serif;
   --serif:'Lora',Georgia,serif;
-  --r:10px;--rl:14px;
+  --r:8px;--rl:12px;
 }
 
 html{font-size:16px;}
@@ -113,7 +115,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .chat-bubble-btn{
   position:fixed;bottom:28px;right:28px;z-index:200;
   width:60px;height:60px;border-radius:50%;
-  background:linear-gradient(135deg,#E8633A 0%,#D4452A 100%);
+  background:linear-gradient(135deg,#D95F2B 0%,#C4521F 100%);
   color:#fff;border:none;
   box-shadow:0 4px 16px rgba(232,99,58,0.45),0 1px 4px rgba(0,0,0,0.15);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -682,38 +684,38 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
   <div class="logo">tuition<span>calculator</span></div>
   <div style="display:flex;align-items:center;gap:10px;">
     <select id="currencySelect" onchange="setCurrency(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 12px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
-      <option value="CAD" selected>🇨🇦 CAD</option>
-      <option value="USD">🇺🇸 USD</option>
-      <option value="GBP">🇬🇧 GBP</option>
-      <option value="EUR">🇪🇺 EUR</option>
-      <option value="AUD">🇦🇺 AUD</option>
-      <option value="NZD">🇳🇿 NZD</option>
-      <option value="INR">🇮🇳 INR</option>
-      <option value="JPY">🇯🇵 JPY</option>
-      <option value="CNY">🇨🇳 CNY</option>
-      <option value="BRL">🇧🇷 BRL</option>
-      <option value="MXN">🇲🇽 MXN</option>
-      <option value="KRW">🇰🇷 KRW</option>
-      <option value="SGD">🇸🇬 SGD</option>
-      <option value="HKD">🇭🇰 HKD</option>
-      <option value="SEK">🇸🇪 SEK</option>
-      <option value="NOK">🇳🇴 NOK</option>
-      <option value="DKK">🇩🇰 DKK</option>
-      <option value="CHF">🇨🇭 CHF</option>
-      <option value="ZAR">🇿🇦 ZAR</option>
-      <option value="AED">🇦🇪 AED</option>
-      <option value="SAR">🇸🇦 SAR</option>
-      <option value="NGN">🇳🇬 NGN</option>
-      <option value="GHS">🇬🇭 GHS</option>
-      <option value="KES">🇰🇪 KES</option>
-      <option value="PKR">🇵🇰 PKR</option>
-      <option value="BDT">🇧🇩 BDT</option>
-      <option value="PHP">🇵🇭 PHP</option>
-      <option value="MYR">🇲🇾 MYR</option>
-      <option value="THB">🇹🇭 THB</option>
-      <option value="IDR">🇮🇩 IDR</option>
+      <option value="CAD" selected>CAD</option>
+      <option value="USD">USD</option>
+      <option value="GBP">GBP</option>
+      <option value="EUR">EUR</option>
+      <option value="AUD">AUD</option>
+      <option value="NZD">NZD</option>
+      <option value="INR">INR</option>
+      <option value="JPY">JPY</option>
+      <option value="CNY">CNY</option>
+      <option value="BRL">BRL</option>
+      <option value="MXN">MXN</option>
+      <option value="KRW">KRW</option>
+      <option value="SGD">SGD</option>
+      <option value="HKD">HKD</option>
+      <option value="SEK">SEK</option>
+      <option value="NOK">NOK</option>
+      <option value="DKK">DKK</option>
+      <option value="CHF">CHF</option>
+      <option value="ZAR">ZAR</option>
+      <option value="AED">AED</option>
+      <option value="SAR">SAR</option>
+      <option value="NGN">NGN</option>
+      <option value="GHS">GHS</option>
+      <option value="KES">KES</option>
+      <option value="PKR">PKR</option>
+      <option value="BDT">BDT</option>
+      <option value="PHP">PHP</option>
+      <option value="MYR">MYR</option>
+      <option value="THB">THB</option>
+      <option value="IDR">IDR</option>
     </select>
-    <div class="hbadge">Free · Worldwide 🌍</div>
+    <div class="hbadge">Free · Worldwide</div>
   </div>
 </header>
 
@@ -747,7 +749,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
   <!-- DISCLAIMER -->
   <div class="disclaimer">
-    <div class="disclaimer-icon">ℹ️</div>
+    <div class="disclaimer-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
     <div>All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school's financial aid office. This tool is intended for users aged 13 and older. Not financial advice. <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" style="color:var(--accent);">Ontario OSAP →</a> &nbsp;|&nbsp; <a href="https://studentaid.gov" target="_blank" style="color:var(--accent);">US Federal Aid →</a></div>
   </div>
 
@@ -759,7 +761,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
   <!-- AI LOOKUP -->
   <div class="sec" id="secLookup">
-    <div class="sec-head"><div class="sec-num">✦</div><h2>Don't know your tuition? We'll look it up</h2><button class="skip-btn" onclick="skipSection('secLookup')">Skip</button></div>
+    <div class="sec-head"><div class="sec-num" style="background:var(--accent);color:#fff;font-size:9px;">AI</div><h2>Don't know your tuition? We'll look it up</h2><button class="skip-btn" onclick="skipSection('secLookup')">Skip</button></div>
     <div class="sec-body" id="secLookupBody">
     <div class="ai-box">
       <p style="font-size:13px;color:var(--accent-text);margin-bottom:12px;line-height:1.6;">Type your school and program — we'll search the web for current tuition, city living costs, and median graduate salaries so you don't have to hunt for numbers. Takes about 10 seconds.</p>
@@ -767,20 +769,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         <input type="text" id="luSchool" placeholder="e.g. University of Toronto"/>
         <input type="text" id="luProgram" placeholder="e.g. Computer Science"/>
         <select id="luStudentType" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;min-width:130px;">
-          <option value="domestic">🏠 Domestic</option>
-          <option value="international">✈️ International</option>
+          <option value="domestic">Domestic</option>
+          <option value="international">International student</option>
         </select>
         <select id="luTarget" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;min-width:100px;-webkit-appearance:none;appearance:none;cursor:pointer;">
-          <option value="A">→ Option A</option>
-          <option value="B">→ Option B</option>
+          <option value="A">Fill Option A</option>
+          <option value="B">Fill Option B</option>
         </select>
-        <button class="ai-btn" id="luBtn" onclick="doLookup()">Look it up →</button>
+        <button class="ai-btn" id="luBtn" onclick="doLookup()">Look it up</button>
       </div>
       <div class="ai-res" id="luRes">
         <div class="ai-tag">AI result</div>
         <div id="luText"></div>
         <div id="luRetryRow" style="display:none;margin-top:10px;">
-          <button onclick="doLookup()" style="height:34px;padding:0 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);font-family:var(--sans);font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:background .15s;" onmouseover="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'" onmouseout="this.style.background='var(--bg3)';this.style.color='var(--text2)'">🔄 Try again</button>
+          <button onclick="doLookup()" style="height:34px;padding:0 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);font-family:var(--sans);font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:background .15s;" onmouseover="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'" onmouseout="this.style.background='var(--bg3)';this.style.color='var(--text2)'">↻ Try again</button>
           <span style="font-size:11px;color:var(--muted);margin-left:8px;">Didn't get what you expected? Try searching again or enter numbers manually below.</span>
         </div>
       </div>
@@ -929,7 +931,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         <label>Which student aid program are you applying to?</label>
         <select id="aidProgram" onchange="onAidProgramChange()">
           <option value="none" selected>None / Not applying</option>
-          <optgroup label="🇨🇦 Canadian — Provincial">
+          <optgroup label="CA — Canadian — Provincial">
             <option value="osap">OSAP — Ontario</option>
             <option value="studentaidbc">StudentAid BC — British Columbia</option>
             <option value="alberta">Alberta Student Aid</option>
@@ -944,11 +946,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <option value="yk">Yukon Student Financial Assistance</option>
             <option value="nu">Nunavut Student Financial Assistance</option>
           </optgroup>
-          <optgroup label="🇨🇦 Canadian — Federal">
+          <optgroup label="CA — Canadian — Federal">
             <option value="nslsc">NSLSC — Canada Student Loan (federal)</option>
             <option value="csg">Canada Student Grant (grant only)</option>
           </optgroup>
-          <optgroup label="🇨🇦 Canadian — Bank / Private">
+          <optgroup label="CA — Canadian — Bank / Private">
             <option value="rbc">RBC Student Line of Credit</option>
             <option value="td">TD Student Line of Credit</option>
             <option value="scotiabank">Scotiabank Student Banking</option>
@@ -956,12 +958,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <option value="cibc">CIBC Education Line of Credit</option>
             <option value="nbc">National Bank Student Line of Credit</option>
           </optgroup>
-          <optgroup label="🇺🇸 US — Federal">
+          <optgroup label="US — US — Federal">
             <option value="fafsa_sub">FAFSA — Direct Subsidized Loan</option>
             <option value="fafsa_unsub">FAFSA — Direct Unsubsidized Loan</option>
             <option value="fafsa_plus">FAFSA — PLUS Loan</option>
           </optgroup>
-          <optgroup label="🇺🇸 US — Private Lenders">
+          <optgroup label="US — US — Private Lenders">
             <option value="salliemae">Sallie Mae</option>
             <option value="collegave">College Ave</option>
             <option value="earnest">Earnest</option>
@@ -1077,7 +1079,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         <div class="field">
           <label>Province / State (for tax estimate)</label>
           <select id="province">
-            <optgroup label="🇨🇦 Canada — Provinces">
+            <optgroup label="CA — Canada — Provinces">
               <option value="ON" selected>Ontario</option>
               <option value="BC">British Columbia</option>
               <option value="AB">Alberta</option>
@@ -1089,12 +1091,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
               <option value="NL">Newfoundland & Labrador</option>
               <option value="PE">Prince Edward Island</option>
             </optgroup>
-            <optgroup label="🇨🇦 Canada — Territories">
+            <optgroup label="CA — Canada — Territories">
               <option value="NT">Northwest Territories</option>
               <option value="YT">Yukon</option>
               <option value="NU">Nunavut</option>
             </optgroup>
-            <optgroup label="🇺🇸 USA — Northeast">
+            <optgroup label="US — USA — Northeast">
               <option value="US_NY">New York</option>
               <option value="US_MA">Massachusetts</option>
               <option value="US_PA">Pennsylvania</option>
@@ -1107,7 +1109,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
               <option value="US_MD">Maryland</option>
               <option value="US_DE">Delaware</option>
             </optgroup>
-            <optgroup label="🇺🇸 USA — Southeast">
+            <optgroup label="US — USA — Southeast">
               <option value="US_FL">Florida</option>
               <option value="US_GA">Georgia</option>
               <option value="US_NC">North Carolina</option>
@@ -1120,7 +1122,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
               <option value="US_WV">West Virginia</option>
               <option value="US_DC">Washington D.C.</option>
             </optgroup>
-            <optgroup label="🇺🇸 USA — Midwest">
+            <optgroup label="US — USA — Midwest">
               <option value="US_IL">Illinois</option>
               <option value="US_OH">Ohio</option>
               <option value="US_MI">Michigan</option>
@@ -1134,7 +1136,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
               <option value="US_SD">South Dakota</option>
               <option value="US_ND">North Dakota</option>
             </optgroup>
-            <optgroup label="🇺🇸 USA — Southwest">
+            <optgroup label="US — USA — Southwest">
               <option value="US_TX">Texas</option>
               <option value="US_AZ">Arizona</option>
               <option value="US_NM">New Mexico</option>
@@ -1142,7 +1144,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
               <option value="US_AR">Arkansas</option>
               <option value="US_LA">Louisiana</option>
             </optgroup>
-            <optgroup label="🇺🇸 USA — West">
+            <optgroup label="US — USA — West">
               <option value="US_CA">California</option>
               <option value="US_WA">Washington</option>
               <option value="US_OR">Oregon</option>
@@ -1163,7 +1165,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
     </div><!-- end sec4Body -->
   </div>
 
-  <button class="calc-btn" onclick="calculate()">Show me my numbers →</button>
+  <button class="calc-btn" onclick="calculate()">Show me my numbers<span style="margin-left:8px;display:inline-flex;align-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></button>
 
   <!-- ═══ RESULTS ═══ -->
   <div class="results" id="results">
@@ -1171,7 +1173,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- Recalculate -->
     <div style="display:flex;justify-content:flex-end;margin-bottom:0.75rem;">
-      <button class="edit-inputs-btn" onclick="v('results').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});">↑ Edit inputs</button>
+      <button class="edit-inputs-btn" onclick="v('results').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:4px;"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Edit inputs</button>
     </div>
 
     <!-- Summary banner(s) -->
@@ -1213,14 +1215,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         <input type="email" id="emailIn" placeholder="your@email.com"/>
         <button id="emailBtn" onclick="submitEmail(event)">Send results</button>
       </div>
-      <div class="email-ok" id="emailOk">✓ Check your inbox shortly.</div>
+      <div class="email-ok" id="emailOk" style="display:none;margin-top:8px;font-size:13px;color:#3A7D5C;font-weight:500;display:none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:inline;vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg> Sent! Check your inbox shortly.</div>
       <div id="emailErr" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(248,113,113,0.1);border-radius:var(--r);border:1px solid rgba(248,113,113,0.3);display:none;">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
           <span style="font-size:12px;color:#F87171;display:flex;align-items:center;gap:6px;">
-            <span>⚠</span> Something went wrong sending your email.
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline;vertical-align:middle;margin-right:4px;color:#F87171;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Something went wrong sending your email.
           </span>
           <button id="retryBtn" onclick="retryEmail()" style="height:32px;padding:0 14px;background:#fff;color:var(--text);border:1px solid var(--border2);border-radius:var(--r);font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s;white-space:nowrap;">
-            <span id="retryIcon">↺</span> Resend
+            <svg id="retryIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg> Resend
           </button>
         </div>
       </div>
@@ -1228,9 +1230,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- SHARE / PRINT -->
     <div class="share-row">
-      <button class="share-btn" onclick="printResults()">🖨️ Print / Save as PDF</button>
-      <button class="share-btn" onclick="copyLink()">🔗 Copy results link</button>
-      <button class="share-btn" onclick="shareResults()">📤 Share</button>
+      <button class="share-btn" onclick="printResults()">Print / Save as PDF</button>
+      <button class="share-btn" onclick="copyLink()">Copy link</button>
+      <button class="share-btn" onclick="shareResults()">Share</button>
     </div>
   </div>
 
@@ -1303,7 +1305,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       <div class="chat-title">Ask the advisor</div>
       <div class="chat-sub">Plain-English answers about your finances</div>
     </div>
-    <button onclick="toggleChat()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:4px;line-height:1;">✕</button>
+    <button onclick="toggleChat()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:4px;line-height:1;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;transition:background .15s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="chat-msgs" id="chatMsgs">
     <div class="msg ai">Hi there! Once you run your numbers, I can help you make sense of them — whether that's understanding your debt, figuring out if a school is worth the cost, or just answering questions about student loans in Canada. What's on your mind?</div>
@@ -1317,7 +1319,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
   <div class="chat-in">
     <div class="chat-in-row">
       <input class="cin" id="cin" placeholder="e.g. Is $60k in debt too much?" onkeydown="if(event.key==='Enter')sendChat()"/>
-      <button class="csend" id="csend" onclick="sendChat()">↑</button>
+      <button class="csend" id="csend" onclick="sendChat()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></button>
     </div>
   </div>
 </div>
@@ -1670,7 +1672,7 @@ async function doLookup(){
 
     if(data.error){
       resText.innerHTML='<span style="color:var(--danger);">Error: '+data.error+'. Please enter numbers manually.</span>';
-      btn.disabled=false; btn.textContent='Look it up →';
+      btn.disabled=false; btn.textContent='Look it up';
       return;
     }
 
@@ -1717,7 +1719,7 @@ async function doLookup(){
   }catch(e){
     resText.innerHTML='<span style="color:var(--danger);">Error: '+e.message+'. Please enter numbers manually.</span>';
   }
-  btn.disabled=false; btn.textContent='Look it up →';
+  btn.disabled=false; btn.textContent='Look it up';
   if(retryRow) retryRow.style.display='flex';
   if(retryRow) retryRow.style.alignItems='center';
 }
@@ -2210,7 +2212,7 @@ async function submitEmail(e){
   const fullHTML=`
     <div style="font-family:sans-serif;max-width:620px;margin:0 auto;padding:32px 24px;color:#2C2825;background:#ffffff;">
       <div style="margin-bottom:20px;">
-        <span style="font-size:20px;font-weight:700;color:#2C2825;">tuition</span><span style="font-size:20px;font-weight:700;color:#E8633A;">calculator</span>
+        <span style="font-size:20px;font-weight:700;color:#2C2825;">tuition</span><span style="font-size:20px;font-weight:700;color:#D95F2B;">calculator</span>
       </div>
       <h1 style="font-size:22px;font-weight:700;margin-bottom:4px;">Your university cost breakdown</h1>
       <p style="color:#8C8480;font-size:13px;margin-bottom:4px;">All amounts in <strong>${currName}</strong></p>
@@ -2400,7 +2402,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- COOKIE CONSENT BANNER -->
 <div class="cookie-banner" id="cookieBanner">
-  <div>🍪 We use Google Analytics to understand how students use this site. No personal data is sold. <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a></div>
+  <div>We use Google Analytics to understand how students use this site. No personal data is sold. <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a></div>
   <div class="cookie-banner-btns">
     <button class="cookie-decline" onclick="declineCookies()">Got it</button>
     <button class="cookie-accept" onclick="acceptCookies()">OK</button>
