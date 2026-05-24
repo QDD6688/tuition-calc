@@ -768,7 +768,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         </select>
         <button class="ai-btn" id="luBtn" onclick="doLookup()">Look it up →</button>
       </div>
-      <div class="ai-res" id="luRes"><div class="ai-tag">AI result</div><div id="luText"></div></div>
+      <div class="ai-res" id="luRes">
+        <div class="ai-tag">AI result</div>
+        <div id="luText"></div>
+        <div id="luRetryRow" style="display:none;margin-top:10px;">
+          <button onclick="doLookup()" style="height:34px;padding:0 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);font-family:var(--sans);font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:background .15s;" onmouseover="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'" onmouseout="this.style.background='var(--bg3)';this.style.color='var(--text2)'">🔄 Try again</button>
+          <span style="font-size:11px;color:var(--muted);margin-left:8px;">Didn't get what you expected? Try searching again or enter numbers manually below.</span>
+        </div>
+      </div>
     </div>
   </div><!-- end secLookupBody + secLookup -->
 
@@ -1196,9 +1203,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       <p>Enter your email and we'll send you a clean summary — plus helpful tips on OSAP, managing student debt, and what to expect in your first year out of school. No spam, ever.</p>
       <div class="email-row">
         <input type="email" id="emailIn" placeholder="your@email.com"/>
-        <button onclick="submitEmail(event)">Send results</button>
+        <button id="emailBtn" onclick="submitEmail(event)">Send results</button>
       </div>
       <div class="email-ok" id="emailOk">✓ Check your inbox shortly.</div>
+      <div id="emailErr" style="display:none;margin-top:8px;display:none;">
+        <span style="font-size:12px;color:#F87171;">Something went wrong. </span>
+        <button onclick="retryEmail()" style="font-size:12px;color:var(--accent);background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;font-family:var(--sans);">Try again →</button>
+      </div>
     </div>
 
     <!-- SHARE / PRINT -->
@@ -1627,8 +1638,10 @@ async function doLookup(){
   const school=v('luSchool').value.trim(), program=v('luProgram').value.trim();
   if(!school){alert('Enter a school name.');return;}
   const btn=v('luBtn'), resBox=v('luRes'), resText=v('luText');
+  const retryRow=v('luRetryRow');
   btn.disabled=true; btn.textContent='Searching...';
   resBox.classList.add('show');
+  if(retryRow) retryRow.style.display='none';
   resText.innerHTML='<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><span style="font-size:11px;color:var(--muted);margin-left:8px;">Looking up real tuition & salary data...</span>';
 
   const studentType=v('luStudentType').value;
@@ -1691,6 +1704,8 @@ async function doLookup(){
     resText.innerHTML='<span style="color:var(--danger);">Error: '+e.message+'. Please enter numbers manually.</span>';
   }
   btn.disabled=false; btn.textContent='Look it up →';
+  if(retryRow) retryRow.style.display='flex';
+  if(retryRow) retryRow.style.alignItems='center';
 }
 
 /* ── CUSTOM RATE / TERM TOGGLES ── */
@@ -2202,15 +2217,26 @@ async function submitEmail(e){
     });
     if(res.ok){
       v('emailOk').style.display='block';
+      v('emailErr').style.display='none';
       e.target.textContent='✓ Sent';
     } else {
       throw new Error('Send failed');
     }
   }catch(err){
     e.target.disabled=false;
-    e.target.textContent='Try again';
+    e.target.textContent='Send results';
     v('emailIn').style.borderColor='var(--danger)';
+    v('emailErr').style.display='block';
   }
+}
+
+function retryEmail(){
+  // Reset the form and let user try again
+  const btn=v('emailBtn');
+  v('emailErr').style.display='none';
+  v('emailIn').style.borderColor='';
+  if(btn){ btn.disabled=false; btn.textContent='Send results'; }
+  v('emailIn').focus();
 }
 
 /* ── CHAT BUBBLE TOGGLE ── */
