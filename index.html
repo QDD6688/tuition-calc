@@ -723,9 +723,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 <!-- ═══ LEFT PANEL ═══ -->
 <div class="lp">
   <div class="hero">
-    <div class="eyebrow">Free student financial calculator</div>
-    <h1>Figure out what university<br>will <em>actually</em> cost you.</h1>
-    <p>No jargon, no fluff. Enter your school and we'll show you your total cost, how much debt you'll graduate with, and what your finances will look like after. Takes about 2 minutes.</p>
+    <div class="eyebrow">Student financial planning tool</div>
+    <h1>Understand the true cost<br>of your <em>university education.</em></h1>
+    <p>Enter your school and program to receive a detailed breakdown of your total education cost, projected debt at graduation, monthly loan repayment obligations, and post-graduation financial outlook. Free to use, no account required.</p>
   </div>
 
   <!-- HOW IT WORKS -->
@@ -2391,9 +2391,8 @@ document.addEventListener('DOMContentLoaded', function(){
       const banner=v('cookieBanner');
       if(banner) banner.classList.add('show');
     }, 1500);
-  } else if(cookieChoice==='accepted'){
-    loadGA();
   }
+  // GA loads directly in <head> — no action needed on accept
 });
 </script>
 
