@@ -319,7 +319,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 }
 .affiliate-card .aff-btn:hover{background:var(--accent-hover);}
 
-/* ── EDIT INPUTS BUTTON ── */
+/* ── FIELD PLACEHOLDERS ── */
+.field input::placeholder{color:var(--muted2);font-style:italic;}
+.field input:focus::placeholder{opacity:0;}
+.field input:focus{border-color:var(--accent-border);}
 .edit-inputs-btn{
   font-size:12px;font-weight:500;color:var(--muted);
   background:none;border:1px solid var(--border2);
@@ -682,40 +685,66 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
 <header class="header">
   <div class="logo">tuition<span>calculator</span></div>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <select id="currencySelect" onchange="setCurrency(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 12px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
-      <option value="CAD" selected>CAD</option>
-      <option value="USD">USD</option>
-      <option value="GBP">GBP</option>
-      <option value="EUR">EUR</option>
-      <option value="AUD">AUD</option>
-      <option value="NZD">NZD</option>
-      <option value="INR">INR</option>
-      <option value="JPY">JPY</option>
-      <option value="CNY">CNY</option>
-      <option value="BRL">BRL</option>
-      <option value="MXN">MXN</option>
-      <option value="KRW">KRW</option>
-      <option value="SGD">SGD</option>
-      <option value="HKD">HKD</option>
-      <option value="SEK">SEK</option>
-      <option value="NOK">NOK</option>
-      <option value="DKK">DKK</option>
-      <option value="CHF">CHF</option>
-      <option value="ZAR">ZAR</option>
-      <option value="AED">AED</option>
-      <option value="SAR">SAR</option>
-      <option value="NGN">NGN</option>
-      <option value="GHS">GHS</option>
-      <option value="KES">KES</option>
-      <option value="PKR">PKR</option>
-      <option value="BDT">BDT</option>
-      <option value="PHP">PHP</option>
-      <option value="MYR">MYR</option>
-      <option value="THB">THB</option>
-      <option value="IDR">IDR</option>
-    </select>
-    <div class="hbadge">Free · Worldwide</div>
+  <div style="display:flex;align-items:center;gap:8px;">
+
+    <!-- Currency selector -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <span style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);line-height:1;">Currency</span>
+      <select id="currencySelect" onchange="setCurrency(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 10px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
+        <option value="CAD" selected>CAD</option>
+        <option value="USD">USD</option>
+        <option value="GBP">GBP</option>
+        <option value="EUR">EUR</option>
+        <option value="AUD">AUD</option>
+        <option value="NZD">NZD</option>
+        <option value="INR">INR</option>
+        <option value="JPY">JPY</option>
+        <option value="CNY">CNY</option>
+        <option value="BRL">BRL</option>
+        <option value="MXN">MXN</option>
+        <option value="KRW">KRW</option>
+        <option value="SGD">SGD</option>
+        <option value="HKD">HKD</option>
+        <option value="SEK">SEK</option>
+        <option value="NOK">NOK</option>
+        <option value="DKK">DKK</option>
+        <option value="CHF">CHF</option>
+        <option value="ZAR">ZAR</option>
+        <option value="AED">AED</option>
+        <option value="SAR">SAR</option>
+        <option value="NGN">NGN</option>
+        <option value="GHS">GHS</option>
+        <option value="KES">KES</option>
+        <option value="PKR">PKR</option>
+        <option value="BDT">BDT</option>
+        <option value="PHP">PHP</option>
+        <option value="MYR">MYR</option>
+        <option value="THB">THB</option>
+        <option value="IDR">IDR</option>
+      </select>
+    </div>
+
+    <!-- Divider -->
+    <div style="width:1px;height:32px;background:var(--border2);margin:0 2px;"></div>
+
+    <!-- Language selector -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <span style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);line-height:1;">Language</span>
+      <select id="langSelect" onchange="setLanguage(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 10px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
+        <option value="en" selected>English</option>
+        <option value="fr">Français</option>
+        <option value="zh">中文</option>
+        <option value="es">Español</option>
+        <option value="hi">हिन्दी</option>
+        <option value="ar">العربية</option>
+        <option value="pt">Português</option>
+        <option value="ko">한국어</option>
+        <option value="ja">日本語</option>
+        <option value="de">Deutsch</option>
+      </select>
+    </div>
+
+    <div class="hbadge" data-i18n="badge">Free · Worldwide</div>
   </div>
 </header>
 
@@ -723,7 +752,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 <!-- ═══ LEFT PANEL ═══ -->
 <div class="lp">
   <div class="hero">
-    <div class="eyebrow">Student financial planning tool</div>
+    <div class="eyebrow" data-i18n="heroEyebrow">Student financial planning tool</div>
     <h1>Understand the true cost<br>of your <em>university education.</em></h1>
     <p>Enter your school and program to receive a detailed breakdown of your total education cost, projected debt at graduation, monthly loan repayment obligations, and post-graduation financial outlook. Free to use, no account required.</p>
   </div>
@@ -732,55 +761,62 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
   <div class="how-it-works">
     <div class="hiw-step">
       <div class="hiw-num">1</div>
-      <div class="hiw-title">Enter your school</div>
-      <div class="hiw-desc">Type a school and program — we'll look up estimated tuition and costs for you.</div>
+      <div class="hiw-title" data-i18n="how1">Enter your school</div>
+      <div class="hiw-desc" data-i18n="howDesc1">Type a school and program — we'll search for estimated tuition and costs for you.</div>
     </div>
     <div class="hiw-step">
       <div class="hiw-num">2</div>
-      <div class="hiw-title">Fill in your situation</div>
-      <div class="hiw-desc">Add your living costs, income, and any OSAP or scholarships you expect.</div>
+      <div class="hiw-title" data-i18n="how2">Fill in your situation</div>
+      <div class="hiw-desc" data-i18n="howDesc2">Add your living costs, income, and any student aid or scholarships you expect.</div>
     </div>
     <div class="hiw-step">
       <div class="hiw-num">3</div>
-      <div class="hiw-title">See your full picture</div>
-      <div class="hiw-desc">Get your debt at graduation, monthly loan payments, and disposable income — then ask the advisor anything.</div>
+      <div class="hiw-title" data-i18n="how3">See your full picture</div>
+      <div class="hiw-desc" data-i18n="howDesc3">Get your debt at graduation, monthly loan payments, and disposable income — then ask the advisor anything.</div>
     </div>
   </div>
 
   <!-- DISCLAIMER -->
   <div class="disclaimer">
     <div class="disclaimer-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
-    <div>All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school's financial aid office. This tool is intended for users aged 13 and older. Not financial advice. <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" style="color:var(--accent);">Ontario OSAP →</a> &nbsp;|&nbsp; <a href="https://studentaid.gov" target="_blank" style="color:var(--accent);">US Federal Aid →</a></div>
+    <div data-i18n-html="disclaimer">All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school's financial aid office. This tool is intended for users aged 13 and older. Not financial advice. <a href="https://www.schoolanduniversity.com/find-schools" target="_blank" style="color:var(--accent);" data-i18n="osapLink">Student Aid →</a> &nbsp;|&nbsp; <a href="https://www.educationusa.state.gov" target="_blank" style="color:var(--accent);" data-i18n="usAidLink">International Aid →</a></div>
   </div>
 
   <!-- MODE TOGGLE -->
   <div class="mode-toggle">
-    <button class="mode-btn active" id="btnSingle" onclick="setMode('single')">Single school</button>
-    <button class="mode-btn" id="btnCompare" onclick="setMode('compare')">Compare two schools</button>
+    <button class="mode-btn active" id="btnSingle" onclick="setMode('single')" data-i18n="modeSingle">Single school</button>
+    <button class="mode-btn" id="btnCompare" onclick="setMode('compare')" data-i18n="modeCompare">Compare two schools</button>
   </div>
 
   <!-- AI LOOKUP -->
   <div class="sec" id="secLookup">
-    <div class="sec-head"><div class="sec-num" style="background:var(--accent);color:#fff;font-size:9px;">AI</div><h2>Don't know your tuition? We'll look it up</h2><button class="skip-btn" onclick="skipSection('secLookup')">Skip</button></div>
+    <div class="sec-head"><div class="sec-num" style="background:var(--accent);color:#fff;font-size:9px;">AI</div><h2 data-i18n="secLookup">Don't know your tuition? We'll look it up</h2><button class="skip-btn" onclick="skipSection('secLookup')">Skip</button></div>
     <div class="sec-body" id="secLookupBody">
     <div class="ai-box">
-      <p style="font-size:13px;color:var(--accent-text);margin-bottom:12px;line-height:1.6;">Type your school and program — we'll search the web for current tuition, city living costs, and median graduate salaries so you don't have to hunt for numbers. Takes about 10 seconds.</p>
+      <p style="font-size:13px;color:var(--accent-text);margin-bottom:12px;line-height:1.6;" data-i18n="lookupDesc">Type your school and program — we'll search the web for current tuition, city living costs, and median graduate salaries so you don't have to hunt for numbers. Takes about 10 seconds.</p>
       <div class="ai-row">
         <input type="text" id="luSchool" placeholder="e.g. University of Toronto"/>
         <input type="text" id="luProgram" placeholder="e.g. Computer Science"/>
         <select id="luStudentType" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;min-width:130px;">
           <option value="domestic">Domestic</option>
-          <option value="international">International student</option>
+          <option value="international" data-i18n="intlLabel">International student</option>
         </select>
         <select id="luTarget" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;min-width:100px;-webkit-appearance:none;appearance:none;cursor:pointer;">
-          <option value="A">Fill Option A</option>
-          <option value="B">Fill Option B</option>
+          <option value="A" data-i18n="fillA">Fill Option A</option>
+          <option value="B" data-i18n="fillB">Fill Option B</option>
         </select>
         <button class="ai-btn" id="luBtn" onclick="doLookup()">Look it up</button>
       </div>
       <div class="ai-res" id="luRes">
         <div class="ai-tag">AI result</div>
         <div id="luText"></div>
+        <div id="luInsertRow" style="display:none;margin-top:12px;">
+          <button id="luInsertBtn" onclick="insertAIResults()" style="height:36px;padding:0 18px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s;" onmouseover="this.style.background='var(--accent-hover)'" onmouseout="this.style.background='var(--accent)'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Insert into fields
+          </button>
+          <span style="font-size:11px;color:var(--muted);margin-left:10px;">Fills in the numbers the AI found</span>
+        </div>
         <div id="luRetryRow" style="display:none;margin-top:10px;">
           <button onclick="doLookup()" style="height:34px;padding:0 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);font-family:var(--sans);font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:background .15s;" onmouseover="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'" onmouseout="this.style.background='var(--bg3)';this.style.color='var(--text2)'">↻ Try again</button>
           <span style="font-size:11px;color:var(--muted);margin-left:8px;">Didn't get what you expected? Try searching again or enter numbers manually below.</span>
@@ -791,54 +827,54 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
   <!-- SCHOOLS -->
   <div class="sec" id="sec1">
-    <div class="sec-head"><div class="sec-num">1</div><h2>Which school are you looking at?</h2><button class="skip-btn" onclick="skipSection('sec1')">Skip</button></div>
+    <div class="sec-head"><div class="sec-num">1</div><h2 data-i18n="step1">Which school are you looking at?</h2><button class="skip-btn" onclick="skipSection('sec1')">Skip</button></div>
     <div class="sec-body" id="sec1Body">
     <div class="card">
       <div class="two-col" id="schoolGrid">
         <!-- OPTION A -->
         <div>
-          <div class="col-tag a" id="tagA">Option A</div>
-          <div class="field"><label>School name</label><input type="text" id="nameA" value="UofT"/></div>
-          <div class="field"><label>Program / major</label><input type="text" id="progA" value="Commerce"/></div>
-          <div class="field"><label id="lblTuitionA">Tuition per year ($)</label><input type="number" id="tuitionA" value="16000" min="0"/></div>
-          <div class="field"><label>Years of study</label>
-            <select id="yearsA"><option value="3">3 years</option><option value="4" selected>4 years</option><option value="5">5 years</option><option value="6">6 years</option></select>
+          <div class="col-tag a" id="tagA" data-i18n="optionA">Option A</div>
+          <div class="field"><label data-i18n="schoolName">School name</label><input type="text" id="nameA" placeholder="e.g. University of Toronto"/></div>
+          <div class="field"><label data-i18n="programLabel">Program / major</label><input type="text" id="progA" placeholder="e.g. Commerce"/></div>
+          <div class="field"><label id="lblTuitionA">Tuition per year ($)</label><input type="number" id="tuitionA" placeholder="e.g. 16,000" min="0"/></div>
+          <div class="field"><label data-i18n="yearsLabel">Years of study</label>
+            <select id="yearsA"><option value="3" data-i18n="yr3">3 years</option><option value="4" selected data-i18n="yr4">4 years</option><option value="5" data-i18n="yr5">5 years</option><option value="6" data-i18n="yr6">6 years</option></select>
           </div>
-          <div class="field"><label id="lblSalaryA">Expected starting salary ($)</label><input type="number" id="salaryA" value="65000" min="0"/></div>
-          <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflA" value="3" min="0" max="20" step="0.5"/></div>
+          <div class="field"><label id="lblSalaryA">Expected starting salary ($)</label><input type="number" id="salaryA" placeholder="e.g. 65,000" min="0"/></div>
+          <div class="field"><label data-i18n="inflLabel">Annual tuition increase (%)</label><input type="number" id="inflA" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
           <div class="toggle-row" style="margin-top:0.5rem;">
             <label class="toggle">
               <input type="checkbox" id="intlA" onchange="toggleIntl('A')"/>
               <div class="toggle-track"></div>
               <div class="toggle-thumb"></div>
             </label>
-            <span class="toggle-label">International student</span>
+            <span class="toggle-label" data-i18n="intlLabel">International student</span>
           </div>
           <div id="intlFieldA" style="display:none;">
-            <div class="field"><label id="lblIntlFeeA">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeA" value="15000" min="0"/></div>
+            <div class="field"><label id="lblIntlFeeA">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeA" placeholder="e.g. 15,000" min="0"/></div>
           </div>
         </div>
         <!-- OPTION B (hidden in single mode) -->
         <div id="colB">
-          <div class="col-tag b">Option B</div>
-          <div class="field"><label>School name</label><input type="text" id="nameB" value="York"/></div>
-          <div class="field"><label>Program / major</label><input type="text" id="progB" value="Commerce"/></div>
-          <div class="field"><label id="lblTuitionB">Tuition per year ($)</label><input type="number" id="tuitionB" value="10000" min="0"/></div>
+          <div class="col-tag b" data-i18n="optionB">Option B</div>
+          <div class="field"><label>School name</label><input type="text" id="nameB" placeholder="e.g. York University"/></div>
+          <div class="field"><label>Program / major</label><input type="text" id="progB" placeholder="e.g. Commerce"/></div>
+          <div class="field"><label id="lblTuitionB">Tuition per year ($)</label><input type="number" id="tuitionB" placeholder="e.g. 10,000" min="0"/></div>
           <div class="field"><label>Years of study</label>
-            <select id="yearsB"><option value="3">3 years</option><option value="4" selected>4 years</option><option value="5">5 years</option><option value="6">6 years</option></select>
+            <select id="yearsB"><option value="3" data-i18n="yr3">3 years</option><option value="4" selected data-i18n="yr4">4 years</option><option value="5" data-i18n="yr5">5 years</option><option value="6" data-i18n="yr6">6 years</option></select>
           </div>
-          <div class="field"><label id="lblSalaryB">Expected starting salary ($)</label><input type="number" id="salaryB" value="60000" min="0"/></div>
-          <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflB" value="3" min="0" max="20" step="0.5"/></div>
+          <div class="field"><label id="lblSalaryB">Expected starting salary ($)</label><input type="number" id="salaryB" placeholder="e.g. 60,000" min="0"/></div>
+          <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflB" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
           <div class="toggle-row" style="margin-top:0.5rem;">
             <label class="toggle">
               <input type="checkbox" id="intlB" onchange="toggleIntl('B')"/>
               <div class="toggle-track"></div>
               <div class="toggle-thumb"></div>
             </label>
-            <span class="toggle-label">International student</span>
+            <span class="toggle-label" data-i18n="intlLabel">International student</span>
           </div>
           <div id="intlFieldB" style="display:none;">
-            <div class="field"><label id="lblIntlFeeB">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeB" value="15000" min="0"/></div>
+            <div class="field"><label id="lblIntlFeeB">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeB" placeholder="e.g. 15,000" min="0"/></div>
           </div>
         </div>
       </div>
@@ -848,43 +884,43 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
   <!-- LIVING COSTS -->
   <div class="sec" id="sec2">
-    <div class="sec-head"><div class="sec-num">2</div><h2>What will your day-to-day cost?</h2><button class="skip-btn" onclick="skipSection('sec2')">Skip</button></div>
+    <div class="sec-head"><div class="sec-num">2</div><h2 data-i18n="step2">What will your day-to-day cost?</h2><button class="skip-btn" onclick="skipSection('sec2')">Skip</button></div>
     <div class="sec-body" id="sec2Body">
 
     <!-- Option A living -->
     <div class="card">
-      <div class="col-tag a" id="livingTagA" style="margin-bottom:0.875rem;">Option A — living costs</div>
-      <div class="sub-head">Housing</div>
+      <div class="col-tag a" id="livingTagA" data-i18n="optionALiving" style="margin-bottom:0.875rem;">Option A — living costs</div>
+      <div class="sub-head" data-i18n="housingLabel">Housing</div>
       <div class="g2">
-        <div class="field"><label>Housing situation</label>
+        <div class="field"><label data-i18n="housingSitLabel">Housing situation</label>
           <select id="housingA" onchange="toggleCustomHousing('A')">
-            <option value="0">Living at home ($0/mo)</option>
-            <option value="1200">On-campus residence ($1,200/mo)</option>
-            <option value="1500" selected>Renting solo ($1,500/mo)</option>
+            <option value="0" data-i18n="houseHome">Living at home ($0/mo)</option>
+            <option value="1200" data-i18n="houseCampus">On-campus residence ($1,200/mo)</option>
+            <option value="1500" selected data-i18n="houseSolo">Renting solo ($1,500/mo)</option>
             <option value="900">Renting with roommates ($900/mo)</option>
             <option value="2000">Downtown renting ($2,000/mo)</option>
             <option value="custom">Custom...</option>
           </select>
         </div>
-        <div class="field" id="housingCustomFieldA" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomA" value="1500" min="0"/></div>
+        <div class="field" id="housingCustomFieldA" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomA" placeholder="e.g. 1,500" min="0"/></div>
       </div>
-      <div class="sub-head">Monthly expenses</div>
+      <div class="sub-head" data-i18n="monthlyExp">Monthly expenses</div>
       <div class="g3">
-        <div class="field"><label id="lblFoodA">Food/mo ($)</label><input type="number" id="foodA" value="400" min="0"/></div>
-        <div class="field"><label id="lblTransportA">Transport/mo ($)</label><input type="number" id="transportA" value="150" min="0"/></div>
-        <div class="field"><label id="lblExtraA">Extra spending/mo ($)</label><input type="number" id="extraA" value="200" min="0"/></div>
+        <div class="field"><label id="lblFoodA">Food/mo ($)</label><input type="number" id="foodA" placeholder="e.g. 400" min="0"/></div>
+        <div class="field"><label id="lblTransportA">Transport/mo ($)</label><input type="number" id="transportA" placeholder="e.g. 150" min="0"/></div>
+        <div class="field"><label id="lblExtraA">Extra spending/mo ($)</label><input type="number" id="extraA" placeholder="e.g. 200" min="0"/></div>
       </div>
-      <div class="sub-head">Annual expenses</div>
+      <div class="sub-head" data-i18n="annualExp">Annual expenses</div>
       <div class="g2">
-        <div class="field"><label id="lblBooksA">Books & supplies/yr ($)</label><input type="number" id="booksA" value="600" min="0"/></div>
-        <div class="field"><label id="lblHealthA">Health/dental/yr ($)</label><input type="number" id="healthA" value="300" min="0"/></div>
+        <div class="field"><label id="lblBooksA">Books & supplies/yr ($)</label><input type="number" id="booksA" placeholder="e.g. 600" min="0"/></div>
+        <div class="field"><label id="lblHealthA">Health/dental/yr ($)</label><input type="number" id="healthA" placeholder="e.g. 300" min="0"/></div>
       </div>
     </div>
 
     <!-- Option B living (hidden in single mode) -->
     <div class="card" id="livingB">
-      <div class="col-tag b" style="margin-bottom:0.875rem;">Option B — living costs</div>
-      <div class="sub-head">Housing</div>
+      <div class="col-tag b" data-i18n="optionBLiving" style="margin-bottom:0.875rem;">Option B — living costs</div>
+      <div class="sub-head" data-i18n="housingLabel">Housing</div>
       <div class="g2">
         <div class="field"><label>Housing situation</label>
           <select id="housingB" onchange="toggleCustomHousing('B')">
@@ -896,18 +932,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <option value="custom">Custom...</option>
           </select>
         </div>
-        <div class="field" id="housingCustomFieldB" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomB" value="900" min="0"/></div>
+        <div class="field" id="housingCustomFieldB" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomB" placeholder="e.g. 900" min="0"/></div>
       </div>
-      <div class="sub-head">Monthly expenses</div>
+      <div class="sub-head" data-i18n="monthlyExp">Monthly expenses</div>
       <div class="g3">
-        <div class="field"><label id="lblFoodB">Food/mo ($)</label><input type="number" id="foodB" value="350" min="0"/></div>
-        <div class="field"><label id="lblTransportB">Transport/mo ($)</label><input type="number" id="transportB" value="120" min="0"/></div>
-        <div class="field"><label id="lblExtraB">Extra spending/mo ($)</label><input type="number" id="extraB" value="200" min="0"/></div>
+        <div class="field"><label id="lblFoodB">Food/mo ($)</label><input type="number" id="foodB" placeholder="e.g. 400" min="0"/></div>
+        <div class="field"><label id="lblTransportB">Transport/mo ($)</label><input type="number" id="transportB" placeholder="e.g. 150" min="0"/></div>
+        <div class="field"><label id="lblExtraB">Extra spending/mo ($)</label><input type="number" id="extraB" placeholder="e.g. 200" min="0"/></div>
       </div>
-      <div class="sub-head">Annual expenses</div>
+      <div class="sub-head" data-i18n="annualExp">Annual expenses</div>
       <div class="g2">
-        <div class="field"><label id="lblBooksB">Books & supplies/yr ($)</label><input type="number" id="booksB" value="600" min="0"/></div>
-        <div class="field"><label id="lblHealthB">Health/dental/yr ($)</label><input type="number" id="healthB" value="300" min="0"/></div>
+        <div class="field"><label id="lblBooksB">Books & supplies/yr ($)</label><input type="number" id="booksB" placeholder="e.g. 600" min="0"/></div>
+        <div class="field"><label id="lblHealthB">Health/dental/yr ($)</label><input type="number" id="healthB" placeholder="e.g. 300" min="0"/></div>
       </div>
     </div>
     </div><!-- end sec2Body -->
@@ -915,22 +951,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
   <!-- INCOME & FUNDING -->
   <div class="sec" id="sec3">
-    <div class="sec-head"><div class="sec-num">3</div><h2>Any money coming in while you study?</h2><button class="skip-btn" onclick="skipSection('sec3')">Skip</button></div>
+    <div class="sec-head"><div class="sec-num">3</div><h2 data-i18n="step3">Any money coming in while you study?</h2><button class="skip-btn" onclick="skipSection('sec3')">Skip</button></div>
     <div class="sec-body" id="sec3Body">
     <div class="card">
-      <div class="sub-head">While studying (applies to both options)</div>
+      <div class="sub-head" data-i18n="whileStudying">While studying (applies to both options)</div>
       <div class="g2">
-        <div class="field"><label id="lblFamily">Family support/yr ($)</label><input type="number" id="family" value="6000" min="0"/></div>
-        <div class="field"><label id="lblPersonal">Personal income/yr ($)</label><input type="number" id="personal" value="12000" min="0"/></div>
+        <div class="field"><label id="lblFamily">Family support/yr ($)</label><input type="number" id="family" placeholder="e.g. 6,000" min="0"/></div>
+        <div class="field"><label id="lblPersonal">Personal income/yr ($)</label><input type="number" id="personal" placeholder="e.g. 12,000" min="0"/></div>
       </div>
       <div class="divider"></div>
 
       <!-- STUDENT AID PROGRAM PICKER -->
-      <div class="sub-head">Student aid & loans</div>
+      <div class="sub-head" data-i18n="studentAid">Student aid & loans</div>
       <div class="field">
-        <label>Which student aid program are you applying to?</label>
+        <label data-i18n="aidLabel">Which student aid program are you applying to?</label>
         <select id="aidProgram" onchange="onAidProgramChange()">
-          <option value="none" selected>None / Not applying</option>
+          <option value="none" selected data-i18n="aidNone">None / Not applying</option>
           <optgroup label="CA — Canadian — Provincial">
             <option value="osap">OSAP — Ontario</option>
             <option value="studentaidbc">StudentAid BC — British Columbia</option>
@@ -998,7 +1034,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
           <div class="toggle-track"></div>
           <div class="toggle-thumb"></div>
         </label>
-        <span class="toggle-label">I also have scholarships / bursaries</span>
+        <span class="toggle-label" data-i18n="scholLabel">I also have scholarships / bursaries</span>
       </div>
       <div id="scholFields" style="display:none;">
         <div class="g2">
@@ -1008,41 +1044,36 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       </div>
 
       <div class="divider"></div>
-      <div class="sub-head">Loan repayment preferences</div>
+      <div class="sub-head" data-i18n="loanPref">Loan repayment preferences</div>
       <div class="g2">
         <div class="field">
-          <label>Interest rate (%)</label>
+          <label data-i18n="interestLabel">Interest rate (%)</label>
           <select id="loanRatePreset" onchange="toggleCustomRate()">
-            <option value="0.0625" selected>6.25% — OSAP / NSLSC (prime +1%)</option>
-            <option value="0.055">5.5% — StudentAid BC / Alberta</option>
-            <option value="0.0525">5.25% — Quebec (AFE)</option>
-            <option value="0.065">6.5% — Canadian bank (prime +1.5%)</option>
-            <option value="0.07">7.0% — Canadian bank (prime +2%)</option>
-            <option value="0.0688">6.88% — US Federal Subsidized/Unsubsidized</option>
-            <option value="0.0953">9.53% — US Federal PLUS Loan</option>
-            <option value="0.08">8.0% — US private lender (low)</option>
-            <option value="0.11">11.0% — US private lender (high)</option>
-            <option value="custom">Custom rate...</option>
+            <option value="0.05" selected data-i18n="rate1">5.0% — Low (government loan)</option>
+            <option value="0.065" data-i18n="rate2">6.5% — Medium (standard bank)</option>
+            <option value="0.08" data-i18n="rate3">8.0% — Medium-high (private lender)</option>
+            <option value="0.10" data-i18n="rate4">10.0% — High (private lender)</option>
+            <option value="0.12" data-i18n="rate5">12.0% — Very high (developing country)</option>
+            <option value="custom" data-i18n="customRate">Enter my own rate...</option>
           </select>
-          <div id="loanRateCustomWrap" style="display:none;margin-top:6px;">
+          <div id="loanRateCustomWrap" style="margin-top:6px;">
             <input type="number" id="loanRateCustom" placeholder="e.g. 6.5" min="0" max="30" step="0.01" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
-            <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter annual rate as a percentage (e.g. 6.5 for 6.5%)</span>
+            <span id="rateHintText" style="font-size:11px;color:var(--muted);margin-top:4px;display:block;" data-i18n="customRateHint">Enter your annual interest rate as a percentage (e.g. 6.5 for 6.5%)</span>
           </div>
         </div>
         <div class="field">
-          <label>Repayment term</label>
+          <label data-i18n="termLabel">Repayment term</label>
           <select id="loanTermPreset" onchange="toggleCustomTerm()">
-            <option value="10" selected>10 years — OSAP / NSLSC standard</option>
-            <option value="7">7 years — accelerated</option>
-            <option value="15">15 years — extended</option>
-            <option value="20">20 years — RAP / income-driven</option>
-            <option value="10">10 years — US federal standard</option>
-            <option value="25">25 years — US extended repayment</option>
-            <option value="custom">Custom term...</option>
+            <option value="5" data-i18n="term1">5 years — short</option>
+            <option value="10" selected data-i18n="term2">10 years — standard</option>
+            <option value="15" data-i18n="term3">15 years — extended</option>
+            <option value="20" data-i18n="term4">20 years — long term</option>
+            <option value="25" data-i18n="term5">25 years — maximum</option>
+            <option value="custom" data-i18n="customTerm">Enter my own term...</option>
           </select>
-          <div id="loanTermCustomWrap" style="display:none;margin-top:6px;">
+          <div id="loanTermCustomWrap" style="margin-top:6px;">
             <input type="number" id="loanTermCustom" placeholder="e.g. 12" min="1" max="30" step="1" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
-            <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter number of years (1–30)</span>
+            <span id="termHintText" style="font-size:11px;color:var(--muted);margin-top:4px;display:block;" data-i18n="customTermHint">Enter number of years (1–30)</span>
           </div>
         </div>
       </div>
@@ -1052,10 +1083,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
   <!-- POST-GRAD LIFESTYLE -->
   <div class="sec" id="sec4">
-    <div class="sec-head"><div class="sec-num">4</div><h2>What does life look like after you graduate?</h2><button class="skip-btn" onclick="skipSection('sec4')">Skip</button></div>
+    <div class="sec-head"><div class="sec-num">4</div><h2 data-i18n="step4">What does life look like after you graduate?</h2><button class="skip-btn" onclick="skipSection('sec4')">Skip</button></div>
     <div class="sec-body" id="sec4Body">
     <div class="card">
-      <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">This helps us show whether your take-home pay will actually cover rent, loans, and still leave something left over.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;" data-i18n="postGradDesc">This helps us show whether your take-home pay will actually cover rent, loans, and still leave something left over.</p>
       <div class="g2">
         <div class="field">
           <label id="lblRentPost">Rent after grad/mo ($)</label>
@@ -1073,11 +1104,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <span id="lblRentPostCustom" style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter your expected monthly rent ($)</span>
           </div>
         </div>
-        <div class="field"><label id="lblLiving">Living expenses/mo ($)</label><input type="number" id="livingPost" value="1200" min="0"/></div>
+        <div class="field"><label id="lblLiving">Living expenses/mo ($)</label><input type="number" id="livingPost" placeholder="e.g. 1,200" min="0"/></div>
       </div>
       <div class="g2" style="margin-top:0.5rem;">
         <div class="field">
-          <label>Province / State (for tax estimate)</label>
+          <label data-i18n="provinceLabel">Province / State (for tax estimate)</label>
           <select id="province">
             <optgroup label="CA — Canada — Provinces">
               <option value="ON" selected>Ontario</option>
@@ -1159,13 +1190,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             </optgroup>
           </select>
         </div>
-        <div class="field"><label id="lblSavings">Savings goal/mo ($)</label><input type="number" id="savingsGoal" value="500" min="0"/></div>
+        <div class="field"><label id="lblSavings">Savings goal/mo ($)</label><input type="number" id="savingsGoal" placeholder="e.g. 500" min="0"/></div>
       </div>
     </div>
     </div><!-- end sec4Body -->
   </div>
 
-  <button class="calc-btn" onclick="calculate()">Show me my numbers<span style="margin-left:8px;display:inline-flex;align-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></button>
+  <button class="calc-btn" onclick="calculate()" data-i18n="showBtn">Show me my numbers<span style="margin-left:8px;display:inline-flex;align-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></button>
 
   <!-- ═══ RESULTS ═══ -->
   <div class="results" id="results">
@@ -1173,7 +1204,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- Recalculate -->
     <div style="display:flex;justify-content:flex-end;margin-bottom:0.75rem;">
-      <button class="edit-inputs-btn" onclick="v('results').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:4px;"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Edit inputs</button>
+      <button class="edit-inputs-btn" onclick="v('results').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:4px;"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg data-i18n="editInputs"> Edit inputs</button>
     </div>
 
     <!-- Summary banner(s) -->
@@ -1181,7 +1212,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- Cost bars -->
     <div class="bar-card" id="barCard">
-      <div class="sub-head" style="margin-top:0;">Cost breakdown</div>
+      <div class="sub-head" style="margin-top:0;" data-i18n="costBreakdown">Cost breakdown</div>
       <div id="barsInner"></div>
     </div>
 
@@ -1190,13 +1221,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- Post-grad timeline -->
     <div class="timeline" id="tlCard">
-      <div class="tl-title">Your financial timeline</div>
+      <div class="tl-title" data-i18n="timelineTitle">Your financial timeline</div>
       <div id="tlBody"></div>
     </div>
 
     <!-- Monthly breakdown after grad -->
     <div class="bar-card" id="monthlyCard">
-      <div class="sub-head" style="margin-top:0;">Monthly budget after graduation</div>
+      <div class="sub-head" style="margin-top:0;" data-i18n="monthlyBudget">Monthly budget after graduation</div>
       <div id="monthlyBody"></div>
     </div>
 
@@ -1209,8 +1240,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- Email -->
     <div class="email-card">
-      <h3>Want to save your results?</h3>
-      <p>Enter your email and we'll send you a clean summary — plus helpful tips on OSAP, managing student debt, and what to expect in your first year out of school. No spam, ever.</p>
+      <h3 data-i18n="emailTitle">Want to save your results?</h3>
+      <p data-i18n="emailDesc">Enter your email and we'll send you a clean summary — plus helpful tips on OSAP, managing student debt, and what to expect in your first year out of school. No spam, ever.</p>
       <div class="email-row">
         <input type="email" id="emailIn" placeholder="your@email.com"/>
         <button id="emailBtn" onclick="submitEmail(event)">Send results</button>
@@ -1230,44 +1261,44 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- SHARE / PRINT -->
     <div class="share-row">
-      <button class="share-btn" onclick="printResults()">Print / Save as PDF</button>
-      <button class="share-btn" onclick="copyLink()">Copy link</button>
-      <button class="share-btn" onclick="shareResults()">Share</button>
+      <button class="share-btn" onclick="printResults()" data-i18n="printBtn">Print / Save as PDF</button>
+      <button class="share-btn" onclick="copyLink()" data-i18n="copyBtn">Copy link</button>
+      <button class="share-btn" onclick="shareResults()" data-i18n="shareBtn">Share</button>
     </div>
   </div>
 
   <!-- ═══ FAQ ═══ -->
   <div class="faq-section">
-    <div class="faq-title">Common questions</div>
+    <div class="faq-title" data-i18n="faqTitle">Common questions</div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">How accurate are these numbers? <span class="faq-chevron">▼</span></button>
-      <div class="faq-a">This calculator uses estimated tuition figures, approximate tax rates, and standard OSAP loan terms. Real numbers will vary based on your specific program, year of study, family income, and province. Use this as a planning guide — always verify final tuition with your school's registrar and OSAP amounts at <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank">ontario.ca/osap</a>. The goal is to give you a realistic ballpark, not an exact invoice.</div>
+      <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq1">How accurate are these numbers? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a" data-i18n="faq1a">This calculator uses estimated tuition figures, approximate tax rates, and standard OSAP loan terms. Real numbers will vary based on your specific program, year of study, family income, and province. Use this as a planning guide — always verify final tuition with your school's registrar and OSAP amounts at <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank">ontario.ca/osap</a>. The goal is to give you a realistic ballpark, not an exact invoice.</div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What is OSAP and do I qualify? <span class="faq-chevron">▼</span></button>
-      <div class="faq-a">OSAP (Ontario Student Assistance Program) is a mix of grants and loans provided by the Ontario government to help students pay for post-secondary education. Grants don't need to be repaid — loans do. Eligibility is based on your household income, tuition cost, and living situation. Most students from families earning under $175,000/year qualify for something. Apply at <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank">ontario.ca/osap</a> — you can apply even before you're accepted to school.</div>
+      <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq2">What is OSAP and do I qualify? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a" data-i18n="faq2a">OSAP (Ontario Student Assistance Program) is a mix of grants and loans provided by the Ontario government to help students pay for post-secondary education. Grants don't need to be repaid — loans do. Eligibility is based on your household income, tuition cost, and living situation. Most students from families earning under $175,000/year qualify for something. Apply at <a href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank">ontario.ca/osap</a> — you can apply even before you're accepted to school.</div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What interest rate should I use? <span class="faq-chevron">▼</span></button>
-      <div class="faq-a">For most students using OSAP, the current rate is <strong>prime + 1%</strong>, which works out to approximately 6.25% as of 2025. If you have a private student line of credit (through a bank like RBC, TD, or Scotiabank), rates typically range from prime (5.2%) to prime + 2% depending on the bank and your credit history. When in doubt, use 6.25% as a safe estimate.</div>
+      <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq3">What interest rate should I use? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a" data-i18n="faq3a">For most students using OSAP, the current rate is <strong>prime + 1%</strong>, which works out to approximately 6.25% as of 2025. If you have a private student line of credit (through a bank like RBC, TD, or Scotiabank), rates typically range from prime (5.2%) to prime + 2% depending on the bank and your credit history. When in doubt, use 6.25% as a safe estimate.</div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">How long do I have to pay off my student loans? <span class="faq-chevron">▼</span></button>
-      <div class="faq-a">OSAP loans have a standard repayment period of <strong>10 years</strong> after you finish school. You don't start paying until 6 months after you graduate or leave full-time studies. If 10 years feels too tight, you can apply for a longer repayment period through the Repayment Assistance Plan (RAP), which can reduce or pause payments if your income is low.</div>
+      <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq4">How long do I have to pay off my student loans? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a" data-i18n="faq4a">OSAP loans have a standard repayment period of <strong>10 years</strong> after you finish school. You don't start paying until 6 months after you graduate or leave full-time studies. If 10 years feels too tight, you can apply for a longer repayment period through the Repayment Assistance Plan (RAP), which can reduce or pause payments if your income is low.</div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What's the difference between a grant and a loan? <span class="faq-chevron">▼</span></button>
-      <div class="faq-a">A <strong>grant</strong> is free money — you never have to pay it back. A <strong>loan</strong> is borrowed money that you repay with interest after graduation. OSAP typically gives you a combination of both. The grant portion depends on your family income (lower income = more grant). This calculator treats grants as income (they reduce your debt) and OSAP loans as debt you'll repay after graduation.</div>
+      <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq5">What's the difference between a grant and a loan? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a" data-i18n="faq5a">A <strong>grant</strong> is free money — you never have to pay it back. A <strong>loan</strong> is borrowed money that you repay with interest after graduation. OSAP typically gives you a combination of both. The grant portion depends on your family income (lower income = more grant). This calculator treats grants as income (they reduce your debt) and OSAP loans as debt you'll repay after graduation.</div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Can I use this for schools outside Ontario? <span class="faq-chevron">▼</span></button>
-      <div class="faq-a">Yes — the tuition lookup and cost calculations work for any Canadian school. The student loan section is based on OSAP (Ontario), but the repayment math is similar across provinces. If you're in BC, Alberta, or another province, the interest rates and programs may differ slightly, but the overall debt and repayment estimates will still give you a useful picture.</div>
+      <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq6">Can I use this for schools worldwide? <span class="faq-chevron">▼</span></button>
+      <div class="faq-a" data-i18n="faq6a">Yes — the tuition lookup and cost calculations work for any Canadian school. The student loan section is based on OSAP (Ontario), but the repayment math is similar across provinces. If you're in BC, Alberta, or another province, the interest rates and programs may differ slightly, but the overall debt and repayment estimates will still give you a useful picture.</div>
     </div>
   </div>
 </div>
@@ -1308,7 +1339,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
     <button onclick="toggleChat()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:4px;line-height:1;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;transition:background .15s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="chat-msgs" id="chatMsgs">
-    <div class="msg ai">Hi there! Once you run your numbers, I can help you make sense of them — whether that's understanding your debt, figuring out if a school is worth the cost, or just answering questions about student loans in Canada. What's on your mind?</div>
+    <div class="msg ai" data-i18n="chatIntro">Hi there! Once you run your numbers, I can help you make sense of them — whether that's understanding your debt, figuring out if a school is worth the cost, or just answering questions about student loans in Canada. What's on your mind?</div>
   </div>
   <div class="chips" id="chips">
     <span class="chip" onclick="sendChip(this)">What is OSAP and do I qualify?</span>
@@ -1326,7 +1357,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
 <script>
 const API="/api/chat";
-let mode='single', calcState=null;
+let mode='single', calcState=null, lastParsedData=null;
 let currency='CAD';
 
 // Exchange rates relative to CAD (approximate)
@@ -1347,6 +1378,430 @@ const SYMBOLS={
 };
 
 /* ── CURRENCY ── */
+/* ── LANGUAGE ── */
+let currentLang='en';
+const TRANSLATIONS={
+  en:{
+    heroEyebrow:'Student financial planning tool',heroTitle:'Understand the true cost of your university education.',heroDesc:'Enter your school and program to receive a detailed breakdown of your total education cost, projected debt at graduation, monthly loan repayment obligations, and post-graduation financial outlook. Free to use, no account required.',
+    step1:'Which school are you looking at?',step2:'What will your day-to-day cost?',step3:'Any money coming in while you study?',step4:'What does life look like after you graduate?',
+    secLookup:'Don\'t know your tuition? We\'ll look it up',showBtn:'Show me my numbers',lookupBtn:'Look it up',skip:'Skip',emailOkMsg:'Sent! Check your inbox shortly.',sendResults:'Send results',editInputs:'Edit inputs',insertBtn:'Insert into fields',
+    how1:'Enter your school',how2:'Fill in your situation',how3:'See your full picture',
+    badge:'Free · Worldwide',footerTagline:'Free tool for students worldwide · Not financial advice · For users 13+',
+    modeSingle:'Single school',modeCompare:'Compare two schools',
+    lookupDesc:"Type your school and program — we'll search the web for current tuition, city living costs, and median graduate salaries so you don't have to hunt for numbers. Takes about 10 seconds.",
+    fillA:'Fill Option A',fillB:'Fill Option B',domestic:'Domestic',international:'International student',
+    schoolName:'School name',programLabel:'Program / major',yearsLabel:'Years of study',inflLabel:'Annual tuition increase (%)',intlLabel:'International student',
+    housingLabel:'Housing',housingSitLabel:'Housing situation',monthlyExp:'Monthly expenses',annualExp:'Annual expenses',
+    lblTuition:'Tuition per year ($)',lblSalary:'Expected starting salary ($)',lblIntlFee:'International fee premium/yr ($) ',
+    lblFood:'Food/mo ($)',lblTransport:'Transport/mo ($)',lblExtra:'Extra spending/mo ($)',lblBooks:'Books & supplies/yr ($)',lblHealth:'Health/dental/yr ($)',
+    lblFamily:'Family support/yr ($)',lblPersonal:'Personal income/yr ($)',lblSchol:'Scholarship amount/yr ($)',lblLiving:'Living expenses/mo ($)',lblSavings:'Savings goal/mo ($)',lblRentPost:'Rent after grad/mo ($)',
+    whileStudying:'While studying (applies to both options)',studentAid:'Student aid & loans',scholLabel:'I also have scholarships / bursaries',loanPref:'Loan repayment preferences',interestLabel:'Interest rate (%)',termLabel:'Repayment term',
+    postGradDesc:'This helps us show whether your take-home pay will actually cover rent, loans, and still leave something left over.',provinceLabel:'Province / State (for tax estimate)',
+    timelineTitle:'Your financial timeline',costBreakdown:'Cost breakdown',monthlyBudget:'Monthly budget after graduation',
+    emailTitle:'Want to save your results?',emailDesc:"Enter your email and we'll send you a clean summary — plus helpful tips on OSAP, managing student debt, and what to expect in your first year out of school. No spam, ever.",
+    printBtn:'Print / Save as PDF',copyBtn:'Copy link',shareBtn:'Share',faqTitle:'Common questions',
+    rentHome:'Living at home',rentRoom:'With roommates',rent1bOuter:'1-bedroom outside downtown',rent1bCity:'1-bedroom city',rent1bDt:'1-bedroom downtown',rentTorVan:'1-bedroom Toronto/Vancouver',
+    phSchool:'e.g. University of Toronto',phProgram:'e.g. Computer Science',phEmail:'your@email.com',phChat:'e.g. Is $60k in debt too much?',
+    aiAdvisor:"Hi there! Once you run your numbers, I can help you make sense of them — whether that's understanding your debt, figuring out if a school is worth the cost, or just answering questions about student loans in Canada. What's on your mind?",
+    customRateHint:'Enter your annual interest rate as a percentage (e.g. 6.5 for 6.5%)',customTermHint:'Enter number of years (1-30)',disclaimer:'All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school\'s financial aid office. This tool is intended for users aged 13 and older. Not financial advice.',yr3:'3 years',yr4:'4 years',yr5:'5 years',yr6:'6 years',houseHome:'Living at home ($0/mo)',houseCampus:'On-campus residence ($1,200/mo)',houseSolo:'Renting solo ($1,500/mo)',houseDt:'Downtown renting ($2,000/mo)',houseRoommate:'Renting with roommates ($900/mo)',rate1:'5.0% — Low (government loan)',rate2:'6.5% — Medium (standard bank)',rate3:'8.0% — Medium-high (private lender)',rate4:'10.0% — High (private lender)',rate5:'12.0% — Very high (developing country)',term1:'5 years — short',term2:'10 years — standard',term3:'15 years — extended',term4:'20 years — long term',term5:'25 years — maximum',osapLink:'Student Aid →',usAidLink:'International Aid →',howDesc1:'Type a school and program — we\'ll search for estimated tuition and costs for you.',howDesc2:'Add your living costs, income, and any student aid or scholarships you expect.',howDesc3:'Get your debt at graduation, monthly loan payments, and disposable income — then ask the advisor anything.',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — living costs',optionBLiving:'Option B — living costs',aidLabel:'Which student aid program are you applying to?',aidNone:'None / Not applying',customRate:'Enter my own rate...',customTerm:'Enter my own term...',privacyLink:'Privacy Policy',tosLink:'Terms of Service',contactLink:'Contact',faq1:'How accurate are these numbers?',faq2:'What is OSAP and do I qualify?',faq3:'What interest rate should I use?',faq4:'How long do I have to pay off my student loans?',faq5:'What\'s the difference between a grant and a loan?',faq6:'Can I use this for schools worldwide?',faq1a:'This calculator uses estimated tuition figures, approximate tax rates, and standard OSAP loan terms. Real numbers will vary based on your specific program, year of study, family income, and province. Use this as a planning guide — always verify final tuition with your school\'s registrar.',faq2a:'OSAP (Ontario Student Assistance Program) is a mix of grants and loans provided by the Ontario government. Grants don\'t need to be repaid — loans do. Most students from families earning under $175,000/year qualify for something.',faq3a:'For most students using OSAP, the current rate is prime + 1%, approximately 6.25%. For private student lines of credit, rates typically range from prime to prime + 2%.',faq4a:'OSAP loans have a standard repayment period of 10 years after you finish school. You don\'t start paying until 6 months after you graduate.',faq5a:'A <strong>grant</strong> is free money — you never pay it back. A <strong>loan</strong> is borrowed money you repay with interest after graduation.',faq6a:'Yes — the tuition lookup and cost calculations work for schools worldwide. Enter any school and it will search for current tuition and costs. Loan program options include Canadian, US, and international rates.',
+  },
+  fr:{
+    heroEyebrow:'Outil de planification financière étudiante',heroTitle:'Comprenez le vrai coût de vos études universitaires.',heroDesc:'Entrez votre école et programme pour obtenir une ventilation détaillée de votre coût total, dette projetée et perspectives financières après diplôme. Gratuit, aucun compte requis.',
+    step1:'Quelle école envisagez-vous?',step2:'Quels seront vos frais quotidiens?',step3:'Avez-vous des revenus pendant vos études?',step4:'À quoi ressemblera la vie après le diplôme?',
+    secLookup:'Vous ne connaissez pas vos frais? Nous les cherchons',showBtn:'Afficher mes chiffres',lookupBtn:'Rechercher',skip:'Ignorer',emailOkMsg:'Envoyé! Vérifiez votre boîte mail.',sendResults:'Envoyer les résultats',editInputs:'Modifier les données',insertBtn:'Insérer dans les champs',
+    how1:'Entrez votre école',how2:'Remplissez votre situation',how3:'Voyez votre tableau complet',
+    badge:'Gratuit · Mondial',footerTagline:'Outil gratuit pour les étudiants · Pas un conseil financier · Pour les 13 ans et plus',
+    modeSingle:'École unique',modeCompare:'Comparer deux écoles',
+    lookupDesc:'Tapez votre école et programme — nous rechercherons les frais de scolarité actuels, les coûts de la vie et les salaires médians des diplômés.',
+    fillA:'Remplir Option A',fillB:'Remplir Option B',domestic:'Étudiant national',international:'Étudiant international',
+    schoolName:'Nom de l\'école',programLabel:'Programme / spécialité',yearsLabel:'Années d\'études',inflLabel:'Augmentation annuelle des frais (%)',intlLabel:'Étudiant international',
+    housingLabel:'Logement',housingSitLabel:'Situation de logement',monthlyExp:'Dépenses mensuelles',annualExp:'Dépenses annuelles',
+    lblTuition:'Frais de scolarité/an ($)',lblSalary:'Salaire de départ prévu ($)',lblIntlFee:'Supplément frais internationaux/an ($) ',
+    lblFood:'Alimentation/mois ($)',lblTransport:'Transport/mois ($)',lblExtra:'Dépenses supplémentaires/mois ($)',lblBooks:'Livres et fournitures/an ($)',lblHealth:'Santé/dentaire/an ($)',
+    lblFamily:'Aide familiale/an ($)',lblPersonal:'Revenu personnel/an ($)',lblSchol:'Montant de bourse/an ($)',lblLiving:'Dépenses de vie/mois ($)',lblSavings:'Objectif épargne/mois ($)',lblRentPost:'Loyer après diplôme/mois ($)',
+    whileStudying:'Pendant les études (s\'applique aux deux options)',studentAid:'Aide aux étudiants et prêts',scholLabel:'J\'ai aussi des bourses',loanPref:'Préférences de remboursement',interestLabel:'Taux d\'intérêt (%)',termLabel:'Durée de remboursement',
+    postGradDesc:'Cela nous aide à montrer si votre salaire net couvrira le loyer, les prêts, et laissera quelque chose de côté.',provinceLabel:'Province / État (pour estimation fiscale)',
+    timelineTitle:'Votre calendrier financier',costBreakdown:'Répartition des coûts',monthlyBudget:'Budget mensuel après diplôme',
+    emailTitle:'Vous souhaitez sauvegarder vos résultats?',emailDesc:'Entrez votre email et nous vous enverrons un résumé complet. Pas de spam, jamais.',
+    printBtn:'Imprimer / Sauvegarder en PDF',copyBtn:'Copier le lien',shareBtn:'Partager',faqTitle:'Questions fréquentes',
+    rentHome:'Chez les parents',rentRoom:'En colocation',rent1bOuter:'1 chambre hors centre',rent1bCity:'1 chambre en ville',rent1bDt:'1 chambre centre-ville',rentTorVan:'1 chambre Toronto/Vancouver',
+    phSchool:'ex. Université de Montréal',phProgram:'ex. Commerce',phEmail:'votre@email.com',phChat:'ex. 60 000 $ de dette est-ce trop?',
+    aiAdvisor:"Bonjour! Une fois vos chiffres calculés, je peux vous aider à les comprendre. Qu'avez-vous en tête?",
+    yr3:'3 ans',yr4:'4 ans',yr5:'5 ans',yr6:'6 ans',houseHome:'Chez les parents (0$/mois)',houseCampus:'Résidence universitaire (1 200$/mois)',houseSolo:'Location seul (1 500$/mois)',houseDt:'Location centre-ville (2 000$/mois)',houseRoommate:'Colocation (900$/mois)',rate1:'5,0 % — Faible (prêt gouvernemental)',rate2:'6,5 % — Moyen (banque standard)',rate3:'8,0 % — Moyen-élevé (prêteur privé)',rate4:'10,0 % — Élevé (prêteur privé)',rate5:'12,0 % — Très élevé (pays en développement)',term1:'5 ans — court',term2:'10 ans — standard',term3:'15 ans — prolongé',term4:'20 ans — long terme',term5:'25 ans — maximum',osapLink:'OSAP Ontario →',usAidLink:'Aide fédérale US →',howDesc1:'Tapez votre école et programme — nous rechercherons les frais estimés.',howDesc2:'Ajoutez vos frais de vie, revenus et toute aide financière attendue.',howDesc3:'Obtenez votre dette à la fin, vos paiements mensuels et votre revenu disponible.',
+    disclaimer:'Tous les chiffres sont des <strong>estimations à des fins de planification uniquement</strong>. Les frais de scolarité et les salaires varient selon les années. Pour des chiffres officiels, contactez le bureau d\'aide financière de votre école. Pas un conseil financier.',
+  },
+  zh:{
+    heroEyebrow:'学生财务规划工具',heroTitle:'了解您大学教育的真实费用。',heroDesc:'输入您的学校和专业，获取总教育费用、毕业时的预计债务和毕业后财务状况的详细分析。免费使用，无需注册。',
+    step1:'您在考虑哪所学校？',step2:'您的日常费用是多少？',step3:'学习期间有任何收入吗？',step4:'毕业后的生活是什么样子？',
+    secLookup:'不知道学费？我们来查找',showBtn:'显示我的数据',lookupBtn:'查找',skip:'跳过',emailOkMsg:'已发送！请查收您的邮箱。',sendResults:'发送结果',editInputs:'编辑数据',insertBtn:'插入到字段',
+    how1:'输入您的学校',how2:'填写您的情况',how3:'查看完整财务图景',
+    badge:'免费 · 全球适用',footerTagline:'面向全球学生的免费工具 · 非财务建议 · 适用于13岁以上用户',
+    modeSingle:'单所学校',modeCompare:'比较两所学校',
+    lookupDesc:'输入您的学校和专业——我们将搜索当前学费、城市生活费用和毕业生中位数薪资。约需10秒。',
+    fillA:'填入选项A',fillB:'填入选项B',domestic:'国内学生',international:'国际学生',
+    schoolName:'学校名称',programLabel:'专业 / 课程',yearsLabel:'学习年数',inflLabel:'年度学费增长率 (%)',intlLabel:'国际学生',
+    housingLabel:'住房',housingSitLabel:'住房情况',monthlyExp:'月度支出',annualExp:'年度支出',
+    lblTuition:'每年学费 ($)',lblSalary:'预期起薪 ($)',lblIntlFee:'国际学生附加费/年 ($) ',
+    lblFood:'餐饮/月 ($)',lblTransport:'交通/月 ($)',lblExtra:'额外支出/月 ($)',lblBooks:'书籍和学习用品/年 ($)',lblHealth:'医疗/牙科/年 ($)',
+    lblFamily:'家庭资助/年 ($)',lblPersonal:'个人收入/年 ($)',lblSchol:'奖学金金额/年 ($)',lblLiving:'生活费/月 ($)',lblSavings:'储蓄目标/月 ($)',lblRentPost:'毕业后租金/月 ($)',
+    whileStudying:'在读期间（适用于两个选项）',studentAid:'学生资助和贷款',scholLabel:'我还有奖学金/助学金',loanPref:'贷款还款偏好',interestLabel:'利率 (%)',termLabel:'还款期限',
+    postGradDesc:'这帮助我们显示您的税后薪资是否足够支付租金、贷款，并留有余额。',provinceLabel:'省份 / 州（用于税务估算）',
+    timelineTitle:'您的财务时间线',costBreakdown:'费用明细',monthlyBudget:'毕业后月度预算',
+    emailTitle:'想保存您的结果？',emailDesc:'输入您的邮箱，我们将发送完整摘要。绝不发送垃圾邮件。',
+    printBtn:'打印 / 保存为PDF',copyBtn:'复制链接',shareBtn:'分享',faqTitle:'常见问题',
+    rentHome:'住在家里',rentRoom:'与室友合租',rent1bOuter:'市中心外一室公寓',rent1bCity:'市区一室公寓',rent1bDt:'市中心一室公寓',rentTorVan:'多伦多/温哥华一室公寓',
+    phSchool:'例如：多伦多大学',phProgram:'例如：商业',phEmail:'您的@邮箱.com',phChat:'例如：6万元债务太多吗？',
+    aiAdvisor:'您好！计算完数据后，我可以帮您理解结果。您想了解什么？',
+    disclaimer:'所有数据均为<strong>仅供规划参考的估算值</strong>。学费和薪资因年份和个人情况而异。如需官方数据，请联系您学校的财务援助办公室。非财务建议。',customRateHint:'输入年利率百分比（例如6.5表示6.5%）',customTermHint:'输入年数（1–30）',yr3:'3年',yr4:'4年',yr5:'5年',yr6:'6年',houseHome:'住在家里（0元/月）',houseCampus:'校内宿舍（¥1,200/月）',houseSolo:'独自租房（¥1,500/月）',houseDt:'市中心租房（¥2,000/月）',houseRoommate:'与室友合租（¥900/月）',rate1:'5.0% — 低利率（政府贷款）',rate2:'6.5% — 中等（标准银行）',rate3:'8.0% — 中高（私人贷款）',rate4:'10.0% — 高（私人贷款）',rate5:'12.0% — 很高（发展中国家）',term1:'5年 — 短期',term2:'10年 — 标准',term3:'15年 — 延长',term4:'20年 — 长期',term5:'10年 — 美国联邦标准',osapLink:'学生资助信息 →',usAidLink:'国际学生援助 →',howDesc1:'输入您的学校和专业——我们将搜索估算学费和费用。',howDesc2:'添加您的生活费用、收入和预期的学生资助或奖学金。',howDesc3:'获取毕业债务、月还款额和可支配收入——然后向顾问提问。',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — frais de vie',optionBLiving:'Option B — frais de vie',aidLabel:'À quel programme d\'aide étudiante postulez-vous?',aidNone:'Aucun / Ne postule pas',customRate:'Entrez mon propre taux...',customTerm:'Entrez ma propre durée...',privacyLink:'Politique de confidentialité',tosLink:'Conditions d\'utilisation',contactLink:'Contact',faq1:'Ces chiffres sont-ils précis?',faq2:'Qu\'est-ce que l\'aide financière?',faq3:'Quel taux d\'intérêt utiliser?',faq4:'Combien de temps pour rembourser?',faq5:'Différence entre subvention et prêt?',faq6:'Puis-je l\'utiliser pour d\'autres écoles?',faq1a:'Ce calculateur utilise des estimations. Vérifiez toujours les frais officiels auprès de votre établissement.',faq2a:'L\'aide financière est un mélange de subventions et de prêts gouvernementaux. Les subventions ne sont pas remboursables.',faq3a:'Pour la plupart des étudiants, le taux actuel est d\'environ 6,25%.',faq4a:'La période de remboursement standard est de 10 ans après la fin des études.',faq5a:'Une <strong>subvention</strong> est gratuite. Un <strong>prêt</strong> doit être remboursé avec intérêts.',customRateHint:'Entrez le taux annuel en pourcentage (ex. 6,5)',customTermHint:'Entrez le nombre d\'années (1-30)',faq6a:'Oui — le calculateur fonctionne pour toutes les écoles canadiennes et américaines.',optionA:'选项A',optionB:'选项B',optionALiving:'选项A — 生活费用',optionBLiving:'选项B — 生活费用',aidLabel:'您在申请哪个学生资助计划？',aidNone:'无/不申请',customRate:'输入我的利率...',customTerm:'输入我的期限...',privacyLink:'隐私政策',tosLink:'服务条款',contactLink:'联系我们',faq1:'这些数字有多准确？',faq2:'什么是OSAP？我有资格申请吗？',faq3:'我应该使用什么利率？',faq4:'还清学生贷款需要多长时间？',faq5:'助学金和贷款有什么区别？',faq6:'我可以用于安大略省以外的学校吗？',faq1a:'此计算器使用估算数据。实际数字因您的具体项目、学习年份、家庭收入和省份而异。请务必向您学校的注册处核实最终学费。',faq2a:'OSAP（安大略学生援助计划）是安大略省政府提供的助学金和贷款的组合。助学金无需偿还，贷款需要偿还。家庭年收入低于17.5万加元的大多数学生都有资格获得部分资助。',faq3a:'对于大多数使用OSAP的学生，当前利率约为6.25%（基准利率+1%）。银行私人学生信用额度的利率通常在基准利率到基准利率+2%之间。',faq4a:'OSAP贷款的标准还款期为毕业后10年。您在毕业或离开全日制学习后6个月才开始还款。',faq5a:'<strong>助学金</strong>是免费的——您永远不需要偿还。<strong>贷款</strong>是借来的钱，毕业后需要加利息偿还。',faq6a:'是的——学费查询和费用计算适用于任何加拿大或美国学校。',
+  },
+  es:{
+    heroEyebrow:'Herramienta de planificación financiera estudiantil',heroTitle:'Entiende el costo real de tu educación universitaria.',heroDesc:'Ingresa tu escuela y programa para obtener un desglose de tu costo total, deuda proyectada y perspectivas financieras post-graduación. Gratis, sin cuenta requerida.',
+    step1:'¿Qué escuela estás considerando?',step2:'¿Cuáles serán tus costos diarios?',step3:'¿Tienes algún ingreso mientras estudias?',step4:'¿Cómo será la vida después de graduarte?',
+    secLookup:'¿No conoces tu matrícula? La buscamos',showBtn:'Mostrar mis números',lookupBtn:'Buscar',skip:'Omitir',emailOkMsg:'¡Enviado! Revisa tu bandeja de entrada.',emailOkMsg:'Enviado! Verifique sua caixa de entrada.',sendResults:'Enviar resultados',editInputs:'Editar datos',insertBtn:'Insertar en campos',
+    how1:'Ingresa tu escuela',how2:'Completa tu situación',how3:'Ve el panorama completo',
+    badge:'Gratis · Mundial',footerTagline:'Herramienta gratuita para estudiantes · No es asesoría financiera · Para mayores de 13 años',
+    modeSingle:'Una escuela',modeCompare:'Comparar dos escuelas',
+    lookupDesc:'Escribe tu escuela y programa — buscaremos la matrícula actual, costos de vida y salarios medianos de graduados.',
+    fillA:'Llenar Opción A',fillB:'Llenar Opción B',domestic:'Estudiante nacional',international:'Estudiante internacional',
+    schoolName:'Nombre de la escuela',programLabel:'Programa / carrera',yearsLabel:'Años de estudio',inflLabel:'Aumento anual de matrícula (%)',intlLabel:'Estudiante internacional',
+    housingLabel:'Vivienda',housingSitLabel:'Situación de vivienda',monthlyExp:'Gastos mensuales',annualExp:'Gastos anuales',
+    lblTuition:'Matrícula por año ($)',lblSalary:'Salario inicial esperado ($)',lblIntlFee:'Cuota internacional/año ($) ',
+    lblFood:'Alimentación/mes ($)',lblTransport:'Transporte/mes ($)',lblExtra:'Gastos extra/mes ($)',lblBooks:'Libros y materiales/año ($)',lblHealth:'Salud/dental/año ($)',
+    lblFamily:'Apoyo familiar/año ($)',lblPersonal:'Ingreso personal/año ($)',lblSchol:'Beca/año ($)',lblLiving:'Gastos de vida/mes ($)',lblSavings:'Meta de ahorro/mes ($)',lblRentPost:'Renta post-graduación/mes ($)',
+    whileStudying:'Durante los estudios (aplica a ambas opciones)',studentAid:'Ayuda estudiantil y préstamos',scholLabel:'También tengo becas',loanPref:'Preferencias de pago',interestLabel:'Tasa de interés (%)',termLabel:'Plazo de pago',
+    postGradDesc:'Esto nos ayuda a mostrar si tu sueldo neto cubrirá renta, préstamos y dejará algo de sobra.',provinceLabel:'Provincia / Estado (para estimación fiscal)',
+    timelineTitle:'Tu línea de tiempo financiera',costBreakdown:'Desglose de costos',monthlyBudget:'Presupuesto mensual post-graduación',
+    emailTitle:'¿Quieres guardar tus resultados?',emailDesc:'Ingresa tu email y te enviaremos un resumen completo. Sin spam, nunca.',
+    printBtn:'Imprimir / Guardar como PDF',copyBtn:'Copiar enlace',shareBtn:'Compartir',faqTitle:'Preguntas frecuentes',
+    rentHome:'Viviendo en casa',rentRoom:'Con compañeros',rent1bOuter:'1 habitación fuera del centro',rent1bCity:'1 habitación en la ciudad',rent1bDt:'1 habitación en el centro',rentTorVan:'1 habitación Toronto/Vancouver',
+    phSchool:'ej. Universidad de Toronto',phProgram:'ej. Comercio',phEmail:'tu@email.com',phChat:'ej. ¿$60k de deuda es demasiado?',
+    aiAdvisor:'¡Hola! Una vez que calcules tus números, puedo ayudarte a entenderlos.',
+    disclaimer:'Todas las cifras son <strong>estimaciones únicamente con fines de planificación</strong>. Las matrículas y salarios varían. Para cifras oficiales, contacta la oficina de ayuda financiera de tu escuela. No es asesoría financiera.',customRateHint:'Ingresa la tasa anual como porcentaje (ej. 6.5 para 6.5%)',customTermHint:'Ingresa el número de años (1–30)',yr3:'3 años',yr4:'4 años',yr5:'5 años',yr6:'6 años',houseHome:'Viviendo en casa ($0/mes)',houseCampus:'Residencia universitaria ($1,200/mes)',houseSolo:'Alquiler solo ($1,500/mes)',houseDt:'Alquiler centro ($2,000/mes)',houseRoommate:'Compartir piso ($900/mes)',rate1:'5.0% — Bajo (préstamo gubernamental)',rate2:'5.5% — StudentAid BC / Alberta',rate3:'5.25% — Quebec (AFE)',rate4:'10.0% — Alto (prestamista privado)',rate5:'12.0% — Muy alto (país en desarrollo)',term1:'5 años — corto',term2:'10 años — estándar',term3:'15 años — extendido',term4:'20 años — RAP / basado en ingresos',term5:'25 años — máximo',osapLink:'Ayuda estudiantil →',usAidLink:'Ayuda internacional →',howDesc1:'Escribe tu escuela y programa — buscaremos la matrícula y costos estimados.',howDesc2:'Agrega tus costos de vida, ingresos y cualquier ayuda estudiantil que esperes.',howDesc3:'Obtén tu deuda al graduarte, pagos mensuales e ingreso disponible.',optionA:'Opción A',optionB:'Opción B',optionALiving:'Opción A — costos de vida',optionBLiving:'Opción B — costos de vida',aidLabel:'¿A qué programa de ayuda estudiantil aplicas?',aidNone:'Ninguno / No aplico',customRate:'Ingresar mi propia tasa...',customTerm:'Ingresar mi propio plazo...',privacyLink:'Política de privacidad',tosLink:'Términos de servicio',contactLink:'Contacto',faq1:'¿Qué tan precisos son estos números?',faq2:'¿Qué es OSAP y califico?',faq3:'¿Qué tasa de interés debo usar?',faq4:'¿Cuánto tiempo para pagar los préstamos?',faq5:'¿Diferencia entre beca y préstamo?',faq6:'¿Puedo usarlo para otras escuelas?',faq1a:'Este calculador usa estimaciones. Siempre verifica las cifras oficiales con tu escuela.',faq2a:'OSAP es una combinación de becas y préstamos del gobierno de Ontario. Las becas no se devuelven.',faq3a:'Para la mayoría de estudiantes con OSAP, la tasa actual es aproximadamente 6.25%.',faq4a:'El período estándar de pago es de 10 años después de terminar los estudios.',faq5a:'Una <strong>beca</strong> es dinero gratis. Un <strong>préstamo</strong> se devuelve con intereses.',faq6a:'Sí — funciona para cualquier escuela canadiense o estadounidense.',
+  },
+  hi:{
+    heroEyebrow:'छात्र वित्तीय योजना उपकरण',heroTitle:'अपनी विश्वविद्यालय शिक्षा की वास्तविक लागत समझें।',heroDesc:'अपने स्कूल और कार्यक्रम को दर्ज करें और अपनी कुल शिक्षा लागत और स्नातक के बाद की वित्तीय स्थिति का विवरण प्राप्त करें। निःशुल्क, कोई खाता आवश्यक नहीं।',
+    step1:'आप कौन से स्कूल पर विचार कर रहे हैं?',step2:'आपकी दैनिक लागत क्या होगी?',step3:'पढ़ाई के दौरान कोई आय है?',step4:'स्नातक के बाद जीवन कैसा दिखेगा?',
+    secLookup:'ट्यूशन नहीं पता? हम खोजेंगे',showBtn:'मेरे नंबर दिखाएं',lookupBtn:'खोजें',skip:'छोड़ें',emailOkMsg:'भेज दिया! अपना इनबॉक्स जांचें।',sendResults:'परिणाम भेजें',editInputs:'डेटा संपादित करें',insertBtn:'फ़ील्ड में डालें',
+    how1:'अपना स्कूल दर्ज करें',how2:'अपनी स्थिति भरें',how3:'पूरी तस्वीर देखें',
+    badge:'निःशुल्क · विश्वव्यापी',footerTagline:'छात्रों के लिए निःशुल्क उपकरण · वित्तीय सलाह नहीं · 13+ उपयोगकर्ताओं के लिए',
+    modeSingle:'एक स्कूल',modeCompare:'दो स्कूलों की तुलना करें',
+    lookupDesc:'अपना स्कूल और कार्यक्रम टाइप करें — हम वर्तमान ट्यूशन और जीवन लागत खोजेंगे।',
+    fillA:'विकल्प A भरें',fillB:'विकल्प B भरें',domestic:'घरेलू छात्र',international:'अंतर्राष्ट्रीय छात्र',
+    schoolName:'स्कूल का नाम',programLabel:'कार्यक्रम / विशेषता',yearsLabel:'अध्ययन के वर्ष',inflLabel:'वार्षिक ट्यूशन वृद्धि (%)',intlLabel:'अंतर्राष्ट्रीय छात्र',
+    housingLabel:'आवास',housingSitLabel:'आवास स्थिति',monthlyExp:'मासिक खर्च',annualExp:'वार्षिक खर्च',
+    lblTuition:'प्रति वर्ष ट्यूशन ($)',lblSalary:'अपेक्षित शुरुआती वेतन ($)',lblIntlFee:'अंतर्राष्ट्रीय शुल्क/वर्ष ($) ',
+    lblFood:'भोजन/माह ($)',lblTransport:'परिवहन/माह ($)',lblExtra:'अतिरिक्त खर्च/माह ($)',lblBooks:'किताबें/वर्ष ($)',lblHealth:'स्वास्थ्य/दंत/वर्ष ($)',
+    lblFamily:'पारिवारिक सहायता/वर्ष ($)',lblPersonal:'व्यक्तिगत आय/वर्ष ($)',lblSchol:'छात्रवृत्ति/वर्ष ($)',lblLiving:'जीवन व्यय/माह ($)',lblSavings:'बचत लक्ष्य/माह ($)',lblRentPost:'स्नातक के बाद किराया/माह ($)',
+    whileStudying:'पढ़ाई के दौरान',studentAid:'छात्र सहायता और ऋण',scholLabel:'मेरे पास छात्रवृत्ति भी है',loanPref:'ऋण चुकौती प्राथमिकताएं',interestLabel:'ब्याज दर (%)',termLabel:'चुकौती अवधि',
+    postGradDesc:'यह हमें दिखाने में मदद करता है कि आपका टेक-होम पे किराया और ऋण को कवर करेगा या नहीं।',provinceLabel:'प्रांत / राज्य (कर अनुमान के लिए)',
+    timelineTitle:'आपकी वित्तीय समयरेखा',costBreakdown:'लागत विवरण',monthlyBudget:'स्नातक के बाद मासिक बजट',
+    emailTitle:'अपने परिणाम सहेजना चाहते हैं?',emailDesc:'अपना ईमेल दर्ज करें और हम एक स्वच्छ सारांश भेजेंगे। कभी स्पैम नहीं।',
+    printBtn:'प्रिंट / PDF के रूप में सहेजें',copyBtn:'लिंक कॉपी करें',shareBtn:'शेयर करें',faqTitle:'सामान्य प्रश्न',
+    rentHome:'घर पर रहना',rentRoom:'रूममेट के साथ',rent1bOuter:'डाउनटाउन के बाहर 1-बेडरूम',rent1bCity:'शहर में 1-बेडरूम',rent1bDt:'डाउनटाउन 1-बेडरूम',rentTorVan:'टोरंटो/वैंकूवर 1-बेडरूम',
+    phSchool:'उदा. टोरंटो विश्वविद्यालय',phProgram:'उदा. वाणिज्य',phEmail:'आपका@ईमेल.com',phChat:'उदा. क्या $60k का कर्ज बहुत ज़्यादा है?',
+    aiAdvisor:'नमस्ते! अपने नंबर चलाने के बाद, मैं उन्हें समझने में आपकी मदद कर सकता हूं।',
+    disclaimer:'सभी आंकड़े <strong>केवल नियोजन उद्देश्यों के लिए अनुमान हैं</strong>। आधिकारिक संख्याओं के लिए, अपने स्कूल के वित्तीय सहायता कार्यालय से संपर्क करें। वित्तीय सलाह नहीं।',customRateHint:'वार्षिक दर प्रतिशत में दर्ज करें (उदा. 6.5%)',customTermHint:'वर्षों की संख्या दर्ज करें (1–30)',yr3:'3 वर्ष',yr4:'4 वर्ष',yr5:'5 वर्ष',yr6:'6 वर्ष',houseHome:'घर पर रहना ($0/माह)',houseCampus:'कैंपस आवास ($1,200/माह)',houseSolo:'अकेले किराये पर ($1,500/माह)',houseDt:'शहर केंद्र ($2,000/माह)',houseRoommate:'रूममेट के साथ ($900/माह)',rate1:'5.0% — कम (सरकारी ऋण)',rate2:'6.5% — Medio (banco estándar)',rate3:'8.0% — Medio-alto (prestamista privado)',rate4:'10.0% — उच्च (निजी ऋणदाता)',rate5:'12.0% — बहुत उच्च',term1:'5 वर्ष — छोटी अवधि',term2:'10 वर्ष — मानक',term3:'15 वर्ष — विस्तारित',term4:'20 वर्ष — दीर्घकालिक',term5:'10 वर्ष — US मानक',term6:'25 वर्ष — US विस्तारित',osapLink:'छात्र सहायता →',usAidLink:'अंतर्राष्ट्रीय सहायता →',howDesc1:'अपना स्कूल और कार्यक्रम टाइप करें — हम अनुमानित ट्यूशन खोजेंगे।',howDesc2:'जीवन लागत, आय और छात्र सहायता जोड़ें।',howDesc3:'स्नातक पर ऋण, मासिक भुगतान और डिस्पोजेबल आय प्राप्त करें।',optionA:'विकल्प A',optionB:'विकल्प B',optionALiving:'विकल्प A — जीवन लागत',optionBLiving:'विकल्प B — जीवन लागत',aidLabel:'आप किस छात्र सहायता कार्यक्रम के लिए आवेदन कर रहे हैं?',aidNone:'कोई नहीं / आवेदन नहीं',customRate:'अपनी दर दर्ज करें...',customTerm:'अपनी अवधि दर्ज करें...',privacyLink:'गोपनीयता नीति',tosLink:'सेवा की शर्तें',contactLink:'संपर्क',faq1:'ये नंबर कितने सटीक हैं?',faq2:'OSAP क्या है?',faq3:'कौन सी ब्याज दर उपयोग करें?',faq4:'कर्ज चुकाने में कितना समय?',faq5:'अनुदान और ऋण में अंतर?',faq6:'क्या मैं इसे अन्य स्कूलों के लिए उपयोग कर सकता हूं?',faq1a:'यह कैलकुलेटर अनुमानित डेटा का उपयोग करता है। आधिकारिक संख्याओं के लिए अपने स्कूल से संपर्क करें।',faq2a:'OSAP ओंटारियो सरकार द्वारा प्रदान किए गए अनुदान और ऋणों का मिश्रण है। अनुदान वापस नहीं करना पड़ता।',faq3a:'OSAP उपयोगकर्ताओं के लिए वर्तमान दर लगभग 6.25% है।',faq4a:'स्नातक के बाद मानक चुकौती अवधि 10 वर्ष है।',faq5a:'<strong>अनुदान</strong> मुफ्त पैसा है। <strong>ऋण</strong> ब्याज के साथ चुकाना पड़ता है।',faq6a:'हां — यह किसी भी कनाडाई या अमेरिकी स्कूल के लिए काम करता है।',
+  },
+  ar:{
+    heroEyebrow:'أداة التخطيط المالي للطلاب',heroTitle:'افهم التكلفة الحقيقية لتعليمك الجامعي.',heroDesc:'أدخل مدرستك وبرنامجك للحصول على تفصيل مفصل لتكلفة تعليمك الإجمالية. مجاني، لا يلزم حساب.',
+    step1:'أي مدرسة تفكر فيها؟',step2:'ما هي تكاليفك اليومية؟',step3:'هل لديك أي دخل أثناء الدراسة؟',step4:'كيف ستبدو الحياة بعد التخرج؟',
+    secLookup:'لا تعرف رسومك الدراسية؟ سنبحث عنها',showBtn:'أظهر لي أرقامي',lookupBtn:'بحث',skip:'تخطي',emailOkMsg:'تم الإرسال! تحقق من صندوق الوارد.',sendResults:'إرسال النتائج',editInputs:'تعديل البيانات',insertBtn:'إدراج في الحقول',
+    how1:'أدخل مدرستك',how2:'أكمل وضعك',how3:'انظر الصورة الكاملة',
+    badge:'مجاني · عالمي',footerTagline:'أداة مجانية للطلاب · ليست نصيحة مالية · للمستخدمين 13 سنة فأكثر',
+    modeSingle:'مدرسة واحدة',modeCompare:'مقارنة مدرستين',
+    lookupDesc:'اكتب مدرستك وبرنامجك — سنبحث عن الرسوم الدراسية الحالية وتكاليف المعيشة.',
+    fillA:'ملء الخيار أ',fillB:'ملء الخيار ب',domestic:'طالب محلي',international:'طالب دولي',
+    schoolName:'اسم المدرسة',programLabel:'البرنامج / التخصص',yearsLabel:'سنوات الدراسة',inflLabel:'الزيادة السنوية في الرسوم (%)',intlLabel:'طالب دولي',
+    housingLabel:'السكن',housingSitLabel:'وضع السكن',monthlyExp:'النفقات الشهرية',annualExp:'النفقات السنوية',
+    lblTuition:'الرسوم الدراسية/سنة ($)',lblSalary:'الراتب المتوقع ($)',lblIntlFee:'رسوم الطلاب الدوليين/سنة ($) ',
+    lblFood:'الطعام/شهر ($)',lblTransport:'المواصلات/شهر ($)',lblExtra:'مصاريف إضافية/شهر ($)',lblBooks:'الكتب/سنة ($)',lblHealth:'الصحة/الأسنان/سنة ($)',
+    lblFamily:'دعم الأسرة/سنة ($)',lblPersonal:'الدخل الشخصي/سنة ($)',lblSchol:'منحة دراسية/سنة ($)',lblLiving:'نفقات المعيشة/شهر ($)',lblSavings:'هدف الادخار/شهر ($)',lblRentPost:'الإيجار بعد التخرج/شهر ($)',
+    whileStudying:'أثناء الدراسة',studentAid:'المساعدات الطلابية والقروض',scholLabel:'لدي أيضاً منح دراسية',loanPref:'تفضيلات سداد القرض',interestLabel:'معدل الفائدة (%)',termLabel:'مدة السداد',
+    postGradDesc:'يساعدنا هذا على إظهار ما إذا كان راتبك الصافي سيغطي الإيجار والقروض.',provinceLabel:'المقاطعة / الولاية (لتقدير الضريبة)',
+    timelineTitle:'جدولك الزمني المالي',costBreakdown:'تفصيل التكاليف',monthlyBudget:'الميزانية الشهرية بعد التخرج',
+    emailTitle:'هل تريد حفظ نتائجك؟',emailDesc:'أدخل بريدك الإلكتروني وسنرسل لك ملخصاً. لا رسائل مزعجة أبداً.',
+    printBtn:'طباعة / حفظ كـ PDF',copyBtn:'نسخ الرابط',shareBtn:'مشاركة',faqTitle:'أسئلة شائعة',
+    rentHome:'العيش في المنزل',rentRoom:'مع رفيق غرفة',rent1bOuter:'شقة خارج وسط المدينة',rent1bCity:'شقة في المدينة',rent1bDt:'شقة وسط المدينة',rentTorVan:'شقة تورنتو/فانكوفر',
+    phSchool:'مثال: جامعة تورنتو',phProgram:'مثال: التجارة',phEmail:'بريدك@الإلكتروني.com',phChat:'مثال: هل 60,000 دولار ديناً كثيراً؟',
+    aiAdvisor:'مرحباً! بعد حساب أرقامك، يمكنني مساعدتك في فهمها.',
+    disclaimer:'جميع الأرقام <strong>تقديرات لأغراض التخطيط فقط</strong>. للأرقام الرسمية، اتصل بمكتب المساعدة المالية في مدرستك. ليست نصيحة مالية.',customRateHint:'أدخل المعدل السنوي كنسبة مئوية (مثال: 6.5)',customTermHint:'أدخل عدد السنوات (1–30)',yr3:'3 سنوات',yr4:'4 سنوات',yr5:'5 سنوات',yr6:'6 سنوات',houseHome:'العيش في المنزل ($0/شهر)',houseCampus:'سكن جامعي ($1,200/شهر)',houseSolo:'استئجار منفرد ($1,500/شهر)',houseDt:'وسط المدينة ($2,000/شهر)',houseRoommate:'مع رفيق غرفة ($900/شهر)',rate1:'5.0% — منخفض (قرض حكومي)',rate2:'6.5% — मध्यम (बैंक)',rate3:'8.0% — मध्यम-उच्च (निजी)',rate4:'10.0% — مرتفع (مقرض خاص)',rate5:'12.0% — مرتفع جداً (دولة نامية)',term1:'5 سنوات — قصير',term2:'10 سنوات — قياسي',term3:'15 سنة — ممتد',term4:'20 سنة — طويل الأجل',term5:'25 سنة — الحد الأقصى',osapLink:'مساعدة الطلاب →',usAidLink:'المساعدة الدولية →',howDesc1:'اكتب مدرستك وبرنامجك — سنبحث عن الرسوم المقدرة.',howDesc2:'أضف تكاليف المعيشة والدخل وأي مساعدة طلابية.',howDesc3:'احصل على ديونك عند التخرج والمدفوعات الشهرية.',optionA:'الخيار أ',optionB:'الخيار ب',optionALiving:'الخيار أ — تكاليف المعيشة',optionBLiving:'الخيار ب — تكاليف المعيشة',aidLabel:'ما برنامج المساعدة الطلابية الذي تتقدم إليه؟',aidNone:'لا شيء / لا أتقدم',customRate:'أدخل معدلي الخاص...',customTerm:'أدخل مدتي الخاصة...',privacyLink:'سياسة الخصوصية',tosLink:'شروط الخدمة',contactLink:'اتصل بنا',faq1:'ما مدى دقة هذه الأرقام؟',faq2:'ما هو OSAP وهل أستحقه؟',faq3:'ما معدل الفائدة الذي أستخدمه؟',faq4:'كم من الوقت لسداد القروض؟',faq5:'الفرق بين المنحة والقرض؟',faq6:'هل يمكنني استخدامه لمدارس خارج أونتاريو؟',faq1a:'يستخدم هذا الحاسبة بيانات تقديرية. تحقق دائماً من الأرقام الرسمية مع مدرستك.',faq2a:'OSAP هو مزيج من المنح والقروض الحكومية. المنح لا تحتاج إلى سداد.',faq3a:'لمعظم الطلاب، المعدل الحالي حوالي 6.25%.',faq4a:'فترة السداد القياسية هي 10 سنوات بعد التخرج.',faq5a:'<strong>المنحة</strong> مال مجاني. <strong>القرض</strong> يُسدد مع فائدة.',faq6a:'نعم — يعمل لأي مدرسة كندية أو أمريكية.',
+  },
+  pt:{
+    heroEyebrow:'Ferramenta de planejamento financeiro estudantil',heroTitle:'Entenda o custo real da sua educação universitária.',heroDesc:'Insira sua escola e programa para obter um detalhamento do seu custo total de educação e perspectivas financeiras pós-formatura. Gratuito, sem conta necessária.',
+    step1:'Qual escola você está considerando?',step2:'Quais serão seus custos diários?',step3:'Você tem alguma renda enquanto estuda?',step4:'Como será a vida após a formatura?',
+    secLookup:'Não sabe sua mensalidade? Vamos buscar',showBtn:'Mostrar meus números',lookupBtn:'Pesquisar',skip:'Pular',sendResults:'Enviar resultados',editInputs:'Editar dados',insertBtn:'Inserir nos campos',
+    how1:'Insira sua escola',how2:'Preencha sua situação',how3:'Veja o quadro completo',
+    badge:'Grátis · Mundial',footerTagline:'Ferramenta gratuita para estudantes · Não é consultoria financeira · Para maiores de 13 anos',
+    modeSingle:'Uma escola',modeCompare:'Comparar duas escolas',
+    lookupDesc:'Digite sua escola e programa — pesquisaremos as mensalidades atuais e custos de vida.',
+    fillA:'Preencher Opção A',fillB:'Preencher Opção B',domestic:'Estudante nacional',international:'Estudante internacional',
+    schoolName:'Nome da escola',programLabel:'Programa / curso',yearsLabel:'Anos de estudo',inflLabel:'Aumento anual das mensalidades (%)',intlLabel:'Estudante internacional',
+    housingLabel:'Moradia',housingSitLabel:'Situação de moradia',monthlyExp:'Despesas mensais',annualExp:'Despesas anuais',
+    lblTuition:'Mensalidade/ano ($)',lblSalary:'Salário inicial esperado ($)',lblIntlFee:'Taxa internacional/ano ($) ',
+    lblFood:'Alimentação/mês ($)',lblTransport:'Transporte/mês ($)',lblExtra:'Gastos extras/mês ($)',lblBooks:'Livros/ano ($)',lblHealth:'Saúde/dental/ano ($)',
+    lblFamily:'Apoio familiar/ano ($)',lblPersonal:'Renda pessoal/ano ($)',lblSchol:'Bolsa/ano ($)',lblLiving:'Despesas de vida/mês ($)',lblSavings:'Meta de poupança/mês ($)',lblRentPost:'Aluguel pós-formatura/mês ($)',
+    whileStudying:'Durante os estudos',studentAid:'Auxílios estudantis e empréstimos',scholLabel:'Também tenho bolsas',loanPref:'Preferências de pagamento',interestLabel:'Taxa de juros (%)',termLabel:'Prazo de pagamento',
+    postGradDesc:'Isso nos ajuda a mostrar se seu salário líquido cobrirá aluguel, empréstimos e ainda sobrará algo.',provinceLabel:'Província / Estado (para estimativa fiscal)',
+    timelineTitle:'Sua linha do tempo financeira',costBreakdown:'Detalhamento de custos',monthlyBudget:'Orçamento mensal pós-formatura',
+    emailTitle:'Quer salvar seus resultados?',emailDesc:'Insira seu email e enviaremos um resumo completo. Sem spam, nunca.',
+    printBtn:'Imprimir / Salvar como PDF',copyBtn:'Copiar link',shareBtn:'Compartilhar',faqTitle:'Perguntas frequentes',
+    rentHome:'Morando em casa',rentRoom:'Com colegas',rent1bOuter:'1 quarto fora do centro',rent1bCity:'1 quarto na cidade',rent1bDt:'1 quarto no centro',rentTorVan:'1 quarto Toronto/Vancouver',
+    phSchool:'ex. Universidade de Toronto',phProgram:'ex. Comércio',phEmail:'seu@email.com',phChat:'ex. $60k de dívida é demais?',
+    aiAdvisor:'Olá! Depois de calcular seus números, posso ajudá-lo a entendê-los.',
+    disclaimer:'Todos os valores são <strong>estimativas apenas para fins de planejamento</strong>. Para valores oficiais, entre em contato com o escritório de ajuda financeira da sua escola. Não é consultoria financeira.',customRateHint:'Insira a taxa anual como porcentagem (ex. 6,5 para 6,5%)',customTermHint:'Insira o número de anos (1–30)',yr3:'3 anos',yr4:'4 anos',yr5:'5 anos',yr6:'6 anos',houseHome:'Morando em casa ($0/mês)',houseCampus:'Residência universitária ($1.200/mês)',houseSolo:'Aluguel solo ($1.500/mês)',houseDt:'Centro da cidade ($2.000/mês)',houseRoommate:'Com colega ($900/mês)',rate1:'5,0% — Baixo (empréstimo governamental)',rate2:'6,5% — Médio (banco padrão)',rate3:'8,0% — Médio-alto (credor privado)',rate4:'10,0% — Alto (credor privado)',rate5:'12,0% — Muito alto (país em desenvolvimento)',term1:'5 anos — curto',term2:'10 anos — padrão',term3:'15 anos — estendido',term4:'20 anos — longo prazo',term5:'25 anos — máximo',osapLink:'Auxílio estudantil →',usAidLink:'Auxílio internacional →',howDesc1:'Digite sua escola e programa — buscaremos a mensalidade estimada.',howDesc2:'Adicione seus custos de vida, renda e qualquer auxílio estudantil esperado.',howDesc3:'Obtenha sua dívida ao se formar, pagamentos mensais e renda disponível.',optionA:'Opção A',optionB:'Opção B',optionALiving:'Opção A — custos de vida',optionBLiving:'Opção B — custos de vida',aidLabel:'A qual programa de auxílio estudantil você está aplicando?',aidNone:'Nenhum / Não estou aplicando',customRate:'Inserir minha própria taxa...',customTerm:'Inserir meu próprio prazo...',privacyLink:'Política de privacidade',tosLink:'Termos de serviço',contactLink:'Contato',faq1:'Quão precisos são esses números?',faq2:'O que é OSAP e eu me qualifico?',faq3:'Qual taxa de juros devo usar?',faq4:'Quanto tempo para pagar os empréstimos?',faq5:'Diferença entre bolsa e empréstimo?',faq6:'Posso usar para escolas fora de Ontário?',faq1a:'Esta calculadora usa estimativas. Sempre verifique os valores oficiais com sua escola.',faq2a:'OSAP é uma combinação de bolsas e empréstimos do governo de Ontário. Bolsas não precisam ser devolvidas.',faq3a:'Para a maioria dos estudantes, a taxa atual é aproximadamente 6,25%.',faq4a:'O período padrão de pagamento é de 10 anos após a formatura.',faq5a:'Uma <strong>bolsa</strong> é dinheiro gratuito. Um <strong>empréstimo</strong> é devolvido com juros.',faq6a:'Sim — funciona para qualquer escola canadense ou americana.',
+  },
+  ko:{
+    heroEyebrow:'학생 재정 계획 도구',heroTitle:'대학 교육의 실제 비용을 이해하세요.',heroDesc:'학교와 전공을 입력하여 총 교육 비용과 졸업 후 재정 전망에 대한 자세한 분석을 받으세요. 무료, 계정 불필요.',
+    step1:'어떤 학교를 고려하고 있나요?',step2:'일상 비용은 어떻게 될까요?',step3:'공부하는 동안 수입이 있나요?',step4:'졸업 후 생활은 어떨까요?',
+    secLookup:'등록금을 모르시나요? 찾아드릴게요',showBtn:'내 숫자 보기',lookupBtn:'검색',skip:'건너뛰기',emailOkMsg:'전송됨! 받은 편지함을 확인하세요.',sendResults:'결과 보내기',editInputs:'데이터 편집',insertBtn:'필드에 삽입',
+    how1:'학교 입력',how2:'상황 작성',how3:'전체 그림 보기',
+    badge:'무료 · 전 세계',footerTagline:'전 세계 학생을 위한 무료 도구 · 재정 조언 아님 · 13세 이상 사용자용',
+    modeSingle:'단일 학교',modeCompare:'두 학교 비교',
+    lookupDesc:'학교와 전공을 입력하세요 — 현재 등록금과 생활비를 검색합니다.',
+    fillA:'옵션 A 채우기',fillB:'옵션 B 채우기',domestic:'국내 학생',international:'국제 학생',
+    schoolName:'학교 이름',programLabel:'전공 / 프로그램',yearsLabel:'학습 연수',inflLabel:'연간 등록금 인상률 (%)',intlLabel:'국제 학생',
+    housingLabel:'주거',housingSitLabel:'주거 상황',monthlyExp:'월별 지출',annualExp:'연간 지출',
+    lblTuition:'연간 등록금 ($)',lblSalary:'예상 초봉 ($)',lblIntlFee:'국제 학생 추가비/년 ($) ',
+    lblFood:'식비/월 ($)',lblTransport:'교통비/월 ($)',lblExtra:'기타 지출/월 ($)',lblBooks:'교재비/년 ($)',lblHealth:'의료/치과/년 ($)',
+    lblFamily:'가족 지원/년 ($)',lblPersonal:'개인 소득/년 ($)',lblSchol:'장학금/년 ($)',lblLiving:'생활비/월 ($)',lblSavings:'저축 목표/월 ($)',lblRentPost:'졸업 후 임대료/월 ($)',
+    whileStudying:'재학 중 (두 옵션 모두 적용)',studentAid:'학생 지원 및 대출',scholLabel:'장학금도 있습니다',loanPref:'대출 상환 선호도',interestLabel:'이자율 (%)',termLabel:'상환 기간',
+    postGradDesc:'실수령액이 임대료와 대출을 충당하고 남는지 보여줍니다.',provinceLabel:'주/도 (세금 추정용)',
+    timelineTitle:'재정 타임라인',costBreakdown:'비용 내역',monthlyBudget:'졸업 후 월별 예산',
+    emailTitle:'결과를 저장하시겠습니까?',emailDesc:'이메일을 입력하시면 요약본을 보내드립니다. 스팸 없음.',
+    printBtn:'인쇄 / PDF로 저장',copyBtn:'링크 복사',shareBtn:'공유',faqTitle:'자주 묻는 질문',
+    rentHome:'집에서 거주',rentRoom:'룸메이트와 함께',rent1bOuter:'시외 원룸',rent1bCity:'시내 원룸',rent1bDt:'도심 원룸',rentTorVan:'토론토/밴쿠버 원룸',
+    phSchool:'예: 토론토 대학교',phProgram:'예: 경영학',phEmail:'your@email.com',phChat:'예: 6만 달러 부채가 너무 많나요?',
+    aiAdvisor:'안녕하세요! 숫자를 계산한 후 이해하는 데 도움을 드릴 수 있습니다.',
+    disclaimer:'모든 수치는 <strong>계획 목적으로만 제공되는 추정치</strong>입니다. 공식 수치는 학교 재정 지원 사무소에 문의하세요. 재정 조언이 아닙니다.',customRateHint:'연간 이율을 퍼센트로 입력하세요 (예: 6.5)',customTermHint:'연수를 입력하세요 (1–30)',yr3:'3년',yr4:'4년',yr5:'5년',yr6:'6년',houseHome:'집에서 거주 ($0/월)',houseCampus:'기숙사 ($1,200/월)',houseSolo:'혼자 임대 ($1,500/월)',houseDt:'도심 임대 ($2,000/월)',houseRoommate:'룸메이트와 ($900/월)',rate1:'5.0% — 낮음 (정부 대출)',rate2:'6.5% — متوسط (بنك قياسي)',rate3:'8.0% — متوسط-مرتفع (مقرض خاص)',rate4:'10.0% — 높음 (사립 대출)',rate5:'12.0% — 매우 높음 (개발도상국)',term1:'5년 — 단기',term2:'10년 — 표준',term3:'15년 — 연장',term4:'20년 — 장기',term5:'25년 — 최대',osapLink:'학생 지원 →',usAidLink:'국제 학생 지원 →',howDesc1:'학교와 전공을 입력하세요 — 예상 학비를 검색합니다.',howDesc2:'생활비, 수입, 예상 장학금을 추가하세요.',howDesc3:'졸업 시 부채, 월 상환액, 가처분 소득을 확인하세요.',optionA:'옵션 A',optionB:'옵션 B',optionALiving:'옵션 A — 생활 비용',optionBLiving:'옵션 B — 생활 비용',aidLabel:'어떤 학생 지원 프로그램에 지원하고 있나요?',aidNone:'없음 / 지원 안 함',customRate:'내 이율 입력...',customTerm:'내 기간 입력...',privacyLink:'개인정보 처리방침',tosLink:'서비스 약관',contactLink:'문의',faq1:'이 숫자들은 얼마나 정확한가요?',faq2:'OSAP이란 무엇이며 자격이 되나요?',faq3:'어떤 이자율을 사용해야 하나요?',faq4:'학자금 대출 상환 기간은?',faq5:'장학금과 대출의 차이는?',faq6:'온타리오 외 학교에도 사용할 수 있나요?',faq1a:'이 계산기는 추정 데이터를 사용합니다. 공식 수치는 학교에서 확인하세요.',faq2a:'OSAP은 온타리오 정부의 보조금과 대출의 조합입니다. 보조금은 상환 불필요.',faq3a:'대부분의 학생에게 현재 이율은 약 6.25%입니다.',faq4a:'표준 상환 기간은 졸업 후 10년입니다.',faq5a:'<strong>장학금</strong>은 무료입니다. <strong>대출</strong>은 이자와 함께 상환해야 합니다.',faq6a:'네 — 모든 캐나다 및 미국 학교에서 사용 가능합니다.',
+  },
+  ja:{
+    heroEyebrow:'学生財務計画ツール',heroTitle:'大学教育の本当のコストを理解しましょう。',heroDesc:'学校とプログラムを入力して、総教育費と卒業後の財務見通しの詳細な内訳を取得してください。無料、アカウント不要。',
+    step1:'どの学校を検討していますか？',step2:'日常の費用はどのくらいですか？',step3:'勉強中に収入はありますか？',step4:'卒業後の生活はどうなりますか？',
+    secLookup:'学費がわからない？検索します',showBtn:'数字を表示',lookupBtn:'検索',skip:'スキップ',emailOkMsg:'送信しました！受信トレイをご確認ください。',sendResults:'結果を送信',editInputs:'データを編集',insertBtn:'フィールドに挿入',
+    how1:'学校を入力',how2:'状況を記入',how3:'全体像を確認',
+    badge:'無料 · 世界対応',footerTagline:'世界中の学生のための無料ツール · 財務アドバイスではありません · 13歳以上のユーザー向け',
+    modeSingle:'単一の学校',modeCompare:'2校を比較',
+    lookupDesc:'学校とプログラムを入力してください — 現在の学費と生活費を検索します。',
+    fillA:'オプションAに入力',fillB:'オプションBに入力',domestic:'国内学生',international:'留学生',
+    schoolName:'学校名',programLabel:'プログラム / 専攻',yearsLabel:'学習年数',inflLabel:'年間学費増加率 (%)',intlLabel:'留学生',
+    housingLabel:'住居',housingSitLabel:'住居状況',monthlyExp:'月次支出',annualExp:'年次支出',
+    lblTuition:'年間学費 ($)',lblSalary:'予想初任給 ($)',lblIntlFee:'留学生追加料金/年 ($) ',
+    lblFood:'食費/月 ($)',lblTransport:'交通費/月 ($)',lblExtra:'その他支出/月 ($)',lblBooks:'教材費/年 ($)',lblHealth:'医療/歯科/年 ($)',
+    lblFamily:'家族支援/年 ($)',lblPersonal:'個人収入/年 ($)',lblSchol:'奨学金/年 ($)',lblLiving:'生活費/月 ($)',lblSavings:'貯蓄目標/月 ($)',lblRentPost:'卒業後家賃/月 ($)',
+    whileStudying:'在学中',studentAid:'学生支援とローン',scholLabel:'奨学金もあります',loanPref:'返済の好み',interestLabel:'金利 (%)',termLabel:'返済期間',
+    postGradDesc:'手取り給与が家賃とローンをカバーして余裕があるかを示します。',provinceLabel:'州 / 省（税金推定用）',
+    timelineTitle:'財務タイムライン',costBreakdown:'費用内訳',monthlyBudget:'卒業後の月次予算',
+    emailTitle:'結果を保存しますか？',emailDesc:'メールアドレスを入力すると、きれいなサマリーをお送りします。スパムなし。',
+    printBtn:'印刷 / PDFとして保存',copyBtn:'リンクをコピー',shareBtn:'シェア',faqTitle:'よくある質問',
+    rentHome:'実家暮らし',rentRoom:'ルームメイトと',rent1bOuter:'郊外1ベッドルーム',rent1bCity:'市内1ベッドルーム',rent1bDt:'都心1ベッドルーム',rentTorVan:'トロント/バンクーバー1ベッドルーム',
+    phSchool:'例：トロント大学',phProgram:'例：商学',phEmail:'your@email.com',phChat:'例：6万ドルの借金は多すぎますか？',
+    aiAdvisor:'こんにちは！数字を計算した後、それを理解するお手伝いができます。',
+    disclaimer:'すべての数値は<strong>計画目的のみの推定値</strong>です。公式の数値については、学校の財務援助事務所にお問い合わせください。財務アドバイスではありません。',customRateHint:'年率をパーセントで入力（例：6.5）',customTermHint:'年数を入力（1～30）',yr3:'3年',yr4:'4年',yr5:'5年',yr6:'6年',houseHome:'実家暮らし ($0/月)',houseCampus:'学生寮 ($1,200/月)',houseSolo:'一人暮らし ($1,500/月)',houseDt:'都心 ($2,000/月)',houseRoommate:'ルームシェア ($900/月)',rate1:'5.0% — 低（政府ローン）',rate2:'6.5% — 중간 (일반 은행)',rate3:'8.0% — 中高（民間ローン）',rate4:'10.0% — 高（民間ローン）',rate5:'12.0% — 非常に高い（発展途上国）',term1:'5年 — 短期',term2:'10年 — 標準',term3:'15年 — 延長',term4:'20年 — 長期',term5:'25年 — 最長',osapLink:'学生支援情報 →',usAidLink:'国際学生援助 →',howDesc1:'学校とプログラムを入力 — 推定学費を検索します。',howDesc2:'生活費、収入、奨学金を追加してください。',howDesc3:'卒業時の借金、月次返済額、可処分所得を確認してください。',optionA:'オプションA',optionB:'オプションB',optionALiving:'オプションA — 生活費',optionBLiving:'オプションB — 生活費',aidLabel:'どの学生支援プログラムに申請していますか？',aidNone:'なし / 申請しない',customRate:'自分の金利を入力...',customTerm:'自分の期間を入力...',privacyLink:'プライバシーポリシー',tosLink:'利用規約',contactLink:'お問い合わせ',faq1:'これらの数値はどのくらい正確ですか？',faq2:'OSAPとは何ですか？',faq3:'どの金利を使用すべきですか？',faq4:'学生ローンの返済期間は？',faq5:'助成金とローンの違いは？',faq6:'オンタリオ以外の学校にも使えますか？',faq1a:'この計算機は推定データを使用します。公式数値は学校でご確認ください。',faq2a:'OSAPはオンタリオ州政府の助成金とローンの組み合わせです。助成金は返済不要です。',faq3a:'ほとんどの学生にとって、現在の金利は約6.25%です。',faq4a:'標準的な返済期間は卒業後10年です。',faq5a:'<strong>助成金</strong>は無料のお金です。<strong>ローン</strong>は利息付きで返済します。',faq6a:'はい — すべてのカナダまたは米国の学校で使用できます。',
+  },
+  de:{
+    heroEyebrow:'Studentisches Finanzplanungstool',heroTitle:'Verstehen Sie die wahren Kosten Ihrer Universitätsausbildung.',heroDesc:'Geben Sie Ihre Schule und Ihr Programm ein, um eine detaillierte Aufschlüsselung Ihrer Gesamtbildungskosten zu erhalten. Kostenlos, kein Konto erforderlich.',
+    step1:'Welche Schule erwägen Sie?',step2:'Wie hoch werden Ihre täglichen Kosten sein?',step3:'Haben Sie während des Studiums Einnahmen?',step4:'Wie wird das Leben nach dem Abschluss aussehen?',
+    secLookup:'Studiengebühren unbekannt? Wir suchen sie',showBtn:'Meine Zahlen anzeigen',lookupBtn:'Suchen',skip:'Überspringen',emailOkMsg:'Gesendet! Prüfen Sie Ihren Posteingang.',sendResults:'Ergebnisse senden',editInputs:'Daten bearbeiten',insertBtn:'In Felder einfügen',
+    how1:'Schule eingeben',how2:'Situation ausfüllen',how3:'Gesamtbild sehen',
+    badge:'Kostenlos · Weltweit',footerTagline:'Kostenloses Tool für Studenten · Keine Finanzberatung · Für Nutzer ab 13 Jahren',
+    modeSingle:'Eine Schule',modeCompare:'Zwei Schulen vergleichen',
+    lookupDesc:'Geben Sie Ihre Schule und Ihr Programm ein — wir suchen aktuelle Studiengebühren und Lebenshaltungskosten.',
+    fillA:'Option A ausfüllen',fillB:'Option B ausfüllen',domestic:'Inländischer Student',international:'Internationaler Student',
+    schoolName:'Schulname',programLabel:'Programm / Fach',yearsLabel:'Studienjahre',inflLabel:'Jährliche Gebührenerhöhung (%)',intlLabel:'Internationaler Student',
+    housingLabel:'Unterkunft',housingSitLabel:'Wohnsituation',monthlyExp:'Monatliche Ausgaben',annualExp:'Jährliche Ausgaben',
+    lblTuition:'Studiengebühren/Jahr ($)',lblSalary:'Erwartetes Einstiegsgehalt ($)',lblIntlFee:'Internationale Studiengebühr/Jahr ($) ',
+    lblFood:'Lebensmittel/Monat ($)',lblTransport:'Transport/Monat ($)',lblExtra:'Zusatzausgaben/Monat ($)',lblBooks:'Bücher/Jahr ($)',lblHealth:'Gesundheit/Zahn/Jahr ($)',
+    lblFamily:'Familienunterstützung/Jahr ($)',lblPersonal:'Persönliches Einkommen/Jahr ($)',lblSchol:'Stipendium/Jahr ($)',lblLiving:'Lebenshaltungskosten/Monat ($)',lblSavings:'Sparziel/Monat ($)',lblRentPost:'Miete nach Abschluss/Monat ($)',
+    whileStudying:'Während des Studiums',studentAid:'Studentenhilfe und Darlehen',scholLabel:'Ich habe auch Stipendien',loanPref:'Rückzahlungspräferenzen',interestLabel:'Zinssatz (%)',termLabel:'Rückzahlungsfrist',
+    postGradDesc:'Dies zeigt, ob Ihr Nettolohn Miete und Darlehen deckt und noch etwas übrig bleibt.',provinceLabel:'Provinz / Staat (für Steuerberechnung)',
+    timelineTitle:'Ihr finanzieller Zeitplan',costBreakdown:'Kostenaufschlüsselung',monthlyBudget:'Monatliches Budget nach dem Abschluss',
+    emailTitle:'Möchten Sie Ihre Ergebnisse speichern?',emailDesc:'Geben Sie Ihre E-Mail ein und wir senden eine Zusammenfassung. Kein Spam.',
+    printBtn:'Drucken / Als PDF speichern',copyBtn:'Link kopieren',shareBtn:'Teilen',faqTitle:'Häufige Fragen',
+    rentHome:'Zu Hause wohnen',rentRoom:'Mit Mitbewohnern',rent1bOuter:'1-Zimmer außerhalb der Innenstadt',rent1bCity:'1-Zimmer in der Stadt',rent1bDt:'1-Zimmer in der Innenstadt',rentTorVan:'1-Zimmer Toronto/Vancouver',
+    phSchool:'z.B. Universität Toronto',phProgram:'z.B. Betriebswirtschaft',phEmail:'ihre@email.com',phChat:'z.B. Sind 60.000 $ Schulden zu viel?',
+    aiAdvisor:'Hallo! Nachdem Sie Ihre Zahlen berechnet haben, kann ich Ihnen helfen, sie zu verstehen.',
+    disclaimer:'Alle Zahlen sind <strong>nur Schätzungen für Planungszwecke</strong>. Für offizielle Zahlen wenden Sie sich an das Finanzhilfebüro Ihrer Schule. Keine Finanzberatung.',customRateHint:'Geben Sie den Jahreszinssatz in Prozent ein (z.B. 6,5 für 6,5%)',customTermHint:'Geben Sie die Anzahl der Jahre ein (1–30)',yr3:'3 Jahre',yr4:'4 Jahre',yr5:'5 Jahre',yr6:'6 Jahre',houseHome:'Zu Hause wohnen ($0/Monat)',houseCampus:'Studentenwohnheim ($1.200/Monat)',houseSolo:'Allein mieten ($1.500/Monat)',houseDt:'Innenstadt ($2.000/Monat)',houseRoommate:'Mit Mitbewohner ($900/Monat)',rate1:'5,0% — Niedrig (staatliches Darlehen)',rate2:'6,5% — Mittel (Standardbank)',rate3:'8,0% — Mittel-hoch (privater Kreditgeber)',rate4:'10,0% — Hoch (privater Kreditgeber)',rate5:'12,0% — Sehr hoch (Entwicklungsland)',term1:'5 Jahre — kurz',term2:'10 Jahre — Standard',term3:'15 Jahre — verlängert',term4:'20 Jahre — langfristig',term5:'25 Jahre — maximal',osapLink:'Studentenhilfe →',usAidLink:'Internationale Studentenhilfe →',howDesc1:'Geben Sie Schule und Programm ein — wir suchen die geschätzten Studiengebühren.',howDesc2:'Fügen Sie Lebenshaltungskosten, Einkommen und erwartete Studentenhilfe hinzu.',howDesc3:'Erhalten Sie Ihre Schulden bei Abschluss, monatliche Zahlungen und verfügbares Einkommen.',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — Lebenshaltungskosten',optionBLiving:'Option B — Lebenshaltungskosten',aidLabel:'Für welches Studentenhilfsprogramm bewerben Sie sich?',aidNone:'Keines / Bewerbe mich nicht',customRate:'Eigenen Zinssatz eingeben...',customTerm:'Eigene Laufzeit eingeben...',privacyLink:'Datenschutzrichtlinie',tosLink:'Nutzungsbedingungen',contactLink:'Kontakt',faq1:'Wie genau sind diese Zahlen?',faq2:'Was ist OSAP und qualifiziere ich mich?',faq3:'Welchen Zinssatz soll ich verwenden?',faq4:'Wie lange zum Abbezahlen?',faq5:'Unterschied zwischen Zuschuss und Darlehen?',faq6:'Kann ich es für Schulen außerhalb Ontarios verwenden?',faq1a:'Dieser Rechner verwendet Schätzungen. Überprüfen Sie immer die offiziellen Zahlen bei Ihrer Schule.',faq2a:'OSAP ist eine Kombination aus Zuschüssen und Darlehen der Regierung von Ontario. Zuschüsse müssen nicht zurückgezahlt werden.',faq3a:'Für die meisten Studenten beträgt der aktuelle Zinssatz ca. 6,25%.',faq4a:'Die Standardrückzahlungszeit beträgt 10 Jahre nach dem Studienabschluss.',faq5a:'Ein <strong>Zuschuss</strong> ist kostenloses Geld. Ein <strong>Darlehen</strong> wird mit Zinsen zurückgezahlt.',faq6a:'Ja — funktioniert für alle kanadischen oder amerikanischen Schulen.',
+  },
+};
+
+function setLanguage(lang){
+  currentLang=lang;
+  const t=TRANSLATIONS[lang]||TRANSLATIONS.en;
+
+  // Update elements with HTML content (data-i18n-html) and faq answers
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(!t[key]) return;
+    // FAQ answers and disclaimer need innerHTML
+    if(el.classList.contains('faq-a')||el.getAttribute('data-i18n-html')){
+      el.innerHTML=t[key];
+    } else if(el.tagName==='OPTION'){
+      el.textContent=t[key];
+    } else {
+      el.textContent=t[key];
+    }
+  });
+
+  // Update hero h1 and p separately since they have special formatting
+  const h1=document.querySelector('.hero h1');
+  if(h1) h1.textContent=t.heroTitle;
+  const heroP=document.querySelector('.hero p');
+  if(heroP) heroP.textContent=t.heroDesc;
+
+  // Update section titles
+  const secTitles=document.querySelectorAll('.sec-title');
+  const titles=[t.step1,t.step2,t.step3,t.step4];
+  secTitles.forEach((el,i)=>{ if(titles[i]) el.textContent=titles[i]; });
+
+  // Update skip buttons
+  document.querySelectorAll('.skip-btn').forEach(el=>el.textContent=t.skip);
+
+  // Update all labels with data-i18n matching
+  const labelMap={
+    'lblTuitionA':t.lblTuition,'lblTuitionB':t.lblTuition,
+    'lblSalaryA':t.lblSalary,'lblSalaryB':t.lblSalary,
+    'lblIntlFeeA':t.lblIntlFee,'lblIntlFeeB':t.lblIntlFee,
+    'lblFoodA':t.lblFood,'lblFoodB':t.lblFood,
+    'lblTransportA':t.lblTransport,'lblTransportB':t.lblTransport,
+    'lblExtraA':t.lblExtra,'lblExtraB':t.lblExtra,
+    'lblBooksA':t.lblBooks,'lblBooksB':t.lblBooks,
+    'lblHealthA':t.lblHealth,'lblHealthB':t.lblHealth,
+    'lblFamily':t.lblFamily,'lblPersonal':t.lblPersonal,
+    'lblSchol':t.lblSchol,'lblLiving':t.lblLiving,'lblSavings':t.lblSavings,
+    'lblRentPost':t.lblRentPost,
+  };
+  const sym=SYMBOLS[currency]||'$';
+  Object.entries(labelMap).forEach(([id,text])=>{
+    const el=document.getElementById(id);
+    if(el&&text) el.childNodes[0].textContent=text.replace('($)',`(${sym})`);
+  });
+
+  // Update placeholders
+  const phMap={
+    'nameA':t.phSchool,'nameB':t.phSchool,
+    'progA':t.phProgram,'progB':t.phProgram,
+    'luSchool':t.phSchool,'luProgram':t.phProgram,
+    'emailIn':t.phEmail,
+    'cin':t.phChat,
+  };
+  Object.entries(phMap).forEach(([id,ph])=>{
+    const el=document.getElementById(id);
+    if(el&&ph) el.placeholder=ph;
+  });
+
+  // Update lookup button
+  const luBtn=v('luBtn');
+  if(luBtn) luBtn.textContent=t.lookupBtn;
+
+  // Update calc button text node
+  const calcBtn=document.querySelector('.calc-btn');
+  if(calcBtn){
+    const textNode=Array.from(calcBtn.childNodes).find(n=>n.nodeType===3);
+    if(textNode) textNode.textContent=t.showBtn+' ';
+  }
+
+  // Update send results button
+  const emailBtn=v('emailBtn');
+  if(emailBtn) emailBtn.textContent=t.sendResults;
+
+  // Update edit inputs button
+  const editBtn=document.querySelector('.edit-inputs-btn');
+  if(editBtn){
+    const textNode=Array.from(editBtn.childNodes).find(n=>n.nodeType===3||n.textContent.trim());
+    if(textNode) editBtn.childNodes[editBtn.childNodes.length-1].textContent=' '+t.editInputs;
+  }
+
+  // Update insert button if visible
+  const insertBtn=v('luInsertBtn');
+  if(insertBtn&&!insertBtn.disabled) insertBtn.childNodes[insertBtn.childNodes.length-1].textContent=' '+t.insertBtn;
+
+  // Update housing options
+  const housingOpts={
+    'rentOpt0':t.rentHome,
+    'rentOpt900':t.rentRoom,
+    'rentOpt1400':t.rent1bOuter,
+    'rentOpt1800':t.rent1bCity,
+    'rentOpt2200':t.rent1bDt,
+    'rentOpt2800':t.rentTorVan,
+  };
+  const rate=RATES[currency]||1;
+  const rentVals={rentOpt0:0,rentOpt900:900,rentOpt1400:1400,rentOpt1800:1800,rentOpt2200:2200,rentOpt2800:2800};
+  Object.entries(housingOpts).forEach(([id,text])=>{
+    const el=document.getElementById(id);
+    if(el&&text){
+      const val=rentVals[id]||0;
+      const converted=Math.round(val*rate);
+      el.textContent=text+' ('+sym+(converted===0?'0':converted.toLocaleString('en'))+'/mo)';
+    }
+  });
+
+  // Update student type dropdown
+  const domOpt=document.querySelector('#luStudentType option[value="domestic"]');
+  if(domOpt) domOpt.textContent=t.domestic;
+  const intlOpt=document.querySelector('#luStudentType option[value="international"]');
+  if(intlOpt) intlOpt.textContent=t.international;
+
+  // Update hiw-title and hiw-desc elements
+  document.querySelectorAll('.hiw-title,.hiw-desc').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(key&&t[key]) el.textContent=t[key];
+  });
+
+  // Update years dropdowns
+  ['yearsA','yearsB'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    Array.from(sel.options).forEach(opt=>{
+      const key=opt.getAttribute('data-i18n');
+      if(key&&t[key]) opt.textContent=t[key];
+    });
+  });
+
+  // Update housing dropdowns
+  ['housingA','housingB'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    const sym=SYMBOLS[currency]||'$';
+    const rate=RATES[currency]||1;
+    Array.from(sel.options).forEach(opt=>{
+      const key=opt.getAttribute('data-i18n');
+      if(key&&t[key]){
+        // Replace $ amounts with converted currency
+        const val=parseFloat(opt.value)||0;
+        const converted=Math.round(val*rate);
+        const label=t[key].replace(/\$[\d,]+/g, sym+converted.toLocaleString('en'));
+        opt.textContent=label;
+      }
+    });
+  });
+
+  // Update loan rate and term dropdowns
+  ['loanRatePreset','loanTermPreset'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    Array.from(sel.options).forEach(opt=>{
+      const key=opt.getAttribute('data-i18n');
+      if(key&&t[key]) opt.textContent=t[key];
+    });
+  });
+
+  // Update disclaimer links
+  const osapLink=document.querySelector('[data-i18n="osapLink"]');
+  if(osapLink&&t.osapLink) osapLink.textContent=t.osapLink;
+  const usAidLink=document.querySelector('[data-i18n="usAidLink"]');
+  if(usAidLink&&t.usAidLink) usAidLink.textContent=t.usAidLink;
+
+  // Update email ok message
+  const emailOk=v('emailOk');
+  if(emailOk&&t.emailOkMsg){
+    const svg=emailOk.querySelector('svg');
+    emailOk.textContent=t.emailOkMsg;
+    if(svg) emailOk.insertBefore(svg,emailOk.firstChild);
+  }
+
+  document.documentElement.lang=lang;
+}
+
 function setCurrency(val){
   currency=val;
   const sym=SYMBOLS[val]||'$';
@@ -1678,7 +2133,6 @@ async function doLookup(){
 
     const text=data.text||'';
     const wasCached=data.cached?'<span style="color:var(--muted);font-size:10px;"> (cached result)</span>':'';
-
     const dm=text.match(/DATA:name=([^|]+)\|tuition=(\d+)\|intlfee=(\d+)\|housing=(\d+)\|food=(\d+)\|transport=(\d+)\|salary=(\d+)/);
 
     // Strip DATA line and convert currency in display text
@@ -1695,26 +2149,28 @@ async function doLookup(){
     }
     resText.innerHTML=displayConverted.replace(/\n/g,'<br>')+wasCached;
 
-    const tgt=mode==='single'?'A':(v('luTarget').value);
     if(dm){
-      v('name'+tgt).value=dm[1].trim();
-      if(program) v('prog'+tgt).value=program;
-      v('tuition'+tgt).value=parseInt(dm[2]);
-      const intlFee=parseInt(dm[3]);
-      if(intlFee>0){
-        v('intl'+tgt).checked=true;
-        v('intlField'+tgt).style.display='block';
-        v('intlFee'+tgt).value=intlFee;
-      }
-      v('housing'+tgt).value='custom';
-      v('housingCustomField'+tgt).style.display='block';
-      v('housingCustom'+tgt).value=parseInt(dm[4]);
-      v('food'+tgt).value=parseInt(dm[5]);
-      v('transport'+tgt).value=parseInt(dm[6]);
-      v('salary'+tgt).value=parseInt(dm[7]);
-      resText.innerHTML+='<br><br><span style="color:var(--accent-text);font-size:11px;font-weight:500;">✓ Filled into Option '+tgt+(intlFee>0?' — includes international student fees.':'. Verify with your school\'s registrar.')+'</span>'+wasCached;
+      // Store parsed data for insert button
+      lastParsedData = {
+        tgt: mode==='single'?'A':(v('luTarget').value),
+        name: dm[1].trim(),
+        program: program,
+        tuition: parseInt(dm[2]),
+        intlFee: parseInt(dm[3]),
+        housing: parseInt(dm[4]),
+        food: parseInt(dm[5]),
+        transport: parseInt(dm[6]),
+        salary: parseInt(dm[7])
+      };
+      // Show insert button
+      const insertRow=v('luInsertRow');
+      if(insertRow) insertRow.style.display='block';
+      resText.innerHTML+='<br><br><span style="color:var(--muted);font-size:11px;">Click "Insert into fields" below to auto-fill these numbers.</span>'+wasCached;
     } else {
-      resText.innerHTML+='<br><br><span style="color:var(--warn);font-size:11px;">⚠ Couldn\'t auto-fill — please enter numbers manually based on the info above.</span>';
+      lastParsedData = null;
+      const insertRow=v('luInsertRow');
+      if(insertRow) insertRow.style.display='none';
+      resText.innerHTML+='<br><br><span style="color:var(--warn);font-size:11px;">Could not auto-fill — please enter numbers manually based on the info above.</span>';
     }
   }catch(e){
     resText.innerHTML='<span style="color:var(--danger);">Error: '+e.message+'. Please enter numbers manually.</span>';
@@ -1727,6 +2183,40 @@ async function doLookup(){
 /* ── CUSTOM RATE / TERM TOGGLES ── */
 function toggleIntl(x){
   v('intlField'+x).style.display=v('intl'+x).checked?'block':'none';
+}
+
+function insertAIResults(){
+  if(!lastParsedData) return;
+  const {tgt,name,program,tuition,intlFee,housing,food,transport,salary}=lastParsedData;
+
+  v('name'+tgt).value=name;
+  if(program) v('prog'+tgt).value=program;
+  v('tuition'+tgt).value=tuition;
+
+  if(intlFee>0){
+    v('intl'+tgt).checked=true;
+    v('intlField'+tgt).style.display='block';
+    v('intlFee'+tgt).value=intlFee;
+  }
+
+  v('housing'+tgt).value='custom';
+  v('housingCustomField'+tgt).style.display='block';
+  v('housingCustom'+tgt).value=housing;
+  v('food'+tgt).value=food;
+  v('transport'+tgt).value=transport;
+  v('salary'+tgt).value=salary;
+
+  // Update insert button to show success
+  const btn=v('luInsertBtn');
+  if(btn){
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Inserted into Option '+tgt;
+    btn.style.background='var(--success)';
+    btn.disabled=true;
+  }
+
+  // Scroll to the filled section
+  const target=v('name'+tgt);
+  if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function toggleCustomRentPost(){
@@ -2401,7 +2891,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- COOKIE CONSENT BANNER -->
 <div class="cookie-banner" id="cookieBanner">
-  <div>We use Google Analytics to understand how students use this site. No personal data is sold. <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a></div>
+  <div>We use Google Analytics to understand how students use this site. No personal data is sold. <a href="#" onclick="showPrivacy();return false;" data-i18n="privacyLink">Privacy Policy</a></div>
   <div class="cookie-banner-btns">
     <button class="cookie-decline" onclick="declineCookies()">Got it</button>
     <button class="cookie-accept" onclick="acceptCookies()">OK</button>
@@ -2412,12 +2902,12 @@ document.addEventListener('DOMContentLoaded', function(){
 <footer class="site-footer">
   <div class="footer-logo">tuition<span>calculator</span></div>
   <div style="text-align:center;line-height:1.8;">
-    Free tool for students worldwide &nbsp;·&nbsp; Not financial advice &nbsp;·&nbsp; For users 13+<br/>
+    <span data-i18n="footerTagline">Free tool for students worldwide &nbsp;·&nbsp; Not financial advice &nbsp;·&nbsp; For users 13+</span><br/>
     <a href="#" onclick="showPrivacy();return false;" style="color:var(--accent);text-decoration:none;">Privacy Policy</a>
     &nbsp;·&nbsp;
-    <a href="#" onclick="showTerms();return false;" style="color:var(--accent);text-decoration:none;">Terms of Service</a>
+    <a href="#" onclick="showTerms();return false;" style="color:var(--accent);text-decoration:none;" data-i18n="tosLink">Terms of Service</a>
     &nbsp;·&nbsp;
-    <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);text-decoration:none;">Contact</a>
+    <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);text-decoration:none;" data-i18n="contactLink">Contact</a>
   </div>
   <div>© <span id="footerYear"></span> CalculateTuition</div>
 </footer>
