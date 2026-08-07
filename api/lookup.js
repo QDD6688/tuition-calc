@@ -36,9 +36,9 @@ export default async function handler(req, res) {
 
     let prompt;
     if (isIntl) {
-      prompt = 'Look up for ' + school + ', ' + prog + ' (INTERNATIONAL student): 1) international annual tuition CAD ' + currentYear + ', 2) international student fee premium per year, 3) monthly student rent in that city, 4) monthly food estimate, 5) monthly transport estimate, 6) median starting salary CAD. Convert USD to CAD at 1.36. Be brief.\n\nOutput on final line EXACTLY:\nDATA:name=' + school + '|tuition=TUITION|intlfee=INTLFEE|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\n\nIntegers only, no $ or commas.';
+      prompt = 'Find for ' + school + ' ' + prog + ' international student ' + currentYear + ': annual international tuition CAD, international fee premium/yr, monthly rent in city, monthly food, monthly transport, median grad starting salary CAD. Convert USD to CAD at 1.36. Keep response under 100 words then output EXACTLY on last line:\nDATA:name=' + school + '|tuition=TUITION|intlfee=INTLFEE|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\nIntegers only no symbols.';
     } else {
-      prompt = 'Look up for ' + school + ', ' + prog + ' (domestic student): 1) domestic annual tuition CAD ' + currentYear + ', 2) monthly student rent in that city, 3) monthly food estimate, 4) monthly transport estimate, 5) median starting salary CAD. Convert USD to CAD at 1.36. Be brief.\n\nOutput on final line EXACTLY:\nDATA:name=' + school + '|tuition=TUITION|intlfee=0|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\n\nIntegers only, no $ or commas.';
+      prompt = 'Find for ' + school + ' ' + prog + ' domestic student ' + currentYear + ': annual domestic tuition CAD, monthly rent in city, monthly food, monthly transport, median grad starting salary CAD. Convert USD to CAD at 1.36. Keep response under 100 words then output EXACTLY on last line:\nDATA:name=' + school + '|tuition=TUITION|intlfee=0|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\nIntegers only no symbols.';
     }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -50,8 +50,8 @@ export default async function handler(req, res) {
         'anthropic-beta': 'web-search-2025-03-05'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5',  // 25x cheaper than Sonnet
-        max_tokens: 400,
+        model: 'claude-haiku-4-5',
+        max_tokens: 800,
         tools: [{ type: 'web_search_20250305', name: 'web_search' }],
         messages: [{ role: 'user', content: prompt }]
       })
