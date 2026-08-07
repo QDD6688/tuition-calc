@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'onboarding@resend.dev',
+        from: 'CalculateTuition <hello@calculatetuition.com>',
         to: [email],
         subject: 'Your university cost breakdown — CalculateTuition',
         html: htmlBody || `<p>${(summary || 'No results').replace(/\n/g,'<br>')}</p>`,
