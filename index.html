@@ -319,7 +319,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 }
 .affiliate-card .aff-btn:hover{background:var(--accent-hover);}
 
-/* ── FIELD PLACEHOLDERS ── */
+.school-grid-1{display:grid;grid-template-columns:1fr;}
+.school-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.school-grid-3{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.school-grid-3 > div:last-child{grid-column:1/-1;}
+.school-grid-4{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:640px){
+  .school-grid-2,.school-grid-3,.school-grid-4{grid-template-columns:1fr;}
+  .school-grid-3 > div:last-child{grid-column:auto;}
+}
+.opt-c-tag{color:#7C5CBF!important;border-color:#C4B5E8!important;background:rgba(124,92,191,0.08)!important;}
+.opt-d-tag{color:#B85C38!important;border-color:#E8C4B5!important;background:rgba(184,92,56,0.08)!important;}
 .field input::placeholder{color:var(--muted2);font-style:italic;}
 .field input:focus::placeholder{opacity:0;}
 .field input:focus{border-color:var(--accent-border);}
@@ -689,38 +699,38 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- Currency selector -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-      <span style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);line-height:1;">Currency</span>
+      <span class="nav-label" style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);line-height:1;">Currency</span>
       <select id="currencySelect" onchange="setCurrency(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 10px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
-        <option value="CAD" selected>CAD</option>
-        <option value="USD">USD</option>
-        <option value="GBP">GBP</option>
-        <option value="EUR">EUR</option>
-        <option value="AUD">AUD</option>
-        <option value="NZD">NZD</option>
-        <option value="INR">INR</option>
-        <option value="JPY">JPY</option>
-        <option value="CNY">CNY</option>
-        <option value="BRL">BRL</option>
-        <option value="MXN">MXN</option>
-        <option value="KRW">KRW</option>
-        <option value="SGD">SGD</option>
-        <option value="HKD">HKD</option>
-        <option value="SEK">SEK</option>
-        <option value="NOK">NOK</option>
-        <option value="DKK">DKK</option>
-        <option value="CHF">CHF</option>
-        <option value="ZAR">ZAR</option>
-        <option value="AED">AED</option>
-        <option value="SAR">SAR</option>
-        <option value="NGN">NGN</option>
-        <option value="GHS">GHS</option>
-        <option value="KES">KES</option>
-        <option value="PKR">PKR</option>
-        <option value="BDT">BDT</option>
-        <option value="PHP">PHP</option>
-        <option value="MYR">MYR</option>
-        <option value="THB">THB</option>
-        <option value="IDR">IDR</option>
+        <option value="CAD" selected>🇨🇦 CAD</option>
+        <option value="USD">🇺🇸 USD</option>
+        <option value="GBP">🇬🇧 GBP</option>
+        <option value="EUR">🇪🇺 EUR</option>
+        <option value="AUD">🇦🇺 AUD</option>
+        <option value="NZD">🇳🇿 NZD</option>
+        <option value="INR">🇮🇳 INR</option>
+        <option value="JPY">🇯🇵 JPY</option>
+        <option value="CNY">🇨🇳 CNY</option>
+        <option value="BRL">🇧🇷 BRL</option>
+        <option value="MXN">🇲🇽 MXN</option>
+        <option value="KRW">🇰🇷 KRW</option>
+        <option value="SGD">🇸🇬 SGD</option>
+        <option value="HKD">🇭🇰 HKD</option>
+        <option value="SEK">🇸🇪 SEK</option>
+        <option value="NOK">🇳🇴 NOK</option>
+        <option value="DKK">🇩🇰 DKK</option>
+        <option value="CHF">🇨🇭 CHF</option>
+        <option value="ZAR">🇿🇦 ZAR</option>
+        <option value="AED">🇦🇪 AED</option>
+        <option value="SAR">🇸🇦 SAR</option>
+        <option value="NGN">🇳🇬 NGN</option>
+        <option value="GHS">🇬🇭 GHS</option>
+        <option value="KES">🇰🇪 KES</option>
+        <option value="PKR">🇵🇰 PKR</option>
+        <option value="BDT">🇧🇩 BDT</option>
+        <option value="PHP">🇵🇭 PHP</option>
+        <option value="MYR">🇲🇾 MYR</option>
+        <option value="THB">🇹🇭 THB</option>
+        <option value="IDR">🇮🇩 IDR</option>
       </select>
     </div>
 
@@ -729,18 +739,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
     <!-- Language selector -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-      <span style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);line-height:1;">Language</span>
+      <span class="nav-label" style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);line-height:1;">Language</span>
       <select id="langSelect" onchange="setLanguage(this.value)" style="height:32px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;padding:0 28px 0 10px;font-size:12px;font-weight:500;font-family:var(--sans);color:var(--text2);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%238C8480%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 10px center;">
-        <option value="en" selected>English</option>
-        <option value="fr">Français</option>
-        <option value="zh">中文</option>
-        <option value="es">Español</option>
-        <option value="hi">हिन्दी</option>
-        <option value="ar">العربية</option>
-        <option value="pt">Português</option>
-        <option value="ko">한국어</option>
-        <option value="ja">日本語</option>
-        <option value="de">Deutsch</option>
+        <option value="en" selected>🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="pt">🇧🇷 Português</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="de">🇩🇪 Deutsch</option>
       </select>
     </div>
 
@@ -783,9 +793,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
   </div>
 
   <!-- MODE TOGGLE -->
-  <div class="mode-toggle">
-    <button class="mode-btn active" id="btnSingle" onclick="setMode('single')" data-i18n="modeSingle">Single school</button>
-    <button class="mode-btn" id="btnCompare" onclick="setMode('compare')" data-i18n="modeCompare">Compare two schools</button>
+  <div class="mode-toggle" style="flex-wrap:wrap;gap:6px;">
+    <button class="mode-btn active" id="btnCount1" onclick="setSchoolCount(1)" data-i18n="modeSingle">Single school</button>
+    <button class="mode-btn" id="btnCount2" onclick="setSchoolCount(2)">Compare 2</button>
+    <button class="mode-btn" id="btnCount3" onclick="setSchoolCount(3)">Compare 3</button>
+    <button class="mode-btn" id="btnCount4" onclick="setSchoolCount(4)">Compare 4</button>
   </div>
 
   <!-- AI LOOKUP -->
@@ -804,6 +816,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         <select id="luTarget" style="height:40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;min-width:100px;-webkit-appearance:none;appearance:none;cursor:pointer;">
           <option value="A" data-i18n="fillA">Fill Option A</option>
           <option value="B" data-i18n="fillB">Fill Option B</option>
+          <option value="C" id="luTargetC" style="display:none;">Fill Option C</option>
+          <option value="D" id="luTargetD" style="display:none;">Fill Option D</option>
         </select>
         <button class="ai-btn" id="luBtn" onclick="doLookup()">Look it up</button>
       </div>
@@ -836,12 +850,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
           <div class="col-tag a" id="tagA" data-i18n="optionA">Option A</div>
           <div class="field"><label data-i18n="schoolName">School name</label><input type="text" id="nameA" placeholder="e.g. University of Toronto"/></div>
           <div class="field"><label data-i18n="programLabel">Program / major</label><input type="text" id="progA" placeholder="e.g. Commerce"/></div>
-          <div class="field"><label id="lblTuitionA">Tuition per year ($)</label><input type="number" id="tuitionA" placeholder="e.g. 16,000" min="0"/></div>
+          <div class="field"><label id="lblTuitionA">Tuition per year ($)</label><input type="number" id="tuitionA" data-ph="ph16000" placeholder="e.g. 16,000" min="0"/></div>
           <div class="field"><label data-i18n="yearsLabel">Years of study</label>
             <select id="yearsA"><option value="3" data-i18n="yr3">3 years</option><option value="4" selected data-i18n="yr4">4 years</option><option value="5" data-i18n="yr5">5 years</option><option value="6" data-i18n="yr6">6 years</option></select>
           </div>
-          <div class="field"><label id="lblSalaryA">Expected starting salary ($)</label><input type="number" id="salaryA" placeholder="e.g. 65,000" min="0"/></div>
-          <div class="field"><label data-i18n="inflLabel">Annual tuition increase (%)</label><input type="number" id="inflA" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
+          <div class="field"><label id="lblSalaryA">Expected starting salary ($)</label><input type="number" id="salaryA" data-ph="ph65000" placeholder="e.g. 65,000" min="0"/></div>
+          <div class="field"><label data-i18n="inflLabel">Annual tuition increase (%)</label><input type="number" id="inflA" data-ph="ph3" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
           <div class="toggle-row" style="margin-top:0.5rem;">
             <label class="toggle">
               <input type="checkbox" id="intlA" onchange="toggleIntl('A')"/>
@@ -851,7 +865,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <span class="toggle-label" data-i18n="intlLabel">International student</span>
           </div>
           <div id="intlFieldA" style="display:none;">
-            <div class="field"><label id="lblIntlFeeA">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeA" placeholder="e.g. 15,000" min="0"/></div>
+            <div class="field"><label id="lblIntlFeeA">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeA" data-ph="ph15000" placeholder="e.g. 15,000" min="0"/></div>
           </div>
         </div>
         <!-- OPTION B (hidden in single mode) -->
@@ -859,12 +873,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
           <div class="col-tag b" data-i18n="optionB">Option B</div>
           <div class="field"><label>School name</label><input type="text" id="nameB" placeholder="e.g. York University"/></div>
           <div class="field"><label>Program / major</label><input type="text" id="progB" placeholder="e.g. Commerce"/></div>
-          <div class="field"><label id="lblTuitionB">Tuition per year ($)</label><input type="number" id="tuitionB" placeholder="e.g. 10,000" min="0"/></div>
+          <div class="field"><label id="lblTuitionB">Tuition per year ($)</label><input type="number" id="tuitionB" data-ph="ph10000" placeholder="e.g. 10,000" min="0"/></div>
           <div class="field"><label>Years of study</label>
             <select id="yearsB"><option value="3" data-i18n="yr3">3 years</option><option value="4" selected data-i18n="yr4">4 years</option><option value="5" data-i18n="yr5">5 years</option><option value="6" data-i18n="yr6">6 years</option></select>
           </div>
-          <div class="field"><label id="lblSalaryB">Expected starting salary ($)</label><input type="number" id="salaryB" placeholder="e.g. 60,000" min="0"/></div>
-          <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflB" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
+          <div class="field"><label id="lblSalaryB">Expected starting salary ($)</label><input type="number" id="salaryB" data-ph="ph60000" placeholder="e.g. 60,000" min="0"/></div>
+          <div class="field"><label>Annual tuition increase (%)</label><input type="number" id="inflB" data-ph="ph3" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
           <div class="toggle-row" style="margin-top:0.5rem;">
             <label class="toggle">
               <input type="checkbox" id="intlB" onchange="toggleIntl('B')"/>
@@ -874,7 +888,45 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <span class="toggle-label" data-i18n="intlLabel">International student</span>
           </div>
           <div id="intlFieldB" style="display:none;">
-            <div class="field"><label id="lblIntlFeeB">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeB" placeholder="e.g. 15,000" min="0"/></div>
+            <div class="field"><label id="lblIntlFeeB">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeB" data-ph="ph15000" placeholder="e.g. 15,000" min="0"/></div>
+          </div>
+        </div>
+        <!-- OPTION C (hidden by default) -->
+        <div id="colC" style="display:none;">
+          <div class="col-tag" style="color:#7C5CBF;border-color:#C4B5E8;background:rgba(124,92,191,0.08);" data-i18n="optionC">Option C</div>
+          <div class="field"><label data-i18n="schoolName">School name</label><input type="text" id="nameC" placeholder="e.g. McGill University"/></div>
+          <div class="field"><label data-i18n="programLabel">Program / major</label><input type="text" id="progC" placeholder="e.g. Commerce"/></div>
+          <div class="field"><label id="lblTuitionC">Tuition per year ($)</label><input type="number" id="tuitionC" data-ph="ph16000" placeholder="e.g. 16,000" min="0"/></div>
+          <div class="field"><label data-i18n="yearsLabel">Years of study</label>
+            <select id="yearsC"><option value="3" data-i18n="yr3">3 years</option><option value="4" selected data-i18n="yr4">4 years</option><option value="5" data-i18n="yr5">5 years</option><option value="6" data-i18n="yr6">6 years</option></select>
+          </div>
+          <div class="field"><label id="lblSalaryC">Expected starting salary ($)</label><input type="number" id="salaryC" data-ph="ph65000" placeholder="e.g. 65,000" min="0"/></div>
+          <div class="field"><label data-i18n="inflLabel">Annual tuition increase (%)</label><input type="number" id="inflC" data-ph="ph3" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
+          <div class="toggle-row" style="margin-top:0.5rem;">
+            <label class="toggle"><input type="checkbox" id="intlC" onchange="toggleIntl('C')"/><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+            <span class="toggle-label" data-i18n="intlLabel">International student</span>
+          </div>
+          <div id="intlFieldC" style="display:none;">
+            <div class="field"><label id="lblIntlFeeC">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeC" data-ph="ph15000" placeholder="e.g. 15,000" min="0"/></div>
+          </div>
+        </div>
+        <!-- OPTION D (hidden by default) -->
+        <div id="colD" style="display:none;">
+          <div class="col-tag" style="color:#B85C38;border-color:#E8C4B5;background:rgba(184,92,56,0.08);" data-i18n="optionD">Option D</div>
+          <div class="field"><label data-i18n="schoolName">School name</label><input type="text" id="nameD" placeholder="e.g. Queen's University"/></div>
+          <div class="field"><label data-i18n="programLabel">Program / major</label><input type="text" id="progD" placeholder="e.g. Commerce"/></div>
+          <div class="field"><label id="lblTuitionD">Tuition per year ($)</label><input type="number" id="tuitionD" data-ph="ph16000" placeholder="e.g. 16,000" min="0"/></div>
+          <div class="field"><label data-i18n="yearsLabel">Years of study</label>
+            <select id="yearsD"><option value="3" data-i18n="yr3">3 years</option><option value="4" selected data-i18n="yr4">4 years</option><option value="5" data-i18n="yr5">5 years</option><option value="6" data-i18n="yr6">6 years</option></select>
+          </div>
+          <div class="field"><label id="lblSalaryD">Expected starting salary ($)</label><input type="number" id="salaryD" data-ph="ph65000" placeholder="e.g. 65,000" min="0"/></div>
+          <div class="field"><label data-i18n="inflLabel">Annual tuition increase (%)</label><input type="number" id="inflD" data-ph="ph3" placeholder="e.g. 3" min="0" max="20" step="0.5"/></div>
+          <div class="toggle-row" style="margin-top:0.5rem;">
+            <label class="toggle"><input type="checkbox" id="intlD" onchange="toggleIntl('D')"/><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+            <span class="toggle-label" data-i18n="intlLabel">International student</span>
+          </div>
+          <div id="intlFieldD" style="display:none;">
+            <div class="field"><label id="lblIntlFeeD">International fee premium/yr ($) <span style="font-size:10px;color:var(--muted);">above domestic tuition</span></label><input type="number" id="intlFeeD" data-ph="ph15000" placeholder="e.g. 15,000" min="0"/></div>
           </div>
         </div>
       </div>
@@ -897,23 +949,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <option value="0" data-i18n="houseHome">Living at home ($0/mo)</option>
             <option value="1200" data-i18n="houseCampus">On-campus residence ($1,200/mo)</option>
             <option value="1500" selected data-i18n="houseSolo">Renting solo ($1,500/mo)</option>
-            <option value="900">Renting with roommates ($900/mo)</option>
-            <option value="2000">Downtown renting ($2,000/mo)</option>
-            <option value="custom">Custom...</option>
+            <option value="900" data-i18n="houseRoommate">Renting with roommates ($900/mo)</option>
+            <option value="2000" data-i18n="houseDt">Downtown renting ($2,000/mo)</option>
+            <option value="custom" data-i18n="customHousing">Custom...</option>
           </select>
         </div>
-        <div class="field" id="housingCustomFieldA" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomA" placeholder="e.g. 1,500" min="0"/></div>
+        <div class="field" id="housingCustomFieldA" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomA" data-ph="ph1500" placeholder="e.g. 1,500" min="0"/></div>
       </div>
       <div class="sub-head" data-i18n="monthlyExp">Monthly expenses</div>
       <div class="g3">
-        <div class="field"><label id="lblFoodA">Food/mo ($)</label><input type="number" id="foodA" placeholder="e.g. 400" min="0"/></div>
-        <div class="field"><label id="lblTransportA">Transport/mo ($)</label><input type="number" id="transportA" placeholder="e.g. 150" min="0"/></div>
-        <div class="field"><label id="lblExtraA">Extra spending/mo ($)</label><input type="number" id="extraA" placeholder="e.g. 200" min="0"/></div>
+        <div class="field"><label id="lblFoodA">Food/mo ($)</label><input type="number" id="foodA" data-ph="ph400" placeholder="e.g. 400" min="0"/></div>
+        <div class="field"><label id="lblTransportA">Transport/mo ($)</label><input type="number" id="transportA" data-ph="ph150" placeholder="e.g. 150" min="0"/></div>
+        <div class="field"><label id="lblExtraA">Extra spending/mo ($)</label><input type="number" id="extraA" data-ph="ph200" placeholder="e.g. 200" min="0"/></div>
       </div>
       <div class="sub-head" data-i18n="annualExp">Annual expenses</div>
       <div class="g2">
-        <div class="field"><label id="lblBooksA">Books & supplies/yr ($)</label><input type="number" id="booksA" placeholder="e.g. 600" min="0"/></div>
-        <div class="field"><label id="lblHealthA">Health/dental/yr ($)</label><input type="number" id="healthA" placeholder="e.g. 300" min="0"/></div>
+        <div class="field"><label id="lblBooksA">Books & supplies/yr ($)</label><input type="number" id="booksA" data-ph="ph600" placeholder="e.g. 600" min="0"/></div>
+        <div class="field"><label id="lblHealthA">Health/dental/yr ($)</label><input type="number" id="healthA" data-ph="ph300" placeholder="e.g. 300" min="0"/></div>
       </div>
     </div>
 
@@ -922,28 +974,88 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       <div class="col-tag b" data-i18n="optionBLiving" style="margin-bottom:0.875rem;">Option B — living costs</div>
       <div class="sub-head" data-i18n="housingLabel">Housing</div>
       <div class="g2">
-        <div class="field"><label>Housing situation</label>
+        <div class="field"><label data-i18n="housingSitLabel">Housing situation</label>
           <select id="housingB" onchange="toggleCustomHousing('B')">
-            <option value="0">Living at home ($0/mo)</option>
-            <option value="1200">On-campus residence ($1,200/mo)</option>
-            <option value="900" selected>Renting with roommates ($900/mo)</option>
-            <option value="1500">Renting solo ($1,500/mo)</option>
-            <option value="2000">Downtown renting ($2,000/mo)</option>
-            <option value="custom">Custom...</option>
+            <option value="0" data-i18n="houseHome">Living at home ($0/mo)</option>
+            <option value="1200" data-i18n="houseCampus">On-campus residence ($1,200/mo)</option>
+            <option value="900" selected data-i18n="houseRoommate">Renting with roommates ($900/mo)</option>
+            <option value="1500" data-i18n="houseSolo">Renting solo ($1,500/mo)</option>
+            <option value="2000" data-i18n="houseDt">Downtown renting ($2,000/mo)</option>
+            <option value="custom" data-i18n="customHousing">Custom...</option>
           </select>
         </div>
-        <div class="field" id="housingCustomFieldB" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomB" placeholder="e.g. 900" min="0"/></div>
+        <div class="field" id="housingCustomFieldB" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomB" data-ph="ph900" placeholder="e.g. 900" min="0"/></div>
       </div>
       <div class="sub-head" data-i18n="monthlyExp">Monthly expenses</div>
       <div class="g3">
-        <div class="field"><label id="lblFoodB">Food/mo ($)</label><input type="number" id="foodB" placeholder="e.g. 400" min="0"/></div>
-        <div class="field"><label id="lblTransportB">Transport/mo ($)</label><input type="number" id="transportB" placeholder="e.g. 150" min="0"/></div>
-        <div class="field"><label id="lblExtraB">Extra spending/mo ($)</label><input type="number" id="extraB" placeholder="e.g. 200" min="0"/></div>
+        <div class="field"><label id="lblFoodB">Food/mo ($)</label><input type="number" id="foodB" data-ph="ph400" placeholder="e.g. 400" min="0"/></div>
+        <div class="field"><label id="lblTransportB">Transport/mo ($)</label><input type="number" id="transportB" data-ph="ph150" placeholder="e.g. 150" min="0"/></div>
+        <div class="field"><label id="lblExtraB">Extra spending/mo ($)</label><input type="number" id="extraB" data-ph="ph200" placeholder="e.g. 200" min="0"/></div>
       </div>
       <div class="sub-head" data-i18n="annualExp">Annual expenses</div>
       <div class="g2">
-        <div class="field"><label id="lblBooksB">Books & supplies/yr ($)</label><input type="number" id="booksB" placeholder="e.g. 600" min="0"/></div>
-        <div class="field"><label id="lblHealthB">Health/dental/yr ($)</label><input type="number" id="healthB" placeholder="e.g. 300" min="0"/></div>
+        <div class="field"><label id="lblBooksB">Books & supplies/yr ($)</label><input type="number" id="booksB" data-ph="ph600" placeholder="e.g. 600" min="0"/></div>
+        <div class="field"><label id="lblHealthB">Health/dental/yr ($)</label><input type="number" id="healthB" data-ph="ph300" placeholder="e.g. 300" min="0"/></div>
+      </div>
+    </div>
+
+    <!-- Option C living (hidden by default) -->
+    <div class="card" id="livingC" style="display:none;">
+      <div class="col-tag" style="color:#7C5CBF;border-color:#C4B5E8;background:rgba(124,92,191,0.08);margin-bottom:0.875rem;" data-i18n="optionCLiving">Option C — living costs</div>
+      <div class="sub-head" data-i18n="housingLabel">Housing</div>
+      <div class="g2">
+        <div class="field"><label data-i18n="housingSitLabel">Housing situation</label>
+          <select id="housingC" onchange="toggleCustomHousing('C')">
+            <option value="0" data-i18n="houseHome">Living at home ($0/mo)</option>
+            <option value="1200" data-i18n="houseCampus">On-campus residence ($1,200/mo)</option>
+            <option value="1500" selected data-i18n="houseSolo">Renting solo ($1,500/mo)</option>
+            <option value="900" data-i18n="houseRoommate">Renting with roommates ($900/mo)</option>
+            <option value="2000" data-i18n="houseDt">Downtown renting ($2,000/mo)</option>
+            <option value="custom" data-i18n="customHousing">Custom...</option>
+          </select>
+        </div>
+        <div class="field" id="housingCustomFieldC" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomC" data-ph="ph1500" placeholder="e.g. 1,500" min="0"/></div>
+      </div>
+      <div class="sub-head" data-i18n="monthlyExp">Monthly expenses</div>
+      <div class="g3">
+        <div class="field"><label id="lblFoodC">Food/mo ($)</label><input type="number" id="foodC" data-ph="ph400" placeholder="e.g. 400" min="0"/></div>
+        <div class="field"><label id="lblTransportC">Transport/mo ($)</label><input type="number" id="transportC" data-ph="ph150" placeholder="e.g. 150" min="0"/></div>
+        <div class="field"><label id="lblExtraC">Extra spending/mo ($)</label><input type="number" id="extraC" data-ph="ph200" placeholder="e.g. 200" min="0"/></div>
+      </div>
+      <div class="sub-head" data-i18n="annualExp">Annual expenses</div>
+      <div class="g2">
+        <div class="field"><label id="lblBooksC">Books & supplies/yr ($)</label><input type="number" id="booksC" data-ph="ph600" placeholder="e.g. 600" min="0"/></div>
+        <div class="field"><label id="lblHealthC">Health/dental/yr ($)</label><input type="number" id="healthC" data-ph="ph300" placeholder="e.g. 300" min="0"/></div>
+      </div>
+    </div>
+
+    <!-- Option D living (hidden by default) -->
+    <div class="card" id="livingD" style="display:none;">
+      <div class="col-tag" style="color:#B85C38;border-color:#E8C4B5;background:rgba(184,92,56,0.08);margin-bottom:0.875rem;" data-i18n="optionDLiving">Option D — living costs</div>
+      <div class="sub-head" data-i18n="housingLabel">Housing</div>
+      <div class="g2">
+        <div class="field"><label data-i18n="housingSitLabel">Housing situation</label>
+          <select id="housingD" onchange="toggleCustomHousing('D')">
+            <option value="0" data-i18n="houseHome">Living at home ($0/mo)</option>
+            <option value="1200" data-i18n="houseCampus">On-campus residence ($1,200/mo)</option>
+            <option value="1500" selected data-i18n="houseSolo">Renting solo ($1,500/mo)</option>
+            <option value="900" data-i18n="houseRoommate">Renting with roommates ($900/mo)</option>
+            <option value="2000" data-i18n="houseDt">Downtown renting ($2,000/mo)</option>
+            <option value="custom" data-i18n="customHousing">Custom...</option>
+          </select>
+        </div>
+        <div class="field" id="housingCustomFieldD" style="display:none;"><label>Custom amount/mo ($)</label><input type="number" id="housingCustomD" data-ph="ph1500" placeholder="e.g. 1,500" min="0"/></div>
+      </div>
+      <div class="sub-head" data-i18n="monthlyExp">Monthly expenses</div>
+      <div class="g3">
+        <div class="field"><label id="lblFoodD">Food/mo ($)</label><input type="number" id="foodD" data-ph="ph400" placeholder="e.g. 400" min="0"/></div>
+        <div class="field"><label id="lblTransportD">Transport/mo ($)</label><input type="number" id="transportD" data-ph="ph150" placeholder="e.g. 150" min="0"/></div>
+        <div class="field"><label id="lblExtraD">Extra spending/mo ($)</label><input type="number" id="extraD" data-ph="ph200" placeholder="e.g. 200" min="0"/></div>
+      </div>
+      <div class="sub-head" data-i18n="annualExp">Annual expenses</div>
+      <div class="g2">
+        <div class="field"><label id="lblBooksD">Books & supplies/yr ($)</label><input type="number" id="booksD" data-ph="ph600" placeholder="e.g. 600" min="0"/></div>
+        <div class="field"><label id="lblHealthD">Health/dental/yr ($)</label><input type="number" id="healthD" data-ph="ph300" placeholder="e.g. 300" min="0"/></div>
       </div>
     </div>
     </div><!-- end sec2Body -->
@@ -956,8 +1068,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
     <div class="card">
       <div class="sub-head" data-i18n="whileStudying">While studying (applies to both options)</div>
       <div class="g2">
-        <div class="field"><label id="lblFamily">Family support/yr ($)</label><input type="number" id="family" placeholder="e.g. 6,000" min="0"/></div>
-        <div class="field"><label id="lblPersonal">Personal income/yr ($)</label><input type="number" id="personal" placeholder="e.g. 12,000" min="0"/></div>
+        <div class="field"><label id="lblFamily">Family support/yr ($)</label><input type="number" id="family" data-ph="ph6000" placeholder="e.g. 6,000" min="0"/></div>
+        <div class="field"><label id="lblPersonal">Personal income/yr ($)</label><input type="number" id="personal" data-ph="ph12000" placeholder="e.g. 12,000" min="0"/></div>
       </div>
       <div class="divider"></div>
 
@@ -1057,7 +1169,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <option value="custom" data-i18n="customRate">Enter my own rate...</option>
           </select>
           <div id="loanRateCustomWrap" style="margin-top:6px;">
-            <input type="number" id="loanRateCustom" placeholder="e.g. 6.5" min="0" max="30" step="0.01" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
+            <input type="number" id="loanRateCustom" data-ph="ph6dot5" placeholder="e.g. 6.5" min="0" max="30" step="0.01" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
             <span id="rateHintText" style="font-size:11px;color:var(--muted);margin-top:4px;display:block;" data-i18n="customRateHint">Enter your annual interest rate as a percentage (e.g. 6.5 for 6.5%)</span>
           </div>
         </div>
@@ -1072,7 +1184,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <option value="custom" data-i18n="customTerm">Enter my own term...</option>
           </select>
           <div id="loanTermCustomWrap" style="margin-top:6px;">
-            <input type="number" id="loanTermCustom" placeholder="e.g. 12" min="1" max="30" step="1" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
+            <input type="number" id="loanTermCustom" data-ph="ph12" placeholder="e.g. 12" min="1" max="30" step="1" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
             <span id="termHintText" style="font-size:11px;color:var(--muted);margin-top:4px;display:block;" data-i18n="customTermHint">Enter number of years (1–30)</span>
           </div>
         </div>
@@ -1100,97 +1212,48 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
             <option value="custom">Custom amount...</option>
           </select>
           <div id="rentPostCustomWrap" style="display:none;margin-top:6px;">
-            <input type="number" id="rentPostCustom" placeholder="e.g. 1650" min="0" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
+            <input type="number" id="rentPostCustom" data-ph="ph1650" placeholder="e.g. 1,650" min="0" style="width:100%;height:40px;background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--r);padding:0 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;"/>
             <span id="lblRentPostCustom" style="font-size:11px;color:var(--muted);margin-top:4px;display:block;">Enter your expected monthly rent ($)</span>
           </div>
         </div>
-        <div class="field"><label id="lblLiving">Living expenses/mo ($)</label><input type="number" id="livingPost" placeholder="e.g. 1,200" min="0"/></div>
+        <div class="field"><label id="lblLiving">Living expenses/mo ($)</label><input type="number" id="livingPost" data-ph="ph1200" placeholder="e.g. 1,200" min="0"/></div>
       </div>
       <div class="g2" style="margin-top:0.5rem;">
         <div class="field">
           <label data-i18n="provinceLabel">Province / State (for tax estimate)</label>
+          <select id="countrySelect" onchange="updateProvinceList(currentLang)" style="margin-bottom:8px;">
+            <option value="CA" selected>🇨🇦 Canada</option>
+            <option value="US">🇺🇸 United States</option>
+            <option value="UK">🇬🇧 United Kingdom</option>
+            <option value="AU">🇦🇺 Australia</option>
+            <option value="IN">🇮🇳 India</option>
+            <option value="CN">🇨🇳 China</option>
+            <option value="DE">🇩🇪 Germany</option>
+            <option value="FR">🇫🇷 France</option>
+            <option value="BR">🇧🇷 Brazil</option>
+            <option value="MX">🇲🇽 Mexico</option>
+            <option value="NG">🇳🇬 Nigeria</option>
+            <option value="ZA">🇿🇦 South Africa</option>
+            <option value="KE">🇰🇪 Kenya</option>
+            <option value="OTHER">🌍 Other / International</option>
+          </select>
           <select id="province">
-            <optgroup label="CA — Canada — Provinces">
-              <option value="ON" selected>Ontario</option>
-              <option value="BC">British Columbia</option>
-              <option value="AB">Alberta</option>
-              <option value="QC">Quebec</option>
-              <option value="MB">Manitoba</option>
-              <option value="SK">Saskatchewan</option>
-              <option value="NS">Nova Scotia</option>
-              <option value="NB">New Brunswick</option>
-              <option value="NL">Newfoundland & Labrador</option>
-              <option value="PE">Prince Edward Island</option>
-            </optgroup>
-            <optgroup label="CA — Canada — Territories">
-              <option value="NT">Northwest Territories</option>
-              <option value="YT">Yukon</option>
-              <option value="NU">Nunavut</option>
-            </optgroup>
-            <optgroup label="US — USA — Northeast">
-              <option value="US_NY">New York</option>
-              <option value="US_MA">Massachusetts</option>
-              <option value="US_PA">Pennsylvania</option>
-              <option value="US_NJ">New Jersey</option>
-              <option value="US_CT">Connecticut</option>
-              <option value="US_ME">Maine</option>
-              <option value="US_NH">New Hampshire</option>
-              <option value="US_VT">Vermont</option>
-              <option value="US_RI">Rhode Island</option>
-              <option value="US_MD">Maryland</option>
-              <option value="US_DE">Delaware</option>
-            </optgroup>
-            <optgroup label="US — USA — Southeast">
-              <option value="US_FL">Florida</option>
-              <option value="US_GA">Georgia</option>
-              <option value="US_NC">North Carolina</option>
-              <option value="US_VA">Virginia</option>
-              <option value="US_SC">South Carolina</option>
-              <option value="US_TN">Tennessee</option>
-              <option value="US_AL">Alabama</option>
-              <option value="US_MS">Mississippi</option>
-              <option value="US_KY">Kentucky</option>
-              <option value="US_WV">West Virginia</option>
-              <option value="US_DC">Washington D.C.</option>
-            </optgroup>
-            <optgroup label="US — USA — Midwest">
-              <option value="US_IL">Illinois</option>
-              <option value="US_OH">Ohio</option>
-              <option value="US_MI">Michigan</option>
-              <option value="US_IN">Indiana</option>
-              <option value="US_WI">Wisconsin</option>
-              <option value="US_MN">Minnesota</option>
-              <option value="US_MO">Missouri</option>
-              <option value="US_IA">Iowa</option>
-              <option value="US_KS">Kansas</option>
-              <option value="US_NE">Nebraska</option>
-              <option value="US_SD">South Dakota</option>
-              <option value="US_ND">North Dakota</option>
-            </optgroup>
-            <optgroup label="US — USA — Southwest">
-              <option value="US_TX">Texas</option>
-              <option value="US_AZ">Arizona</option>
-              <option value="US_NM">New Mexico</option>
-              <option value="US_OK">Oklahoma</option>
-              <option value="US_AR">Arkansas</option>
-              <option value="US_LA">Louisiana</option>
-            </optgroup>
-            <optgroup label="US — USA — West">
-              <option value="US_CA">California</option>
-              <option value="US_WA">Washington</option>
-              <option value="US_OR">Oregon</option>
-              <option value="US_CO">Colorado</option>
-              <option value="US_NV">Nevada</option>
-              <option value="US_UT">Utah</option>
-              <option value="US_ID">Idaho</option>
-              <option value="US_MT">Montana</option>
-              <option value="US_WY">Wyoming</option>
-              <option value="US_AK">Alaska</option>
-              <option value="US_HI">Hawaii</option>
-            </optgroup>
+            <option value="ON" selected>Ontario</option>
+            <option value="BC">British Columbia</option>
+            <option value="AB">Alberta</option>
+            <option value="QC">Quebec</option>
+            <option value="MB">Manitoba</option>
+            <option value="SK">Saskatchewan</option>
+            <option value="NS">Nova Scotia</option>
+            <option value="NB">New Brunswick</option>
+            <option value="NL">Newfoundland & Labrador</option>
+            <option value="PE">Prince Edward Island</option>
+            <option value="NT">Northwest Territories</option>
+            <option value="YT">Yukon</option>
+            <option value="NU">Nunavut</option>
           </select>
         </div>
-        <div class="field"><label id="lblSavings">Savings goal/mo ($)</label><input type="number" id="savingsGoal" placeholder="e.g. 500" min="0"/></div>
+        <div class="field"><label id="lblSavings">Savings goal/mo ($)</label><input type="number" id="savingsGoal" data-ph="ph500" placeholder="e.g. 500" min="0"/></div>
       </div>
     </div>
     </div><!-- end sec4Body -->
@@ -1241,7 +1304,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
     <!-- Email -->
     <div class="email-card">
       <h3 data-i18n="emailTitle">Want to save your results?</h3>
-      <p data-i18n="emailDesc">Enter your email and we'll send you a clean summary — plus helpful tips on OSAP, managing student debt, and what to expect in your first year out of school. No spam, ever.</p>
+      <p data-i18n="emailDesc">Enter your email and we'll send you a clean summary — plus helpful tips on managing student debt and what to expect in your first year out of school. <span style="color:var(--muted);font-size:12px;">If you don't see it, check your spam or junk folder and mark it as not spam.</span></p>
       <div class="email-row">
         <input type="email" id="emailIn" placeholder="your@email.com"/>
         <button id="emailBtn" onclick="submitEmail(event)">Send results</button>
@@ -1398,12 +1461,12 @@ const TRANSLATIONS={
     whileStudying:'While studying (applies to both options)',studentAid:'Student aid & loans',scholLabel:'I also have scholarships / bursaries',loanPref:'Loan repayment preferences',interestLabel:'Interest rate (%)',termLabel:'Repayment term',
     postGradDesc:'This helps us show whether your take-home pay will actually cover rent, loans, and still leave something left over.',provinceLabel:'Province / State (for tax estimate)',
     timelineTitle:'Your financial timeline',costBreakdown:'Cost breakdown',monthlyBudget:'Monthly budget after graduation',
-    emailTitle:'Want to save your results?',emailDesc:"Enter your email and we'll send you a clean summary — plus helpful tips on OSAP, managing student debt, and what to expect in your first year out of school. No spam, ever.",
+    emailTitle:'Want to save your results?',emailDesc:"Enter your email and we'll send you a clean summary — plus helpful tips on managing student debt and what to expect in your first year out of school. If you don't see it, check your spam or junk folder.",
     printBtn:'Print / Save as PDF',copyBtn:'Copy link',shareBtn:'Share',faqTitle:'Common questions',
     rentHome:'Living at home',rentRoom:'With roommates',rent1bOuter:'1-bedroom outside downtown',rent1bCity:'1-bedroom city',rent1bDt:'1-bedroom downtown',rentTorVan:'1-bedroom Toronto/Vancouver',
     phSchool:'e.g. University of Toronto',phProgram:'e.g. Computer Science',phEmail:'your@email.com',phChat:'e.g. Is $60k in debt too much?',
     aiAdvisor:"Hi there! Once you run your numbers, I can help you make sense of them — whether that's understanding your debt, figuring out if a school is worth the cost, or just answering questions about student loans in Canada. What's on your mind?",
-    customRateHint:'Enter your annual interest rate as a percentage (e.g. 6.5 for 6.5%)',customTermHint:'Enter number of years (1-30)',disclaimer:'All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school\'s financial aid office. This tool is intended for users aged 13 and older. Not financial advice.',yr3:'3 years',yr4:'4 years',yr5:'5 years',yr6:'6 years',houseHome:'Living at home ($0/mo)',houseCampus:'On-campus residence ($1,200/mo)',houseSolo:'Renting solo ($1,500/mo)',houseDt:'Downtown renting ($2,000/mo)',houseRoommate:'Renting with roommates ($900/mo)',rate1:'5.0% — Low (government loan)',rate2:'6.5% — Medium (standard bank)',rate3:'8.0% — Medium-high (private lender)',rate4:'10.0% — High (private lender)',rate5:'12.0% — Very high (developing country)',term1:'5 years — short',term2:'10 years — standard',term3:'15 years — extended',term4:'20 years — long term',term5:'25 years — maximum',osapLink:'Student Aid →',usAidLink:'International Aid →',howDesc1:'Type a school and program — we\'ll search for estimated tuition and costs for you.',howDesc2:'Add your living costs, income, and any student aid or scholarships you expect.',howDesc3:'Get your debt at graduation, monthly loan payments, and disposable income — then ask the advisor anything.',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — living costs',optionBLiving:'Option B — living costs',aidLabel:'Which student aid program are you applying to?',aidNone:'None / Not applying',customRate:'Enter my own rate...',customTerm:'Enter my own term...',privacyLink:'Privacy Policy',tosLink:'Terms of Service',contactLink:'Contact',faq1:'How accurate are these numbers?',faq2:'What is OSAP and do I qualify?',faq3:'What interest rate should I use?',faq4:'How long do I have to pay off my student loans?',faq5:'What\'s the difference between a grant and a loan?',faq6:'Can I use this for schools worldwide?',faq1a:'This calculator uses estimated tuition figures, approximate tax rates, and standard OSAP loan terms. Real numbers will vary based on your specific program, year of study, family income, and province. Use this as a planning guide — always verify final tuition with your school\'s registrar.',faq2a:'OSAP (Ontario Student Assistance Program) is a mix of grants and loans provided by the Ontario government. Grants don\'t need to be repaid — loans do. Most students from families earning under $175,000/year qualify for something.',faq3a:'For most students using OSAP, the current rate is prime + 1%, approximately 6.25%. For private student lines of credit, rates typically range from prime to prime + 2%.',faq4a:'OSAP loans have a standard repayment period of 10 years after you finish school. You don\'t start paying until 6 months after you graduate.',faq5a:'A <strong>grant</strong> is free money — you never pay it back. A <strong>loan</strong> is borrowed money you repay with interest after graduation.',faq6a:'Yes — the tuition lookup and cost calculations work for schools worldwide. Enter any school and it will search for current tuition and costs. Loan program options include Canadian, US, and international rates.',
+    moWord:'/mo',egWord:'e.g.',customRateHint:'Enter your annual interest rate as a percentage (e.g. 6.5 for 6.5%)',customTermHint:'Enter number of years (1-30)',disclaimer:'All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school\'s financial aid office. This tool is intended for users aged 13 and older. Not financial advice.',yr3:'3 years',yr4:'4 years',yr5:'5 years',yr6:'6 years',houseHome:'Living at home ($0/mo)',houseCampus:'On-campus residence ($1,200/mo)',houseSolo:'Renting solo ($1,500/mo)',houseDt:'Downtown renting ($2,000/mo)',houseRoommate:'Renting with roommates ($900/mo)',rate1:'5.0% — Low (government loan)',rate2:'6.5% — Medium (standard bank)',rate3:'8.0% — Medium-high (private lender)',rate4:'10.0% — High (private lender)',rate5:'12.0% — Very high (developing country)',term1:'5 years — short',term2:'10 years — standard',term3:'15 years — extended',term4:'20 years — long term',term5:'25 years — maximum',osapLink:'Student Aid →',usAidLink:'International Aid →',howDesc1:'Type a school and program — we\'ll search for estimated tuition and costs for you.',howDesc2:'Add your living costs, income, and any student aid or scholarships you expect.',howDesc3:'Get your debt at graduation, monthly loan payments, and disposable income — then ask the advisor anything.',optionA:'Option A',optionC:'Option C',optionD:'Option D',optionCLiving:'Option C — Lebenshaltungskosten',optionDLiving:'Option D — Lebenshaltungskosten',compare2:'2 vergleichen',compare3:'3 vergleichen',compare4:'4 vergleichen',optionC:'Option C',optionD:'Option D',optionCLiving:'Option C — frais de vie',optionDLiving:'Option D — frais de vie',compare2:'Comparer 2',compare3:'Comparer 3',compare4:'Comparer 4',optionB:'Option B',optionC:'Option C',optionD:'Option D',optionALiving:'Option A — living costs',optionBLiving:'Option B — living costs',optionCLiving:'Option C — living costs',optionDLiving:'Option D — living costs',compare2:'Compare 2',compare3:'Compare 3',compare4:'Compare 4',aidLabel:'Which student aid program are you applying to?',aidNone:'None / Not applying',customHousing:'Custom amount...',customRate:'Enter my own rate...',customTerm:'Enter my own term...',privacyLink:'Privacy Policy',tosLink:'Terms of Service',contactLink:'Contact',faq1:'How accurate are these numbers?',faq2:'What is OSAP and do I qualify?',faq3:'What interest rate should I use?',faq4:'How long do I have to pay off my student loans?',faq5:'What\'s the difference between a grant and a loan?',faq6:'Can I use this for schools worldwide?',faq1a:'This calculator uses estimated tuition figures, approximate tax rates, and standard OSAP loan terms. Real numbers will vary based on your specific program, year of study, family income, and province. Use this as a planning guide — always verify final tuition with your school\'s registrar.',faq2a:'OSAP (Ontario Student Assistance Program) is a mix of grants and loans provided by the Ontario government. Grants don\'t need to be repaid — loans do. Most students from families earning under $175,000/year qualify for something.',faq3a:'For most students using OSAP, the current rate is prime + 1%, approximately 6.25%. For private student lines of credit, rates typically range from prime to prime + 2%.',faq4a:'OSAP loans have a standard repayment period of 10 years after you finish school. You don\'t start paying until 6 months after you graduate.',faq5a:'A <strong>grant</strong> is free money — you never pay it back. A <strong>loan</strong> is borrowed money you repay with interest after graduation.',faq6a:'Yes — the tuition lookup and cost calculations work for schools worldwide. Enter any school and it will search for current tuition and costs. Loan program options include Canadian, US, and international rates.',
   },
   fr:{
     heroEyebrow:'Outil de planification financière étudiante',heroTitle:'Comprenez le vrai coût de vos études universitaires.',heroDesc:'Entrez votre école et programme pour obtenir une ventilation détaillée de votre coût total, dette projetée et perspectives financières après diplôme. Gratuit, aucun compte requis.',
@@ -1422,13 +1485,13 @@ const TRANSLATIONS={
     whileStudying:'Pendant les études (s\'applique aux deux options)',studentAid:'Aide aux étudiants et prêts',scholLabel:'J\'ai aussi des bourses',loanPref:'Préférences de remboursement',interestLabel:'Taux d\'intérêt (%)',termLabel:'Durée de remboursement',
     postGradDesc:'Cela nous aide à montrer si votre salaire net couvrira le loyer, les prêts, et laissera quelque chose de côté.',provinceLabel:'Province / État (pour estimation fiscale)',
     timelineTitle:'Votre calendrier financier',costBreakdown:'Répartition des coûts',monthlyBudget:'Budget mensuel après diplôme',
-    emailTitle:'Vous souhaitez sauvegarder vos résultats?',emailDesc:'Entrez votre email et nous vous enverrons un résumé complet. Pas de spam, jamais.',
+    emailTitle:'Vous souhaitez sauvegarder vos résultats?',emailDesc:'Entrez votre email et nous vous enverrons un résumé complet. Si vous ne le voyez pas, vérifiez votre dossier spam.',
     printBtn:'Imprimer / Sauvegarder en PDF',copyBtn:'Copier le lien',shareBtn:'Partager',faqTitle:'Questions fréquentes',
     rentHome:'Chez les parents',rentRoom:'En colocation',rent1bOuter:'1 chambre hors centre',rent1bCity:'1 chambre en ville',rent1bDt:'1 chambre centre-ville',rentTorVan:'1 chambre Toronto/Vancouver',
     phSchool:'ex. Université de Montréal',phProgram:'ex. Commerce',phEmail:'votre@email.com',phChat:'ex. 60 000 $ de dette est-ce trop?',
     aiAdvisor:"Bonjour! Une fois vos chiffres calculés, je peux vous aider à les comprendre. Qu'avez-vous en tête?",
     yr3:'3 ans',yr4:'4 ans',yr5:'5 ans',yr6:'6 ans',houseHome:'Chez les parents (0$/mois)',houseCampus:'Résidence universitaire (1 200$/mois)',houseSolo:'Location seul (1 500$/mois)',houseDt:'Location centre-ville (2 000$/mois)',houseRoommate:'Colocation (900$/mois)',rate1:'5,0 % — Faible (prêt gouvernemental)',rate2:'6,5 % — Moyen (banque standard)',rate3:'8,0 % — Moyen-élevé (prêteur privé)',rate4:'10,0 % — Élevé (prêteur privé)',rate5:'12,0 % — Très élevé (pays en développement)',term1:'5 ans — court',term2:'10 ans — standard',term3:'15 ans — prolongé',term4:'20 ans — long terme',term5:'25 ans — maximum',osapLink:'OSAP Ontario →',usAidLink:'Aide fédérale US →',howDesc1:'Tapez votre école et programme — nous rechercherons les frais estimés.',howDesc2:'Ajoutez vos frais de vie, revenus et toute aide financière attendue.',howDesc3:'Obtenez votre dette à la fin, vos paiements mensuels et votre revenu disponible.',
-    disclaimer:'Tous les chiffres sont des <strong>estimations à des fins de planification uniquement</strong>. Les frais de scolarité et les salaires varient selon les années. Pour des chiffres officiels, contactez le bureau d\'aide financière de votre école. Pas un conseil financier.',
+    moWord:'/mois',egWord:'ex.',disclaimer:'Tous les chiffres sont des <strong>estimations à des fins de planification uniquement</strong>. Les frais de scolarité et les salaires varient selon les années. Pour des chiffres officiels, contactez le bureau d\'aide financière de votre école. Pas un conseil financier.',
   },
   zh:{
     heroEyebrow:'学生财务规划工具',heroTitle:'了解您大学教育的真实费用。',heroDesc:'输入您的学校和专业，获取总教育费用、毕业时的预计债务和毕业后财务状况的详细分析。免费使用，无需注册。',
@@ -1447,12 +1510,12 @@ const TRANSLATIONS={
     whileStudying:'在读期间（适用于两个选项）',studentAid:'学生资助和贷款',scholLabel:'我还有奖学金/助学金',loanPref:'贷款还款偏好',interestLabel:'利率 (%)',termLabel:'还款期限',
     postGradDesc:'这帮助我们显示您的税后薪资是否足够支付租金、贷款，并留有余额。',provinceLabel:'省份 / 州（用于税务估算）',
     timelineTitle:'您的财务时间线',costBreakdown:'费用明细',monthlyBudget:'毕业后月度预算',
-    emailTitle:'想保存您的结果？',emailDesc:'输入您的邮箱，我们将发送完整摘要。绝不发送垃圾邮件。',
+    emailTitle:'想保存您的结果？',emailDesc:'输入您的邮箱，我们将发送完整摘要。如果没有收到，请检查垃圾邮件文件夹。',
     printBtn:'打印 / 保存为PDF',copyBtn:'复制链接',shareBtn:'分享',faqTitle:'常见问题',
     rentHome:'住在家里',rentRoom:'与室友合租',rent1bOuter:'市中心外一室公寓',rent1bCity:'市区一室公寓',rent1bDt:'市中心一室公寓',rentTorVan:'多伦多/温哥华一室公寓',
     phSchool:'例如：多伦多大学',phProgram:'例如：商业',phEmail:'您的@邮箱.com',phChat:'例如：6万元债务太多吗？',
     aiAdvisor:'您好！计算完数据后，我可以帮您理解结果。您想了解什么？',
-    disclaimer:'所有数据均为<strong>仅供规划参考的估算值</strong>。学费和薪资因年份和个人情况而异。如需官方数据，请联系您学校的财务援助办公室。非财务建议。',customRateHint:'输入年利率百分比（例如6.5表示6.5%）',customTermHint:'输入年数（1–30）',yr3:'3年',yr4:'4年',yr5:'5年',yr6:'6年',houseHome:'住在家里（0元/月）',houseCampus:'校内宿舍（¥1,200/月）',houseSolo:'独自租房（¥1,500/月）',houseDt:'市中心租房（¥2,000/月）',houseRoommate:'与室友合租（¥900/月）',rate1:'5.0% — 低利率（政府贷款）',rate2:'6.5% — 中等（标准银行）',rate3:'8.0% — 中高（私人贷款）',rate4:'10.0% — 高（私人贷款）',rate5:'12.0% — 很高（发展中国家）',term1:'5年 — 短期',term2:'10年 — 标准',term3:'15年 — 延长',term4:'20年 — 长期',term5:'10年 — 美国联邦标准',osapLink:'学生资助信息 →',usAidLink:'国际学生援助 →',howDesc1:'输入您的学校和专业——我们将搜索估算学费和费用。',howDesc2:'添加您的生活费用、收入和预期的学生资助或奖学金。',howDesc3:'获取毕业债务、月还款额和可支配收入——然后向顾问提问。',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — frais de vie',optionBLiving:'Option B — frais de vie',aidLabel:'À quel programme d\'aide étudiante postulez-vous?',aidNone:'Aucun / Ne postule pas',customRate:'Entrez mon propre taux...',customTerm:'Entrez ma propre durée...',privacyLink:'Politique de confidentialité',tosLink:'Conditions d\'utilisation',contactLink:'Contact',faq1:'Ces chiffres sont-ils précis?',faq2:'Qu\'est-ce que l\'aide financière?',faq3:'Quel taux d\'intérêt utiliser?',faq4:'Combien de temps pour rembourser?',faq5:'Différence entre subvention et prêt?',faq6:'Puis-je l\'utiliser pour d\'autres écoles?',faq1a:'Ce calculateur utilise des estimations. Vérifiez toujours les frais officiels auprès de votre établissement.',faq2a:'L\'aide financière est un mélange de subventions et de prêts gouvernementaux. Les subventions ne sont pas remboursables.',faq3a:'Pour la plupart des étudiants, le taux actuel est d\'environ 6,25%.',faq4a:'La période de remboursement standard est de 10 ans après la fin des études.',faq5a:'Une <strong>subvention</strong> est gratuite. Un <strong>prêt</strong> doit être remboursé avec intérêts.',customRateHint:'Entrez le taux annuel en pourcentage (ex. 6,5)',customTermHint:'Entrez le nombre d\'années (1-30)',faq6a:'Oui — le calculateur fonctionne pour toutes les écoles canadiennes et américaines.',optionA:'选项A',optionB:'选项B',optionALiving:'选项A — 生活费用',optionBLiving:'选项B — 生活费用',aidLabel:'您在申请哪个学生资助计划？',aidNone:'无/不申请',customRate:'输入我的利率...',customTerm:'输入我的期限...',privacyLink:'隐私政策',tosLink:'服务条款',contactLink:'联系我们',faq1:'这些数字有多准确？',faq2:'什么是OSAP？我有资格申请吗？',faq3:'我应该使用什么利率？',faq4:'还清学生贷款需要多长时间？',faq5:'助学金和贷款有什么区别？',faq6:'我可以用于安大略省以外的学校吗？',faq1a:'此计算器使用估算数据。实际数字因您的具体项目、学习年份、家庭收入和省份而异。请务必向您学校的注册处核实最终学费。',faq2a:'OSAP（安大略学生援助计划）是安大略省政府提供的助学金和贷款的组合。助学金无需偿还，贷款需要偿还。家庭年收入低于17.5万加元的大多数学生都有资格获得部分资助。',faq3a:'对于大多数使用OSAP的学生，当前利率约为6.25%（基准利率+1%）。银行私人学生信用额度的利率通常在基准利率到基准利率+2%之间。',faq4a:'OSAP贷款的标准还款期为毕业后10年。您在毕业或离开全日制学习后6个月才开始还款。',faq5a:'<strong>助学金</strong>是免费的——您永远不需要偿还。<strong>贷款</strong>是借来的钱，毕业后需要加利息偿还。',faq6a:'是的——学费查询和费用计算适用于任何加拿大或美国学校。',
+    disclaimer:'所有数据均为<strong>仅供规划参考的估算值</strong>。学费和薪资因年份和个人情况而异。如需官方数据，请联系您学校的财务援助办公室。非财务建议。',moWord:'/月',egWord:'例如：',customRateHint:'输入年利率百分比（例如6.5表示6.5%）',customTermHint:'输入年数（1–30）',yr3:'3年',yr4:'4年',yr5:'5年',yr6:'6年',houseHome:'住在家里',houseCampus:'校内宿舍',houseSolo:'独自租房',houseDt:'市中心租房',houseRoommate:'与室友合租',rate1:'5.0% — 低利率（政府贷款）',rate2:'6.5% — 中等（标准银行）',rate3:'8.0% — 中高（私人贷款）',rate4:'10.0% — 高（私人贷款）',rate5:'12.0% — 很高（发展中国家）',term1:'5年 — 短期',term2:'10年 — 标准',term3:'15年 — 延长',term4:'20年 — 长期',term5:'10年 — 美国联邦标准',osapLink:'学生资助信息 →',usAidLink:'国际学生援助 →',howDesc1:'输入您的学校和专业——我们将搜索估算学费和费用。',howDesc2:'添加您的生活费用、收入和预期的学生资助或奖学金。',howDesc3:'获取毕业债务、月还款额和可支配收入——然后向顾问提问。',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — frais de vie',optionBLiving:'Option B — frais de vie',aidLabel:'À quel programme d\'aide étudiante postulez-vous?',aidNone:'Aucun / Ne postule pas',customHousing:'Montant personnalisé...',customRate:'Entrez mon propre taux...',customTerm:'Entrez ma propre durée...',privacyLink:'Politique de confidentialité',tosLink:'Conditions d\'utilisation',contactLink:'Contact',faq1:'Ces chiffres sont-ils précis?',faq2:'Qu\'est-ce que l\'aide financière?',faq3:'Quel taux d\'intérêt utiliser?',faq4:'Combien de temps pour rembourser?',faq5:'Différence entre subvention et prêt?',faq6:'Puis-je l\'utiliser pour d\'autres écoles?',faq1a:'Ce calculateur utilise des estimations. Vérifiez toujours les frais officiels auprès de votre établissement.',faq2a:'L\'aide financière est un mélange de subventions et de prêts gouvernementaux. Les subventions ne sont pas remboursables.',faq3a:'Pour la plupart des étudiants, le taux actuel est d\'environ 6,25%.',faq4a:'La période de remboursement standard est de 10 ans après la fin des études.',faq5a:'Une <strong>subvention</strong> est gratuite. Un <strong>prêt</strong> doit être remboursé avec intérêts.',customRateHint:'Entrez le taux annuel en pourcentage (ex. 6,5)',customTermHint:'Entrez le nombre d\'années (1-30)',faq6a:'Oui — le calculateur fonctionne pour toutes les écoles canadiennes et américaines.',optionA:'选项A',optionC:'选项C',optionD:'选项D',optionCLiving:'选项C — 生活费用',optionDLiving:'选项D — 生活费用',compare2:'比较2所',compare3:'比较3所',compare4:'比较4所',optionB:'选项B',optionALiving:'选项A — 生活费用',optionBLiving:'选项B — 生活费用',aidLabel:'您在申请哪个学生资助计划？',aidNone:'无/不申请',customHousing:'自定义金额...',customRate:'输入我的利率...',customTerm:'输入我的期限...',privacyLink:'隐私政策',tosLink:'服务条款',contactLink:'联系我们',faq1:'这些数字有多准确？',faq2:'什么是OSAP？我有资格申请吗？',faq3:'我应该使用什么利率？',faq4:'还清学生贷款需要多长时间？',faq5:'助学金和贷款有什么区别？',faq6:'我可以用于安大略省以外的学校吗？',faq1a:'此计算器使用估算数据。实际数字因您的具体项目、学习年份、家庭收入和省份而异。请务必向您学校的注册处核实最终学费。',faq2a:'OSAP（安大略学生援助计划）是安大略省政府提供的助学金和贷款的组合。助学金无需偿还，贷款需要偿还。家庭年收入低于17.5万加元的大多数学生都有资格获得部分资助。',faq3a:'对于大多数使用OSAP的学生，当前利率约为6.25%（基准利率+1%）。银行私人学生信用额度的利率通常在基准利率到基准利率+2%之间。',faq4a:'OSAP贷款的标准还款期为毕业后10年。您在毕业或离开全日制学习后6个月才开始还款。',faq5a:'<strong>助学金</strong>是免费的——您永远不需要偿还。<strong>贷款</strong>是借来的钱，毕业后需要加利息偿还。',faq6a:'是的——学费查询和费用计算适用于任何加拿大或美国学校。',
   },
   es:{
     heroEyebrow:'Herramienta de planificación financiera estudiantil',heroTitle:'Entiende el costo real de tu educación universitaria.',heroDesc:'Ingresa tu escuela y programa para obtener un desglose de tu costo total, deuda proyectada y perspectivas financieras post-graduación. Gratis, sin cuenta requerida.',
@@ -1471,12 +1534,12 @@ const TRANSLATIONS={
     whileStudying:'Durante los estudios (aplica a ambas opciones)',studentAid:'Ayuda estudiantil y préstamos',scholLabel:'También tengo becas',loanPref:'Preferencias de pago',interestLabel:'Tasa de interés (%)',termLabel:'Plazo de pago',
     postGradDesc:'Esto nos ayuda a mostrar si tu sueldo neto cubrirá renta, préstamos y dejará algo de sobra.',provinceLabel:'Provincia / Estado (para estimación fiscal)',
     timelineTitle:'Tu línea de tiempo financiera',costBreakdown:'Desglose de costos',monthlyBudget:'Presupuesto mensual post-graduación',
-    emailTitle:'¿Quieres guardar tus resultados?',emailDesc:'Ingresa tu email y te enviaremos un resumen completo. Sin spam, nunca.',
+    emailTitle:'¿Quieres guardar tus resultados?',emailDesc:'Ingresa tu email y te enviaremos un resumen completo. Si no lo ves, revisa tu carpeta de spam.',
     printBtn:'Imprimir / Guardar como PDF',copyBtn:'Copiar enlace',shareBtn:'Compartir',faqTitle:'Preguntas frecuentes',
     rentHome:'Viviendo en casa',rentRoom:'Con compañeros',rent1bOuter:'1 habitación fuera del centro',rent1bCity:'1 habitación en la ciudad',rent1bDt:'1 habitación en el centro',rentTorVan:'1 habitación Toronto/Vancouver',
     phSchool:'ej. Universidad de Toronto',phProgram:'ej. Comercio',phEmail:'tu@email.com',phChat:'ej. ¿$60k de deuda es demasiado?',
     aiAdvisor:'¡Hola! Una vez que calcules tus números, puedo ayudarte a entenderlos.',
-    disclaimer:'Todas las cifras son <strong>estimaciones únicamente con fines de planificación</strong>. Las matrículas y salarios varían. Para cifras oficiales, contacta la oficina de ayuda financiera de tu escuela. No es asesoría financiera.',customRateHint:'Ingresa la tasa anual como porcentaje (ej. 6.5 para 6.5%)',customTermHint:'Ingresa el número de años (1–30)',yr3:'3 años',yr4:'4 años',yr5:'5 años',yr6:'6 años',houseHome:'Viviendo en casa ($0/mes)',houseCampus:'Residencia universitaria ($1,200/mes)',houseSolo:'Alquiler solo ($1,500/mes)',houseDt:'Alquiler centro ($2,000/mes)',houseRoommate:'Compartir piso ($900/mes)',rate1:'5.0% — Bajo (préstamo gubernamental)',rate2:'5.5% — StudentAid BC / Alberta',rate3:'5.25% — Quebec (AFE)',rate4:'10.0% — Alto (prestamista privado)',rate5:'12.0% — Muy alto (país en desarrollo)',term1:'5 años — corto',term2:'10 años — estándar',term3:'15 años — extendido',term4:'20 años — RAP / basado en ingresos',term5:'25 años — máximo',osapLink:'Ayuda estudiantil →',usAidLink:'Ayuda internacional →',howDesc1:'Escribe tu escuela y programa — buscaremos la matrícula y costos estimados.',howDesc2:'Agrega tus costos de vida, ingresos y cualquier ayuda estudiantil que esperes.',howDesc3:'Obtén tu deuda al graduarte, pagos mensuales e ingreso disponible.',optionA:'Opción A',optionB:'Opción B',optionALiving:'Opción A — costos de vida',optionBLiving:'Opción B — costos de vida',aidLabel:'¿A qué programa de ayuda estudiantil aplicas?',aidNone:'Ninguno / No aplico',customRate:'Ingresar mi propia tasa...',customTerm:'Ingresar mi propio plazo...',privacyLink:'Política de privacidad',tosLink:'Términos de servicio',contactLink:'Contacto',faq1:'¿Qué tan precisos son estos números?',faq2:'¿Qué es OSAP y califico?',faq3:'¿Qué tasa de interés debo usar?',faq4:'¿Cuánto tiempo para pagar los préstamos?',faq5:'¿Diferencia entre beca y préstamo?',faq6:'¿Puedo usarlo para otras escuelas?',faq1a:'Este calculador usa estimaciones. Siempre verifica las cifras oficiales con tu escuela.',faq2a:'OSAP es una combinación de becas y préstamos del gobierno de Ontario. Las becas no se devuelven.',faq3a:'Para la mayoría de estudiantes con OSAP, la tasa actual es aproximadamente 6.25%.',faq4a:'El período estándar de pago es de 10 años después de terminar los estudios.',faq5a:'Una <strong>beca</strong> es dinero gratis. Un <strong>préstamo</strong> se devuelve con intereses.',faq6a:'Sí — funciona para cualquier escuela canadiense o estadounidense.',
+    disclaimer:'Todas las cifras son <strong>estimaciones únicamente con fines de planificación</strong>. Las matrículas y salarios varían. Para cifras oficiales, contacta la oficina de ayuda financiera de tu escuela. No es asesoría financiera.',moWord:'/mes',egWord:'ej.',customRateHint:'Ingresa la tasa anual como porcentaje (ej. 6.5 para 6.5%)',customTermHint:'Ingresa el número de años (1–30)',yr3:'3 años',yr4:'4 años',yr5:'5 años',yr6:'6 años',houseHome:'Viviendo en casa ($0/mes)',houseCampus:'Residencia universitaria ($1,200/mes)',houseSolo:'Alquiler solo ($1,500/mes)',houseDt:'Alquiler centro ($2,000/mes)',houseRoommate:'Compartir piso ($900/mes)',rate1:'5.0% — Bajo (préstamo gubernamental)',rate2:'5.5% — StudentAid BC / Alberta',rate3:'5.25% — Quebec (AFE)',rate4:'10.0% — Alto (prestamista privado)',rate5:'12.0% — Muy alto (país en desarrollo)',term1:'5 años — corto',term2:'10 años — estándar',term3:'15 años — extendido',term4:'20 años — RAP / basado en ingresos',term5:'25 años — máximo',osapLink:'Ayuda estudiantil →',usAidLink:'Ayuda internacional →',howDesc1:'Escribe tu escuela y programa — buscaremos la matrícula y costos estimados.',howDesc2:'Agrega tus costos de vida, ingresos y cualquier ayuda estudiantil que esperes.',howDesc3:'Obtén tu deuda al graduarte, pagos mensuales e ingreso disponible.',optionA:'Opción A',optionC:'Opción C',optionD:'Opción D',optionCLiving:'Opción C — costos de vida',optionDLiving:'Opción D — costos de vida',compare2:'Comparar 2',compare3:'Comparar 3',compare4:'Comparar 4',optionB:'Opción B',optionALiving:'Opción A — costos de vida',optionBLiving:'Opción B — costos de vida',aidLabel:'¿A qué programa de ayuda estudiantil aplicas?',aidNone:'Ninguno / No aplico',customHousing:'Monto personalizado...',customRate:'Ingresar mi propia tasa...',customTerm:'Ingresar mi propio plazo...',privacyLink:'Política de privacidad',tosLink:'Términos de servicio',contactLink:'Contacto',faq1:'¿Qué tan precisos son estos números?',faq2:'¿Qué es OSAP y califico?',faq3:'¿Qué tasa de interés debo usar?',faq4:'¿Cuánto tiempo para pagar los préstamos?',faq5:'¿Diferencia entre beca y préstamo?',faq6:'¿Puedo usarlo para otras escuelas?',faq1a:'Este calculador usa estimaciones. Siempre verifica las cifras oficiales con tu escuela.',faq2a:'OSAP es una combinación de becas y préstamos del gobierno de Ontario. Las becas no se devuelven.',faq3a:'Para la mayoría de estudiantes con OSAP, la tasa actual es aproximadamente 6.25%.',faq4a:'El período estándar de pago es de 10 años después de terminar los estudios.',faq5a:'Una <strong>beca</strong> es dinero gratis. Un <strong>préstamo</strong> se devuelve con intereses.',faq6a:'Sí — funciona para cualquier escuela canadiense o estadounidense.',
   },
   hi:{
     heroEyebrow:'छात्र वित्तीय योजना उपकरण',heroTitle:'अपनी विश्वविद्यालय शिक्षा की वास्तविक लागत समझें।',heroDesc:'अपने स्कूल और कार्यक्रम को दर्ज करें और अपनी कुल शिक्षा लागत और स्नातक के बाद की वित्तीय स्थिति का विवरण प्राप्त करें। निःशुल्क, कोई खाता आवश्यक नहीं।',
@@ -1495,12 +1558,12 @@ const TRANSLATIONS={
     whileStudying:'पढ़ाई के दौरान',studentAid:'छात्र सहायता और ऋण',scholLabel:'मेरे पास छात्रवृत्ति भी है',loanPref:'ऋण चुकौती प्राथमिकताएं',interestLabel:'ब्याज दर (%)',termLabel:'चुकौती अवधि',
     postGradDesc:'यह हमें दिखाने में मदद करता है कि आपका टेक-होम पे किराया और ऋण को कवर करेगा या नहीं।',provinceLabel:'प्रांत / राज्य (कर अनुमान के लिए)',
     timelineTitle:'आपकी वित्तीय समयरेखा',costBreakdown:'लागत विवरण',monthlyBudget:'स्नातक के बाद मासिक बजट',
-    emailTitle:'अपने परिणाम सहेजना चाहते हैं?',emailDesc:'अपना ईमेल दर्ज करें और हम एक स्वच्छ सारांश भेजेंगे। कभी स्पैम नहीं।',
+    emailTitle:'अपने परिणाम सहेजना चाहते हैं?',emailDesc:'अपना ईमेल दर्ज करें और हम सारांश भेजेंगे। यदि नहीं मिले तो स्पैम फ़ोल्डर जांचें।',
     printBtn:'प्रिंट / PDF के रूप में सहेजें',copyBtn:'लिंक कॉपी करें',shareBtn:'शेयर करें',faqTitle:'सामान्य प्रश्न',
     rentHome:'घर पर रहना',rentRoom:'रूममेट के साथ',rent1bOuter:'डाउनटाउन के बाहर 1-बेडरूम',rent1bCity:'शहर में 1-बेडरूम',rent1bDt:'डाउनटाउन 1-बेडरूम',rentTorVan:'टोरंटो/वैंकूवर 1-बेडरूम',
     phSchool:'उदा. टोरंटो विश्वविद्यालय',phProgram:'उदा. वाणिज्य',phEmail:'आपका@ईमेल.com',phChat:'उदा. क्या $60k का कर्ज बहुत ज़्यादा है?',
     aiAdvisor:'नमस्ते! अपने नंबर चलाने के बाद, मैं उन्हें समझने में आपकी मदद कर सकता हूं।',
-    disclaimer:'सभी आंकड़े <strong>केवल नियोजन उद्देश्यों के लिए अनुमान हैं</strong>। आधिकारिक संख्याओं के लिए, अपने स्कूल के वित्तीय सहायता कार्यालय से संपर्क करें। वित्तीय सलाह नहीं।',customRateHint:'वार्षिक दर प्रतिशत में दर्ज करें (उदा. 6.5%)',customTermHint:'वर्षों की संख्या दर्ज करें (1–30)',yr3:'3 वर्ष',yr4:'4 वर्ष',yr5:'5 वर्ष',yr6:'6 वर्ष',houseHome:'घर पर रहना ($0/माह)',houseCampus:'कैंपस आवास ($1,200/माह)',houseSolo:'अकेले किराये पर ($1,500/माह)',houseDt:'शहर केंद्र ($2,000/माह)',houseRoommate:'रूममेट के साथ ($900/माह)',rate1:'5.0% — कम (सरकारी ऋण)',rate2:'6.5% — Medio (banco estándar)',rate3:'8.0% — Medio-alto (prestamista privado)',rate4:'10.0% — उच्च (निजी ऋणदाता)',rate5:'12.0% — बहुत उच्च',term1:'5 वर्ष — छोटी अवधि',term2:'10 वर्ष — मानक',term3:'15 वर्ष — विस्तारित',term4:'20 वर्ष — दीर्घकालिक',term5:'10 वर्ष — US मानक',term6:'25 वर्ष — US विस्तारित',osapLink:'छात्र सहायता →',usAidLink:'अंतर्राष्ट्रीय सहायता →',howDesc1:'अपना स्कूल और कार्यक्रम टाइप करें — हम अनुमानित ट्यूशन खोजेंगे।',howDesc2:'जीवन लागत, आय और छात्र सहायता जोड़ें।',howDesc3:'स्नातक पर ऋण, मासिक भुगतान और डिस्पोजेबल आय प्राप्त करें।',optionA:'विकल्प A',optionB:'विकल्प B',optionALiving:'विकल्प A — जीवन लागत',optionBLiving:'विकल्प B — जीवन लागत',aidLabel:'आप किस छात्र सहायता कार्यक्रम के लिए आवेदन कर रहे हैं?',aidNone:'कोई नहीं / आवेदन नहीं',customRate:'अपनी दर दर्ज करें...',customTerm:'अपनी अवधि दर्ज करें...',privacyLink:'गोपनीयता नीति',tosLink:'सेवा की शर्तें',contactLink:'संपर्क',faq1:'ये नंबर कितने सटीक हैं?',faq2:'OSAP क्या है?',faq3:'कौन सी ब्याज दर उपयोग करें?',faq4:'कर्ज चुकाने में कितना समय?',faq5:'अनुदान और ऋण में अंतर?',faq6:'क्या मैं इसे अन्य स्कूलों के लिए उपयोग कर सकता हूं?',faq1a:'यह कैलकुलेटर अनुमानित डेटा का उपयोग करता है। आधिकारिक संख्याओं के लिए अपने स्कूल से संपर्क करें।',faq2a:'OSAP ओंटारियो सरकार द्वारा प्रदान किए गए अनुदान और ऋणों का मिश्रण है। अनुदान वापस नहीं करना पड़ता।',faq3a:'OSAP उपयोगकर्ताओं के लिए वर्तमान दर लगभग 6.25% है।',faq4a:'स्नातक के बाद मानक चुकौती अवधि 10 वर्ष है।',faq5a:'<strong>अनुदान</strong> मुफ्त पैसा है। <strong>ऋण</strong> ब्याज के साथ चुकाना पड़ता है।',faq6a:'हां — यह किसी भी कनाडाई या अमेरिकी स्कूल के लिए काम करता है।',
+    disclaimer:'सभी आंकड़े <strong>केवल नियोजन उद्देश्यों के लिए अनुमान हैं</strong>। आधिकारिक संख्याओं के लिए, अपने स्कूल के वित्तीय सहायता कार्यालय से संपर्क करें। वित्तीय सलाह नहीं।',moWord:'/माह',egWord:'उदा.',customRateHint:'वार्षिक दर प्रतिशत में दर्ज करें (उदा. 6.5%)',customTermHint:'वर्षों की संख्या दर्ज करें (1–30)',yr3:'3 वर्ष',yr4:'4 वर्ष',yr5:'5 वर्ष',yr6:'6 वर्ष',houseHome:'घर पर रहना ($0/माह)',houseCampus:'कैंपस आवास ($1,200/माह)',houseSolo:'अकेले किराये पर ($1,500/माह)',houseDt:'शहर केंद्र ($2,000/माह)',houseRoommate:'रूममेट के साथ ($900/माह)',rate1:'5.0% — कम (सरकारी ऋण)',rate2:'6.5% — Medio (banco estándar)',rate3:'8.0% — Medio-alto (prestamista privado)',rate4:'10.0% — उच्च (निजी ऋणदाता)',rate5:'12.0% — बहुत उच्च',term1:'5 वर्ष — छोटी अवधि',term2:'10 वर्ष — मानक',term3:'15 वर्ष — विस्तारित',term4:'20 वर्ष — दीर्घकालिक',term5:'10 वर्ष — US मानक',term6:'25 वर्ष — US विस्तारित',osapLink:'छात्र सहायता →',usAidLink:'अंतर्राष्ट्रीय सहायता →',howDesc1:'अपना स्कूल और कार्यक्रम टाइप करें — हम अनुमानित ट्यूशन खोजेंगे।',howDesc2:'जीवन लागत, आय और छात्र सहायता जोड़ें।',howDesc3:'स्नातक पर ऋण, मासिक भुगतान और डिस्पोजेबल आय प्राप्त करें।',optionA:'विकल्प A',optionC:'विकल्प C',optionD:'विकल्प D',optionCLiving:'विकल्प C — जीवन लागत',optionDLiving:'विकल्प D — जीवन लागत',compare2:'2 तुलना',compare3:'3 तुलना',compare4:'4 तुलना',optionB:'विकल्प B',optionALiving:'विकल्प A — जीवन लागत',optionBLiving:'विकल्प B — जीवन लागत',aidLabel:'आप किस छात्र सहायता कार्यक्रम के लिए आवेदन कर रहे हैं?',aidNone:'कोई नहीं / आवेदन नहीं',customHousing:'कस्टम राशि...',customRate:'अपनी दर दर्ज करें...',customTerm:'अपनी अवधि दर्ज करें...',privacyLink:'गोपनीयता नीति',tosLink:'सेवा की शर्तें',contactLink:'संपर्क',faq1:'ये नंबर कितने सटीक हैं?',faq2:'OSAP क्या है?',faq3:'कौन सी ब्याज दर उपयोग करें?',faq4:'कर्ज चुकाने में कितना समय?',faq5:'अनुदान और ऋण में अंतर?',faq6:'क्या मैं इसे अन्य स्कूलों के लिए उपयोग कर सकता हूं?',faq1a:'यह कैलकुलेटर अनुमानित डेटा का उपयोग करता है। आधिकारिक संख्याओं के लिए अपने स्कूल से संपर्क करें।',faq2a:'OSAP ओंटारियो सरकार द्वारा प्रदान किए गए अनुदान और ऋणों का मिश्रण है। अनुदान वापस नहीं करना पड़ता।',faq3a:'OSAP उपयोगकर्ताओं के लिए वर्तमान दर लगभग 6.25% है।',faq4a:'स्नातक के बाद मानक चुकौती अवधि 10 वर्ष है।',faq5a:'<strong>अनुदान</strong> मुफ्त पैसा है। <strong>ऋण</strong> ब्याज के साथ चुकाना पड़ता है।',faq6a:'हां — यह किसी भी कनाडाई या अमेरिकी स्कूल के लिए काम करता है।',
   },
   ar:{
     heroEyebrow:'أداة التخطيط المالي للطلاب',heroTitle:'افهم التكلفة الحقيقية لتعليمك الجامعي.',heroDesc:'أدخل مدرستك وبرنامجك للحصول على تفصيل مفصل لتكلفة تعليمك الإجمالية. مجاني، لا يلزم حساب.',
@@ -1519,12 +1582,12 @@ const TRANSLATIONS={
     whileStudying:'أثناء الدراسة',studentAid:'المساعدات الطلابية والقروض',scholLabel:'لدي أيضاً منح دراسية',loanPref:'تفضيلات سداد القرض',interestLabel:'معدل الفائدة (%)',termLabel:'مدة السداد',
     postGradDesc:'يساعدنا هذا على إظهار ما إذا كان راتبك الصافي سيغطي الإيجار والقروض.',provinceLabel:'المقاطعة / الولاية (لتقدير الضريبة)',
     timelineTitle:'جدولك الزمني المالي',costBreakdown:'تفصيل التكاليف',monthlyBudget:'الميزانية الشهرية بعد التخرج',
-    emailTitle:'هل تريد حفظ نتائجك؟',emailDesc:'أدخل بريدك الإلكتروني وسنرسل لك ملخصاً. لا رسائل مزعجة أبداً.',
+    emailTitle:'هل تريد حفظ نتائجك؟',emailDesc:'أدخل بريدك الإلكتروني وسنرسل ملخصاً. إذا لم تجده، تحقق من مجلد البريد المزعج.',
     printBtn:'طباعة / حفظ كـ PDF',copyBtn:'نسخ الرابط',shareBtn:'مشاركة',faqTitle:'أسئلة شائعة',
     rentHome:'العيش في المنزل',rentRoom:'مع رفيق غرفة',rent1bOuter:'شقة خارج وسط المدينة',rent1bCity:'شقة في المدينة',rent1bDt:'شقة وسط المدينة',rentTorVan:'شقة تورنتو/فانكوفر',
     phSchool:'مثال: جامعة تورنتو',phProgram:'مثال: التجارة',phEmail:'بريدك@الإلكتروني.com',phChat:'مثال: هل 60,000 دولار ديناً كثيراً؟',
     aiAdvisor:'مرحباً! بعد حساب أرقامك، يمكنني مساعدتك في فهمها.',
-    disclaimer:'جميع الأرقام <strong>تقديرات لأغراض التخطيط فقط</strong>. للأرقام الرسمية، اتصل بمكتب المساعدة المالية في مدرستك. ليست نصيحة مالية.',customRateHint:'أدخل المعدل السنوي كنسبة مئوية (مثال: 6.5)',customTermHint:'أدخل عدد السنوات (1–30)',yr3:'3 سنوات',yr4:'4 سنوات',yr5:'5 سنوات',yr6:'6 سنوات',houseHome:'العيش في المنزل ($0/شهر)',houseCampus:'سكن جامعي ($1,200/شهر)',houseSolo:'استئجار منفرد ($1,500/شهر)',houseDt:'وسط المدينة ($2,000/شهر)',houseRoommate:'مع رفيق غرفة ($900/شهر)',rate1:'5.0% — منخفض (قرض حكومي)',rate2:'6.5% — मध्यम (बैंक)',rate3:'8.0% — मध्यम-उच्च (निजी)',rate4:'10.0% — مرتفع (مقرض خاص)',rate5:'12.0% — مرتفع جداً (دولة نامية)',term1:'5 سنوات — قصير',term2:'10 سنوات — قياسي',term3:'15 سنة — ممتد',term4:'20 سنة — طويل الأجل',term5:'25 سنة — الحد الأقصى',osapLink:'مساعدة الطلاب →',usAidLink:'المساعدة الدولية →',howDesc1:'اكتب مدرستك وبرنامجك — سنبحث عن الرسوم المقدرة.',howDesc2:'أضف تكاليف المعيشة والدخل وأي مساعدة طلابية.',howDesc3:'احصل على ديونك عند التخرج والمدفوعات الشهرية.',optionA:'الخيار أ',optionB:'الخيار ب',optionALiving:'الخيار أ — تكاليف المعيشة',optionBLiving:'الخيار ب — تكاليف المعيشة',aidLabel:'ما برنامج المساعدة الطلابية الذي تتقدم إليه؟',aidNone:'لا شيء / لا أتقدم',customRate:'أدخل معدلي الخاص...',customTerm:'أدخل مدتي الخاصة...',privacyLink:'سياسة الخصوصية',tosLink:'شروط الخدمة',contactLink:'اتصل بنا',faq1:'ما مدى دقة هذه الأرقام؟',faq2:'ما هو OSAP وهل أستحقه؟',faq3:'ما معدل الفائدة الذي أستخدمه؟',faq4:'كم من الوقت لسداد القروض؟',faq5:'الفرق بين المنحة والقرض؟',faq6:'هل يمكنني استخدامه لمدارس خارج أونتاريو؟',faq1a:'يستخدم هذا الحاسبة بيانات تقديرية. تحقق دائماً من الأرقام الرسمية مع مدرستك.',faq2a:'OSAP هو مزيج من المنح والقروض الحكومية. المنح لا تحتاج إلى سداد.',faq3a:'لمعظم الطلاب، المعدل الحالي حوالي 6.25%.',faq4a:'فترة السداد القياسية هي 10 سنوات بعد التخرج.',faq5a:'<strong>المنحة</strong> مال مجاني. <strong>القرض</strong> يُسدد مع فائدة.',faq6a:'نعم — يعمل لأي مدرسة كندية أو أمريكية.',
+    disclaimer:'جميع الأرقام <strong>تقديرات لأغراض التخطيط فقط</strong>. للأرقام الرسمية، اتصل بمكتب المساعدة المالية في مدرستك. ليست نصيحة مالية.',moWord:'/شهر',egWord:'مثال:',customRateHint:'أدخل المعدل السنوي كنسبة مئوية (مثال: 6.5)',customTermHint:'أدخل عدد السنوات (1–30)',yr3:'3 سنوات',yr4:'4 سنوات',yr5:'5 سنوات',yr6:'6 سنوات',houseHome:'العيش في المنزل ($0/شهر)',houseCampus:'سكن جامعي ($1,200/شهر)',houseSolo:'استئجار منفرد ($1,500/شهر)',houseDt:'وسط المدينة ($2,000/شهر)',houseRoommate:'مع رفيق غرفة ($900/شهر)',rate1:'5.0% — منخفض (قرض حكومي)',rate2:'6.5% — मध्यम (बैंक)',rate3:'8.0% — मध्यम-उच्च (निजी)',rate4:'10.0% — مرتفع (مقرض خاص)',rate5:'12.0% — مرتفع جداً (دولة نامية)',term1:'5 سنوات — قصير',term2:'10 سنوات — قياسي',term3:'15 سنة — ممتد',term4:'20 سنة — طويل الأجل',term5:'25 سنة — الحد الأقصى',osapLink:'مساعدة الطلاب →',usAidLink:'المساعدة الدولية →',howDesc1:'اكتب مدرستك وبرنامجك — سنبحث عن الرسوم المقدرة.',howDesc2:'أضف تكاليف المعيشة والدخل وأي مساعدة طلابية.',howDesc3:'احصل على ديونك عند التخرج والمدفوعات الشهرية.',optionA:'الخيار أ',optionC:'الخيار ج',optionD:'الخيار د',optionCLiving:'الخيار ج — تكاليف المعيشة',optionDLiving:'الخيار د — تكاليف المعيشة',compare2:'مقارنة 2',compare3:'مقارنة 3',compare4:'مقارنة 4',optionB:'الخيار ب',optionALiving:'الخيار أ — تكاليف المعيشة',optionBLiving:'الخيار ب — تكاليف المعيشة',aidLabel:'ما برنامج المساعدة الطلابية الذي تتقدم إليه؟',aidNone:'لا شيء / لا أتقدم',customHousing:'مبلغ مخصص...',customRate:'أدخل معدلي الخاص...',customTerm:'أدخل مدتي الخاصة...',privacyLink:'سياسة الخصوصية',tosLink:'شروط الخدمة',contactLink:'اتصل بنا',faq1:'ما مدى دقة هذه الأرقام؟',faq2:'ما هو OSAP وهل أستحقه؟',faq3:'ما معدل الفائدة الذي أستخدمه؟',faq4:'كم من الوقت لسداد القروض؟',faq5:'الفرق بين المنحة والقرض؟',faq6:'هل يمكنني استخدامه لمدارس خارج أونتاريو؟',faq1a:'يستخدم هذا الحاسبة بيانات تقديرية. تحقق دائماً من الأرقام الرسمية مع مدرستك.',faq2a:'OSAP هو مزيج من المنح والقروض الحكومية. المنح لا تحتاج إلى سداد.',faq3a:'لمعظم الطلاب، المعدل الحالي حوالي 6.25%.',faq4a:'فترة السداد القياسية هي 10 سنوات بعد التخرج.',faq5a:'<strong>المنحة</strong> مال مجاني. <strong>القرض</strong> يُسدد مع فائدة.',faq6a:'نعم — يعمل لأي مدرسة كندية أو أمريكية.',
   },
   pt:{
     heroEyebrow:'Ferramenta de planejamento financeiro estudantil',heroTitle:'Entenda o custo real da sua educação universitária.',heroDesc:'Insira sua escola e programa para obter um detalhamento do seu custo total de educação e perspectivas financeiras pós-formatura. Gratuito, sem conta necessária.',
@@ -1543,12 +1606,12 @@ const TRANSLATIONS={
     whileStudying:'Durante os estudos',studentAid:'Auxílios estudantis e empréstimos',scholLabel:'Também tenho bolsas',loanPref:'Preferências de pagamento',interestLabel:'Taxa de juros (%)',termLabel:'Prazo de pagamento',
     postGradDesc:'Isso nos ajuda a mostrar se seu salário líquido cobrirá aluguel, empréstimos e ainda sobrará algo.',provinceLabel:'Província / Estado (para estimativa fiscal)',
     timelineTitle:'Sua linha do tempo financeira',costBreakdown:'Detalhamento de custos',monthlyBudget:'Orçamento mensal pós-formatura',
-    emailTitle:'Quer salvar seus resultados?',emailDesc:'Insira seu email e enviaremos um resumo completo. Sem spam, nunca.',
+    emailTitle:'Quer salvar seus resultados?',emailDesc:'Insira seu email e enviaremos um resumo completo. Se não receber, verifique sua pasta de spam.',
     printBtn:'Imprimir / Salvar como PDF',copyBtn:'Copiar link',shareBtn:'Compartilhar',faqTitle:'Perguntas frequentes',
     rentHome:'Morando em casa',rentRoom:'Com colegas',rent1bOuter:'1 quarto fora do centro',rent1bCity:'1 quarto na cidade',rent1bDt:'1 quarto no centro',rentTorVan:'1 quarto Toronto/Vancouver',
     phSchool:'ex. Universidade de Toronto',phProgram:'ex. Comércio',phEmail:'seu@email.com',phChat:'ex. $60k de dívida é demais?',
     aiAdvisor:'Olá! Depois de calcular seus números, posso ajudá-lo a entendê-los.',
-    disclaimer:'Todos os valores são <strong>estimativas apenas para fins de planejamento</strong>. Para valores oficiais, entre em contato com o escritório de ajuda financeira da sua escola. Não é consultoria financeira.',customRateHint:'Insira a taxa anual como porcentagem (ex. 6,5 para 6,5%)',customTermHint:'Insira o número de anos (1–30)',yr3:'3 anos',yr4:'4 anos',yr5:'5 anos',yr6:'6 anos',houseHome:'Morando em casa ($0/mês)',houseCampus:'Residência universitária ($1.200/mês)',houseSolo:'Aluguel solo ($1.500/mês)',houseDt:'Centro da cidade ($2.000/mês)',houseRoommate:'Com colega ($900/mês)',rate1:'5,0% — Baixo (empréstimo governamental)',rate2:'6,5% — Médio (banco padrão)',rate3:'8,0% — Médio-alto (credor privado)',rate4:'10,0% — Alto (credor privado)',rate5:'12,0% — Muito alto (país em desenvolvimento)',term1:'5 anos — curto',term2:'10 anos — padrão',term3:'15 anos — estendido',term4:'20 anos — longo prazo',term5:'25 anos — máximo',osapLink:'Auxílio estudantil →',usAidLink:'Auxílio internacional →',howDesc1:'Digite sua escola e programa — buscaremos a mensalidade estimada.',howDesc2:'Adicione seus custos de vida, renda e qualquer auxílio estudantil esperado.',howDesc3:'Obtenha sua dívida ao se formar, pagamentos mensais e renda disponível.',optionA:'Opção A',optionB:'Opção B',optionALiving:'Opção A — custos de vida',optionBLiving:'Opção B — custos de vida',aidLabel:'A qual programa de auxílio estudantil você está aplicando?',aidNone:'Nenhum / Não estou aplicando',customRate:'Inserir minha própria taxa...',customTerm:'Inserir meu próprio prazo...',privacyLink:'Política de privacidade',tosLink:'Termos de serviço',contactLink:'Contato',faq1:'Quão precisos são esses números?',faq2:'O que é OSAP e eu me qualifico?',faq3:'Qual taxa de juros devo usar?',faq4:'Quanto tempo para pagar os empréstimos?',faq5:'Diferença entre bolsa e empréstimo?',faq6:'Posso usar para escolas fora de Ontário?',faq1a:'Esta calculadora usa estimativas. Sempre verifique os valores oficiais com sua escola.',faq2a:'OSAP é uma combinação de bolsas e empréstimos do governo de Ontário. Bolsas não precisam ser devolvidas.',faq3a:'Para a maioria dos estudantes, a taxa atual é aproximadamente 6,25%.',faq4a:'O período padrão de pagamento é de 10 anos após a formatura.',faq5a:'Uma <strong>bolsa</strong> é dinheiro gratuito. Um <strong>empréstimo</strong> é devolvido com juros.',faq6a:'Sim — funciona para qualquer escola canadense ou americana.',
+    disclaimer:'Todos os valores são <strong>estimativas apenas para fins de planejamento</strong>. Para valores oficiais, entre em contato com o escritório de ajuda financeira da sua escola. Não é consultoria financeira.',moWord:'/mês',egWord:'ex.',customRateHint:'Insira a taxa anual como porcentagem (ex. 6,5 para 6,5%)',customTermHint:'Insira o número de anos (1–30)',yr3:'3 anos',yr4:'4 anos',yr5:'5 anos',yr6:'6 anos',houseHome:'Morando em casa ($0/mês)',houseCampus:'Residência universitária ($1.200/mês)',houseSolo:'Aluguel solo ($1.500/mês)',houseDt:'Centro da cidade ($2.000/mês)',houseRoommate:'Com colega ($900/mês)',rate1:'5,0% — Baixo (empréstimo governamental)',rate2:'6,5% — Médio (banco padrão)',rate3:'8,0% — Médio-alto (credor privado)',rate4:'10,0% — Alto (credor privado)',rate5:'12,0% — Muito alto (país em desenvolvimento)',term1:'5 anos — curto',term2:'10 anos — padrão',term3:'15 anos — estendido',term4:'20 anos — longo prazo',term5:'25 anos — máximo',osapLink:'Auxílio estudantil →',usAidLink:'Auxílio internacional →',howDesc1:'Digite sua escola e programa — buscaremos a mensalidade estimada.',howDesc2:'Adicione seus custos de vida, renda e qualquer auxílio estudantil esperado.',howDesc3:'Obtenha sua dívida ao se formar, pagamentos mensais e renda disponível.',optionA:'Opção A',optionC:'Opção C',optionD:'Opção D',optionCLiving:'Opção C — custos de vida',optionDLiving:'Opção D — custos de vida',compare2:'Comparar 2',compare3:'Comparar 3',compare4:'Comparar 4',optionB:'Opção B',optionALiving:'Opção A — custos de vida',optionBLiving:'Opção B — custos de vida',aidLabel:'A qual programa de auxílio estudantil você está aplicando?',aidNone:'Nenhum / Não estou aplicando',customHousing:'Valor personalizado...',customRate:'Inserir minha própria taxa...',customTerm:'Inserir meu próprio prazo...',privacyLink:'Política de privacidade',tosLink:'Termos de serviço',contactLink:'Contato',faq1:'Quão precisos são esses números?',faq2:'O que é OSAP e eu me qualifico?',faq3:'Qual taxa de juros devo usar?',faq4:'Quanto tempo para pagar os empréstimos?',faq5:'Diferença entre bolsa e empréstimo?',faq6:'Posso usar para escolas fora de Ontário?',faq1a:'Esta calculadora usa estimativas. Sempre verifique os valores oficiais com sua escola.',faq2a:'OSAP é uma combinação de bolsas e empréstimos do governo de Ontário. Bolsas não precisam ser devolvidas.',faq3a:'Para a maioria dos estudantes, a taxa atual é aproximadamente 6,25%.',faq4a:'O período padrão de pagamento é de 10 anos após a formatura.',faq5a:'Uma <strong>bolsa</strong> é dinheiro gratuito. Um <strong>empréstimo</strong> é devolvido com juros.',faq6a:'Sim — funciona para qualquer escola canadense ou americana.',
   },
   ko:{
     heroEyebrow:'학생 재정 계획 도구',heroTitle:'대학 교육의 실제 비용을 이해하세요.',heroDesc:'학교와 전공을 입력하여 총 교육 비용과 졸업 후 재정 전망에 대한 자세한 분석을 받으세요. 무료, 계정 불필요.',
@@ -1567,12 +1630,12 @@ const TRANSLATIONS={
     whileStudying:'재학 중 (두 옵션 모두 적용)',studentAid:'학생 지원 및 대출',scholLabel:'장학금도 있습니다',loanPref:'대출 상환 선호도',interestLabel:'이자율 (%)',termLabel:'상환 기간',
     postGradDesc:'실수령액이 임대료와 대출을 충당하고 남는지 보여줍니다.',provinceLabel:'주/도 (세금 추정용)',
     timelineTitle:'재정 타임라인',costBreakdown:'비용 내역',monthlyBudget:'졸업 후 월별 예산',
-    emailTitle:'결과를 저장하시겠습니까?',emailDesc:'이메일을 입력하시면 요약본을 보내드립니다. 스팸 없음.',
+    emailTitle:'결과를 저장하시겠습니까?',emailDesc:'이메일을 입력하시면 요약본을 보내드립니다. 받지 못하셨다면 스팸함을 확인해 주세요.',
     printBtn:'인쇄 / PDF로 저장',copyBtn:'링크 복사',shareBtn:'공유',faqTitle:'자주 묻는 질문',
     rentHome:'집에서 거주',rentRoom:'룸메이트와 함께',rent1bOuter:'시외 원룸',rent1bCity:'시내 원룸',rent1bDt:'도심 원룸',rentTorVan:'토론토/밴쿠버 원룸',
     phSchool:'예: 토론토 대학교',phProgram:'예: 경영학',phEmail:'your@email.com',phChat:'예: 6만 달러 부채가 너무 많나요?',
     aiAdvisor:'안녕하세요! 숫자를 계산한 후 이해하는 데 도움을 드릴 수 있습니다.',
-    disclaimer:'모든 수치는 <strong>계획 목적으로만 제공되는 추정치</strong>입니다. 공식 수치는 학교 재정 지원 사무소에 문의하세요. 재정 조언이 아닙니다.',customRateHint:'연간 이율을 퍼센트로 입력하세요 (예: 6.5)',customTermHint:'연수를 입력하세요 (1–30)',yr3:'3년',yr4:'4년',yr5:'5년',yr6:'6년',houseHome:'집에서 거주 ($0/월)',houseCampus:'기숙사 ($1,200/월)',houseSolo:'혼자 임대 ($1,500/월)',houseDt:'도심 임대 ($2,000/월)',houseRoommate:'룸메이트와 ($900/월)',rate1:'5.0% — 낮음 (정부 대출)',rate2:'6.5% — متوسط (بنك قياسي)',rate3:'8.0% — متوسط-مرتفع (مقرض خاص)',rate4:'10.0% — 높음 (사립 대출)',rate5:'12.0% — 매우 높음 (개발도상국)',term1:'5년 — 단기',term2:'10년 — 표준',term3:'15년 — 연장',term4:'20년 — 장기',term5:'25년 — 최대',osapLink:'학생 지원 →',usAidLink:'국제 학생 지원 →',howDesc1:'학교와 전공을 입력하세요 — 예상 학비를 검색합니다.',howDesc2:'생활비, 수입, 예상 장학금을 추가하세요.',howDesc3:'졸업 시 부채, 월 상환액, 가처분 소득을 확인하세요.',optionA:'옵션 A',optionB:'옵션 B',optionALiving:'옵션 A — 생활 비용',optionBLiving:'옵션 B — 생활 비용',aidLabel:'어떤 학생 지원 프로그램에 지원하고 있나요?',aidNone:'없음 / 지원 안 함',customRate:'내 이율 입력...',customTerm:'내 기간 입력...',privacyLink:'개인정보 처리방침',tosLink:'서비스 약관',contactLink:'문의',faq1:'이 숫자들은 얼마나 정확한가요?',faq2:'OSAP이란 무엇이며 자격이 되나요?',faq3:'어떤 이자율을 사용해야 하나요?',faq4:'학자금 대출 상환 기간은?',faq5:'장학금과 대출의 차이는?',faq6:'온타리오 외 학교에도 사용할 수 있나요?',faq1a:'이 계산기는 추정 데이터를 사용합니다. 공식 수치는 학교에서 확인하세요.',faq2a:'OSAP은 온타리오 정부의 보조금과 대출의 조합입니다. 보조금은 상환 불필요.',faq3a:'대부분의 학생에게 현재 이율은 약 6.25%입니다.',faq4a:'표준 상환 기간은 졸업 후 10년입니다.',faq5a:'<strong>장학금</strong>은 무료입니다. <strong>대출</strong>은 이자와 함께 상환해야 합니다.',faq6a:'네 — 모든 캐나다 및 미국 학교에서 사용 가능합니다.',
+    disclaimer:'모든 수치는 <strong>계획 목적으로만 제공되는 추정치</strong>입니다. 공식 수치는 학교 재정 지원 사무소에 문의하세요. 재정 조언이 아닙니다.',moWord:'/월',egWord:'예:',customRateHint:'연간 이율을 퍼센트로 입력하세요 (예: 6.5)',customTermHint:'연수를 입력하세요 (1–30)',yr3:'3년',yr4:'4년',yr5:'5년',yr6:'6년',houseHome:'집에서 거주 ($0/월)',houseCampus:'기숙사 ($1,200/월)',houseSolo:'혼자 임대 ($1,500/월)',houseDt:'도심 임대 ($2,000/월)',houseRoommate:'룸메이트와 ($900/월)',rate1:'5.0% — 낮음 (정부 대출)',rate2:'6.5% — متوسط (بنك قياسي)',rate3:'8.0% — متوسط-مرتفع (مقرض خاص)',rate4:'10.0% — 높음 (사립 대출)',rate5:'12.0% — 매우 높음 (개발도상국)',term1:'5년 — 단기',term2:'10년 — 표준',term3:'15년 — 연장',term4:'20년 — 장기',term5:'25년 — 최대',osapLink:'학생 지원 →',usAidLink:'국제 학생 지원 →',howDesc1:'학교와 전공을 입력하세요 — 예상 학비를 검색합니다.',howDesc2:'생활비, 수입, 예상 장학금을 추가하세요.',howDesc3:'졸업 시 부채, 월 상환액, 가처분 소득을 확인하세요.',optionA:'옵션 A',optionC:'옵션 C',optionD:'옵션 D',optionCLiving:'옵션 C — 생활 비용',optionDLiving:'옵션 D — 생활 비용',compare2:'2개 비교',compare3:'3개 비교',compare4:'4개 비교',optionB:'옵션 B',optionALiving:'옵션 A — 생활 비용',optionBLiving:'옵션 B — 생활 비용',aidLabel:'어떤 학생 지원 프로그램에 지원하고 있나요?',aidNone:'없음 / 지원 안 함',customHousing:'사용자 지정 금액...',customRate:'내 이율 입력...',customTerm:'내 기간 입력...',privacyLink:'개인정보 처리방침',tosLink:'서비스 약관',contactLink:'문의',faq1:'이 숫자들은 얼마나 정확한가요?',faq2:'OSAP이란 무엇이며 자격이 되나요?',faq3:'어떤 이자율을 사용해야 하나요?',faq4:'학자금 대출 상환 기간은?',faq5:'장학금과 대출의 차이는?',faq6:'온타리오 외 학교에도 사용할 수 있나요?',faq1a:'이 계산기는 추정 데이터를 사용합니다. 공식 수치는 학교에서 확인하세요.',faq2a:'OSAP은 온타리오 정부의 보조금과 대출의 조합입니다. 보조금은 상환 불필요.',faq3a:'대부분의 학생에게 현재 이율은 약 6.25%입니다.',faq4a:'표준 상환 기간은 졸업 후 10년입니다.',faq5a:'<strong>장학금</strong>은 무료입니다. <strong>대출</strong>은 이자와 함께 상환해야 합니다.',faq6a:'네 — 모든 캐나다 및 미국 학교에서 사용 가능합니다.',
   },
   ja:{
     heroEyebrow:'学生財務計画ツール',heroTitle:'大学教育の本当のコストを理解しましょう。',heroDesc:'学校とプログラムを入力して、総教育費と卒業後の財務見通しの詳細な内訳を取得してください。無料、アカウント不要。',
@@ -1591,12 +1654,12 @@ const TRANSLATIONS={
     whileStudying:'在学中',studentAid:'学生支援とローン',scholLabel:'奨学金もあります',loanPref:'返済の好み',interestLabel:'金利 (%)',termLabel:'返済期間',
     postGradDesc:'手取り給与が家賃とローンをカバーして余裕があるかを示します。',provinceLabel:'州 / 省（税金推定用）',
     timelineTitle:'財務タイムライン',costBreakdown:'費用内訳',monthlyBudget:'卒業後の月次予算',
-    emailTitle:'結果を保存しますか？',emailDesc:'メールアドレスを入力すると、きれいなサマリーをお送りします。スパムなし。',
+    emailTitle:'結果を保存しますか？',emailDesc:'メールアドレスを入力するとサマリーをお送りします。届かない場合はスパムフォルダをご確認ください。',
     printBtn:'印刷 / PDFとして保存',copyBtn:'リンクをコピー',shareBtn:'シェア',faqTitle:'よくある質問',
     rentHome:'実家暮らし',rentRoom:'ルームメイトと',rent1bOuter:'郊外1ベッドルーム',rent1bCity:'市内1ベッドルーム',rent1bDt:'都心1ベッドルーム',rentTorVan:'トロント/バンクーバー1ベッドルーム',
     phSchool:'例：トロント大学',phProgram:'例：商学',phEmail:'your@email.com',phChat:'例：6万ドルの借金は多すぎますか？',
     aiAdvisor:'こんにちは！数字を計算した後、それを理解するお手伝いができます。',
-    disclaimer:'すべての数値は<strong>計画目的のみの推定値</strong>です。公式の数値については、学校の財務援助事務所にお問い合わせください。財務アドバイスではありません。',customRateHint:'年率をパーセントで入力（例：6.5）',customTermHint:'年数を入力（1～30）',yr3:'3年',yr4:'4年',yr5:'5年',yr6:'6年',houseHome:'実家暮らし ($0/月)',houseCampus:'学生寮 ($1,200/月)',houseSolo:'一人暮らし ($1,500/月)',houseDt:'都心 ($2,000/月)',houseRoommate:'ルームシェア ($900/月)',rate1:'5.0% — 低（政府ローン）',rate2:'6.5% — 중간 (일반 은행)',rate3:'8.0% — 中高（民間ローン）',rate4:'10.0% — 高（民間ローン）',rate5:'12.0% — 非常に高い（発展途上国）',term1:'5年 — 短期',term2:'10年 — 標準',term3:'15年 — 延長',term4:'20年 — 長期',term5:'25年 — 最長',osapLink:'学生支援情報 →',usAidLink:'国際学生援助 →',howDesc1:'学校とプログラムを入力 — 推定学費を検索します。',howDesc2:'生活費、収入、奨学金を追加してください。',howDesc3:'卒業時の借金、月次返済額、可処分所得を確認してください。',optionA:'オプションA',optionB:'オプションB',optionALiving:'オプションA — 生活費',optionBLiving:'オプションB — 生活費',aidLabel:'どの学生支援プログラムに申請していますか？',aidNone:'なし / 申請しない',customRate:'自分の金利を入力...',customTerm:'自分の期間を入力...',privacyLink:'プライバシーポリシー',tosLink:'利用規約',contactLink:'お問い合わせ',faq1:'これらの数値はどのくらい正確ですか？',faq2:'OSAPとは何ですか？',faq3:'どの金利を使用すべきですか？',faq4:'学生ローンの返済期間は？',faq5:'助成金とローンの違いは？',faq6:'オンタリオ以外の学校にも使えますか？',faq1a:'この計算機は推定データを使用します。公式数値は学校でご確認ください。',faq2a:'OSAPはオンタリオ州政府の助成金とローンの組み合わせです。助成金は返済不要です。',faq3a:'ほとんどの学生にとって、現在の金利は約6.25%です。',faq4a:'標準的な返済期間は卒業後10年です。',faq5a:'<strong>助成金</strong>は無料のお金です。<strong>ローン</strong>は利息付きで返済します。',faq6a:'はい — すべてのカナダまたは米国の学校で使用できます。',
+    disclaimer:'すべての数値は<strong>計画目的のみの推定値</strong>です。公式の数値については、学校の財務援助事務所にお問い合わせください。財務アドバイスではありません。',moWord:'/月',egWord:'例：',customRateHint:'年率をパーセントで入力（例：6.5）',customTermHint:'年数を入力（1～30）',yr3:'3年',yr4:'4年',yr5:'5年',yr6:'6年',houseHome:'実家暮らし ($0/月)',houseCampus:'学生寮 ($1,200/月)',houseSolo:'一人暮らし ($1,500/月)',houseDt:'都心 ($2,000/月)',houseRoommate:'ルームシェア ($900/月)',rate1:'5.0% — 低（政府ローン）',rate2:'6.5% — 중간 (일반 은행)',rate3:'8.0% — 中高（民間ローン）',rate4:'10.0% — 高（民間ローン）',rate5:'12.0% — 非常に高い（発展途上国）',term1:'5年 — 短期',term2:'10年 — 標準',term3:'15年 — 延長',term4:'20年 — 長期',term5:'25年 — 最長',osapLink:'学生支援情報 →',usAidLink:'国際学生援助 →',howDesc1:'学校とプログラムを入力 — 推定学費を検索します。',howDesc2:'生活費、収入、奨学金を追加してください。',howDesc3:'卒業時の借金、月次返済額、可処分所得を確認してください。',optionA:'オプションA',optionC:'オプションC',optionD:'オプションD',optionCLiving:'オプションC — 生活費',optionDLiving:'オプションD — 生活費',compare2:'2校比較',compare3:'3校比較',compare4:'4校比較',optionB:'オプションB',optionALiving:'オプションA — 生活費',optionBLiving:'オプションB — 生活費',aidLabel:'どの学生支援プログラムに申請していますか？',aidNone:'なし / 申請しない',customHousing:'カスタム金額...',customRate:'自分の金利を入力...',customTerm:'自分の期間を入力...',privacyLink:'プライバシーポリシー',tosLink:'利用規約',contactLink:'お問い合わせ',faq1:'これらの数値はどのくらい正確ですか？',faq2:'OSAPとは何ですか？',faq3:'どの金利を使用すべきですか？',faq4:'学生ローンの返済期間は？',faq5:'助成金とローンの違いは？',faq6:'オンタリオ以外の学校にも使えますか？',faq1a:'この計算機は推定データを使用します。公式数値は学校でご確認ください。',faq2a:'OSAPはオンタリオ州政府の助成金とローンの組み合わせです。助成金は返済不要です。',faq3a:'ほとんどの学生にとって、現在の金利は約6.25%です。',faq4a:'標準的な返済期間は卒業後10年です。',faq5a:'<strong>助成金</strong>は無料のお金です。<strong>ローン</strong>は利息付きで返済します。',faq6a:'はい — すべてのカナダまたは米国の学校で使用できます。',
   },
   de:{
     heroEyebrow:'Studentisches Finanzplanungstool',heroTitle:'Verstehen Sie die wahren Kosten Ihrer Universitätsausbildung.',heroDesc:'Geben Sie Ihre Schule und Ihr Programm ein, um eine detaillierte Aufschlüsselung Ihrer Gesamtbildungskosten zu erhalten. Kostenlos, kein Konto erforderlich.',
@@ -1615,12 +1678,12 @@ const TRANSLATIONS={
     whileStudying:'Während des Studiums',studentAid:'Studentenhilfe und Darlehen',scholLabel:'Ich habe auch Stipendien',loanPref:'Rückzahlungspräferenzen',interestLabel:'Zinssatz (%)',termLabel:'Rückzahlungsfrist',
     postGradDesc:'Dies zeigt, ob Ihr Nettolohn Miete und Darlehen deckt und noch etwas übrig bleibt.',provinceLabel:'Provinz / Staat (für Steuerberechnung)',
     timelineTitle:'Ihr finanzieller Zeitplan',costBreakdown:'Kostenaufschlüsselung',monthlyBudget:'Monatliches Budget nach dem Abschluss',
-    emailTitle:'Möchten Sie Ihre Ergebnisse speichern?',emailDesc:'Geben Sie Ihre E-Mail ein und wir senden eine Zusammenfassung. Kein Spam.',
+    emailTitle:'Möchten Sie Ihre Ergebnisse speichern?',emailDesc:'Geben Sie Ihre E-Mail ein und wir senden eine Zusammenfassung. Falls Sie sie nicht sehen, prüfen Sie Ihren Spam-Ordner.',
     printBtn:'Drucken / Als PDF speichern',copyBtn:'Link kopieren',shareBtn:'Teilen',faqTitle:'Häufige Fragen',
     rentHome:'Zu Hause wohnen',rentRoom:'Mit Mitbewohnern',rent1bOuter:'1-Zimmer außerhalb der Innenstadt',rent1bCity:'1-Zimmer in der Stadt',rent1bDt:'1-Zimmer in der Innenstadt',rentTorVan:'1-Zimmer Toronto/Vancouver',
     phSchool:'z.B. Universität Toronto',phProgram:'z.B. Betriebswirtschaft',phEmail:'ihre@email.com',phChat:'z.B. Sind 60.000 $ Schulden zu viel?',
     aiAdvisor:'Hallo! Nachdem Sie Ihre Zahlen berechnet haben, kann ich Ihnen helfen, sie zu verstehen.',
-    disclaimer:'Alle Zahlen sind <strong>nur Schätzungen für Planungszwecke</strong>. Für offizielle Zahlen wenden Sie sich an das Finanzhilfebüro Ihrer Schule. Keine Finanzberatung.',customRateHint:'Geben Sie den Jahreszinssatz in Prozent ein (z.B. 6,5 für 6,5%)',customTermHint:'Geben Sie die Anzahl der Jahre ein (1–30)',yr3:'3 Jahre',yr4:'4 Jahre',yr5:'5 Jahre',yr6:'6 Jahre',houseHome:'Zu Hause wohnen ($0/Monat)',houseCampus:'Studentenwohnheim ($1.200/Monat)',houseSolo:'Allein mieten ($1.500/Monat)',houseDt:'Innenstadt ($2.000/Monat)',houseRoommate:'Mit Mitbewohner ($900/Monat)',rate1:'5,0% — Niedrig (staatliches Darlehen)',rate2:'6,5% — Mittel (Standardbank)',rate3:'8,0% — Mittel-hoch (privater Kreditgeber)',rate4:'10,0% — Hoch (privater Kreditgeber)',rate5:'12,0% — Sehr hoch (Entwicklungsland)',term1:'5 Jahre — kurz',term2:'10 Jahre — Standard',term3:'15 Jahre — verlängert',term4:'20 Jahre — langfristig',term5:'25 Jahre — maximal',osapLink:'Studentenhilfe →',usAidLink:'Internationale Studentenhilfe →',howDesc1:'Geben Sie Schule und Programm ein — wir suchen die geschätzten Studiengebühren.',howDesc2:'Fügen Sie Lebenshaltungskosten, Einkommen und erwartete Studentenhilfe hinzu.',howDesc3:'Erhalten Sie Ihre Schulden bei Abschluss, monatliche Zahlungen und verfügbares Einkommen.',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — Lebenshaltungskosten',optionBLiving:'Option B — Lebenshaltungskosten',aidLabel:'Für welches Studentenhilfsprogramm bewerben Sie sich?',aidNone:'Keines / Bewerbe mich nicht',customRate:'Eigenen Zinssatz eingeben...',customTerm:'Eigene Laufzeit eingeben...',privacyLink:'Datenschutzrichtlinie',tosLink:'Nutzungsbedingungen',contactLink:'Kontakt',faq1:'Wie genau sind diese Zahlen?',faq2:'Was ist OSAP und qualifiziere ich mich?',faq3:'Welchen Zinssatz soll ich verwenden?',faq4:'Wie lange zum Abbezahlen?',faq5:'Unterschied zwischen Zuschuss und Darlehen?',faq6:'Kann ich es für Schulen außerhalb Ontarios verwenden?',faq1a:'Dieser Rechner verwendet Schätzungen. Überprüfen Sie immer die offiziellen Zahlen bei Ihrer Schule.',faq2a:'OSAP ist eine Kombination aus Zuschüssen und Darlehen der Regierung von Ontario. Zuschüsse müssen nicht zurückgezahlt werden.',faq3a:'Für die meisten Studenten beträgt der aktuelle Zinssatz ca. 6,25%.',faq4a:'Die Standardrückzahlungszeit beträgt 10 Jahre nach dem Studienabschluss.',faq5a:'Ein <strong>Zuschuss</strong> ist kostenloses Geld. Ein <strong>Darlehen</strong> wird mit Zinsen zurückgezahlt.',faq6a:'Ja — funktioniert für alle kanadischen oder amerikanischen Schulen.',
+    disclaimer:'Alle Zahlen sind <strong>nur Schätzungen für Planungszwecke</strong>. Für offizielle Zahlen wenden Sie sich an das Finanzhilfebüro Ihrer Schule. Keine Finanzberatung.',moWord:'/Monat',egWord:'z.B.',customRateHint:'Geben Sie den Jahreszinssatz in Prozent ein (z.B. 6,5 für 6,5%)',customTermHint:'Geben Sie die Anzahl der Jahre ein (1–30)',yr3:'3 Jahre',yr4:'4 Jahre',yr5:'5 Jahre',yr6:'6 Jahre',houseHome:'Zu Hause wohnen ($0/Monat)',houseCampus:'Studentenwohnheim ($1.200/Monat)',houseSolo:'Allein mieten ($1.500/Monat)',houseDt:'Innenstadt ($2.000/Monat)',houseRoommate:'Mit Mitbewohner ($900/Monat)',rate1:'5,0% — Niedrig (staatliches Darlehen)',rate2:'6,5% — Mittel (Standardbank)',rate3:'8,0% — Mittel-hoch (privater Kreditgeber)',rate4:'10,0% — Hoch (privater Kreditgeber)',rate5:'12,0% — Sehr hoch (Entwicklungsland)',term1:'5 Jahre — kurz',term2:'10 Jahre — Standard',term3:'15 Jahre — verlängert',term4:'20 Jahre — langfristig',term5:'25 Jahre — maximal',osapLink:'Studentenhilfe →',usAidLink:'Internationale Studentenhilfe →',howDesc1:'Geben Sie Schule und Programm ein — wir suchen die geschätzten Studiengebühren.',howDesc2:'Fügen Sie Lebenshaltungskosten, Einkommen und erwartete Studentenhilfe hinzu.',howDesc3:'Erhalten Sie Ihre Schulden bei Abschluss, monatliche Zahlungen und verfügbares Einkommen.',optionA:'Option A',optionB:'Option B',optionALiving:'Option A — Lebenshaltungskosten',optionBLiving:'Option B — Lebenshaltungskosten',aidLabel:'Für welches Studentenhilfsprogramm bewerben Sie sich?',aidNone:'Keines / Bewerbe mich nicht',customHousing:'Benutzerdefinierter Betrag...',customRate:'Eigenen Zinssatz eingeben...',customTerm:'Eigene Laufzeit eingeben...',privacyLink:'Datenschutzrichtlinie',tosLink:'Nutzungsbedingungen',contactLink:'Kontakt',faq1:'Wie genau sind diese Zahlen?',faq2:'Was ist OSAP und qualifiziere ich mich?',faq3:'Welchen Zinssatz soll ich verwenden?',faq4:'Wie lange zum Abbezahlen?',faq5:'Unterschied zwischen Zuschuss und Darlehen?',faq6:'Kann ich es für Schulen außerhalb Ontarios verwenden?',faq1a:'Dieser Rechner verwendet Schätzungen. Überprüfen Sie immer die offiziellen Zahlen bei Ihrer Schule.',faq2a:'OSAP ist eine Kombination aus Zuschüssen und Darlehen der Regierung von Ontario. Zuschüsse müssen nicht zurückgezahlt werden.',faq3a:'Für die meisten Studenten beträgt der aktuelle Zinssatz ca. 6,25%.',faq4a:'Die Standardrückzahlungszeit beträgt 10 Jahre nach dem Studienabschluss.',faq5a:'Ein <strong>Zuschuss</strong> ist kostenloses Geld. Ein <strong>Darlehen</strong> wird mit Zinsen zurückgezahlt.',faq6a:'Ja — funktioniert für alle kanadischen oder amerikanischen Schulen.',
   },
 };
 
@@ -1657,10 +1720,10 @@ function setLanguage(lang){
   document.querySelectorAll('.skip-btn').forEach(el=>el.textContent=t.skip);
 
   // Update all labels with data-i18n matching
+  const sym2=SYMBOLS[currency]||'$';
   const labelMap={
     'lblTuitionA':t.lblTuition,'lblTuitionB':t.lblTuition,
     'lblSalaryA':t.lblSalary,'lblSalaryB':t.lblSalary,
-    'lblIntlFeeA':t.lblIntlFee,'lblIntlFeeB':t.lblIntlFee,
     'lblFoodA':t.lblFood,'lblFoodB':t.lblFood,
     'lblTransportA':t.lblTransport,'lblTransportB':t.lblTransport,
     'lblExtraA':t.lblExtra,'lblExtraB':t.lblExtra,
@@ -1670,10 +1733,28 @@ function setLanguage(lang){
     'lblSchol':t.lblSchol,'lblLiving':t.lblLiving,'lblSavings':t.lblSavings,
     'lblRentPost':t.lblRentPost,
   };
-  const sym=SYMBOLS[currency]||'$';
   Object.entries(labelMap).forEach(([id,text])=>{
     const el=document.getElementById(id);
-    if(el&&text) el.childNodes[0].textContent=text.replace('($)',`(${sym})`);
+    if(el&&text){
+      // Only update the text node, not child spans
+      const firstChild=el.childNodes[0];
+      if(firstChild&&firstChild.nodeType===3){
+        firstChild.textContent=text.replace('($)',`(${sym2})`);
+      } else {
+        el.childNodes[0].textContent=text.replace('($)',`(${sym2})`);
+      }
+    }
+  });
+
+  // Update intlFee labels separately (they have child spans)
+  ['lblIntlFeeA','lblIntlFeeB'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&t.lblIntlFee){
+      const firstChild=el.childNodes[0];
+      if(firstChild&&firstChild.nodeType===3){
+        firstChild.textContent=t.lblIntlFee.replace('($)',`(${sym2})`)+' ';
+      }
+    }
   });
 
   // Update placeholders
@@ -1758,19 +1839,22 @@ function setLanguage(lang){
   });
 
   // Update housing dropdowns
+  const housingVals={0:'houseHome',1200:'houseCampus',1500:'houseSolo',900:'houseRoommate',2000:'houseDt'};
   ['housingA','housingB'].forEach(id=>{
     const sel=document.getElementById(id);
     if(!sel) return;
     const sym=SYMBOLS[currency]||'$';
     const rate=RATES[currency]||1;
+    // Get month translation
+    const moWord=t.moWord||'/mo';
     Array.from(sel.options).forEach(opt=>{
       const key=opt.getAttribute('data-i18n');
       if(key&&t[key]){
-        // Replace $ amounts with converted currency
         const val=parseFloat(opt.value)||0;
         const converted=Math.round(val*rate);
-        const label=t[key].replace(/\$[\d,]+/g, sym+converted.toLocaleString('en'));
-        opt.textContent=label;
+        const baseLabel=t[key].replace(/\s*[\(\[].*?[\)\]]/g,'').trim(); // strip existing amounts
+        const amount=val===0?`(${sym}0${moWord})`:`(${sym}${converted.toLocaleString('en')}${moWord})`;
+        opt.textContent=`${baseLabel} ${amount}`;
       }
     });
   });
@@ -1785,11 +1869,31 @@ function setLanguage(lang){
     });
   });
 
-  // Update disclaimer links
-  const osapLink=document.querySelector('[data-i18n="osapLink"]');
-  if(osapLink&&t.osapLink) osapLink.textContent=t.osapLink;
-  const usAidLink=document.querySelector('[data-i18n="usAidLink"]');
-  if(usAidLink&&t.usAidLink) usAidLink.textContent=t.usAidLink;
+  // Update numeric input placeholders with language-appropriate eg prefix
+  const egWord=t.egWord||'e.g.';
+  const numPhMap={
+    'ph16000':`${egWord} 16,000`, 'ph10000':`${egWord} 10,000`,
+    'ph65000':`${egWord} 65,000`, 'ph60000':`${egWord} 60,000`,
+    'ph15000':`${egWord} 15,000`, 'ph12000':`${egWord} 12,000`,
+    'ph6000':`${egWord} 6,000`,   'ph2000':`${egWord} 2,000`,
+    'ph1650':`${egWord} 1,650`,   'ph1500':`${egWord} 1,500`,
+    'ph1200':`${egWord} 1,200`,   'ph900':`${egWord} 900`,
+    'ph600':`${egWord} 600`,      'ph500':`${egWord} 500`,
+    'ph400':`${egWord} 400`,      'ph300':`${egWord} 300`,
+    'ph200':`${egWord} 200`,      'ph150':`${egWord} 150`,
+    'ph12':`${egWord} 12`,        'ph6dot5':`${egWord} 6.5`,
+    'ph4':`${egWord} 4`,          'ph3':`${egWord} 3`,
+  };
+  document.querySelectorAll('[data-ph]').forEach(el=>{
+    const key=el.getAttribute('data-ph');
+    if(numPhMap[key]) el.placeholder=numPhMap[key];
+  });
+
+  // Re-render disclaimer with correct language HTML
+  const disclaimerEl=document.querySelector('[data-i18n-html="disclaimer"]');
+  if(disclaimerEl&&t.disclaimer){
+    disclaimerEl.innerHTML=t.disclaimer+' <a href="https://www.schoolanduniversity.com/find-schools" target="_blank" style="color:var(--accent);" data-i18n="osapLink">'+(t.osapLink||'Student Aid →')+'</a> &nbsp;|&nbsp; <a href="https://www.educationusa.state.gov" target="_blank" style="color:var(--accent);" data-i18n="usAidLink">'+(t.usAidLink||'International Aid →')+'</a>';
+  }
 
   // Update email ok message
   const emailOk=v('emailOk');
@@ -1798,6 +1902,139 @@ function setLanguage(lang){
     emailOk.textContent=t.emailOkMsg;
     if(svg) emailOk.insertBefore(svg,emailOk.firstChild);
   }
+
+  // Update country dropdown options
+  const countryNames={
+    en:{CA:'🇨🇦 Canada',US:'🇺🇸 United States',UK:'🇬🇧 United Kingdom',AU:'🇦🇺 Australia',IN:'🇮🇳 India',CN:'🇨🇳 China',DE:'🇩🇪 Germany',FR:'🇫🇷 France',BR:'🇧🇷 Brazil',MX:'🇲🇽 Mexico',NG:'🇳🇬 Nigeria',ZA:'🇿🇦 South Africa',KE:'🇰🇪 Kenya',OTHER:'🌍 Other / International'},
+    fr:{CA:'🇨🇦 Canada',US:'🇺🇸 États-Unis',UK:'🇬🇧 Royaume-Uni',AU:'🇦🇺 Australie',IN:'🇮🇳 Inde',CN:'🇨🇳 Chine',DE:'🇩🇪 Allemagne',FR:'🇫🇷 France',BR:'🇧🇷 Brésil',MX:'🇲🇽 Mexique',NG:'🇳🇬 Nigéria',ZA:'🇿🇦 Afrique du Sud',KE:'🇰🇪 Kenya',OTHER:'🌍 Autre / International'},
+    zh:{CA:'🇨🇦 加拿大',US:'🇺🇸 美国',UK:'🇬🇧 英国',AU:'🇦🇺 澳大利亚',IN:'🇮🇳 印度',CN:'🇨🇳 中国',DE:'🇩🇪 德国',FR:'🇫🇷 法国',BR:'🇧🇷 巴西',MX:'🇲🇽 墨西哥',NG:'🇳🇬 尼日利亚',ZA:'🇿🇦 南非',KE:'🇰🇪 肯尼亚',OTHER:'🌍 其他 / 国际'},
+    es:{CA:'🇨🇦 Canadá',US:'🇺🇸 Estados Unidos',UK:'🇬🇧 Reino Unido',AU:'🇦🇺 Australia',IN:'🇮🇳 India',CN:'🇨🇳 China',DE:'🇩🇪 Alemania',FR:'🇫🇷 Francia',BR:'🇧🇷 Brasil',MX:'🇲🇽 México',NG:'🇳🇬 Nigeria',ZA:'🇿🇦 Sudáfrica',KE:'🇰🇪 Kenia',OTHER:'🌍 Otro / Internacional'},
+    hi:{CA:'🇨🇦 कनाडा',US:'🇺🇸 अमेरिका',UK:'🇬🇧 यूके',AU:'🇦🇺 ऑस्ट्रेलिया',IN:'🇮🇳 भारत',CN:'🇨🇳 चीन',DE:'🇩🇪 जर्मनी',FR:'🇫🇷 फ्रांस',BR:'🇧🇷 ब्राजील',MX:'🇲🇽 मेक्सिको',NG:'🇳🇬 नाइजीरिया',ZA:'🇿🇦 दक्षिण अफ्रीका',KE:'🇰🇪 केन्या',OTHER:'🌍 अन्य / अंतर्राष्ट्रीय'},
+    ar:{CA:'🇨🇦 كندا',US:'🇺🇸 الولايات المتحدة',UK:'🇬🇧 المملكة المتحدة',AU:'🇦🇺 أستراليا',IN:'🇮🇳 الهند',CN:'🇨🇳 الصين',DE:'🇩🇪 ألمانيا',FR:'🇫🇷 فرنسا',BR:'🇧🇷 البرازيل',MX:'🇲🇽 المكسيك',NG:'🇳🇬 نيجيريا',ZA:'🇿🇦 جنوب أفريقيا',KE:'🇰🇪 كينيا',OTHER:'🌍 أخرى / دولي'},
+    pt:{CA:'🇨🇦 Canadá',US:'🇺🇸 Estados Unidos',UK:'🇬🇧 Reino Unido',AU:'🇦🇺 Austrália',IN:'🇮🇳 Índia',CN:'🇨🇳 China',DE:'🇩🇪 Alemanha',FR:'🇫🇷 França',BR:'🇧🇷 Brasil',MX:'🇲🇽 México',NG:'🇳🇬 Nigéria',ZA:'🇿🇦 África do Sul',KE:'🇰🇪 Quênia',OTHER:'🌍 Outro / Internacional'},
+    ko:{CA:'🇨🇦 캐나다',US:'🇺🇸 미국',UK:'🇬🇧 영국',AU:'🇦🇺 호주',IN:'🇮🇳 인도',CN:'🇨🇳 중국',DE:'🇩🇪 독일',FR:'🇫🇷 프랑스',BR:'🇧🇷 브라질',MX:'🇲🇽 멕시코',NG:'🇳🇬 나이지리아',ZA:'🇿🇦 남아프리카',KE:'🇰🇪 케냐',OTHER:'🌍 기타 / 국제'},
+    ja:{CA:'🇨🇦 カナダ',US:'🇺🇸 アメリカ',UK:'🇬🇧 イギリス',AU:'🇦🇺 オーストラリア',IN:'🇮🇳 インド',CN:'🇨🇳 中国',DE:'🇩🇪 ドイツ',FR:'🇫🇷 フランス',BR:'🇧🇷 ブラジル',MX:'🇲🇽 メキシコ',NG:'🇳🇬 ナイジェリア',ZA:'🇿🇦 南アフリカ',KE:'🇰🇪 ケニア',OTHER:'🌍 その他 / 国際'},
+    de:{CA:'🇨🇦 Kanada',US:'🇺🇸 USA',UK:'🇬🇧 Vereinigtes Königreich',AU:'🇦🇺 Australien',IN:'🇮🇳 Indien',CN:'🇨🇳 China',DE:'🇩🇪 Deutschland',FR:'🇫🇷 Frankreich',BR:'🇧🇷 Brasilien',MX:'🇲🇽 Mexiko',NG:'🇳🇬 Nigeria',ZA:'🇿🇦 Südafrika',KE:'🇰🇪 Kenia',OTHER:'🌍 Andere / International'},
+  };
+  const cNames=countryNames[lang]||countryNames.en;
+  const countryEl=document.getElementById('countrySelect');
+  if(countryEl){
+    Array.from(countryEl.options).forEach(opt=>{
+      if(cNames[opt.value]) opt.textContent=cNames[opt.value];
+    });
+  }
+
+  // Retranslate province list for current country
+  updateProvinceList(lang);
+
+  // Update rate and term hint text explicitly
+  const rateHint=document.getElementById('rateHintText');
+  if(rateHint&&t.customRateHint) rateHint.textContent=t.customRateHint;
+  const termHint=document.getElementById('termHintText');
+  if(termHint&&t.customTermHint) termHint.textContent=t.customTermHint;
+
+  // Update language selector label
+  const langLabels={
+    en:'Language', fr:'Langue', zh:'语言', es:'Idioma',
+    hi:'भाषा', ar:'اللغة', pt:'Idioma', ko:'언어', ja:'言語', de:'Sprache'
+  };
+  const currLabels={
+    en:'Currency', fr:'Devise', zh:'货币', es:'Moneda',
+    hi:'मुद्रा', ar:'العملة', pt:'Moeda', ko:'통화', ja:'通貨', de:'Währung'
+  };
+  const langEl=document.querySelector('[for="langSelect"],label.lang-label');
+  // Update the small labels above the dropdowns
+  document.querySelectorAll('.nav-label').forEach((el,i)=>{
+    if(i===0&&currLabels[lang]) el.textContent=currLabels[lang];
+    if(i===1&&langLabels[lang]) el.textContent=langLabels[lang];
+  });
+
+  // Update compare mode buttons
+  const btnLabels={
+    1:t.modeSingle||'Single school',
+    2:t.compare2||'Compare 2',
+    3:t.compare3||'Compare 3',
+    4:t.compare4||'Compare 4'
+  };
+  [1,2,3,4].forEach(i=>{
+    const btn=document.getElementById('btnCount'+i);
+    if(btn&&btnLabels[i]) btn.textContent=btnLabels[i];
+  });
+
+  // Update C and D labels in school grid and living sections
+  ['C','D'].forEach(x=>{
+    const col=document.getElementById('col'+x);
+    if(col){
+      const tag=col.querySelector('.col-tag');
+      if(tag&&t['option'+x]) tag.textContent=t['option'+x];
+      // Update years dropdowns for C and D
+      const yrSel=document.getElementById('years'+x);
+      if(yrSel) Array.from(yrSel.options).forEach(opt=>{
+        const key=opt.getAttribute('data-i18n');
+        if(key&&t[key]) opt.textContent=t[key];
+      });
+      // Update housing dropdowns for C and D
+      const hSel=document.getElementById('housing'+x);
+      if(hSel){
+        const sym3=SYMBOLS[currency]||'$';
+        const rate3=RATES[currency]||1;
+        const moW=t.moWord||'/mo';
+        Array.from(hSel.options).forEach(opt=>{
+          const key=opt.getAttribute('data-i18n');
+          if(key&&t[key]){
+            const val=parseFloat(opt.value)||0;
+            const converted=Math.round(val*rate3);
+            const baseLabel=t[key].replace(/\s*[\(\[].*?[\)\]]/g,'').trim();
+            const amount=val===0?`(${sym3}0${moW})`:`(${sym3}${converted.toLocaleString('en')}${moW})`;
+            opt.textContent=`${baseLabel} ${amount}`;
+          }
+        });
+      }
+      // Update labels for C and D
+      ['Tuition','Salary','Food','Transport','Extra','Books','Health','IntlFee'].forEach(lbl=>{
+        const lel=document.getElementById('lbl'+lbl+x);
+        if(lel&&t['lbl'+lbl]){
+          const sym3=SYMBOLS[currency]||'$';
+          const firstChild=lel.childNodes[0];
+          if(firstChild&&firstChild.nodeType===3){
+            firstChild.textContent=t['lbl'+lbl].replace('($)',`(${sym3})`);
+          }
+        }
+      });
+    }
+    // Update living section tags
+    const living=document.getElementById('living'+x);
+    if(living){
+      const tag=living.querySelector('.col-tag');
+      if(tag&&t['option'+x+'Living']) tag.textContent=t['option'+x+'Living'];
+    }
+  });
+
+  // Update results section if visible
+  const tlTitle=document.querySelector('.tl-title');
+  if(tlTitle&&t.timelineTitle) tlTitle.textContent=t.timelineTitle;
+  const costTitle=document.querySelector('.cost-title');
+  if(costTitle&&t.costBreakdown) costTitle.textContent=t.costBreakdown;
+  const monthlyTitle=document.querySelector('.monthly-title');
+  if(monthlyTitle&&t.monthlyBudget) monthlyTitle.textContent=t.monthlyBudget;
+
+  // Update share/print/copy buttons
+  document.querySelectorAll('[data-i18n="printBtn"]').forEach(el=>{ if(t.printBtn) el.textContent=t.printBtn; });
+  document.querySelectorAll('[data-i18n="copyBtn"]').forEach(el=>{ if(t.copyBtn) el.textContent=t.copyBtn; });
+  document.querySelectorAll('[data-i18n="shareBtn"]').forEach(el=>{ if(t.shareBtn) el.textContent=t.shareBtn; });
+
+  // Update AI advisor intro
+  const chatMsgs=document.querySelectorAll('.ai-msg');
+  if(chatMsgs.length===1&&t.aiAdvisor) chatMsgs[0].textContent=t.aiAdvisor;
+
+  // Update luTarget dropdown options
+  const luTargetEl=document.getElementById('luTarget');
+  if(luTargetEl) Array.from(luTargetEl.options).forEach(opt=>{
+    const key=opt.getAttribute('data-i18n');
+    if(key&&t[key]) opt.textContent=t[key];
+    else if(opt.value==='C'&&t.optionC) opt.textContent=(t.fillA||'Fill').replace('A','C')+' '+t.optionC;
+    else if(opt.value==='D'&&t.optionD) opt.textContent=(t.fillA||'Fill').replace('A','D')+' '+t.optionD;
+  });
 
   document.documentElement.lang=lang;
 }
@@ -1836,32 +2073,50 @@ function setCurrency(val){
     if(el) el.childNodes[0].textContent=text;
   });
 
-  // Update rent dropdown options
+  // Update rent dropdown options using current language translations
+  const t2=TRANSLATIONS[currentLang]||TRANSLATIONS.en;
+  const moW=t2.moWord||'/mo';
   const rentOptions = [
-    {id:'rentOpt0', val:0, label:'Living at home'},
-    {id:'rentOpt900', val:900, label:'With roommates'},
-    {id:'rentOpt1400', val:1400, label:'1-bedroom outside downtown'},
-    {id:'rentOpt1800', val:1800, label:'1-bedroom city'},
-    {id:'rentOpt2200', val:2200, label:'1-bedroom downtown'},
-    {id:'rentOpt2800', val:2800, label:'1-bedroom Toronto/Vancouver'},
+    {id:'rentOpt0', val:0, label:t2.rentHome||'Living at home'},
+    {id:'rentOpt900', val:900, label:t2.rentRoom||'With roommates'},
+    {id:'rentOpt1400', val:1400, label:t2.rent1bOuter||'1-bedroom outside downtown'},
+    {id:'rentOpt1800', val:1800, label:t2.rent1bCity||'1-bedroom city'},
+    {id:'rentOpt2200', val:2200, label:t2.rent1bDt||'1-bedroom downtown'},
+    {id:'rentOpt2800', val:2800, label:t2.rentTorVan||'1-bedroom Toronto/Vancouver'},
   ];
   rentOptions.forEach(o=>{
     const el=document.getElementById(o.id);
     if(!el) return;
     const converted=Math.round(o.val*rate);
     const symStr=converted===0?sym+'0':sym+converted.toLocaleString('en');
-    el.textContent=o.label+' ('+symStr+'/mo)';
+    el.textContent=o.label+' ('+symStr+moW+')';
+  });
+
+  // Also update housingA and housingB dropdowns
+  ['housingA','housingB'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    Array.from(sel.options).forEach(opt=>{
+      const key=opt.getAttribute('data-i18n');
+      if(key&&t2[key]){
+        const val=parseFloat(opt.value)||0;
+        const converted=Math.round(val*rate);
+        const baseLabel=t2[key].replace(/\s*[\(\[].*?[\)\]]/g,'').trim();
+        const amount=val===0?`(${sym}0${moW})`:`(${sym}${converted.toLocaleString('en')}${moW})`;
+        opt.textContent=`${baseLabel} ${amount}`;
+      }
+    });
   });
 
   // Update rent label
   const lblRent=document.getElementById('lblRentPost');
-  if(lblRent) lblRent.textContent='Rent after grad/mo ('+sym+')';
+  if(lblRent) lblRent.textContent=(t2.lblRentPost||'Rent after grad/mo').replace('($)',`(${sym})`);
   const lblRentCustom=document.getElementById('lblRentPostCustom');
-  if(lblRentCustom) lblRentCustom.textContent='Enter your expected monthly rent ('+sym+')';
+  if(lblRentCustom) lblRentCustom.textContent=(t2.customRentHint||'Enter your expected monthly rent')+` (${sym})`;
 
   // Re-render results if showing
   if(calcState && v('results').classList.contains('show')){
-    renderResults(calcState.A, calcState.B, true);
+    renderResults(calcState.A, calcState.B, true, calcState.C, calcState.D);
   }
 }
 
@@ -1951,9 +2206,62 @@ function taxRate(salary,province){
     US_WY:{lo:0.22,mid:0.28,hi:0.32},
     US_AK:{lo:0.22,mid:0.28,hi:0.32},
   };
-  const all={...caRates,...usRates};
-  const r=all[province]||{lo:0.33,mid:0.43,hi:0.47};
-  // Convert USD salary to CAD for US states before comparison if needed
+  const all={...caRates,...usRates,
+    // UK
+    UK_ENG:{lo:0.32,mid:0.42,hi:0.47},UK_SCT:{lo:0.33,mid:0.43,hi:0.48},
+    UK_WLS:{lo:0.32,mid:0.42,hi:0.47},UK_NIR:{lo:0.32,mid:0.42,hi:0.47},
+    // Australia
+    AU_NSW:{lo:0.26,mid:0.34,hi:0.47},AU_VIC:{lo:0.26,mid:0.34,hi:0.47},
+    AU_QLD:{lo:0.25,mid:0.33,hi:0.47},AU_WA:{lo:0.25,mid:0.33,hi:0.47},
+    AU_SA:{lo:0.26,mid:0.34,hi:0.47},AU_TAS:{lo:0.26,mid:0.34,hi:0.47},
+    AU_ACT:{lo:0.26,mid:0.34,hi:0.47},AU_NT:{lo:0.25,mid:0.32,hi:0.47},
+    // India
+    IN_MH:{lo:0.05,mid:0.20,hi:0.30},IN_DL:{lo:0.05,mid:0.20,hi:0.30},
+    IN_KA:{lo:0.05,mid:0.20,hi:0.30},IN_TN:{lo:0.05,mid:0.20,hi:0.30},
+    IN_GJ:{lo:0.05,mid:0.20,hi:0.30},IN_WB:{lo:0.05,mid:0.20,hi:0.30},
+    IN_RJ:{lo:0.05,mid:0.20,hi:0.30},IN_UP:{lo:0.05,mid:0.20,hi:0.30},
+    IN_AP:{lo:0.05,mid:0.20,hi:0.30},IN_TS:{lo:0.05,mid:0.20,hi:0.30},
+    IN_KL:{lo:0.05,mid:0.20,hi:0.30},IN_PB:{lo:0.05,mid:0.20,hi:0.30},
+    // China
+    CN_BJ:{lo:0.10,mid:0.20,hi:0.35},CN_SH:{lo:0.10,mid:0.20,hi:0.35},
+    CN_GD:{lo:0.10,mid:0.20,hi:0.35},CN_JS:{lo:0.10,mid:0.20,hi:0.35},
+    CN_ZJ:{lo:0.10,mid:0.20,hi:0.35},CN_SD:{lo:0.10,mid:0.20,hi:0.35},
+    CN_SC:{lo:0.10,mid:0.20,hi:0.35},CN_HN:{lo:0.10,mid:0.20,hi:0.35},
+    CN_HB:{lo:0.10,mid:0.20,hi:0.35},CN_AH:{lo:0.10,mid:0.20,hi:0.35},
+    CN_FJ:{lo:0.10,mid:0.20,hi:0.35},CN_LN:{lo:0.10,mid:0.20,hi:0.35},
+    // Germany
+    DE_BY:{lo:0.30,mid:0.42,hi:0.47},DE_NW:{lo:0.30,mid:0.42,hi:0.47},
+    DE_BW:{lo:0.30,mid:0.42,hi:0.47},DE_BE:{lo:0.30,mid:0.42,hi:0.47},
+    DE_HH:{lo:0.30,mid:0.42,hi:0.47},DE_HE:{lo:0.30,mid:0.42,hi:0.47},
+    DE_SN:{lo:0.30,mid:0.42,hi:0.47},
+    // France
+    FR_IDF:{lo:0.24,mid:0.41,hi:0.45},FR_ARA:{lo:0.24,mid:0.41,hi:0.45},
+    FR_OCC:{lo:0.24,mid:0.41,hi:0.45},FR_NAQ:{lo:0.24,mid:0.41,hi:0.45},
+    FR_PDL:{lo:0.24,mid:0.41,hi:0.45},FR_BRE:{lo:0.24,mid:0.41,hi:0.45},
+    // Brazil
+    BR_SP:{lo:0.15,mid:0.25,hi:0.35},BR_RJ:{lo:0.15,mid:0.25,hi:0.35},
+    BR_MG:{lo:0.15,mid:0.25,hi:0.35},BR_BA:{lo:0.15,mid:0.25,hi:0.35},
+    BR_RS:{lo:0.15,mid:0.25,hi:0.35},BR_PR:{lo:0.15,mid:0.25,hi:0.35},
+    BR_PE:{lo:0.15,mid:0.25,hi:0.35},
+    // Mexico
+    MX_CDMX:{lo:0.10,mid:0.21,hi:0.30},MX_JAL:{lo:0.10,mid:0.21,hi:0.30},
+    MX_NL:{lo:0.10,mid:0.21,hi:0.30},MX_MEX:{lo:0.10,mid:0.21,hi:0.30},
+    MX_GTO:{lo:0.10,mid:0.21,hi:0.30},MX_PUE:{lo:0.10,mid:0.21,hi:0.30},
+    // Africa
+    NG_LA:{lo:0.07,mid:0.15,hi:0.24},NG_AB:{lo:0.07,mid:0.15,hi:0.24},
+    NG_KN:{lo:0.07,mid:0.15,hi:0.24},NG_RV:{lo:0.07,mid:0.15,hi:0.24},
+    NG_OY:{lo:0.07,mid:0.15,hi:0.24},NG_KD:{lo:0.07,mid:0.15,hi:0.24},
+    NG_AK:{lo:0.07,mid:0.15,hi:0.24},
+    ZA_GP:{lo:0.18,mid:0.31,hi:0.45},ZA_WC:{lo:0.18,mid:0.31,hi:0.45},
+    ZA_KZN:{lo:0.18,mid:0.31,hi:0.45},ZA_EC:{lo:0.18,mid:0.31,hi:0.45},
+    ZA_LP:{lo:0.18,mid:0.31,hi:0.45},ZA_MP:{lo:0.18,mid:0.31,hi:0.45},
+    KE_NBI:{lo:0.10,mid:0.20,hi:0.30},KE_MSA:{lo:0.10,mid:0.20,hi:0.30},
+    KE_KSM:{lo:0.10,mid:0.20,hi:0.30},KE_NYR:{lo:0.10,mid:0.20,hi:0.30},
+    KE_ELD:{lo:0.10,mid:0.20,hi:0.30},
+    // Other
+    OTHER:{lo:0.20,mid:0.30,hi:0.40},
+  };
+  const r=all[province]||{lo:0.25,mid:0.35,hi:0.42};
   const isUS=province.startsWith('US_');
   const compareSalary=isUS?salary*1.36:salary;
   if(compareSalary<55000) return r.lo;
@@ -1987,18 +2295,49 @@ function calcTuitionWithInflation(annual,years,inflPct){
   return total;
 }
 
-/* ── MODE ── */
-function setMode(m){
-  mode=m;
-  v('btnSingle').classList.toggle('active',m==='single');
-  v('btnCompare').classList.toggle('active',m==='compare');
-  v('colB').classList.toggle('hidden',m==='single');
-  v('livingB').classList.toggle('hidden',m==='single');
-  v('livingTagA').textContent=m==='compare'?'Option A — living costs':'Living costs';
-  v('tagA').textContent=m==='compare'?'Option A':'Your school';
-  v('luTarget').style.display=m==='single'?'none':'block';
-  // single-col layout when single mode
-  v('schoolGrid').style.gridTemplateColumns=m==='single'?'1fr':'1fr 1fr';
+/* ── SCHOOL COUNT ── */
+let schoolCount=1;
+function setSchoolCount(n){
+  schoolCount=n;
+  mode=n===1?'single':'compare';
+
+  // Update button states
+  [1,2,3,4].forEach(i=>{
+    const btn=v('btnCount'+i);
+    if(btn) btn.classList.toggle('active',i===n);
+  });
+
+  // Update school grid layout
+  const grid=v('schoolGrid');
+  if(grid){
+    grid.className='two-col school-grid-'+n;
+  }
+
+  // Show/hide columns
+  const cols={B:n>=2,C:n>=3,D:n>=4};
+  Object.entries(cols).forEach(([x,show])=>{
+    const col=v('col'+x);
+    if(col) col.style.display=show?'':'none';
+  });
+
+  // Show/hide living cards
+  ['B','C','D'].forEach((x,i)=>{
+    const living=v('living'+x);
+    if(living) living.style.display=n>=i+2?'':'none';
+  });
+
+  // Update tagA label
+  const tagA=v('tagA');
+  if(tagA) tagA.textContent=n===1?'Your school':'Option A';
+
+  // Show/hide luTarget options
+  const t=v('luTargetC'), td=v('luTargetD');
+  if(t) t.style.display=n>=3?'':'none';
+  if(td) td.style.display=n>=4?'':'none';
+
+  // Hide luTarget entirely if single
+  const lt=v('luTarget');
+  if(lt) lt.style.display=n===1?'none':'block';
 }
 
 /* ── HOUSING CUSTOM ── */
@@ -2219,6 +2558,126 @@ function insertAIResults(){
   if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
+function updateProvinceList(lang){
+  const country=v('countrySelect').value;
+  const sel=v('province');
+
+  // Province/region translations by language
+  const provinceTranslations={
+    zh:{
+      ON:'安大略',BC:'不列颠哥伦比亚',AB:'艾伯塔',QC:'魁北克',MB:'曼尼托巴',SK:'萨斯喀彻温',
+      NS:'新斯科舍',NB:'新不伦瑞克',NL:'纽芬兰和拉布拉多',PE:'爱德华王子岛',
+      NT:'西北地区',YT:'育空',NU:'努纳武特',
+      US_NY:'纽约',US_CA:'加利福尼亚',US_TX:'德克萨斯',US_FL:'佛罗里达',US_IL:'伊利诺伊',
+      US_PA:'宾夕法尼亚',US_OH:'俄亥俄',US_GA:'乔治亚',US_NC:'北卡罗来纳',US_MI:'密歇根',
+      US_WA:'华盛顿',US_MA:'马萨诸塞',US_AZ:'亚利桑那',US_VA:'弗吉尼亚',US_CO:'科罗拉多',
+      UK_ENG:'英格兰',UK_SCT:'苏格兰',UK_WLS:'威尔士',UK_NIR:'北爱尔兰',
+      AU_NSW:'新南威尔士',AU_VIC:'维多利亚',AU_QLD:'昆士兰',AU_WA:'西澳大利亚',
+      AU_SA:'南澳大利亚',AU_TAS:'塔斯马尼亚',AU_ACT:'澳大利亚首都',AU_NT:'北领地',
+      IN_MH:'马哈拉施特拉邦',IN_DL:'德里',IN_KA:'卡纳塔克邦',IN_TN:'泰米尔纳德邦',
+      IN_GJ:'古吉拉特邦',IN_WB:'西孟加拉邦',IN_RJ:'拉贾斯坦邦',IN_UP:'北方邦',
+      CN_BJ:'北京',CN_SH:'上海',CN_GD:'广东',CN_JS:'江苏',CN_ZJ:'浙江',CN_SD:'山东',
+      CN_SC:'四川',CN_HN:'湖南',CN_HB:'湖北',CN_AH:'安徽',CN_FJ:'福建',CN_LN:'辽宁',
+      OTHER:'其他 / 国际',
+    },
+    fr:{
+      ON:'Ontario',BC:'Colombie-Britannique',AB:'Alberta',QC:'Québec',MB:'Manitoba',
+      SK:'Saskatchewan',NS:'Nouvelle-Écosse',NB:'Nouveau-Brunswick',
+      NL:'Terre-Neuve-et-Labrador',PE:'Île-du-Prince-Édouard',
+      NT:'Territoires du Nord-Ouest',YT:'Yukon',NU:'Nunavut',
+      UK_ENG:'Angleterre',UK_SCT:'Écosse',UK_WLS:'Pays de Galles',UK_NIR:'Irlande du Nord',
+      AU_NSW:'Nouvelle-Galles du Sud',AU_VIC:'Victoria',AU_QLD:'Queensland',
+      OTHER:'Autre / International',
+    },
+    es:{
+      ON:'Ontario',BC:'Columbia Británica',AB:'Alberta',QC:'Quebec',MB:'Manitoba',
+      SK:'Saskatchewan',NS:'Nueva Escocia',NB:'Nuevo Brunswick',
+      NL:'Terranova y Labrador',PE:'Isla del Príncipe Eduardo',
+      NT:'Territorios del Noroeste',YT:'Yukón',NU:'Nunavut',
+      UK_ENG:'Inglaterra',UK_SCT:'Escocia',UK_WLS:'Gales',UK_NIR:'Irlanda del Norte',
+      OTHER:'Otro / Internacional',
+    },
+    ar:{
+      ON:'أونتاريو',BC:'كولومبيا البريطانية',AB:'ألبرتا',QC:'كيبيك',MB:'مانيتوبا',
+      SK:'ساسكاتشوان',NS:'نوفا سكوشا',NB:'نيو برونزويك',NL:'نيوفاوندلاند',PE:'جزيرة الأمير إدوارد',
+      UK_ENG:'إنجلترا',UK_SCT:'اسكتلندا',UK_WLS:'ويلز',UK_NIR:'أيرلندا الشمالية',
+      OTHER:'أخرى / دولي',
+    },
+    ja:{
+      ON:'オンタリオ',BC:'ブリティッシュコロンビア',AB:'アルバータ',QC:'ケベック',
+      UK_ENG:'イングランド',UK_SCT:'スコットランド',UK_WLS:'ウェールズ',UK_NIR:'北アイルランド',
+      CN_BJ:'北京',CN_SH:'上海',CN_GD:'広東',CN_JS:'江蘇',CN_ZJ:'浙江',CN_SD:'山東',
+      OTHER:'その他 / 国際',
+    },
+    ko:{
+      ON:'온타리오',BC:'브리티시컬럼비아',AB:'앨버타',QC:'퀘벡',
+      UK_ENG:'잉글랜드',UK_SCT:'스코틀랜드',UK_WLS:'웨일스',UK_NIR:'북아일랜드',
+      CN_BJ:'베이징',CN_SH:'상하이',CN_GD:'광둥',
+      OTHER:'기타 / 국제',
+    },
+    de:{
+      ON:'Ontario',BC:'Britisch-Kolumbien',AB:'Alberta',QC:'Quebec',
+      UK_ENG:'England',UK_SCT:'Schottland',UK_WLS:'Wales',UK_NIR:'Nordirland',
+      OTHER:'Andere / International',
+    },
+  };
+
+  const tProv=provinceTranslations[lang]||{};
+
+  const options={
+    CA:[
+      ['ON','Ontario'],['BC','British Columbia'],['AB','Alberta'],['QC','Quebec'],
+      ['MB','Manitoba'],['SK','Saskatchewan'],['NS','Nova Scotia'],['NB','New Brunswick'],
+      ['NL','Newfoundland & Labrador'],['PE','Prince Edward Island'],
+      ['NT','Northwest Territories'],['YT','Yukon'],['NU','Nunavut']
+    ],
+    US:[
+      ['US_NY','New York'],['US_CA','California'],['US_TX','Texas'],['US_FL','Florida'],
+      ['US_IL','Illinois'],['US_PA','Pennsylvania'],['US_OH','Ohio'],['US_GA','Georgia'],
+      ['US_NC','North Carolina'],['US_MI','Michigan'],['US_WA','Washington'],
+      ['US_MA','Massachusetts'],['US_AZ','Arizona'],['US_VA','Virginia'],
+      ['US_CO','Colorado'],['US_NJ','New Jersey'],['US_TN','Tennessee'],['US_IN','Indiana'],
+      ['US_MO','Missouri'],['US_MD','Maryland'],['US_WI','Wisconsin'],['US_MN','Minnesota'],
+      ['US_SC','South Carolina'],['US_AL','Alabama'],['US_LA','Louisiana'],
+      ['US_KY','Kentucky'],['US_OR','Oregon'],['US_OK','Oklahoma'],['US_CT','Connecticut'],
+      ['US_UT','Utah'],['US_IA','Iowa'],['US_NV','Nevada'],['US_AR','Arkansas'],
+      ['US_MS','Mississippi'],['US_KS','Kansas'],['US_NM','New Mexico'],
+      ['US_NE','Nebraska'],['US_WV','West Virginia'],['US_ID','Idaho'],
+      ['US_HI','Hawaii'],['US_NH','New Hampshire'],['US_ME','Maine'],
+      ['US_RI','Rhode Island'],['US_MT','Montana'],['US_DE','Delaware'],
+      ['US_SD','South Dakota'],['US_ND','North Dakota'],['US_AK','Alaska'],
+      ['US_VT','Vermont'],['US_WY','Wyoming'],['US_DC','Washington D.C.']
+    ],
+    UK:[['UK_ENG','England'],['UK_SCT','Scotland'],['UK_WLS','Wales'],['UK_NIR','Northern Ireland']],
+    AU:[['AU_NSW','New South Wales'],['AU_VIC','Victoria'],['AU_QLD','Queensland'],
+        ['AU_WA','Western Australia'],['AU_SA','South Australia'],['AU_TAS','Tasmania'],
+        ['AU_ACT','Australian Capital Territory'],['AU_NT','Northern Territory']],
+    IN:[['IN_MH','Maharashtra'],['IN_DL','Delhi'],['IN_KA','Karnataka'],['IN_TN','Tamil Nadu'],
+        ['IN_GJ','Gujarat'],['IN_WB','West Bengal'],['IN_RJ','Rajasthan'],['IN_UP','Uttar Pradesh'],
+        ['IN_AP','Andhra Pradesh'],['IN_TS','Telangana'],['IN_KL','Kerala'],['IN_PB','Punjab']],
+    CN:[['CN_BJ','Beijing'],['CN_SH','Shanghai'],['CN_GD','Guangdong'],['CN_JS','Jiangsu'],
+        ['CN_ZJ','Zhejiang'],['CN_SD','Shandong'],['CN_SC','Sichuan'],['CN_HN','Hunan'],
+        ['CN_HB','Hubei'],['CN_AH','Anhui'],['CN_FJ','Fujian'],['CN_LN','Liaoning']],
+    DE:[['DE_BY','Bavaria'],['DE_NW','North Rhine-Westphalia'],['DE_BW','Baden-Württemberg'],
+        ['DE_BE','Berlin'],['DE_HH','Hamburg'],['DE_HE','Hesse'],['DE_SN','Saxony']],
+    FR:[['FR_IDF','Île-de-France'],['FR_ARA','Auvergne-Rhône-Alpes'],['FR_OCC','Occitanie'],
+        ['FR_NAQ','Nouvelle-Aquitaine'],['FR_PDL','Pays de la Loire'],['FR_BRE','Brittany']],
+    BR:[['BR_SP','São Paulo'],['BR_RJ','Rio de Janeiro'],['BR_MG','Minas Gerais'],
+        ['BR_BA','Bahia'],['BR_RS','Rio Grande do Sul'],['BR_PR','Paraná'],['BR_PE','Pernambuco']],
+    MX:[['MX_CDMX','Mexico City'],['MX_JAL','Jalisco'],['MX_NL','Nuevo León'],
+        ['MX_MEX','Estado de México'],['MX_GTO','Guanajuato'],['MX_PUE','Puebla']],
+    NG:[['NG_LA','Lagos'],['NG_AB','Abuja (FCT)'],['NG_KN','Kano'],['NG_RV','Rivers'],
+        ['NG_OY','Oyo'],['NG_KD','Kaduna'],['NG_AK','Akwa Ibom']],
+    ZA:[['ZA_GP','Gauteng'],['ZA_WC','Western Cape'],['ZA_KZN','KwaZulu-Natal'],
+        ['ZA_EC','Eastern Cape'],['ZA_LP','Limpopo'],['ZA_MP','Mpumalanga']],
+    KE:[['KE_NBI','Nairobi'],['KE_MSA','Mombasa'],['KE_KSM','Kisumu'],['KE_NYR','Nyeri'],['KE_ELD','Eldoret']],
+    OTHER:[['OTHER','International / Other']]
+  };
+
+  const list=options[country]||[['OTHER','International / Other']];
+  sel.innerHTML=list.map(([val,label])=>`<option value="${val}">${tProv[val]||label}</option>`).join('');
+}
+
 function toggleCustomRentPost(){
   const isCustom=v('rentPostPreset').value==='custom';
   v('rentPostCustomWrap').style.display=isCustom?'block':'none';
@@ -2255,23 +2714,23 @@ function calculate(){
       alert('Please enter an expected starting salary.');
       return;
     }
-    if(mode==='compare'){
-      const tuitionB=parseFloat(v('tuitionB').value);
-      const salaryB=parseFloat(v('salaryB').value);
-      if(!tuitionB||tuitionB<=0){
-        v('tuitionB').style.borderColor='var(--danger)';
-        v('tuitionB').scrollIntoView({behavior:'smooth',block:'center'});
-        setTimeout(()=>v('tuitionB').style.borderColor='',3000);
-        alert('Please enter a tuition amount for Option B.');
-        return;
-      }
-      if(!salaryB||salaryB<=0){
-        v('salaryB').style.borderColor='var(--danger)';
-        v('salaryB').scrollIntoView({behavior:'smooth',block:'center'});
-        setTimeout(()=>v('salaryB').style.borderColor='',3000);
-        alert('Please enter an expected starting salary for Option B.');
-        return;
-      }
+    if(schoolCount>=2){
+      ['B','C','D'].slice(0,schoolCount-1).forEach(x=>{
+        const tuition=parseFloat(v('tuition'+x).value);
+        const salary=parseFloat(v('salary'+x).value);
+        if(!tuition||tuition<=0){
+          v('tuition'+x).style.borderColor='var(--danger)';
+          v('tuition'+x).scrollIntoView({behavior:'smooth',block:'center'});
+          setTimeout(()=>v('tuition'+x).style.borderColor='',3000);
+          return;
+        }
+        if(!salary||salary<=0){
+          v('salary'+x).style.borderColor='var(--danger)';
+          v('salary'+x).scrollIntoView({behavior:'smooth',block:'center'});
+          setTimeout(()=>v('salary'+x).style.borderColor='',3000);
+          return;
+        }
+      });
     }
   }
   // ── END VALIDATION
@@ -2334,84 +2793,89 @@ function calculate(){
   }
 
   const A=buildOption('A');
-  const B=mode==='compare'?buildOption('B'):null;
-  calcState={A,B,mode,rate,term,rentPost,livingPost,savingsGoal,province,osapOn,osapGrant,osapLoanYr};
+  const B=schoolCount>=2?buildOption('B'):null;
+  const C=schoolCount>=3?buildOption('C'):null;
+  const D=schoolCount>=4?buildOption('D'):null;
+  calcState={A,B,C,D,schoolCount,mode,rate,term,rentPost,livingPost,savingsGoal,province,osapOn,osapGrant,osapLoanYr};
 
-  renderResults(A,B);
+  renderResults(A,B,false,C,D);
 }
 
-function renderResults(A,B,silent=false){
-  const compare=mode==='compare'&&B;
+function renderResults(A,B,silent=false,C=null,D=null){
+  const opts=[A,B,C,D].filter(Boolean);
+  const compare=opts.length>1;
+  const colors=['var(--blue)','var(--green)','#7C5CBF','#B85C38'];
+  const clsNames=['a','b','c','d'];
 
   // ── Banner
   let bannerHTML='';
   if(compare){
-    const diff=A.totalCost-B.totalCost;
-    const cheaper=diff>0?B.name:A.name;
-    const amt=Math.abs(diff);
-    bannerHTML=`<div class="banner green"><div><div class="banner-lbl">${cheaper} costs less</div><div class="banner-num">${fmt(amt)} less over ${A.years} yrs</div></div><div class="banner-sub">${diff>0?A.name:B.name} costs ${fmt(amt)} more in total — that's extra debt you'll carry for years after graduation.</div></div>`;
+    const cheapest=opts.reduce((mn,o)=>o.totalCost<mn.totalCost?o:mn,opts[0]);
+    const expensive=opts.reduce((mx,o)=>o.totalCost>mx.totalCost?o:mx,opts[0]);
+    const diff=expensive.totalCost-cheapest.totalCost;
+    bannerHTML=`<div class="banner green"><div><div class="banner-lbl">${cheapest.name} costs least</div><div class="banner-num">${fmt(diff)} less than the most expensive</div></div><div class="banner-sub">Comparing ${opts.length} schools. Cheapest: ${cheapest.name} (${fmt(cheapest.totalCost)}). Most expensive: ${expensive.name} (${fmt(expensive.totalCost)}).</div></div>`;
   } else {
-    bannerHTML=`<div class="banner blue"><div><div class="banner-lbl">Your 4-year total cost</div><div class="banner-num">${fmt(A.totalCost)}</div></div><div class="banner-sub">${A.name} — ${A.prog}. Debt at graduation: <strong>${fmt(A.debt)}</strong>. Monthly loan payment: <strong>${fmtMo(A.loan.monthly)}</strong>.</div></div>`;
+    bannerHTML=`<div class="banner blue"><div><div class="banner-lbl">Your ${A.years}-year total cost</div><div class="banner-num">${fmt(A.totalCost)}</div></div><div class="banner-sub">${A.name} — ${A.prog}. Debt at graduation: <strong>${fmt(A.debt)}</strong>. Monthly loan payment: <strong>${fmtMo(A.loan.monthly)}</strong>.</div></div>`;
   }
   v('bannerArea').innerHTML=bannerHTML;
 
   // ── Bars
   let barsHTML='';
   if(compare){
-    const mx=Math.max(A.totalCost,B.totalCost);
-    barsHTML=`
-      <div class="bar-row"><div class="bar-school">${A.name.substring(0,8)}</div><div class="bar-track"><div class="bar-fill a" style="width:${A.totalCost/mx*100}%"></div></div><div class="bar-val">${fmt(A.totalCost)}</div></div>
-      <div class="bar-row"><div class="bar-school">${B.name.substring(0,8)}</div><div class="bar-track"><div class="bar-fill b" style="width:${B.totalCost/mx*100}%"></div></div><div class="bar-val">${fmt(B.totalCost)}</div></div>`;
+    const mx=Math.max(...opts.map(o=>o.totalCost));
+    barsHTML=opts.map((o,i)=>`
+      <div class="bar-row"><div class="bar-school" style="color:${colors[i]};">${o.name.substring(0,10)}</div><div class="bar-track"><div class="bar-fill" style="width:${o.totalCost/mx*100}%;background:${colors[i]};opacity:0.7;"></div></div><div class="bar-val">${fmt(o.totalCost)}</div></div>`).join('');
   } else {
     const cats=[
-      {l:'Tuition',v:A.tuitionTotal,c:A.totalCost},
-      {l:'Housing',v:(A.housing*12*A.years),c:A.totalCost},
-      {l:'Food',v:(A.food*12*A.years),c:A.totalCost},
-      {l:'Other living',v:((A.transport+A.extra)*12*A.years+A.books+A.health)*A.years/A.years,c:A.totalCost}
+      {l:'Tuition',v:A.tuitionTotal},{l:'Housing',v:(A.housing*12*A.years)},
+      {l:'Food',v:(A.food*12*A.years)},{l:'Other living',v:((A.transport+A.extra)*12*A.years+A.books+A.health)*A.years/A.years}
     ];
-    barsHTML=cats.map(c=>`<div class="bar-row"><div class="bar-school">${c.l}</div><div class="bar-track"><div class="bar-fill single" style="width:${Math.min(c.v/c.c*100,100)}%"></div></div><div class="bar-val">${fmt(c.v)}</div></div>`).join('');
+    barsHTML=cats.map(c=>`<div class="bar-row"><div class="bar-school">${c.l}</div><div class="bar-track"><div class="bar-fill single" style="width:${Math.min(c.v/A.totalCost*100,100)}%"></div></div><div class="bar-val">${fmt(c.v)}</div></div>`).join('');
   }
   v('barsInner').innerHTML=barsHTML;
 
   // ── Metrics
-  function mCard(label,va,vb,dangerA,dangerB){
+  function mCard(label,...vals){
     if(compare){
-      return `<div class="metric"><div class="metric-lbl">${label}</div><div class="mvals"><span class="mv a${dangerA?' danger':''}">${va}</span><span class="mv-sep">/</span><span class="mv b${dangerB?' danger':''}">${vb}</span></div></div>`;
+      const spans=opts.map((o,i)=>`<span class="mv" style="color:${colors[i]};">${vals[i]||'—'}</span>`).join('<span class="mv-sep"> / </span>');
+      return `<div class="metric"><div class="metric-lbl">${label}</div><div class="mvals">${spans}</div></div>`;
     } else {
-      return `<div class="metric"><div class="metric-lbl">${label}</div><div class="mvals"><span class="mv s${dangerA?' danger':''}">${va}</span></div></div>`;
+      const danger=vals[1];
+      return `<div class="metric"><div class="metric-lbl">${label}</div><div class="mvals"><span class="mv s${danger?' danger':''}">${vals[0]}</span></div></div>`;
     }
   }
 
   v('metricsGrid').innerHTML=[
-    A.isIntl||( compare&&B.isIntl)?mCard('International fee/yr',A.isIntl?fmt(A.intlFee):'—',compare?(B.isIntl?fmt(B.intlFee):'—'):null):null,
-    mCard('Tuition total (with inflation)',fmt(A.tuitionTotal),compare?fmt(B.tuitionTotal):null),
-    mCard('Total cost ('+A.years+' yrs)',fmt(A.totalCost),compare?fmt(B.totalCost):null),
-    mCard('Debt at graduation',fmt(A.debt),compare?fmt(B.debt):null,A.debt>A.salary,compare&&B.debt>B.salary),
-    mCard('Monthly loan payment',fmtMo(A.loan.monthly),compare?fmtMo(B.loan.monthly):null,A.pctOfIncome>20,compare&&B.pctOfIncome>20),
-    mCard('Years to pay off',fmtY(A.yrs),compare?fmtY(B.yrs):null,A.yrs>10,compare&&B.yrs>10),
-    mCard('Net monthly income after grad',fmtMo(A.netMo),compare?fmtMo(B.netMo):null),
-    mCard('Disposable income/mo',fmtMo(A.disposable),compare?fmtMo(B.disposable):null,A.disposable<0,compare&&B.disposable<0),
-    mCard('Total interest paid',fmt(A.loan.interest),compare?fmt(B.loan.interest):null),
+    compare&&opts.some(o=>o.isIntl)?mCard('International fee/yr',...opts.map(o=>o.isIntl?fmt(o.intlFee):'—')):null,
+    mCard('Tuition total (with inflation)',...opts.map(o=>fmt(o.tuitionTotal)),false),
+    mCard('Total cost',...opts.map(o=>fmt(o.totalCost)),false),
+    mCard('Debt at graduation',...opts.map(o=>fmt(o.debt)),A.debt>A.salary),
+    mCard('Monthly loan payment',...opts.map(o=>fmtMo(o.loan.monthly)),A.pctOfIncome>20),
+    mCard('Years to pay off',...opts.map(o=>fmtY(o.yrs)),A.yrs>10),
+    mCard('Net monthly income after grad',...opts.map(o=>fmtMo(o.netMo)),false),
+    mCard('Disposable income/mo',...opts.map(o=>fmtMo(o.disposable)),A.disposable<0),
+    mCard('Total interest paid',...opts.map(o=>fmt(o.loan.interest)),false),
   ].filter(Boolean).join('');
 
   // ── Timeline
-  function tlFor(o,cls){
+  function tlFor(o,i){
+    const col=colors[i];
     const gradYear=new Date().getFullYear()+o.years;
     const freeYear=gradYear+Math.ceil(o.yrs);
     return `
-      <div style="font-size:10px;font-weight:600;color:var(--${cls==='a'?'blue':'green'});margin-bottom:6px;font-family:var(--mono);">${o.name}</div>
+      ${compare?`<div style="font-size:10px;font-weight:600;color:${col};margin-bottom:6px;font-family:var(--mono);">${o.name}</div>`:''}
       <div class="tl-row"><div class="tl-dot study"></div><div><div class="tl-line">Now → ${gradYear}: Studying (${o.years} yrs)</div><div class="tl-sub">${fmt(o.totalCost)} total cost · ${fmt(o.debt)} in debt at graduation</div></div></div>
       <div class="tl-row"><div class="tl-dot repay"></div><div><div class="tl-line">${gradYear} → ${freeYear}: Repaying loans</div><div class="tl-sub">${fmtMo(o.loan.monthly)} × ${o.yrs<1?'< 1 yr':fmtY(o.yrs)} · ${fmt(o.loan.interest)} in interest</div></div></div>
       <div class="tl-row"><div class="tl-dot free"></div><div><div class="tl-line">${freeYear}+: Debt-free</div><div class="tl-sub">${fmt(o.disposable)} disposable income/mo after expenses</div></div></div>`;
   }
-  v('tlBody').innerHTML=compare?tlFor(A,'a')+`<div class="divider"></div>`+tlFor(B,'b'):tlFor(A,'s');
+  v('tlBody').innerHTML=opts.map((o,i)=>tlFor(o,i)+(i<opts.length-1?'<div class="divider"></div>':'')).join('');
 
   // ── Monthly budget after grad
   function monthlyRow(label,amt,color){
     return `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--muted);">${label}</span><span style="font-family:var(--mono);color:${color||'var(--text)'};">${fmtMo(amt)}</span></div>`;
   }
-  function buildMonthly(o,cls){
-    const col=cls==='a'?'var(--blue)':cls==='b'?'var(--green)':'var(--accent)';
+  function buildMonthly(o,i){
+    const col=colors[i];
     let h=compare?`<div style="font-size:10px;font-weight:600;color:${col};margin-bottom:8px;font-family:var(--mono);">${o.name}</div>`:'';
     h+=monthlyRow('Net take-home pay',o.netMo,'var(--text)');
     h+=monthlyRow('Loan payment',o.loan.monthly,'var(--warn)');
@@ -2422,7 +2886,7 @@ function renderResults(A,B,silent=false){
     h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0 0;font-size:13px;font-weight:600;"><span>Left over</span><span style="font-family:var(--mono);color:${disp>=0?'var(--green)':'var(--danger)'};">${fmtMo(disp)}</span></div>`;
     return h;
   }
-  v('monthlyBody').innerHTML=compare?buildMonthly(A,'a')+`<div class="divider"></div>`+buildMonthly(B,'b'):buildMonthly(A,'s');
+  v('monthlyBody').innerHTML=opts.map((o,i)=>buildMonthly(o,i)+(i<opts.length-1?'<div class="divider"></div>':'')).join('');
 
   // ── Flags
   const flags=[];
@@ -2864,7 +3328,7 @@ function declineCookies(){
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-  setMode('single');
+  setSchoolCount(1);
   const yearEl=document.getElementById('footerYear');
   if(yearEl) yearEl.textContent=new Date().getFullYear();
 
