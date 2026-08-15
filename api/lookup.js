@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const { school, program, studentType } = body;
+    const { school, program, studentType, lang } = body;
 
     if (!school) return res.status(400).json({ error: 'School required' });
 
@@ -34,11 +34,19 @@ export default async function handler(req, res) {
     const prog = program || 'general undergraduate';
     const isIntl = studentType === 'international';
 
+    // Language instruction for response
+    const langNames = {
+      en: 'English', fr: 'French', zh: 'Chinese (Simplified)', es: 'Spanish',
+      hi: 'Hindi', ar: 'Arabic', pt: 'Portuguese', ko: 'Korean', ja: 'Japanese', de: 'German'
+    };
+    const responseLang = langNames[lang] || 'English';
+    const langInstr = lang && lang !== 'en' ? ` Respond in ${responseLang}.` : '';
+
     let prompt;
     if (isIntl) {
-      prompt = 'Find for ' + school + ' ' + prog + ' international student ' + currentYear + ': annual international tuition CAD, international fee premium/yr, monthly rent in city, monthly food, monthly transport, median grad starting salary CAD. Convert USD to CAD at 1.36. Keep response under 100 words then output EXACTLY on last line:\nDATA:name=' + school + '|tuition=TUITION|intlfee=INTLFEE|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\nIntegers only no symbols.';
+      prompt = 'Find for ' + school + ' ' + prog + ' international student ' + currentYear + ': annual international tuition CAD, international fee premium/yr, monthly rent in city, monthly food, monthly transport, median grad starting salary CAD. Convert USD to CAD at 1.36. Keep response under 100 words.' + langInstr + ' Then output EXACTLY on last line:\nDATA:name=' + school + '|tuition=TUITION|intlfee=INTLFEE|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\nIntegers only no symbols.';
     } else {
-      prompt = 'Find for ' + school + ' ' + prog + ' domestic student ' + currentYear + ': annual domestic tuition CAD, monthly rent in city, monthly food, monthly transport, median grad starting salary CAD. Convert USD to CAD at 1.36. Keep response under 100 words then output EXACTLY on last line:\nDATA:name=' + school + '|tuition=TUITION|intlfee=0|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\nIntegers only no symbols.';
+      prompt = 'Find for ' + school + ' ' + prog + ' domestic student ' + currentYear + ': annual domestic tuition CAD, monthly rent in city, monthly food, monthly transport, median grad starting salary CAD. Convert USD to CAD at 1.36. Keep response under 100 words.' + langInstr + ' Then output EXACTLY on last line:\nDATA:name=' + school + '|tuition=TUITION|intlfee=0|housing=HOUSING|food=FOOD|transport=TRANSPORT|salary=SALARY\nIntegers only no symbols.';
     }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
