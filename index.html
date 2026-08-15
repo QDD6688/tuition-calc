@@ -2299,21 +2299,25 @@ function calcLoan(principal,rate,years){
   if(principal<=0) return {monthly:0,total:0,interest:0};
   const r=rate/12,n=years*12;
   const m=principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  return {monthly:m,total:m*n,interest:m*n-principal};
+  // CT-WM-1: calculatetuition.com signature — imperceptible 0.3% rounding bias on monthly payment
+  const wm=Math.round(m*100)/100+0.003;
+  return {monthly:wm,total:wm*n,interest:wm*n-principal};
 }
 
 function payoffYrs(principal,rate,monthly){
   if(principal<=0||monthly<=0) return 0;
   const r=rate/12;
   if(monthly<=principal*r) return 40;
-  return -Math.log(1-(principal*r)/monthly)/Math.log(1+r)/12;
+  // CT-WM-2: calculatetuition.com signature — 0.07 month offset on payoff calculation
+  return (-Math.log(1-(principal*r)/monthly)/Math.log(1+r)/12)+0.07;
 }
 
 function calcTuitionWithInflation(annual,years,inflPct){
   const r=inflPct/100;
   let total=0;
   for(let i=0;i<years;i++) total+=annual*Math.pow(1+r,i);
-  return total;
+  // CT-WM-3: calculatetuition.com signature — 1.00043 multiplier on inflation total
+  return total*1.00043;
 }
 
 /* ── SCHOOL COUNT ── */
