@@ -1,179 +1,174 @@
-// Crowdsourced real student cost data
-// Students submit what they actually pay; we serve back the median once
-// enough reports exist for a school.
-//
-// Storage: Vercel KV (free tier). Falls back to in-memory if KV isn't
-// configured, so the site never breaks — it just won't persist.
+import { createHash } from 'node:crypto';
+import { getRedis } from './_redis.js';
+import { getClientIp } from './_rate-limit.js';
 
-import { kv } from '@vercel/kv';
+const MIN_REPORTS = 5;
+const MAX_REPORTS_STORED = 500;
+const SUBMIT_WINDOW_MS = 1000 * 60 * 60 * 24 * 30;
 
-// ── Config ──
-const MIN_REPORTS = 5;          // don't show crowd data below this
-const MAX_REPORTS_STORED = 500; // cap per school per field
-const SUBMIT_WINDOW = 1000 * 60 * 60 * 24 * 30; // 1 IP per school per 30 days
-
-// Sane ranges — anything outside is rejected outright
 const RANGES = {
-  housing:   { min: 100,  max: 5000  },
-  food:      { min: 50,   max: 2000  },
-  transport: { min: 0,    max: 800   },
-  tuition:   { min: 500,  max: 150000 }
+  housing: { min: 100, max: 5000 },
+  food: { min: 50, max: 2000 },
+  transport: { min: 0, max: 800 },
+  tuition: { min: 500, max: 150000 }
 };
 
-// In-memory fallback + rate limit tracking
-const memStore = new Map();
-const submitLog = new Map();
-let kvAvailable = true;
-
-// ── Helpers ──
+const memoryValues = new Map();
+const memorySubmissionLocks = new Map();
 
 function normalizeSchool(name) {
   return String(name)
+    .normalize('NFKC')
     .toLowerCase()
     .trim()
     .replace(/\s+/g, ' ')
-    .replace(/[^a-z0-9 ]/g, '')
-    .slice(0, 60);
+    .replace(/[^\p{L}\p{N} ]/gu, '')
+    .slice(0, 80);
 }
 
-function median(arr) {
-  if (!arr.length) return null;
-  const s = [...arr].sort((a, b) => a - b);
-  const mid = Math.floor(s.length / 2);
-  return s.length % 2 ? s[mid] : Math.round((s[mid - 1] + s[mid]) / 2);
+function median(values) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2
+    ? sorted[middle]
+    : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
 }
 
-async function readKey(key) {
-  if (kvAvailable) {
+function submissionKey(ip, school, field) {
+  const digest = createHash('sha256').update(ip).digest('hex').slice(0, 24);
+  return `cost-submit:${digest}:${school}:${field}`;
+}
+
+async function readValues(key) {
+  const redis = getRedis();
+  if (redis) {
     try {
-      const v = await kv.get(key);
-      if (v) return v;
-      return null;
-    } catch (e) {
-      console.error('KV read failed, using memory:', e.message);
-      kvAvailable = false;
+      const values = await redis.lrange(key, 0, -1);
+      return values.map(Number).filter(Number.isFinite);
+    } catch (error) {
+      console.error('Redis read failed; using local fallback:', error.message);
     }
   }
-  return memStore.get(key) || null;
+  return memoryValues.get(key) || [];
 }
 
-async function writeKey(key, value) {
-  if (kvAvailable) {
+async function appendValue(key, value) {
+  const redis = getRedis();
+  if (redis) {
     try {
-      await kv.set(key, value);
-      return;
-    } catch (e) {
-      console.error('KV write failed, using memory:', e.message);
-      kvAvailable = false;
+      await redis.rpush(key, value);
+      await redis.ltrim(key, -MAX_REPORTS_STORED, -1);
+      return await readValues(key);
+    } catch (error) {
+      console.error('Redis write failed; using local fallback:', error.message);
     }
   }
-  memStore.set(key, value);
+
+  const values = [...(memoryValues.get(key) || []), value].slice(-MAX_REPORTS_STORED);
+  memoryValues.set(key, values);
+  return values;
 }
 
-function canSubmit(ip, school, field) {
-  const key = `${ip}|${school}|${field}`;
-  const last = submitLog.get(key);
+async function acquireSubmissionLock(ip, school, field) {
+  const key = submissionKey(ip, school, field);
+  const redis = getRedis();
+  if (redis) {
+    try {
+      const result = await redis.set(key, '1', { nx: true, px: SUBMIT_WINDOW_MS });
+      return { allowed: result === 'OK', key, redis };
+    } catch (error) {
+      console.error('Redis submission lock failed; using local fallback:', error.message);
+    }
+  }
+
   const now = Date.now();
-  if (last && now - last < SUBMIT_WINDOW) return false;
-  submitLog.set(key, now);
-  return true;
+  const expiresAt = memorySubmissionLocks.get(key) || 0;
+  if (expiresAt > now) return { allowed: false, key, redis: null };
+  memorySubmissionLocks.set(key, now + SUBMIT_WINDOW_MS);
+  return { allowed: true, key, redis: null };
 }
 
-// ── Handler ──
+async function releaseSubmissionLock(lock) {
+  if (!lock?.allowed) return;
+  if (lock.redis) {
+    try {
+      await lock.redis.del(lock.key);
+      return;
+    } catch (error) {
+      console.error('Could not release Redis submission lock:', error.message);
+    }
+  }
+  memorySubmissionLocks.delete(lock.key);
+}
 
-export const config = { api: { bodyParser: true } };
+export const config = { api: { bodyParser: { sizeLimit: '16kb' } } };
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Cache-Control', 'no-store');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
-
-  // ── GET: fetch crowd data for a school ──
   if (req.method === 'GET') {
     try {
       const school = normalizeSchool(req.query.school || '');
-      if (!school || school.length < 2) {
-        return res.status(400).json({ error: 'School required' });
-      }
+      if (school.length < 2) return res.status(400).json({ error: 'School required' });
 
-      const out = {};
-      for (const field of Object.keys(RANGES)) {
-        const rec = await readKey(`cost:${school}:${field}`);
-        if (rec && rec.values && rec.values.length >= MIN_REPORTS) {
-          out[field] = {
-            median: median(rec.values),
-            count: rec.values.length
-          };
+      const entries = await Promise.all(Object.keys(RANGES).map(async field => {
+        const values = await readValues(`cost:${school}:${field}`);
+        return [field, values];
+      }));
+
+      const data = {};
+      for (const [field, values] of entries) {
+        if (values.length >= MIN_REPORTS) {
+          data[field] = { median: median(values), count: values.length };
         }
       }
-
-      return res.status(200).json({ school, data: out });
-    } catch (err) {
-      console.error('Costs GET error:', err);
+      return res.status(200).json({ school, data });
+    } catch (error) {
+      console.error('Costs GET error:', error);
       return res.status(500).json({ error: 'Could not load data' });
     }
   }
 
-  // ── POST: submit a report ──
   if (req.method === 'POST') {
+    let lock;
     try {
       const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-      const school = normalizeSchool(body.school || '');
-      const field  = String(body.field || '').trim();
-      const amount = Number(body.amount);
+      const school = normalizeSchool(body?.school || '');
+      const field = String(body?.field || '').trim();
+      const amount = Number(body?.amount);
 
-      if (!school || school.length < 2) {
-        return res.status(400).json({ error: 'School required' });
-      }
-      if (!RANGES[field]) {
-        return res.status(400).json({ error: 'Invalid field' });
-      }
-      if (!Number.isFinite(amount)) {
-        return res.status(400).json({ error: 'Invalid amount' });
-      }
+      if (school.length < 2) return res.status(400).json({ error: 'School required' });
+      if (!RANGES[field]) return res.status(400).json({ error: 'Invalid field' });
+      if (!Number.isFinite(amount)) return res.status(400).json({ error: 'Invalid amount' });
 
       const { min, max } = RANGES[field];
       if (amount < min || amount > max) {
         return res.status(400).json({ error: `Amount must be between ${min} and ${max}` });
       }
 
-      const ip = req.headers['x-forwarded-for']
-        || req.headers['cf-connecting-ip']
-        || req.socket?.remoteAddress
-        || 'unknown';
-
-      if (!canSubmit(ip, school, field)) {
+      lock = await acquireSubmissionLock(getClientIp(req), school, field);
+      if (!lock.allowed) {
         return res.status(429).json({ error: 'Already submitted for this school recently' });
       }
 
-      const key = `cost:${school}:${field}`;
-      const rec = (await readKey(key)) || { values: [] };
-
-      rec.values.push(Math.round(amount));
-      if (rec.values.length > MAX_REPORTS_STORED) {
-        rec.values = rec.values.slice(-MAX_REPORTS_STORED);
-      }
-      rec.updated = Date.now();
-
-      await writeKey(key, rec);
-
-      const enough = rec.values.length >= MIN_REPORTS;
+      const values = await appendValue(`cost:${school}:${field}`, Math.round(amount));
+      const enough = values.length >= MIN_REPORTS;
       return res.status(200).json({
         ok: true,
-        count: rec.values.length,
-        median: enough ? median(rec.values) : null,
-        needed: enough ? 0 : MIN_REPORTS - rec.values.length
+        count: values.length,
+        median: enough ? median(values) : null,
+        needed: enough ? 0 : MIN_REPORTS - values.length
       });
-
-    } catch (err) {
-      console.error('Costs POST error:', err);
+    } catch (error) {
+      await releaseSubmissionLock(lock);
+      console.error('Costs POST error:', error);
       return res.status(500).json({ error: 'Could not save' });
     }
   }
 
+  res.setHeader('Allow', 'GET, POST');
   return res.status(405).end();
 }

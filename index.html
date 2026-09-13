@@ -2446,27 +2446,30 @@ function netMonthly(salary,province){
 
 function calcLoan(principal,rate,years){
   if(principal<=0) return {monthly:0,total:0,interest:0};
-  const r=rate/12,n=years*12;
+  const n=years*12;
+  if(rate<=0){
+    const monthly=principal/n;
+    return {monthly,total:principal,interest:0};
+  }
+  const r=rate/12;
   const m=principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  // CT-WM-1: calculatetuition.com signature — imperceptible 0.3% rounding bias on monthly payment
-  const wm=Math.round(m*100)/100+0.003;
-  return {monthly:wm,total:wm*n,interest:wm*n-principal};
+  const monthly=Math.round(m*100)/100;
+  return {monthly,total:monthly*n,interest:monthly*n-principal};
 }
 
 function payoffYrs(principal,rate,monthly){
   if(principal<=0||monthly<=0) return 0;
+  if(rate<=0) return principal/monthly/12;
   const r=rate/12;
   if(monthly<=principal*r) return 40;
-  // CT-WM-2: calculatetuition.com signature — 0.07 month offset on payoff calculation
-  return (-Math.log(1-(principal*r)/monthly)/Math.log(1+r)/12)+0.07;
+  return -Math.log(1-(principal*r)/monthly)/Math.log(1+r)/12;
 }
 
 function calcTuitionWithInflation(annual,years,inflPct){
   const r=inflPct/100;
   let total=0;
   for(let i=0;i<years;i++) total+=annual*Math.pow(1+r,i);
-  // CT-WM-3: calculatetuition.com signature — 1.00043 multiplier on inflation total
-  return total*1.00043;
+  return total;
 }
 
 /* ── SCHOOL COUNT ── */
@@ -2657,7 +2660,7 @@ function useCrowdHousing(amount){
   if(sel && custom && field){
     sel.value = 'custom';
     field.style.display = '';
-    custom.value = amount;
+    custom.value = Math.round(amount * (RATES[currency] || 1));
   }
 }
 
@@ -2787,6 +2790,7 @@ async function doLookup(){
       const fmt = n => sym + Math.round(n*rate).toLocaleString('en');
       const rows = [
         ['Tuition', fmt(t) + '/yr'],
+        ...(parseInt(dm[3]) > 0 ? [['International premium', fmt(parseInt(dm[3])) + '/yr']] : []),
         ['Housing', fmt(h) + '/mo'],
         ['Food', fmt(f) + '/mo'],
         ['Transport', fmt(tr) + '/mo'],
@@ -2844,11 +2848,9 @@ function insertAIResults(){
   if(program) v('prog'+tgt).value=program;
   v('tuition'+tgt).value=tuition;
 
-  if(intlFee>0){
-    v('intl'+tgt).checked=true;
-    v('intlField'+tgt).style.display='block';
-    v('intlFee'+tgt).value=intlFee;
-  }
+  v('intl'+tgt).checked=intlFee>0;
+  v('intlField'+tgt).style.display=intlFee>0?'block':'none';
+  v('intlFee'+tgt).value=intlFee;
 
   v('housing'+tgt).value='custom';
   v('housingCustomField'+tgt).style.display='block';
@@ -3041,22 +3043,24 @@ function calculate(){
       return;
     }
     if(schoolCount>=2){
-      ['B','C','D'].slice(0,schoolCount-1).forEach(x=>{
+      for(const x of ['B','C','D'].slice(0,schoolCount-1)){
         const tuition=parseFloat(v('tuition'+x).value);
         const salary=parseFloat(v('salary'+x).value);
         if(!tuition||tuition<=0){
           v('tuition'+x).style.borderColor='var(--danger)';
           v('tuition'+x).scrollIntoView({behavior:'smooth',block:'center'});
           setTimeout(()=>v('tuition'+x).style.borderColor='',3000);
+          alert('Please enter a tuition amount for Option '+x+'.');
           return;
         }
         if(!salary||salary<=0){
           v('salary'+x).style.borderColor='var(--danger)';
           v('salary'+x).scrollIntoView({behavior:'smooth',block:'center'});
           setTimeout(()=>v('salary'+x).style.borderColor='',3000);
+          alert('Please enter an expected starting salary for Option '+x+'.');
           return;
         }
-      });
+      }
     }
   }
   // ── END VALIDATION
@@ -3105,7 +3109,9 @@ function calculate(){
     const incomePerYr=familyInc+personalInc+(osapGrant)+(scholAmt>0&&scholYrs>0?Math.min(years,scholYrs)*scholAmt/years:0);
     const osapLoanTotal=osapLoanYr*years;
     const rawDebt=Math.max(0,totalCost-(incomePerYr*years));
-    const debt=rawDebt+osapLoanTotal;
+    // Loans fund part of the shortfall and also become debt; adding them again
+    // would count the same borrowed money twice.
+    const debt=rawDebt;
 
     const loan=calcLoan(debt,rate,term);
     const yrs=payoffYrs(debt,rate,loan.monthly);
@@ -3389,6 +3395,9 @@ async function sendChatMsg(text){
     const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5',max_tokens:200,system:sys,messages:[{role:'user',content:text}]})});
     const data=await res.json();
     removeThinking();
+    if(!res.ok||!data.content||!data.content[0]||!data.content[0].text){
+      throw new Error(data.error&&data.error.message?data.error.message:'Advisor unavailable');
+    }
     addAiMsg(data.content[0].text);
   }catch(e){ removeThinking(); addAiMsg('Connection issue — try again in a moment.'); }
   v('csend').disabled=false;
@@ -3518,7 +3527,7 @@ async function submitEmail(e){
     const res=await fetch('/api/subscribe',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email, summary:textBody, htmlBody:fullHTML})
+      body:JSON.stringify({email, summary:textBody})
     });
     if(res.ok){
       v('emailOk').style.display='block';
