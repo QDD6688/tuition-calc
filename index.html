@@ -882,7 +882,7 @@ button{touch-action:manipulation;}
   -webkit-backdrop-filter:blur(18px) saturate(1.15);
 }
 .logo{font-size:21px;letter-spacing:-.025em;}
-.hbadge{height:30px;padding:0 12px;background:rgba(253,240,234,.82);}
+.hbadge{height:38px;padding:0 14px;border-radius:10px;background:rgba(253,240,234,.82);}
 .header select{transition:border-color .2s,box-shadow .2s,background .2s;}
 .header select:hover{border-color:var(--accent-border)!important;background-color:#fff!important;}
 .auth-controls{gap:8px;margin-left:8px;}
@@ -1120,6 +1120,7 @@ button{touch-action:manipulation;}
   <div class="header-inner">
   <div class="logo">tuition<span>calculator</span></div>
   <div class="header-tools">
+    <div class="hbadge" data-i18n="badge">Free · Worldwide</div>
     <div class="locale-tools">
 
     <!-- Currency selector -->
@@ -1180,7 +1181,6 @@ button{touch-action:manipulation;}
     </div>
     </div><!-- end locale tools -->
 
-    <div class="hbadge" data-i18n="badge">Free · Worldwide</div>
     <div class="auth-controls" id="authControls">
       <button class="auth-btn" id="headerSignIn" onclick="openAuth('login')" style="display:none;">Sign in</button>
       <button class="auth-btn primary" id="headerSignUp" onclick="openAuth('signup')" style="display:none;">Create account</button>
