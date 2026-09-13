@@ -1012,21 +1012,65 @@ button{touch-action:manipulation;}
 .auth-submit{height:48px;border-radius:11px;box-shadow:0 10px 22px rgba(217,95,43,.22);transition:transform .18s,box-shadow .18s,background .18s;}
 .auth-submit:hover{transform:translateY(-1px);background:var(--accent-hover);box-shadow:0 14px 28px rgba(217,95,43,.26);}
 
+/* Compact, responsive navigation */
+.header{padding:0 clamp(1rem,3vw,2.5rem);}
+.header-inner{width:100%;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:22px;min-width:0;}
+.header-tools{display:flex;align-items:center;justify-content:flex-end;gap:12px;min-width:0;}
+.locale-tools{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.locale-tools>div{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.locale-tools>div[style*="width:1px"]{height:30px!important;opacity:.65;}
+.locale-tools select{height:38px!important;min-width:104px;border-radius:10px!important;padding-left:12px!important;}
+#langSelect{min-width:132px;}
+.nav-label{font-size:8px!important;letter-spacing:.09em!important;}
+.account-session{height:42px;max-width:250px;display:flex;align-items:center;gap:9px;padding:4px 5px 4px 6px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 5px 16px rgba(48,39,32,.06);min-width:0;}
+.account-avatar{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--accent-bg);color:var(--accent-text);font-size:12px;font-weight:800;flex-shrink:0;text-transform:uppercase;}
+.account-chip{max-width:160px;font-size:11px;color:var(--text2);font-weight:600;}
+.account-signout{width:30px;height:30px;border:0;border-radius:8px;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .18s,color .18s;}
+.account-signout:hover{background:var(--accent-bg);color:var(--accent);}
+
+/* Signed-in planning tools */
+.workspace-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;margin:0 0 12px;background:rgba(255,255,255,.72);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 24px rgba(48,39,32,.045);}
+.workspace-copy{display:flex;align-items:center;gap:11px;min-width:0;}
+.workspace-copy>div:last-child{display:flex;flex-direction:column;min-width:0;}
+.workspace-copy strong{font-size:12.5px;color:var(--text);}
+.workspace-copy span{font-size:10.5px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.workspace-icon{width:34px;height:34px;border-radius:10px;background:var(--accent-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.workspace-actions{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.workspace-actions button,.quick-buttons button{height:34px;padding:0 12px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text2);font:600 10.5px var(--sans);cursor:pointer;transition:border-color .18s,color .18s,background .18s,transform .18s;}
+.workspace-actions button:hover,.quick-buttons button:hover{border-color:var(--accent-border);color:var(--accent);background:var(--accent-bg);transform:translateY(-1px);}
+.quick-start{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;margin-bottom:1.4rem;background:rgba(237,233,228,.62);border:1px solid rgba(221,216,210,.9);border-radius:14px;}
+.quick-start>div:first-child{display:flex;flex-direction:column;gap:2px;}
+.quick-start strong{font-size:11.5px;color:var(--text2);}
+.quick-label{font-size:9px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.09em;}
+.quick-buttons{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;}
+
+@media(max-width:1120px){
+  .hbadge{display:none;}
+  .header-inner{gap:14px;}
+  .header-tools{gap:9px;}
+}
+
 @media(max-width:900px){
-  .header{padding:0 1.25rem;}
+  .header{padding:0 1rem;}
   .lp{padding-top:3.25rem;}
   .hero h1{font-size:clamp(34px,7vw,48px);}
-  .hbadge{display:none;}
-  .account-chip{max-width:120px;}
+  .header-inner{gap:10px;}
+  .locale-tools{gap:6px;}
+  .locale-tools select{min-width:88px!important;}
+  #langSelect{min-width:108px!important;}
+  .account-chip{max-width:112px;}
 }
 @media(max-width:680px){
   .header{height:auto;min-height:64px;padding:.75rem 1rem;gap:.65rem;align-items:center;}
-  .header>.logo{font-size:19px;text-align:left;}
-  .header>div:last-child{width:auto;flex:1;justify-content:flex-end;align-items:center;flex-wrap:wrap;}
-  .header>div:last-child>div:not(.auth-controls):not([style*="width:1px"]){display:none;}
-  .header>div:last-child>div[style*="width:1px"]{display:none;}
+  .header-inner{gap:8px;align-items:center!important;justify-content:space-between;flex-direction:row;}
+  .header>.header-inner>.logo{flex:0 0 auto;min-width:auto;}
+  .header>.header-inner>.header-tools{flex:1 1 auto;min-width:0;}
+  .header-inner>.logo{font-size:18px;text-align:left;white-space:nowrap;}
+  .header-tools{width:auto;flex:1;min-width:0;}
+  .locale-tools{display:none;}
   .auth-controls{width:auto;flex:0 0 auto;margin:0;}
   .account-chip{display:none!important;}
+  .account-session{padding:4px;gap:3px;}
   .auth-btn{height:36px;padding:0 12px;font-size:11px;}
   .lp{padding:2.5rem 1rem 4rem;}
   .hero{text-align:left;margin-bottom:2rem;}
@@ -1048,6 +1092,11 @@ button{touch-action:manipulation;}
   .preview-actions .auth-btn{width:100%;}
   .preview-actions p{text-align:center;width:100%;}
   .mode-toggle{display:grid;grid-template-columns:1fr 1fr;border-radius:14px!important;}
+  .workspace-bar,.quick-start{align-items:stretch;flex-direction:column;gap:11px;}
+  .workspace-actions{display:grid;grid-template-columns:1fr 1fr;}
+  .workspace-actions button{width:100%;}
+  .quick-buttons{display:grid;grid-template-columns:repeat(3,1fr);}
+  .quick-buttons button{height:auto;min-height:38px;padding:6px 8px;line-height:1.2;}
   .two-col,.g2,.g3{grid-template-columns:1fr;}
   .card,.ai-box{padding:1.1rem;border-radius:15px;}
   .sec-head h2{font-size:14px;}
@@ -1068,8 +1117,10 @@ button{touch-action:manipulation;}
 <body class="auth-pending">
 
 <header class="header">
+  <div class="header-inner">
   <div class="logo">tuition<span>calculator</span></div>
-  <div style="display:flex;align-items:center;gap:8px;">
+  <div class="header-tools">
+    <div class="locale-tools">
 
     <!-- Currency selector -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
@@ -1127,14 +1178,21 @@ button{touch-action:manipulation;}
         <option value="de">Deutsch</option>
       </select>
     </div>
+    </div><!-- end locale tools -->
 
     <div class="hbadge" data-i18n="badge">Free · Worldwide</div>
     <div class="auth-controls" id="authControls">
       <button class="auth-btn" id="headerSignIn" onclick="openAuth('login')" style="display:none;">Sign in</button>
       <button class="auth-btn primary" id="headerSignUp" onclick="openAuth('signup')" style="display:none;">Create account</button>
-      <span class="account-chip" id="accountEmail" style="display:none;"></span>
-      <button class="auth-btn" id="headerSignOut" onclick="signOut()" style="display:none;">Sign out</button>
+      <div class="account-session" id="accountSession" style="display:none;">
+        <span class="account-avatar" id="accountAvatar">U</span>
+        <span class="account-chip" id="accountEmail"></span>
+        <button class="account-signout" id="headerSignOut" onclick="signOut()" title="Sign out" aria-label="Sign out">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
     </div>
+  </div>
   </div>
 </header>
 
@@ -1196,6 +1254,28 @@ button{touch-action:manipulation;}
   </section>
 
   <div id="memberTools">
+
+  <section class="workspace-bar" aria-label="Planning workspace">
+    <div class="workspace-copy">
+      <div class="workspace-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      </div>
+      <div><strong>Your planning workspace</strong><span id="saveStatus">Changes save automatically on this device</span></div>
+    </div>
+    <div class="workspace-actions">
+      <button type="button" onclick="restorePlan(false)">Restore saved</button>
+      <button type="button" onclick="resetPlan()">Start over</button>
+    </div>
+  </section>
+
+  <section class="quick-start" aria-label="Quick budget presets">
+    <div><span class="quick-label">Quick start</span><strong>Begin with a realistic living-cost preset</strong></div>
+    <div class="quick-buttons">
+      <button type="button" onclick="applyPreset('home')">Living at home</button>
+      <button type="button" onclick="applyPreset('campus')">On campus</button>
+      <button type="button" onclick="applyPreset('roommates')">With roommates</button>
+    </div>
+  </section>
 
   <!-- MODE TOGGLE -->
   <div class="mode-toggle" style="flex-wrap:wrap;gap:6px;">
@@ -1827,6 +1907,110 @@ const API="/api/chat";
 let mode='single', calcState=null, lastParsedData=null;
 let currency='CAD';
 let currentUser=null, authMode='signup';
+let planSaveTimer=null, initialPlanValues=null, planRestoredForUser='';
+
+function planFields(){
+  return [...document.querySelectorAll('#memberTools input[id],#memberTools select[id]')]
+    .filter(el=>!['emailIn','crowdInput'].includes(el.id));
+}
+
+function collectPlan(){
+  const values={};
+  planFields().forEach(el=>{ values[el.id]=el.type==='checkbox'?el.checked:el.value; });
+  return { version:1, mode, currency, values, savedAt:new Date().toISOString() };
+}
+
+function planStorageKey(){
+  return currentUser?`ct_plan_v1:${encodeURIComponent(currentUser.email)}`:'ct_plan_v1:guest';
+}
+
+function updateSaveStatus(text){
+  const status=document.getElementById('saveStatus');
+  if(status) status.textContent=text;
+}
+
+function savePlan(){
+  if(!currentUser) return;
+  try{
+    localStorage.setItem(planStorageKey(),JSON.stringify(collectPlan()));
+    updateSaveStatus('Saved just now on this device');
+  }catch(_error){ updateSaveStatus('Could not save on this device'); }
+}
+
+function schedulePlanSave(){
+  if(!currentUser) return;
+  updateSaveStatus('Saving changes…');
+  clearTimeout(planSaveTimer);
+  planSaveTimer=setTimeout(savePlan,450);
+}
+
+function restorePlan(silent=false){
+  if(!currentUser) return;
+  try{
+    const saved=JSON.parse(localStorage.getItem(planStorageKey())||'null');
+    if(!saved?.values){ if(!silent) updateSaveStatus('No saved plan found yet'); return; }
+    if(saved.mode){
+      const count={single:1,compare:2,compare3:3,compare4:4}[saved.mode]||1;
+      setSchoolCount(count);
+    }
+    Object.entries(saved.values).forEach(([id,value])=>{
+      const el=document.getElementById(id);
+      if(!el) return;
+      if(el.type==='checkbox') el.checked=Boolean(value); else el.value=value;
+      el.dispatchEvent(new Event('change',{bubbles:true}));
+    });
+    if(saved.currency&&SYMBOLS[saved.currency]) setCurrency(saved.currency);
+    const when=saved.savedAt?new Date(saved.savedAt).toLocaleString():'';
+    updateSaveStatus(when?`Restored plan saved ${when}`:'Saved plan restored');
+    if(!silent&&typeof showToast==='function') showToast('Saved plan restored');
+  }catch(_error){ updateSaveStatus('Saved plan could not be restored'); }
+}
+
+function resetPlan(){
+  if(!initialPlanValues) return;
+  setSchoolCount(1);
+  Object.entries(initialPlanValues).forEach(([id,value])=>{
+    const el=document.getElementById(id);
+    if(!el) return;
+    if(el.type==='checkbox') el.checked=Boolean(value); else el.value=value;
+    el.dispatchEvent(new Event('change',{bubbles:true}));
+  });
+  localStorage.removeItem(planStorageKey());
+  const results=document.getElementById('results');
+  if(results) results.classList.remove('show');
+  updateSaveStatus('Fresh plan started');
+  if(typeof showToast==='function') showToast('Plan reset');
+}
+
+function applyPreset(type){
+  const presets={
+    home:{housing:'0',food:'350',transport:'100',extra:'150',rent:'0',living:'650'},
+    campus:{housing:'1200',food:'450',transport:'75',extra:'200',rent:'900',living:'750'},
+    roommates:{housing:'900',food:'450',transport:'150',extra:'200',rent:'900',living:'800'}
+  };
+  const preset=presets[type];
+  if(!preset) return;
+  ['A','B','C','D'].forEach(letter=>{
+    const mapping={housing:document.getElementById(`housing${letter}`),food:document.getElementById(`food${letter}`),transport:document.getElementById(`transport${letter}`),extra:document.getElementById(`extra${letter}`)};
+    Object.entries(mapping).forEach(([key,el])=>{ if(el){el.value=preset[key];el.dispatchEvent(new Event('change',{bubbles:true}));} });
+  });
+  const rent=document.getElementById('rentPostPreset');
+  const living=document.getElementById('livingPost');
+  if(rent){rent.value=preset.rent;rent.dispatchEvent(new Event('change',{bubbles:true}));}
+  if(living){living.value=preset.living;living.dispatchEvent(new Event('input',{bubbles:true}));}
+  schedulePlanSave();
+  updateSaveStatus(`${type==='home'?'Living at home':type==='campus'?'On-campus':'Roommate'} preset applied`);
+  if(typeof showToast==='function') showToast('Budget preset applied');
+}
+
+function setupPlanWorkspace(){
+  initialPlanValues={};
+  planFields().forEach(el=>{
+    initialPlanValues[el.id]=el.type==='checkbox'?el.checked:el.value;
+    el.addEventListener('input',schedulePlanSave);
+    el.addEventListener('change',schedulePlanSave);
+  });
+}
 
 function setAuthState(user){
   currentUser=user||null;
@@ -1834,9 +2018,16 @@ function setAuthState(user){
   document.body.classList.add(currentUser?'auth-user':'auth-guest');
   const signedIn=Boolean(currentUser);
   ['headerSignIn','headerSignUp'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display=signedIn?'none':''; });
-  ['accountEmail','headerSignOut'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display=signedIn?'':'none'; });
+  const session=document.getElementById('accountSession');
+  if(session) session.style.display=signedIn?'flex':'none';
   const email=document.getElementById('accountEmail');
   if(email) email.textContent=signedIn?currentUser.email:'';
+  const avatar=document.getElementById('accountAvatar');
+  if(avatar) avatar.textContent=signedIn?currentUser.email.charAt(0):'U';
+  if(signedIn&&planRestoredForUser!==currentUser.email){
+    planRestoredForUser=currentUser.email;
+    setTimeout(()=>restorePlan(true),0);
+  }
 }
 
 async function initAuth(){
@@ -4038,8 +4229,9 @@ function declineCookies(){
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-  initAuth();
   setSchoolCount(1);
+  setupPlanWorkspace();
+  initAuth();
   const yearEl=document.getElementById('footerYear');
   if(yearEl) yearEl.textContent=new Date().getFullYear();
 
