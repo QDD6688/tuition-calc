@@ -2054,8 +2054,8 @@ async function loadAuthProviders(){
   if(authProvidersLoaded) return;
   authProvidersLoaded=true;
   try{
-    const response=await fetch('/api/auth/providers',{headers:{'Accept':'application/json'}});
-    const providers=await response.json();
+    const response=await fetch('/api/auth/me',{headers:{'Accept':'application/json'}});
+    const {providers={}}=await response.json();
     ['google','apple'].forEach(provider=>{
       const button=document.getElementById(`${provider}Auth`);
       if(!button) return;
