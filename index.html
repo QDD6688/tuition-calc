@@ -225,13 +225,22 @@ body.auth-guest .chat-bubble-btn,body.auth-guest .rp,body.auth-pending .chat-bub
 .preview-actions .auth-btn{height:40px;padding:0 18px;}
 .auth-modal{position:fixed;inset:0;z-index:1000;background:rgba(30,28,26,.56);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
 .auth-modal.show{display:flex;}
-.auth-panel{width:min(430px,100%);background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem;box-shadow:0 24px 70px rgba(0,0,0,.25);position:relative;}
+.auth-panel{width:min(460px,100%);background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem;box-shadow:0 24px 70px rgba(0,0,0,.25);position:relative;}
 .auth-close{position:absolute;right:14px;top:14px;border:0;background:var(--bg);border-radius:50%;width:30px;height:30px;cursor:pointer;color:var(--muted);}
+.auth-brand{width:42px;height:42px;margin-bottom:14px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,var(--accent),#c84f20);color:#fff;font:700 20px var(--serif);box-shadow:0 8px 20px rgba(217,95,43,.22);}
 .auth-panel h2{font:600 24px var(--serif);margin-bottom:5px;}
 .auth-sub{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:1rem;}
+.auth-trust{display:flex;gap:7px;flex-wrap:wrap;margin:-3px 0 15px;}
+.auth-trust span{padding:5px 8px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text2);font-size:9px;font-weight:700;letter-spacing:.02em;}
 .auth-tabs{display:flex;background:var(--bg2);padding:4px;border-radius:10px;margin-bottom:1rem;}
 .auth-tab{flex:1;height:34px;border:0;border-radius:8px;background:transparent;font:600 12px var(--sans);color:var(--muted);cursor:pointer;}
 .auth-tab.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.social-auth{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:15px;}
+.social-auth-btn{height:46px;border:1px solid var(--border2);border-radius:10px;background:#fff;color:var(--text);display:flex;align-items:center;justify-content:center;gap:9px;font:700 12px var(--sans);cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s,background .18s;}
+.social-auth-btn:hover{transform:translateY(-1px);border-color:#bdb5ad;box-shadow:0 6px 15px rgba(45,37,31,.08);}
+.social-auth-btn.is-disabled{opacity:.58;cursor:not-allowed;transform:none;box-shadow:none;background:var(--bg);}
+.auth-divider{display:flex;align-items:center;gap:11px;margin:0 0 15px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;}
+.auth-divider::before,.auth-divider::after{content:'';height:1px;background:var(--border);flex:1;}
 .auth-field{margin-bottom:12px;}
 .auth-field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:5px;}
 .auth-field input{width:100%;height:44px;border:1px solid var(--border2);border-radius:9px;padding:0 12px;font:14px var(--sans);outline:none;}
@@ -242,6 +251,7 @@ body.auth-guest .chat-bubble-btn,body.auth-guest .rp,body.auth-pending .chat-bub
 .auth-submit:disabled{opacity:.6;cursor:wait;}
 .auth-message{min-height:18px;margin-top:10px;font-size:12px;color:var(--danger);text-align:center;}
 .auth-note{font-size:10px;color:var(--muted);line-height:1.5;text-align:center;margin-top:10px;}
+.auth-note a,.age-confirm a{color:var(--accent);}
 
 /* ── AI LOOKUP ── */
 .ai-box{
@@ -1072,6 +1082,7 @@ button{touch-action:manipulation;}
   .account-chip{display:none!important;}
   .account-session{padding:4px;gap:3px;}
   .auth-btn{height:36px;padding:0 12px;font-size:11px;}
+  .social-auth{grid-template-columns:1fr;}
   .lp{padding:2.5rem 1rem 4rem;}
   .hero{text-align:left;margin-bottom:2rem;}
   .eyebrow{margin-bottom:13px;}
@@ -2038,8 +2049,55 @@ async function initAuth(){
   }catch(_error){ setAuthState(null); }
 }
 
+let authProvidersLoaded=false;
+async function loadAuthProviders(){
+  if(authProvidersLoaded) return;
+  authProvidersLoaded=true;
+  try{
+    const response=await fetch('/api/auth/providers',{headers:{'Accept':'application/json'}});
+    const providers=await response.json();
+    ['google','apple'].forEach(provider=>{
+      const button=document.getElementById(`${provider}Auth`);
+      if(!button) return;
+      button.dataset.enabled=providers[provider]?'true':'false';
+      button.classList.toggle('is-disabled',!providers[provider]);
+      button.title=providers[provider]?`Continue with ${provider==='google'?'Google':'Apple'}`:`${provider==='google'?'Google':'Apple'} sign-in is being configured`;
+    });
+  }catch(_error){
+    document.querySelectorAll('.social-auth-btn').forEach(button=>button.classList.add('is-disabled'));
+  }
+}
+
+function startSocialAuth(provider){
+  const button=document.getElementById(`${provider}Auth`);
+  const message=document.getElementById('authMessage');
+  if(button?.dataset.enabled!=='true'){
+    if(message) message.textContent=`${provider==='google'?'Google':'Apple'} sign-in is being configured. Please use email for now.`;
+    return;
+  }
+  button.classList.add('is-disabled');
+  window.location.assign(`/api/auth/${provider}`);
+}
+
+function handleAuthReturn(){
+  const params=new URLSearchParams(window.location.search);
+  const error=params.get('auth_error');
+  if(error){
+    openAuth('login');
+    const message=document.getElementById('authMessage');
+    if(message) message.textContent=error;
+  }
+  if(error||params.has('auth')){
+    params.delete('auth_error');
+    params.delete('auth');
+    const query=params.toString();
+    history.replaceState({},'',`${location.pathname}${query?`?${query}`:''}${location.hash}`);
+  }
+}
+
 function openAuth(modeName='signup'){
   setAuthMode(modeName);
+  loadAuthProviders();
   const modal=document.getElementById('authModal');
   if(modal){ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); }
   setTimeout(()=>document.getElementById('authEmail')?.focus(),0);
@@ -4232,6 +4290,8 @@ document.addEventListener('DOMContentLoaded', function(){
   setSchoolCount(1);
   setupPlanWorkspace();
   initAuth();
+  loadAuthProviders();
+  handleAuthReturn();
   const yearEl=document.getElementById('footerYear');
   if(yearEl) yearEl.textContent=new Date().getFullYear();
 
@@ -4399,12 +4459,25 @@ document.addEventListener('DOMContentLoaded', function(){
 <div class="auth-modal" id="authModal" aria-hidden="true" onclick="if(event.target===this)closeAuth()">
   <div class="auth-panel" role="dialog" aria-modal="true" aria-labelledby="authTitle">
     <button class="auth-close" type="button" onclick="closeAuth()" aria-label="Close">✕</button>
+    <div class="auth-brand" aria-hidden="true">C</div>
     <h2 id="authTitle">Create your free account</h2>
     <p class="auth-sub" id="authSubtitle">Unlock the full calculator and AI advisor.</p>
+    <div class="auth-trust" aria-label="Account benefits"><span>Private by design</span><span>Always free</span><span>Plan autosaved</span></div>
     <div class="auth-tabs">
       <button class="auth-tab active" type="button" data-mode="signup" onclick="setAuthMode('signup')">Create account</button>
       <button class="auth-tab" type="button" data-mode="login" onclick="setAuthMode('login')">Sign in</button>
     </div>
+    <div class="social-auth" aria-label="Social sign-in options">
+      <button class="social-auth-btn" id="googleAuth" type="button" data-enabled="false" onclick="startSocialAuth('google')">
+        <svg width="17" height="17" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.205c0-.638-.057-1.252-.164-1.841H9v3.482h4.844a4.14 4.14 0 0 1-1.797 2.715v2.258h2.909c1.702-1.567 2.684-3.875 2.684-6.614Z"/><path fill="#34A853" d="M9 18c2.43 0 4.468-.806 5.956-2.181l-2.909-2.258c-.806.54-1.836.859-3.047.859-2.344 0-4.328-1.585-5.037-3.715H.956v2.332A9 9 0 0 0 9 18Z"/><path fill="#FBBC05" d="M3.963 10.705A5.41 5.41 0 0 1 3.682 9c0-.592.102-1.168.281-1.705V4.963H.956A9 9 0 0 0 0 9c0 1.452.347 2.827.956 4.037l3.007-2.332Z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.507.454 3.441 1.346l2.581-2.582C13.464.892 11.426 0 9 0A9 9 0 0 0 .956 4.963l3.007 2.332C4.672 5.165 6.656 3.58 9 3.58Z"/></svg>
+        Continue with Google
+      </button>
+      <button class="social-auth-btn" id="appleAuth" type="button" data-enabled="false" onclick="startSocialAuth('apple')">
+        <svg width="17" height="18" viewBox="0 0 20 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.8c0-3 2.5-4.5 2.6-4.6a5.6 5.6 0 0 0-4.4-2.4c-1.9-.2-3.7 1.1-4.6 1.1-.9 0-2.3-1.1-3.8-1-2 0-3.8 1.2-4.8 2.9-2.1 3.6-.5 8.9 1.5 11.8 1 1.4 2.1 3 3.7 2.9 1.5-.1 2.1-1 3.9-1s2.3 1 3.9.9c1.6 0 2.6-1.4 3.5-2.9 1.1-1.7 1.6-3.3 1.6-3.4-.1 0-3.1-1.2-3.1-4.3ZM13.7 3.8A5.2 5.2 0 0 0 14.9 0a5.3 5.3 0 0 0-3.5 1.8 4.9 4.9 0 0 0-1.3 3.7c1.3.1 2.7-.7 3.6-1.7Z"/></svg>
+        Continue with Apple
+      </button>
+    </div>
+    <div class="auth-divider">or continue with email</div>
     <form id="authForm" onsubmit="submitAuth(event)">
       <div class="auth-field">
         <label for="authEmail">Email address</label>
@@ -4420,7 +4493,7 @@ document.addEventListener('DOMContentLoaded', function(){
       </label>
       <button class="auth-submit" id="authSubmit" type="submit">Create account</button>
       <div class="auth-message" id="authMessage" role="alert"></div>
-      <p class="auth-note">Your password is securely hashed. Your calculator entries remain in your browser.</p>
+      <p class="auth-note">By continuing, you confirm you are at least 13 and agree to our <a href="#" onclick="showTerms();return false;">Terms</a> and <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a>. Your calculator entries remain in your browser.</p>
     </form>
   </div>
 </div>
@@ -4432,8 +4505,8 @@ document.addEventListener('DOMContentLoaded', function(){
     <h2>Privacy Policy</h2>
     <div class="legal-date">Last updated: September 2026</div>
     <div style="font-size:13px;color:var(--text2);line-height:1.8;">
-      <p><strong>What we collect:</strong> To create an account, we store your email address, a securely hashed version of your password, account creation time, and temporary session information. We never store your plain-text password. If you request an emailed results summary, we also use your email address to send it.</p>
-      <p><strong>What we don't do:</strong> We do not sell your email. We do not share it with third parties except the email service used to deliver your results. We do not run display ads. We do not track you across other websites.</p>
+      <p><strong>What we collect:</strong> To create an account, we store your email address, account creation time, and temporary session information. For email accounts, we store a securely hashed version of your password and never the plain-text password. If you choose Google or Apple sign-in, that provider verifies your identity and shares the verified email needed for your account. If you request an emailed results summary, we also use your email address to send it.</p>
+      <p><strong>What we don't do:</strong> We do not sell your email. We only share information with services required to operate requested features, including your chosen sign-in provider and the service used to deliver results emails. We do not run display ads. We do not track you across other websites.</p>
       <p><strong>Analytics:</strong> We use Google Analytics to understand how students use this site (pages visited, time on site, general location). This data is aggregated and anonymous. You can decline analytics via the cookie banner.</p>
       <p><strong>Calculator data:</strong> All numbers you enter stay in your browser. Nothing is sent to our servers except your email if you choose to submit it.</p>
       <p><strong>AI chat:</strong> Questions you ask in the chat are sent to Anthropic's API to generate responses, subject to Anthropic's privacy policy at anthropic.com/privacy.</p>

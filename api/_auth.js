@@ -72,6 +72,22 @@ export async function getUserByEmail(redis, email) {
   return parseStored(await redis.get(userKey(email)));
 }
 
+export async function getOrCreateOAuthUser(redis, email, provider, providerId) {
+  const existing = await getUserByEmail(redis, email);
+  if (existing) return existing;
+
+  const user = {
+    id: randomUUID(),
+    email,
+    passwordHash: null,
+    provider,
+    providerId,
+    createdAt: new Date().toISOString()
+  };
+  const result = await redis.set(userKey(email), JSON.stringify(user), { nx: true });
+  return result === 'OK' ? user : getUserByEmail(redis, email);
+}
+
 export async function createSession(redis, user) {
   const token = randomBytes(32).toString('base64url');
   await redis.set(sessionKey(token), JSON.stringify({
@@ -83,7 +99,9 @@ export async function createSession(redis, user) {
 }
 
 export function setSessionCookie(res, token) {
-  res.setHeader('Set-Cookie', `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_TTL_SECONDS}`);
+  const cookie = `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_TTL_SECONDS}`;
+  const existing = res.getHeader('Set-Cookie');
+  res.setHeader('Set-Cookie', existing ? (Array.isArray(existing) ? [...existing, cookie] : [existing, cookie]) : cookie);
 }
 
 export function clearSessionCookie(res) {
