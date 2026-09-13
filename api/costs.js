@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { requireAuth } from './_auth.js';
 import { getRedis } from './_redis.js';
 import { getClientIp } from './_rate-limit.js';
 
@@ -109,6 +110,12 @@ export default async function handler(req, res) {
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Cache-Control', 'no-store');
 
+  if (!['GET', 'POST'].includes(req.method)) {
+    res.setHeader('Allow', 'GET, POST');
+    return res.status(405).end();
+  }
+  if (!(await requireAuth(req, res))) return;
+
   if (req.method === 'GET') {
     try {
       const school = normalizeSchool(req.query.school || '');
@@ -169,6 +176,4 @@ export default async function handler(req, res) {
     }
   }
 
-  res.setHeader('Allow', 'GET, POST');
-  return res.status(405).end();
 }

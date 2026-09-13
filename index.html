@@ -199,6 +199,50 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .sec-body{transition:opacity .2s;}
 .sec-body.skipped{opacity:0.35;pointer-events:none;user-select:none;}
 
+/* ── ACCOUNT GATE ── */
+.auth-controls{display:flex;align-items:center;gap:7px;margin-left:4px;}
+.auth-btn{height:34px;padding:0 13px;border-radius:99px;border:1px solid var(--border2);background:var(--surface);color:var(--text2);font:600 12px var(--sans);cursor:pointer;white-space:nowrap;}
+.auth-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.auth-btn:hover{border-color:var(--accent);}
+.auth-btn.primary:hover{background:var(--accent-hover);}
+.account-chip{max-width:180px;overflow:hidden;text-overflow:ellipsis;font-size:11px;color:var(--muted);white-space:nowrap;}
+body.auth-pending #memberTools,body.auth-guest #memberTools{display:none;}
+body.auth-user #guestPreview,body.auth-user #authLoading{display:none;}
+body.auth-pending #guestPreview{display:none;}
+body.auth-guest .chat-bubble-btn,body.auth-guest .rp,body.auth-pending .chat-bubble-btn,body.auth-pending .rp{display:none;}
+.auth-loading{padding:2rem;text-align:center;color:var(--muted);font-size:13px;}
+.preview-card{background:linear-gradient(145deg,#fff 0%,#fdf0ea 100%);border:1px solid var(--accent-border);border-radius:16px;padding:1.4rem;margin:1.5rem 0;box-shadow:0 8px 24px rgba(90,60,40,.07);}
+.preview-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem;}
+.preview-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700;margin-bottom:5px;}
+.preview-card h2{font:600 21px/1.25 var(--serif);margin-bottom:5px;}
+.preview-card p{font-size:12px;line-height:1.6;color:var(--muted);}
+.preview-badge{font-size:10px;font-weight:700;color:var(--blue-text);background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:99px;padding:5px 9px;white-space:nowrap;}
+.preview-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:1rem;}
+.preview-metric{background:rgba(255,255,255,.8);border:1px solid var(--border);border-radius:10px;padding:12px;}
+.preview-metric span{display:block;font-size:10px;color:var(--muted);margin-bottom:4px;}
+.preview-metric strong{font-size:18px;color:var(--text);}
+.preview-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.preview-actions .auth-btn{height:40px;padding:0 18px;}
+.auth-modal{position:fixed;inset:0;z-index:1000;background:rgba(30,28,26,.56);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.auth-modal.show{display:flex;}
+.auth-panel{width:min(430px,100%);background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem;box-shadow:0 24px 70px rgba(0,0,0,.25);position:relative;}
+.auth-close{position:absolute;right:14px;top:14px;border:0;background:var(--bg);border-radius:50%;width:30px;height:30px;cursor:pointer;color:var(--muted);}
+.auth-panel h2{font:600 24px var(--serif);margin-bottom:5px;}
+.auth-sub{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:1rem;}
+.auth-tabs{display:flex;background:var(--bg2);padding:4px;border-radius:10px;margin-bottom:1rem;}
+.auth-tab{flex:1;height:34px;border:0;border-radius:8px;background:transparent;font:600 12px var(--sans);color:var(--muted);cursor:pointer;}
+.auth-tab.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.auth-field{margin-bottom:12px;}
+.auth-field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:5px;}
+.auth-field input{width:100%;height:44px;border:1px solid var(--border2);border-radius:9px;padding:0 12px;font:14px var(--sans);outline:none;}
+.auth-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg);}
+.age-confirm{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--muted);line-height:1.45;margin:2px 0 13px;}
+.age-confirm input{margin-top:2px;}
+.auth-submit{width:100%;height:44px;border:0;border-radius:9px;background:var(--accent);color:#fff;font:700 13px var(--sans);cursor:pointer;}
+.auth-submit:disabled{opacity:.6;cursor:wait;}
+.auth-message{min-height:18px;margin-top:10px;font-size:12px;color:var(--danger);text-align:center;}
+.auth-note{font-size:10px;color:var(--muted);line-height:1.5;text-align:center;margin-top:10px;}
+
 /* ── AI LOOKUP ── */
 .ai-box{
   background:var(--accent-bg);border:1px solid var(--accent-border);
@@ -795,6 +839,9 @@ select option:checked{background:var(--accent-bg);color:var(--text);}
   #currencySelect,#langSelect{height:34px;font-size:13px;padding:0 24px 0 10px;}
   .site-footer{padding:1.25rem;flex-direction:column;text-align:center;}
   .hbadge{display:none;}
+  .auth-controls{width:100%;justify-content:center;margin:2px 0 0;}
+  .account-chip{max-width:130px;}
+  .preview-metrics{grid-template-columns:1fr;}
   .hero h1{font-size:22px;}
   .how-it-works{grid-template-columns:1fr;}
   .two-col,.g2,.g3{grid-template-columns:1fr;}
@@ -815,7 +862,7 @@ select option:checked{background:var(--accent-bg);color:var(--text);}
 }
 </style>
 </head>
-<body>
+<body class="auth-pending">
 
 <header class="header">
   <div class="logo">tuition<span>calculator</span></div>
@@ -879,6 +926,12 @@ select option:checked{background:var(--accent-bg);color:var(--text);}
     </div>
 
     <div class="hbadge" data-i18n="badge">Free · Worldwide</div>
+    <div class="auth-controls" id="authControls">
+      <button class="auth-btn" id="headerSignIn" onclick="openAuth('login')" style="display:none;">Sign in</button>
+      <button class="auth-btn primary" id="headerSignUp" onclick="openAuth('signup')" style="display:none;">Create account</button>
+      <span class="account-chip" id="accountEmail" style="display:none;"></span>
+      <button class="auth-btn" id="headerSignOut" onclick="signOut()" style="display:none;">Sign out</button>
+    </div>
   </div>
 </header>
 
@@ -888,7 +941,7 @@ select option:checked{background:var(--accent-bg);color:var(--text);}
   <div class="hero">
     <div class="eyebrow" data-i18n="heroEyebrow">Student financial planning tool</div>
     <h1>Understand the true cost<br>of your <em>university education.</em></h1>
-    <p>Enter your school and program to receive a detailed breakdown of your total education cost, projected debt at graduation, monthly loan repayment obligations, and post-graduation financial outlook. Free to use, no account required.</p>
+    <p>Enter your school and program to receive a detailed breakdown of your total education cost, projected debt at graduation, monthly loan repayment obligations, and post-graduation financial outlook. Create a free account to use the calculator.</p>
   </div>
 
   <!-- HOW IT WORKS -->
@@ -915,6 +968,31 @@ select option:checked{background:var(--accent-bg);color:var(--text);}
     <div class="disclaimer-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
     <div data-i18n-html="disclaimer">All figures are <strong>estimates for planning purposes only</strong>. Tuition, aid amounts, and salary figures vary by year and individual circumstance. For official numbers, contact your school's financial aid office. This tool is intended for users aged 13 and older. Not financial advice. <a href="https://www.canada.ca/en/services/benefits/education/student-aid.html" target="_blank" style="color:var(--accent);" data-i18n="osapLink">Student Aid →</a> &nbsp;|&nbsp; <a href="https://www.educationusa.state.gov" target="_blank" style="color:var(--accent);" data-i18n="usAidLink">International Aid →</a></div>
   </div>
+
+  <div class="auth-loading" id="authLoading">Checking your account…</div>
+
+  <section class="preview-card" id="guestPreview" aria-label="Calculator preview">
+    <div class="preview-top">
+      <div>
+        <div class="preview-kicker">Example preview</div>
+        <h2>See the full financial picture before choosing a school.</h2>
+        <p>This sample shows the kind of personalized breakdown your free account unlocks.</p>
+      </div>
+      <div class="preview-badge">Sample only</div>
+    </div>
+    <div class="preview-metrics">
+      <div class="preview-metric"><span>Estimated 4-year cost</span><strong>$128,400</strong></div>
+      <div class="preview-metric"><span>Debt at graduation</span><strong>$42,600</strong></div>
+      <div class="preview-metric"><span>Monthly loan payment</span><strong>$452</strong></div>
+    </div>
+    <div class="preview-actions">
+      <button class="auth-btn primary" onclick="openAuth('signup')">Create a free account</button>
+      <button class="auth-btn" onclick="openAuth('login')">I already have an account</button>
+      <p>Your numbers stay private and the calculator remains free.</p>
+    </div>
+  </section>
+
+  <div id="memberTools">
 
   <!-- MODE TOGGLE -->
   <div class="mode-toggle" style="flex-wrap:wrap;gap:6px;">
@@ -1451,6 +1529,8 @@ select option:checked{background:var(--accent-bg);color:var(--text);}
     </div>
   </div>
 
+  </div><!-- end member tools -->
+
   <!-- ═══ FAQ ═══ -->
   <div class="faq-section">
     <div class="faq-title" data-i18n="faqTitle">Common questions</div>
@@ -1543,6 +1623,89 @@ select option:checked{background:var(--accent-bg);color:var(--text);}
 const API="/api/chat";
 let mode='single', calcState=null, lastParsedData=null;
 let currency='CAD';
+let currentUser=null, authMode='signup';
+
+function setAuthState(user){
+  currentUser=user||null;
+  document.body.classList.remove('auth-pending','auth-guest','auth-user');
+  document.body.classList.add(currentUser?'auth-user':'auth-guest');
+  const signedIn=Boolean(currentUser);
+  ['headerSignIn','headerSignUp'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display=signedIn?'none':''; });
+  ['accountEmail','headerSignOut'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display=signedIn?'':'none'; });
+  const email=document.getElementById('accountEmail');
+  if(email) email.textContent=signedIn?currentUser.email:'';
+}
+
+async function initAuth(){
+  try{
+    const response=await fetch('/api/auth/me',{credentials:'same-origin',headers:{'Accept':'application/json'}});
+    const data=await response.json();
+    setAuthState(data.user);
+  }catch(_error){ setAuthState(null); }
+}
+
+function openAuth(modeName='signup'){
+  setAuthMode(modeName);
+  const modal=document.getElementById('authModal');
+  if(modal){ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); }
+  setTimeout(()=>document.getElementById('authEmail')?.focus(),0);
+}
+
+function closeAuth(){
+  const modal=document.getElementById('authModal');
+  if(modal){ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
+  const message=document.getElementById('authMessage');
+  if(message) message.textContent='';
+}
+
+function setAuthMode(modeName){
+  authMode=modeName==='login'?'login':'signup';
+  document.querySelectorAll('.auth-tab').forEach(button=>button.classList.toggle('active',button.dataset.mode===authMode));
+  const signupOnly=document.getElementById('signupOnly');
+  const title=document.getElementById('authTitle');
+  const sub=document.getElementById('authSubtitle');
+  const submit=document.getElementById('authSubmit');
+  if(signupOnly) signupOnly.style.display=authMode==='signup'?'flex':'none';
+  if(title) title.textContent=authMode==='signup'?'Create your free account':'Welcome back';
+  if(sub) sub.textContent=authMode==='signup'?'Unlock the full calculator and AI advisor.':'Sign in to continue your tuition plan.';
+  if(submit) submit.textContent=authMode==='signup'?'Create account':'Sign in';
+  const password=document.getElementById('authPassword');
+  if(password) password.autocomplete=authMode==='signup'?'new-password':'current-password';
+  const message=document.getElementById('authMessage');
+  if(message) message.textContent='';
+}
+
+async function submitAuth(event){
+  event.preventDefault();
+  const email=document.getElementById('authEmail').value.trim();
+  const password=document.getElementById('authPassword').value;
+  const ageConfirmed=document.getElementById('ageConfirmed').checked;
+  const button=document.getElementById('authSubmit');
+  const message=document.getElementById('authMessage');
+  message.textContent='';
+  button.disabled=true;
+  try{
+    const response=await fetch(`/api/auth/${authMode}`,{
+      method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,password,ageConfirmed})
+    });
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok) throw new Error(data.error||'Please try again.');
+    setAuthState(data.user);
+    closeAuth();
+    document.getElementById('authForm').reset();
+    document.getElementById('memberTools')?.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(error){ message.textContent=error.message; }
+  finally{ button.disabled=false; }
+}
+
+async function signOut(){
+  try{ await fetch('/api/auth/logout',{method:'POST',credentials:'same-origin'}); }catch(_error){}
+  setAuthState(null);
+  const results=document.getElementById('results');
+  if(results) results.classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 // Exchange rates relative to CAD (approximate)
 const RATES={
@@ -3672,6 +3835,7 @@ function declineCookies(){
 }
 
 document.addEventListener('DOMContentLoaded', function(){
+  initAuth();
   setSchoolCount(1);
   const yearEl=document.getElementById('footerYear');
   if(yearEl) yearEl.textContent=new Date().getFullYear();
@@ -3836,21 +4000,51 @@ document.addEventListener('DOMContentLoaded', function(){
   <div>© <span id="footerYear"></span> CalculateTuition</div>
 </footer>
 
+<!-- ACCOUNT MODAL -->
+<div class="auth-modal" id="authModal" aria-hidden="true" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-panel" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="auth-close" type="button" onclick="closeAuth()" aria-label="Close">✕</button>
+    <h2 id="authTitle">Create your free account</h2>
+    <p class="auth-sub" id="authSubtitle">Unlock the full calculator and AI advisor.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" type="button" data-mode="signup" onclick="setAuthMode('signup')">Create account</button>
+      <button class="auth-tab" type="button" data-mode="login" onclick="setAuthMode('login')">Sign in</button>
+    </div>
+    <form id="authForm" onsubmit="submitAuth(event)">
+      <div class="auth-field">
+        <label for="authEmail">Email address</label>
+        <input id="authEmail" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com"/>
+      </div>
+      <div class="auth-field">
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" autocomplete="current-password" minlength="10" maxlength="128" required placeholder="At least 10 characters"/>
+      </div>
+      <label class="age-confirm" id="signupOnly">
+        <input id="ageConfirmed" type="checkbox"/>
+        <span>I confirm that I am at least 13 years old and agree to the Terms of Service and Privacy Policy.</span>
+      </label>
+      <button class="auth-submit" id="authSubmit" type="submit">Create account</button>
+      <div class="auth-message" id="authMessage" role="alert"></div>
+      <p class="auth-note">Your password is securely hashed. Your calculator entries remain in your browser.</p>
+    </form>
+  </div>
+</div>
+
 <!-- PRIVACY POLICY MODAL -->
 <div id="privacyModal" class="legal-modal" style="display:none;">
   <div class="legal-modal-inner">
     <button class="legal-modal-close" onclick="v('privacyModal').style.display='none'">✕</button>
     <h2>Privacy Policy</h2>
-    <div class="legal-date">Last updated: May 2025</div>
+    <div class="legal-date">Last updated: September 2026</div>
     <div style="font-size:13px;color:var(--text2);line-height:1.8;">
-      <p><strong>What we collect:</strong> If you enter your email address, we store it to send you your results summary. We do not collect names, payment info, or login credentials.</p>
+      <p><strong>What we collect:</strong> To create an account, we store your email address, a securely hashed version of your password, account creation time, and temporary session information. We never store your plain-text password. If you request an emailed results summary, we also use your email address to send it.</p>
       <p><strong>What we don't do:</strong> We do not sell your email. We do not share it with third parties except the email service used to deliver your results. We do not run display ads. We do not track you across other websites.</p>
       <p><strong>Analytics:</strong> We use Google Analytics to understand how students use this site (pages visited, time on site, general location). This data is aggregated and anonymous. You can decline analytics via the cookie banner.</p>
       <p><strong>Calculator data:</strong> All numbers you enter stay in your browser. Nothing is sent to our servers except your email if you choose to submit it.</p>
       <p><strong>AI chat:</strong> Questions you ask in the chat are sent to Anthropic's API to generate responses, subject to Anthropic's privacy policy at anthropic.com/privacy.</p>
       <p><strong>Affiliate partnerships:</strong> This site contains affiliate links. We may earn a commission if you sign up for a recommended product. All affiliate relationships are disclosed at the point of recommendation. We only recommend products we believe are genuinely useful to students.</p>
       <p><strong>Age requirement:</strong> This tool is intended for users aged 13 and older. We do not knowingly collect information from children under 13. If you believe a child under 13 has submitted their email, contact us and we will delete it immediately.</p>
-      <p><strong>Data retention:</strong> Email addresses are retained until you unsubscribe. Every email we send includes an unsubscribe link.</p>
+      <p><strong>Data retention:</strong> Account information is retained while your account is active. Session records expire automatically. You can request account deletion at any time by emailing us. Results-email records are retained until you unsubscribe.</p>
       <p><strong>Your rights:</strong> You can request deletion of your data at any time by emailing hello@calculatetuition.com. Canadian users have rights under PIPEDA. EU users have rights under GDPR.</p>
       <p><strong>Contact:</strong> <a href="mailto:hello@calculatetuition.com" style="color:var(--accent);">hello@calculatetuition.com</a></p>
     </div>
@@ -3862,7 +4056,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="legal-modal-inner">
     <button class="legal-modal-close" onclick="v('tosModal').style.display='none'">✕</button>
     <h2>Terms of Service</h2>
-    <div class="legal-date">Last updated: May 2025</div>
+    <div class="legal-date">Last updated: September 2026</div>
     <div style="font-size:13px;color:var(--text2);line-height:1.8;">
 
       <h3>1. Acceptance of Terms</h3>
@@ -3885,6 +4079,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <h3>7. User Conduct</h3>
       <p>You agree not to use this Site to: (a) violate any applicable laws; (b) attempt to gain unauthorized access to our systems; (c) submit false or misleading information; (d) interfere with the normal operation of the Site.</p>
+
+      <h3>7A. Accounts</h3>
+      <p>You must create an account to use the calculator and AI advisor. You are responsible for keeping your password confidential and for activity performed through your account. Please contact us if you believe your account has been accessed without permission.</p>
 
       <h3>8. Intellectual Property</h3>
       <p>All content on this Site including design, code, text, and branding is owned by CalculateTuition unless otherwise noted. You may not copy, reproduce, or redistribute this content without written permission.</p>

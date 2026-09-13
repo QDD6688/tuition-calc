@@ -1,4 +1,5 @@
 import { checkRateLimit, getClientIp } from './_rate-limit.js';
+import { requireAuth } from './_auth.js';
 
 // Keep this deliberately low: this endpoint sends real email from your domain.
 const RATE_LIMIT = 5;
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
 
   if (req.method !== 'POST') return res.status(405).end();
+  if (!(await requireAuth(req, res))) return;
 
   // Rate limiting
   const ip = getClientIp(req);

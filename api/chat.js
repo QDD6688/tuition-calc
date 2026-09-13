@@ -1,4 +1,5 @@
 import { checkRateLimit, getClientIp } from './_rate-limit.js';
+import { requireAuth } from './_auth.js';
 
 const RATE_LIMIT = 30; // 30 requests per IP per minute
 const RATE_WINDOW = 60000; // 1 minute
@@ -42,6 +43,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).end();
+  if (!(await requireAuth(req, res))) return;
 
   // Rate limiting
   const ip = getClientIp(req);
